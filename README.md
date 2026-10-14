@@ -35,7 +35,7 @@ Python 3.12 or newer, no dependencies.
 - When one model has two results for one test in one publication (for example Max and Xhigh effort), both are stored. The catalog never picks the higher one.
 - `percent` gets a percent sign. `score`, `elo` and `usd` are shown in their own units.
 - A model with no result for a test shows a dash, not a zero.
-- A result a publisher printed under one model's name while its footnote names another configuration is stored under its own identity (for example "Claude Mythos (reported as Fable 5.1)").
+- A result a publisher printed under one model's name while its footnote names another configuration is stored under the model the heading names, and the footnote stays on the result (`conditions.model_setup_as_reported`).
 
 ## Taxonomy
 

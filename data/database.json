@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "data_version": "2026-10-14.1",
+  "data_version": "2026-10-14.2",
   "as_of": "2026-10-14",
   "taxonomy_note": "Редакционная таксономия Sugra для навигации по собранному каталогу. Это не международный стандарт и не утверждение, что во всей отрасли существует ровно 20 направлений. Одно основное направление на семейство; пересечения выражены тегами. Семейство не является единицей сравнения результатов: сравнивать следует конкретную версию теста и совместимый протокол.",
   "default_publication_id": "publication-google-gemini-4-argon",
@@ -6879,25 +6879,9 @@
       "latest": false
     },
     {
-      "id": "claude-mythos-reported-as-fable-5",
-      "name": "Claude Mythos (reported as Fable 5)",
-      "developer": "Anthropic",
-      "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null,
-      "latest": false
-    },
-    {
       "id": "gemini-3-8-flash",
       "name": "Gemini 3.8 Flash",
       "developer": "Google",
-      "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null,
-      "latest": false
-    },
-    {
-      "id": "claude-mythos-reported-as-fable-5-1",
-      "name": "Claude Mythos (reported as Fable 5.1)",
-      "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
       "release_date": null,
       "latest": false
@@ -10976,7 +10960,7 @@
     {
       "id": "obs-08ee0c8702967d632a7c",
       "benchmark_id": "screenspot-pro-no-tools--percent",
-      "model_id": "claude-mythos-reported-as-fable-5",
+      "model_id": "claude-fable-5",
       "publication_id": "publication-openai-gpt-6-astra",
       "value": 87.3,
       "unit": "percent",
@@ -14144,7 +14128,7 @@
     {
       "id": "obs-98ecf43f5be0e49e7196",
       "benchmark_id": "exploitgym--percent",
-      "model_id": "claude-mythos-reported-as-fable-5-1",
+      "model_id": "claude-fable-5-1",
       "publication_id": "publication-openai-gpt-6-astra",
       "value": 30.4,
       "unit": "percent",
@@ -14176,7 +14160,7 @@
     {
       "id": "obs-79fcab68b10445902e2d",
       "benchmark_id": "exploitgym--percent",
-      "model_id": "claude-mythos-reported-as-fable-5",
+      "model_id": "claude-fable-5",
       "publication_id": "publication-openai-gpt-6-astra",
       "value": 28.4,
       "unit": "percent",
@@ -52977,6 +52961,12 @@
       "reviewer": "Sugra research preparation",
       "reason": "Initial publication-transcribed seed; no independent benchmark runs",
       "added_observations": 596
+    },
+    {
+      "at": "2026-10-14",
+      "reviewer": "Sugra research preparation",
+      "reason": "Three results that the GPT-6 Astra page printed under a Claude Fable heading, with a footnote naming Claude Mythos, moved from their own identities to Claude Fable 5 and Claude Fable 5.1. The footnote stays on each result.",
+      "added_observations": 0
     }
   ]
 }

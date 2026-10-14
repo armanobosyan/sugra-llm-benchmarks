@@ -14,7 +14,7 @@ What the catalog holds as of data version 2026-10-14.1, and what it does not. Co
 | Grok 4.7 model card | xAI | 145 | 11 | 38 |
 | Qwen3.8-Max comparison | Alibaba | 151 | 5 | 32 |
 
-Seven publications, 596 observations, 23 model identities, 129 benchmark definitions in 97 families.
+Seven publications, 596 observations, 21 models, 129 benchmark definitions in 97 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 

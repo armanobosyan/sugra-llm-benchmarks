@@ -6,7 +6,7 @@ Every change to the catalog is one pull request that changes `data/database.json
 
 1. Open the publisher's page. Note the URL, the date you read it, and which table or section you transcribe.
 2. Add a `publications` record: `id` as `publication-<publisher>-<model>`, `kind`, `checked_on`, `coverage` saying what you transcribed and what you left out (interactive charts, footnote-only numbers).
-3. Add any new `models`. A result printed under another model's heading but attributed in a footnote to a different configuration gets its own identity (`<model>-reported-as-<heading>`, name with "reported as").
+3. Add any new `models`. A result printed under another model's heading but attributed in a footnote to a different configuration stays under the model the heading names; the footnote goes into `conditions.model_setup_as_reported` on the observation, never into a second model identity.
 4. Add any new `benchmarks`. One record per exact test, version and metric; the id ends with `--<unit>`. Check the family exists in `families`, add it with its category if not, and write its `about` block (section 2a). A new category needs `description_en` too.
 5. Add `observations` (section 2).
 6. Append a `change_log` entry, bump `data_version` and `as_of`.
