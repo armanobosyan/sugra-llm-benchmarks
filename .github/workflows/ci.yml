@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: validate, build --check, tests (${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Validate the database
+        run: python -m tools.benchdb validate
+      - name: The committed payload matches the database
+        run: python -m tools.benchdb build --check
+      - name: Tests
+        run: python -m unittest discover -s tests -v
+      - name: No import candidates under public/
+        run: |
+          if ls public | grep -qi import; then
+            echo "imports must never be published"; exit 1
+          fi
