@@ -1,4 +1,4 @@
-# Sugra AI Benchmarks
+# Sugra LLM Benchmarks
 
 A reviewed catalog of benchmark results that AI model publishers have printed in their own release pages and model cards. Every number is stored as the publisher reported it, with the publication, the place on the page, the date it was checked and the conditions the publisher stated. Nothing here is a benchmark run of our own, and nothing is a ranking.
 
@@ -44,3 +44,7 @@ The twenty categories are an editorial navigation aid for this catalog. They are
 ## Updating
 
 Open a pull request that changes `data/database.json`, run `build` and commit the payload with it. CI refuses a stale payload, a lost observation and any record that breaks the contract. The runbook has the full procedure.
+
+## Licence
+
+The code under `tools/` and `tests/` is MIT (see `LICENSE`). The catalog under `data/` and the built payload under `public/` are published under CC BY 4.0: reuse them with a credit to Sugra Systems, Inc. and a link to this repository. Every number in the catalog remains the statement of the publisher that printed it, cited by publication and locator; the licence covers the compilation and the descriptions, not the publishers' pages.
