@@ -89,7 +89,7 @@ One record per number on a page.
 | `comparison_scope` | `publisher_comparison`. |
 | `supersedes` | Id of the row this one replaces, or null. |
 
-Two active rows may share one (benchmark, model, publication) only when a distinguishing condition differs: effort, harness, tools, fallback, attempt budget, context length or dataset revision. The same number twice is refused. A corrected number is a new row with `supersedes` pointing at the old one, and the old one becomes `superseded`.
+Two active rows may share one (benchmark, model, publication) only when a distinguishing condition differs: effort, harness, tools, fallback, attempt budget, context length, dataset revision, or `model_setup_as_reported` when the page prints a second configuration in the same cell (a Mythos value under a Fable heading). The same number twice is refused. A corrected number is a new row with `supersedes` pointing at the old one, and the old one becomes `superseded`.
 
 ### change_log
 

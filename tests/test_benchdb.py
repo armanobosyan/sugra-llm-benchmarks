@@ -135,6 +135,12 @@ class ValidateFixture(unittest.TestCase):
         problems = validate.validate(db)
         self.assertTrue(any("identical conditions" in p for p in problems), problems)
 
+    def test_second_configuration_in_the_same_cell_is_a_row(self):
+        db = fixture()
+        db["observations"][1]["conditions"]["reasoning_effort"] = "max"
+        db["observations"][1]["conditions"]["model_setup_as_reported"] = 'second value printed in the same cell as "60.9% (Mythos 5.1)"'
+        self.assertEqual(validate.validate(db), [])
+
     def test_unit_must_match_benchmark(self):
         db = fixture()
         db["observations"][0]["unit"] = "score"
