@@ -17,13 +17,13 @@
 
 ## Text
 
-Outside the research catalog, no string may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them.
+Outside the research catalog, no string may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in the database, the research catalog included, is English.
 
 ## Records
 
 ### categories
 
-`id` (kebab-case, unique), `name_en`, `name_ru`, `order` (unique), `description_ru`, `description_en`. Twenty editorial categories; a family belongs to exactly one. `description_en` is the reader-facing paragraph the article prints at the head of each category in its glossary: what the category covers, how its tests are usually scored, and what it deliberately leaves to a neighbour.
+`id` (kebab-case, unique), `name_en`, `order` (unique), `description_en`. Twenty editorial categories; a family belongs to exactly one. `description_en` is the reader-facing paragraph the article prints at the head of each category in its glossary: what the category covers, how its tests are usually scored, and what it deliberately leaves to a neighbour.
 
 ### families
 

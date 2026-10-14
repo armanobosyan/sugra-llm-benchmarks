@@ -43,7 +43,7 @@ Only rows the publisher printed as text or a table were transcribed. Values that
 | Engineering and design | 4 | 19 |
 | Preference and composite rankings | 1 | 6 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 69 checked against the maintainer's own page or paper, 28 written from secondary coverage or from the name alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 85 checked against the maintainer's own page, the developer page or paper that prints the test, 12 written from the printed label alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
 
 Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
 
