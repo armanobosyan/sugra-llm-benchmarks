@@ -38,7 +38,7 @@ OBS_FIELDS = (
     "review_status",
     "comparison_scope",
 )
-FAMILY_FIELDS = ("id", "name", "category_id", "tags")
+FAMILY_FIELDS = ("id", "name", "category_id", "tags", "about")
 
 
 def compact(node):

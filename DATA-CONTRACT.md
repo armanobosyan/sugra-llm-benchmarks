@@ -23,11 +23,25 @@ Outside the research catalog, no string may contain an em dash, an en dash or an
 
 ### categories
 
-`id` (kebab-case, unique), `name_en`, `name_ru`, `order` (unique), `description`. Twenty editorial categories; a family belongs to exactly one.
+`id` (kebab-case, unique), `name_en`, `name_ru`, `order` (unique), `description_ru`, `description_en`. Twenty editorial categories; a family belongs to exactly one. `description_en` is the reader-facing paragraph the article prints at the head of each category in its glossary: what the category covers, how its tests are usually scored, and what it deliberately leaves to a neighbour.
 
 ### families
 
-`id` (unique), `name`, `category_id` (must exist), `tags`, `priority`, `published_by`, `vendor_flags_scope`, `catalog_order`. A family is navigation, never a unit of comparison.
+`id` (unique), `name`, `category_id` (must exist), `tags`, `priority`, `published_by`, `vendor_flags_scope`, `catalog_order`, `about`. A family is navigation, never a unit of comparison.
+
+`about` is required on every family that a benchmark uses and describes the test for a reader: who maintains it, what it asks the model to do, how it is scored, and when it appeared.
+
+| Field | Rule |
+|---|---|
+| `maintainer` | The organisation or authors that maintain the test, as its own page or paper names them. Never the publisher that printed a result, unless they are the same. |
+| `url` | The maintainer's page, paper or repository, `https://` only, or null. |
+| `what_it_tests` | A short paragraph in plain English: the task, the material, the scoring. Required unless `status` is `pending`. No scores: a number belongs in an observation. |
+| `introduced` | Four-digit year or null. |
+| `status` | `checked`: the text was written from the maintainer's own page or paper. `unverified`: written from secondary coverage or from the name alone, and `notes` says what is missing. `pending`: no text yet. |
+| `evidence_url` | The page the text was written from, `https://` only, or null. |
+| `notes` | Anything a reader should know: a label that does not match the maintainer's name, a conflict between sources, a missing primary source. |
+
+The article renders `what_it_tests`, the maintainer link and the note under the table, and shows a `pending` family as "description pending" rather than hiding it.
 
 ### benchmarks
 

@@ -41,6 +41,7 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 DATA_VERSION_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.\d+$")
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 URL_RE = re.compile(r"^https://")
+ABOUT_STATUSES = {"checked", "unverified", "pending"}
 FORBIDDEN_CHARS = {"—": "em dash", "–": "en dash"}
 EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
 
@@ -97,7 +98,7 @@ def validate(db: dict) -> list[str]:
         if n > 1:
             err(f"categories: duplicate order {order}")
     for c in db["categories"]:
-        for key in ("id", "name_en", "order"):
+        for key in ("id", "name_en", "order", "description_en"):
             if not c.get(key) and c.get(key) != 0:
                 err(f"categories[{c.get('id')}]: missing {key}")
         if c.get("id") and not ID_RE.match(c["id"]):
@@ -108,9 +109,24 @@ def validate(db: dict) -> list[str]:
     for fam_id, n in fam_ids.items():
         if n > 1:
             err(f"families: duplicate id {fam_id}")
+    used_families = {b.get("family_id") for b in db["benchmarks"]}
     for f in db["families"]:
         if f.get("category_id") not in cat_ids:
             err(f"families[{f.get('id')}]: unknown category_id {f.get('category_id')!r}")
+        if f.get("id") in used_families:
+            about = f.get("about")
+            if not isinstance(about, dict):
+                err(f"families[{f.get('id')}]: a family with benchmarks needs an about block")
+                continue
+            if about.get("status") not in ABOUT_STATUSES:
+                err(f"families[{f.get('id')}]: about.status must be one of {sorted(ABOUT_STATUSES)}")
+            if about.get("status") != "pending" and not (about.get("what_it_tests") or "").strip():
+                err(f"families[{f.get('id')}]: about.what_it_tests is required unless status is pending")
+            for key in ("url", "evidence_url"):
+                if about.get(key) and not URL_RE.match(about[key]):
+                    err(f"families[{f.get('id')}]: about.{key} must be https")
+            if about.get("introduced") is not None and not re.match(r"^\d{4}$", str(about["introduced"])):
+                err(f"families[{f.get('id')}]: about.introduced must be a four digit year or null")
 
     # ---- benchmarks ------------------------------------------------------
     bench: dict[str, dict] = {}

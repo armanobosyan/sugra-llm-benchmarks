@@ -7,7 +7,7 @@ Every change to the catalog is one pull request that changes `data/database.json
 1. Open the publisher's page. Note the URL, the date you read it, and which table or section you transcribe.
 2. Add a `publications` record: `id` as `publication-<publisher>-<model>`, `kind`, `checked_on`, `coverage` saying what you transcribed and what you left out (interactive charts, footnote-only numbers).
 3. Add any new `models`. A result printed under another model's heading but attributed in a footnote to a different configuration gets its own identity (`<model>-reported-as-<heading>`, name with "reported as").
-4. Add any new `benchmarks`. One record per exact test, version and metric; the id ends with `--<unit>`. Check the family exists in `families`, add it with its category if not.
+4. Add any new `benchmarks`. One record per exact test, version and metric; the id ends with `--<unit>`. Check the family exists in `families`, add it with its category if not, and write its `about` block (section 2a). A new category needs `description_en` too.
 5. Add `observations` (section 2).
 6. Append a `change_log` entry, bump `data_version` and `as_of`.
 
@@ -22,6 +22,17 @@ For every number on the page:
 - `checked_on`: today.
 
 If the same model and test already have an active row in this publication, the new row must differ in a stated condition (Max beside Xhigh). If the publisher corrected a number, add the new row with `supersedes` set and change the old row's `status` to `superseded`. Never delete a row.
+
+## 2a. Describe a test
+
+Every family a benchmark uses carries an `about` block, and the validator refuses a used family without one. Open the maintainer's own page or paper, not the publisher's launch page: the launch page tells you the score, the maintainer tells you what the test is.
+
+- `maintainer` and `url`: who runs the test and where it lives. If the launch page attributes it to the publisher and the maintainer's page says otherwise, the maintainer's page wins and `notes` records the mismatch.
+- `what_it_tests`: three or four sentences. The task the model is given, the material (how many problems, what kind), how a result is scored. No scores and no rankings.
+- `introduced`: the year of the paper or the first release, or null.
+- `status`: `checked` when you wrote from the maintainer's page or paper and `evidence_url` points to it; `unverified` when only secondary coverage or the name was available, with `notes` saying so; `pending` when you add the family now and the text later. A `pending` family is printed as "description pending" in the article, so it is visible, not forgotten.
+
+`COVERAGE.md` lists the count of each status; update it when a status changes.
 
 ## 3. Build and check
 

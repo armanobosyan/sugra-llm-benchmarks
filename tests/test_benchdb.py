@@ -25,8 +25,8 @@ def fixture() -> dict:
         "as_of": "2026-10-14",
         "default_publication_id": "publication-a",
         "comparison_policy": {"score_selection": "preserve every reported observation"},
-        "categories": [{"id": "agentic-coding", "name_en": "Agentic coding", "order": 1}],
-        "families": [{"id": "frontiercode", "name": "FrontierCode", "category_id": "agentic-coding", "tags": []}],
+        "categories": [{"id": "agentic-coding", "name_en": "Agentic coding", "order": 1, "description_en": "Changing real programs."}],
+        "families": [{"id": "frontiercode", "name": "FrontierCode", "category_id": "agentic-coding", "tags": [], "about": {"maintainer": "Cognition", "url": "https://example.org/frontiercode", "what_it_tests": "Real repository tasks.", "introduced": "2026", "status": "checked", "evidence_url": None, "notes": None}}],
         "benchmarks": [
             {
                 "id": "frontiercode-v1-1--percent",
@@ -175,6 +175,29 @@ class ValidateFixture(unittest.TestCase):
         db = fixture()
         db["models"][1]["name"] = "Model Y"
         self.assertTrue(any("reported as" in p for p in validate.validate(db)))
+
+    def test_used_family_needs_an_about_block(self):
+        db = fixture()
+        del db["families"][0]["about"]
+        self.assertTrue(any("about block" in p for p in validate.validate(db)))
+
+    def test_pending_about_passes_without_text(self):
+        db = fixture()
+        db["families"][0]["about"] = {"status": "pending"}
+        self.assertEqual(validate.validate(db), [])
+
+    def test_checked_about_needs_text_and_https(self):
+        db = fixture()
+        db["families"][0]["about"]["what_it_tests"] = ""
+        self.assertTrue(any("what_it_tests" in p for p in validate.validate(db)))
+        db = fixture()
+        db["families"][0]["about"]["url"] = "http://example.org"
+        self.assertTrue(any("must be https" in p for p in validate.validate(db)))
+
+    def test_category_needs_an_english_description(self):
+        db = fixture()
+        del db["categories"][0]["description_en"]
+        self.assertTrue(any("description_en" in p for p in validate.validate(db)))
 
     def test_em_dash_outside_the_catalog_is_refused(self):
         db = fixture()

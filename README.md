@@ -39,7 +39,7 @@ Python 3.12 or newer, no dependencies.
 
 ## Taxonomy
 
-The twenty categories are an editorial navigation aid for this catalog. They are not an industry standard, and a benchmark family sits in one category with tags for the overlaps. The unit of comparison is always the exact benchmark version and metric, never the family.
+The twenty categories are an editorial navigation aid for this catalog. They are not an industry standard, and a benchmark family sits in one category with tags for the overlaps. The unit of comparison is always the exact benchmark version and metric, never the family. Each category carries a reader-facing description, and each family a benchmark uses carries an `about` block (maintainer, what it tests, year, the page it was written from, and a status that says whether the text was checked against the maintainer's own page). The article prints both under the table.
 
 ## Updating
 

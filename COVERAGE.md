@@ -43,6 +43,8 @@ Only rows the publisher printed as text or a table were transcribed. Values that
 | Engineering and design | 4 | 19 |
 | Preference and composite rankings | 1 | 6 |
 
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 69 checked against the maintainer's own page or paper, 28 written from secondary coverage or from the name alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+
 Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
 
 ## Known gaps
@@ -51,6 +53,7 @@ Two categories are empty in this version. They stay in the taxonomy because the 
 - `reasoning_effort` is stated for 176 observations, `tools` for 30, `harness` for none. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
+- Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
 - Independent sources (leaderboards, third-party evaluations) are absent. Adding one is a new `kind` and a new `evidence_type`, which means extending the contract and its tests first.
 
 ## Research catalog (not published)
