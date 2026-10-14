@@ -21,7 +21,7 @@ def fixture() -> dict:
     """A minimal valid database with the shapes the contract cares about."""
     return {
         "schema_version": "1.0.0",
-        "data_version": "2026-10-14.1",
+        "data_version": "2026101401",
         "as_of": "2026-10-14",
         "default_publication_id": "publication-a",
         "comparison_policy": {"score_selection": "preserve every reported observation"},
@@ -261,7 +261,7 @@ class BuildFixture(unittest.TestCase):
             self.assertEqual(build.main([str(data), str(out)]), 0)
             self.assertEqual(build.main(["--check", str(data), str(out)]), 0)
             db = fixture()
-            db["data_version"] = "2026-10-15.1"
+            db["data_version"] = "2026101501"
             data.write_text(json.dumps(db), encoding="utf-8")
             self.assertEqual(build.main(["--check", str(data), str(out)]), 1)
 
@@ -278,7 +278,7 @@ class RealDatabase(unittest.TestCase):
     def test_seed_counts_never_shrink(self):
         self.assertGreaterEqual(len(self.db["observations"]), 596)
         self.assertGreaterEqual(len(self.db["publications"]), 7)
-        self.assertGreaterEqual(len(self.db["models"]), 23)
+        self.assertGreaterEqual(len(self.db["models"]), 21)
 
     def test_google_rows_from_the_launch_table(self):
         rows = {

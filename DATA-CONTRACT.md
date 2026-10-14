@@ -7,7 +7,7 @@
 | Field | Rule |
 |---|---|
 | `schema_version` | Semantic version of this contract. |
-| `data_version` | `YYYY-MM-DD.N`. Bumped on every accepted data change. |
+| `data_version` | `YYYYMMDDNN`: the date and a two-digit sequence within the day, for example `2026101402`. Bumped on every accepted data change; the article and its exports show it as is. |
 | `as_of` | `YYYY-MM-DD`. Never older than the last change log entry. |
 | `default_publication_id` | The publication the article opens with. Must exist. |
 | `comparison_policy` | Free text the article shows. Score selection, missing values, percent rule, no overall ranking. |

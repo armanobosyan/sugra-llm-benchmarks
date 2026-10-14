@@ -50,7 +50,7 @@ Title: what changed in one line (`Add xAI Grok 4.8 model card, 61 observations`)
 
 ## 5. After merge
 
-The blog rebuilds from the main branch payload. The article shows `data_version`, `as_of` and the change log as its update history. Check the page once it is live.
+The blog rebuilds from the main branch payload. The article shows `data_version` and `as_of` under the table and stamps both exports with them; the change log stays in the file. Check the page once it is live.
 
 ## What never happens
 

@@ -38,7 +38,7 @@ CONDITION_KEYS = {
 DISTINGUISHING = ("reasoning_effort", "harness", "tools", "fallback_policy", "attempt_budget", "context_tokens", "dataset_revision")
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-DATA_VERSION_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.\d+$")
+DATA_VERSION_RE = re.compile(r"^\d{8}\d{2}$")
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 URL_RE = re.compile(r"^https://")
 ABOUT_STATUSES = {"checked", "unverified", "pending"}
@@ -73,7 +73,7 @@ def validate(db: dict) -> list[str]:
     if problems:
         return problems
     if not DATA_VERSION_RE.match(str(db["data_version"])):
-        err(f"top: data_version must look like YYYY-MM-DD.N, got {db['data_version']!r}")
+        err(f"top: data_version must look like YYYYMMDDNN, got {db['data_version']!r}")
     if not DATE_RE.match(str(db["as_of"])):
         err(f"top: as_of must be YYYY-MM-DD, got {db['as_of']!r}")
     if db.get("default_publication_id") and db["default_publication_id"] not in {p.get("id") for p in db["publications"]}:
