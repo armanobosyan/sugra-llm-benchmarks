@@ -8,7 +8,7 @@
     "default_view": "one official publication at a time",
     "score_selection": "preserve every reported observation; never choose max automatically",
     "cross_source_view": "show all observations with publication and settings, no implied same-protocol ranking",
-    "missing": "omit observation, render em dash",
+    "missing": "omit observation, render a dash",
     "percent": "only unit percent gets a % sign; fraction conversion must be explicit",
     "overall_ranking": "not computed",
     "categories": "Sugra editorial taxonomy; not an industry standard"
@@ -6103,7 +6103,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://deepmind.google/models/evals-methodology/gemini-4-argon",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     },
     {
       "id": "publication-anthropic-claude-opus-5-5",
@@ -6116,7 +6116,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://www.anthropic.com/claude-opus-5-5",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     },
     {
       "id": "publication-openai-gpt-6-astra",
@@ -6129,7 +6129,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://openai.com/index/gpt-6-astra/",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     },
     {
       "id": "publication-openai-gpt-6-1-sol",
@@ -6142,7 +6142,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://www.terminal-bench-science.ai",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     },
     {
       "id": "publication-alibaba-qwen3-8-max-comparison",
@@ -6155,7 +6155,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     },
     {
       "id": "publication-xai-grok-4-7-model-card",
@@ -6168,7 +6168,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://cursor.com/cursorbench",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     },
     {
       "id": "publication-anthropic-claude-sonnet-5-5",
@@ -6181,7 +6181,7 @@
       "kind": "official_release_comparison",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://www.anthropic.com/claude-sonnet-5-5",
-      "coverage": "Only the transcribed rows represented by observations. See docs/COVERAGE.md for gaps."
+      "coverage": "Only the transcribed rows represented by observations. See COVERAGE.md for gaps."
     }
   ],
   "observations": [
