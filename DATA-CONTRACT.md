@@ -60,7 +60,7 @@ One record per exact test, version and metric.
 
 ### models
 
-`id` (kebab-case, unique), `name`, `developer`, `identity_scope`, `release_date` (date or null).
+`id` (kebab-case, unique), `name`, `developer`, `identity_scope`, `release_date` (date or null). `latest` (true or false, optional, default false): the newest model of its developer, the set the table's Latest chip selects; at most one per developer.
 
 A result printed under another model's heading gets its own identity: the id contains `reported-as` and the name contains "reported as". Mythos results printed under a Fable column are the standing example.
 

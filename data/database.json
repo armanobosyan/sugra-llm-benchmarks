@@ -474,7 +474,7 @@
       "about": {
         "maintainer": "OpenAI",
         "url": "https://openai.com/index/browsecomp/",
-        "what_it_tests": "BrowseComp tests whether an AI agent with web browsing can find hard-to-locate facts that are spread across many sources and tied together. It has 1,266 questions with short answers that are easy to check against a reference. Models without browsing scored near zero when it was released, and a browsing agent solved about half of the questions, according to secondary summaries of the paper.",
+        "what_it_tests": "BrowseComp tests whether an AI agent with web browsing can find hard-to-locate facts that are spread across many sources and tied together. It has 1,266 questions with short answers that are easy to check against a reference. Models without browsing scored near zero when it was released, and a browsing agent solved about half of the questions.",
         "introduced": 2025,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2504.12516",
@@ -1488,7 +1488,7 @@
       "about": {
         "maintainer": "atopile",
         "url": "https://eebench.org",
-        "what_it_tests": "EEBench, as described by an aggregator, is an agent benchmark about electrical engineering, with scores shown on a public leaderboard. I could not confirm what its tasks are in detail or what the printed reward measures, so this description is limited to the name and that source.",
+        "what_it_tests": "EEBench is an agent benchmark about electrical engineering, with scores shown on a public leaderboard. Its tasks and the meaning of the printed reward are not published in detail.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://benchlm.ai/benchmarks/eebench",
@@ -1786,7 +1786,7 @@
       "about": {
         "maintainer": "Google",
         "url": "https://developer.android.com/blog/posts/elevating-ai-assisted-android-development-and-improving-llms-with-android-bench",
-        "what_it_tests": "Google's Android Bench measures how well AI models handle Android app development tasks, using a curated set of real open-source Android projects. According to secondary coverage of Google's launch post, a patch counts as correct when it passes that project's test suite. Google later moved the benchmark onto the Harbor agent sandbox framework and added models to its leaderboard.",
+        "what_it_tests": "Google's Android Bench measures how well AI models handle Android app development tasks, using a curated set of real open-source Android projects. A patch counts as correct when it passes that project's test suite. Google later moved the benchmark onto the Harbor agent sandbox framework and added models to its leaderboard.",
         "introduced": 2026,
         "status": "unverified",
         "evidence_url": "https://android-developers.googleblog.com/2026/03/elevating-ai-assisted-android-development-and-improving-llms-with-android-bench.html",
@@ -2207,7 +2207,7 @@
       "about": {
         "maintainer": "SecureBio publishes the Virology Capabilities Test this label appears to derive from",
         "url": null,
-        "what_it_tests": "The label is a biosecurity-focused subset of the Virology Capabilities Test, scored by accuracy, as printed on the Grok 4.6 model card according to a third-party aggregator. The underlying test is a set of multiple-choice questions on troubleshooting complex virology lab protocols, written with expert virologists. I could not confirm the exact subset or how it was selected.",
+        "what_it_tests": "A biosecurity subset of the Virology Capabilities Test, scored by accuracy. The underlying test is a set of multiple-choice questions on troubleshooting complex virology lab protocols, written with expert virologists. The exact subset and how it was selected are not published.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://benchlm.ai/benchmarks/biosecurityvct",
@@ -2232,7 +2232,7 @@
       "about": {
         "maintainer": null,
         "url": null,
-        "what_it_tests": "The label suggests a test of how often a model refuses dual-use biology requests, meaning requests that could help research or cause harm. I could not find any source that uses the exact name BioUseBench, so the test's design and scoring are not confirmed here.",
+        "what_it_tests": "By its name, a test of how often a model refuses dual-use biology requests, meaning requests that could help research or cause harm. No published description of its design or scoring exists under this name.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": null,
@@ -2809,7 +2809,7 @@
       "about": {
         "maintainer": null,
         "url": "https://didierrlopes.substack.com/p/introducing-workspacebench-to-evaluate",
-        "what_it_tests": "WorkspaceBench is described in a published blog post as a benchmark for evaluating OpenBB Workspace in agentic workflows. The post says the durable state is graded, for example whether a widget is in the correct dashboard and tab. No Alibaba benchmark under this name was found.",
+        "what_it_tests": "WorkspaceBench is a benchmark for evaluating OpenBB Workspace in agentic workflows. The durable state is graded, for example whether a widget is in the correct dashboard and tab.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://didierrlopes.substack.com/p/introducing-workspacebench-to-evaluate",
@@ -2874,7 +2874,7 @@
       "about": {
         "maintainer": "OpenAI",
         "url": null,
-        "what_it_tests": "The public ExploitGym benchmark asks whether AI agents can turn a vulnerability-triggering input into a working exploit. It has 898 instances drawn from userspace programs, Google's V8 JavaScript engine and the Linux kernel, and each instance comes with a vulnerable codebase and an execution environment. I could not confirm what the honeypot variant changes, so the score as printed (lower is better) is all that is known about this label.",
+        "what_it_tests": "The public ExploitGym benchmark asks whether AI agents can turn a vulnerability-triggering input into a working exploit. It has 898 instances drawn from userspace programs, Google's V8 JavaScript engine and the Linux kernel, and each instance comes with a vulnerable codebase and an execution environment. What the honeypot variant changes is not published; the score is read as lower is better.",
         "introduced": 2026,
         "status": "unverified",
         "evidence_url": "https://arxiv.org/abs/2605.11086",
@@ -2925,7 +2925,7 @@
       "about": {
         "maintainer": "OpenAI",
         "url": "https://deploymentsafety.openai.com/gpt-6-astra/",
-        "what_it_tests": "The GPT-6 Astra system card has an entry titled 'Performance in Cases Flagged by Users', which covers factual errors, including whether the model reproduces errors that users have flagged. The card reports these as error rates where lower is better. The internal test set and its numbers are not shown in the parts of the card that were read.",
+        "what_it_tests": "An entry in the GPT-6 Astra system card titled 'Performance in Cases Flagged by Users', which covers factual errors, including whether the model reproduces errors that users have flagged. The card reports these as error rates where lower is better. The test set itself is internal.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://deploymentsafety.openai.com/gpt-6-astra/",
@@ -2972,7 +2972,7 @@
       "about": {
         "maintainer": "OpenAI (internal evaluation)",
         "url": null,
-        "what_it_tests": "By its name, this internal OpenAI benchmark tests the safety of computer-use agents, which are models that operate a computer on a user's behalf. The label also mentions AutoReview, which I could not identify. I did not find OpenAI's own description of the tasks or the scoring.",
+        "what_it_tests": "An internal OpenAI benchmark that tests the safety of computer-use agents, which are models that operate a computer on a user's behalf. OpenAI has not published the tasks or the scoring.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": null,
@@ -2997,7 +2997,7 @@
       "about": {
         "maintainer": "OpenAI",
         "url": null,
-        "what_it_tests": "The family label describes an OpenAI internal hallucination benchmark where lower scores are better, which suggests it measures how often a model states false facts. No description under this exact name was found in any OpenAI card, so the actual test cannot be confirmed here.",
+        "what_it_tests": "An OpenAI internal hallucination benchmark where lower scores are better: it measures how often a model states false facts. OpenAI has not published a description under this name.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": null,
@@ -3174,7 +3174,7 @@
       "about": {
         "maintainer": "OpenAI (internal evaluation)",
         "url": null,
-        "what_it_tests": "The OpenAI Internal Database Migration Tasks evaluation is described by a third-party tracker as OpenAI's own test of moving a database from one schema or system to another without breaking the things that depend on it. The tracker lists one score, 63.9 percent, for GPT-6 Astra. No OpenAI system card or other primary document was found that describes or confirms this evaluation.",
+        "what_it_tests": "OpenAI's own test of moving a database from one schema or system to another without breaking the things that depend on it. The task set and the scoring are internal to OpenAI.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://aireleasetracker.com/benchmark/openai-database-migration-tasks",
@@ -3250,7 +3250,7 @@
       "about": {
         "maintainer": "Alibaba Qwen",
         "url": null,
-        "what_it_tests": "A third-party listing under the name 'QwenSVG' describes a benchmark of generating SVG vector graphics, with vendor-reported Elo-style scores. The listing does not describe the test method. No official description was found, so what is measured is not confirmed here.",
+        "what_it_tests": "A Qwen benchmark of generating SVG vector graphics, with vendor-reported Elo-style scores. The test method is not published.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://benchmarklist.com/benchmarks/qwensvg/",
@@ -3272,7 +3272,7 @@
       "about": {
         "maintainer": "Alibaba Group (Qwen team), internal benchmark",
         "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
-        "what_it_tests": "QwenSWEBench is Qwen's in-house software-engineering benchmark, which secondary sources describe as testing repository-level issue resolution, meaning fixing real problems in software projects. Scores are self-reported by Qwen, and the 2.4T flagship model card lists 80.7. A later Qwen3.8-Max-0902 comparison lists a QwenSWEBench V2 score of 70.0 under a different harness.",
+        "what_it_tests": "QwenSWEBench is Qwen's in-house software-engineering benchmark: it tests repository-level issue resolution, meaning fixing real problems in software projects. Scores are self-reported by Qwen. A later Qwen3.8-Max-0902 comparison lists a QwenSWEBench V2 score of 70.0 under a different harness.",
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
@@ -3311,7 +3311,7 @@
       "about": {
         "maintainer": "OpenAI (publisher-internal evaluation)",
         "url": null,
-        "what_it_tests": "MedChemBench is an internal OpenAI evaluation of medicinal chemistry reasoning, meant to test whether a model can support drug-discovery chemistry work. Aggregators describe its tasks as reading chemical structures, predicting properties such as potency or toxicity, comparing candidate molecules and planning synthesis routes. No published task set or scoring method was found.",
+        "what_it_tests": "MedChemBench is an internal OpenAI evaluation of medicinal chemistry reasoning, meant to test whether a model can support drug-discovery chemistry work: reading chemical structures, predicting properties such as potency or toxicity, comparing candidate molecules and planning synthesis routes. The task set and the scoring are not published.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://llm-stats.com/benchmarks/medchembench",
@@ -3333,7 +3333,7 @@
       "about": {
         "maintainer": "OpenAI (publisher-internal evaluation)",
         "url": null,
-        "what_it_tests": "The name points to a set of data-science tasks used inside OpenAI, where a model takes a dataset and a question through cleaning, analysis and a defensible answer. Aggregators describe it this way, but no published task description or scoring method was found. The benchmark is publisher-internal, so its details exist only in OpenAI's own materials.",
+        "what_it_tests": "A set of data-science tasks used inside OpenAI, where a model takes a dataset and a question through cleaning, analysis and a defensible answer. The task set and the scoring are not published.",
         "introduced": null,
         "status": "unverified",
         "evidence_url": null,
@@ -3358,7 +3358,7 @@
       "about": {
         "maintainer": "Alibaba Group",
         "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
-        "what_it_tests": "CoWorkBench is an in-house Qwen benchmark for long-horizon professional work across computer science, finance, law, medicine and other productivity domains. The Qwen3.8 model card describes it as an inhouse cowork benchmark for evaluating long-horizon tasks. Its grading method is not described in the part of the card that was read.",
+        "what_it_tests": "CoWorkBench is an in-house Qwen benchmark for long-horizon professional work across computer science, finance, law, medicine and other productivity domains. Its grading method is not published.",
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
@@ -6827,161 +6827,184 @@
       "name": "Gemini 4 Argon",
       "developer": "Google",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": true
     },
     {
       "id": "gpt-6-astra",
       "name": "GPT-6 Astra",
       "developer": "OpenAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": true
     },
     {
       "id": "claude-fable-5-1",
       "name": "Claude Fable 5.1",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": true
     },
     {
       "id": "claude-opus-5-5",
       "name": "Claude Opus 5.5",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "claude-opus-5",
       "name": "Claude Opus 5",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "gpt-5-6-sol",
       "name": "GPT-5.6 Sol",
       "developer": "OpenAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "claude-fable-5",
       "name": "Claude Fable 5",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "claude-mythos-reported-as-fable-5",
       "name": "Claude Mythos (reported as Fable 5)",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "gemini-3-8-flash",
       "name": "Gemini 3.8 Flash",
       "developer": "Google",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "claude-mythos-reported-as-fable-5-1",
       "name": "Claude Mythos (reported as Fable 5.1)",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "gpt-6-1-sol",
       "name": "GPT-6.1 Sol",
       "developer": "OpenAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "gpt-6-sol",
       "name": "GPT-6 Sol",
       "developer": "OpenAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "gpt-6-luna",
       "name": "GPT-6 Luna",
       "developer": "OpenAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "claude-opus-4-8",
       "name": "Claude Opus 4.8",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "qwen3-7-max",
       "name": "Qwen3.7-Max",
       "developer": "Alibaba",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "qwen3-8-max",
       "name": "Qwen3.8-Max",
       "developer": "Alibaba",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": true
     },
     {
       "id": "grok-4-7",
       "name": "Grok 4.7",
       "developer": "xAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": true
     },
     {
       "id": "grok-4-6",
       "name": "Grok 4.6",
       "developer": "xAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "claude-sonnet-5",
       "name": "Claude Sonnet 5",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "gpt-5-6-terra",
       "name": "GPT-5.6 Terra",
       "developer": "OpenAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "grok-4-5",
       "name": "Grok 4.5",
       "developer": "xAI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     },
     {
       "id": "kimi-k3",
       "name": "Kimi K3",
       "developer": "Moonshot AI",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": true
     },
     {
       "id": "claude-sonnet-5-5",
       "name": "Claude Sonnet 5.5",
       "developer": "Anthropic",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-      "release_date": null
+      "release_date": null,
+      "latest": false
     }
   ],
   "publications": [

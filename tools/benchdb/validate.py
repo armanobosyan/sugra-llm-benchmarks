@@ -167,6 +167,8 @@ def validate(db: dict) -> list[str]:
                 err(f"models[{mid}]: missing {key}")
         if m.get("release_date") is not None and not DATE_RE.match(str(m["release_date"])):
             err(f"models[{mid}]: release_date must be YYYY-MM-DD or null")
+        if not isinstance(m.get("latest", False), bool):
+            err(f"models[{mid}]: latest must be true or false")
         # A result a publisher printed under another model's name keeps its own
         # identity: the id says so, and the name must say so too.
         if mid and "reported-as" in mid and "reported as" not in str(m.get("name", "")).lower():
