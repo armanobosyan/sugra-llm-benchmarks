@@ -309,7 +309,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://artificialanalysis.ai/articles/announcing-zapier-automationbench-aa",
-        "notes": "Maintainer detail: paper authors Daniel Shepard and Robin Salimans); Artificial Analysis runs the AutomationBench-AA leaderboard in partnership with Zapier. The benchmark has several versions and scores differ by version and source: the Zapier public leaderboard, the Artificial Analysis guardrail-based AutomationBench-AA (657 private tasks, announced July 6, 2026), and BenchLM private-set figures are not comparable. The arXiv abstract says even the best frontier models scored below 10 percent at release. The printed-by labels (Google, Anthropic, OpenAI, Alibaba) were not checked against model cards."
+        "notes": "Maintainer detail: (paper authors Daniel Shepard and Robin Salimans); Artificial Analysis runs the AutomationBench-AA leaderboard in partnership with Zapier. The benchmark has several versions and scores differ by version and source: the Zapier public leaderboard, the Artificial Analysis guardrail-based AutomationBench-AA (657 private tasks, announced July 6, 2026), and BenchLM private-set figures are not comparable. The arXiv abstract says even the best frontier models scored below 10 percent at release. The printed-by labels (Google, Anthropic, OpenAI, Alibaba) were not checked against model cards."
       }
     },
     {
@@ -361,7 +361,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2606.05405",
-        "notes": "Maintainer detail: rdi-berkeley), with Snorkel AI hosting the leaderboard and contributing task work and funding. Paper: arXiv 2606.05405; code: github.com/rdi-berkeley/agents-last-exam; Snorkel lists a release date of 2026-06-09. Printed labels say Google, OpenAI and Alibaba; no source found connects those companies to the benchmark, so those attributions are unconfirmed. Aggregator pass-rate figures conflict and are not used."
+        "notes": "Maintainer detail: (rdi-berkeley), with Snorkel AI hosting the leaderboard and contributing task work and funding. Paper: arXiv 2606.05405; code: github.com/rdi-berkeley/agents-last-exam; Snorkel lists a release date of 2026-06-09. Printed labels say Google, OpenAI and Alibaba; no source found connects those companies to the benchmark, so those attributions are unconfirmed. Aggregator pass-rate figures conflict and are not used."
       }
     },
     {
@@ -505,7 +505,7 @@
         "introduced": 2024,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2404.07972",
-        "notes": "Maintainer detail: OSWorld 2.0 collaborators include Columbia, UC Santa Barbara, UC San Diego, Mila, Snorkel AI, Alibaba Qwen and Simular). The original 2024 OSWorld paper lists Tianbao Xie, Tao Yu and others. The original OSWorld paper (arXiv 2404.07972, April 2024) has 369 tasks and execution-based scoring. The OSWorld 2.0 release date was not stated on its page and is not confirmed. OSWorld 2.1 partial was not researched. Leaderboard figures conflict across sources, so none are given."
+        "notes": "Maintainer detail: (OSWorld 2.0 collaborators include Columbia, UC Santa Barbara, UC San Diego, Mila, Snorkel AI, Alibaba Qwen and Simular). The original 2024 OSWorld paper lists Tianbao Xie, Tao Yu and others. The original OSWorld paper (arXiv 2404.07972, April 2024) has 369 tasks and execution-based scoring. The OSWorld 2.0 release date was not stated on its page and is not confirmed. OSWorld 2.1 partial was not researched. Leaderboard figures conflict across sources, so none are given."
       }
     },
     {
@@ -529,7 +529,7 @@
         "introduced": 2024,
         "status": "checked",
         "evidence_url": "https://arxiv.org/pdf/2409.12640",
-        "notes": "Maintainer detail: listed by one wiki as Google DeepMind); the public MRCR dataset is attributed to OpenAI. The Michelangelo paper (arXiv 2409.12640, September 2024) defines MRCR as one of three tasks. The OpenAI release of the dataset was not confirmed on a primary source. The 8-needle and 256K-1M details come from benchmark listings, not the paper. Scores are omitted because listings disagree."
+        "notes": "Maintainer detail: (listed by one wiki as Google DeepMind); the public MRCR dataset is attributed to OpenAI. The Michelangelo paper (arXiv 2409.12640, September 2024) defines MRCR as one of three tasks. The OpenAI release of the dataset was not confirmed on a primary source. The 8-needle and 256K-1M details come from benchmark listings, not the paper. Scores are omitted because listings disagree."
       }
     },
     {
@@ -905,7 +905,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://www.harvey.ai/en-US/blog/introducing-harveys-legal-agent-benchmark",
-        "notes": "Maintainer detail: open-source repository harveyai/harvey-labs); Artificial Analysis and Mercor run separate third-party evaluations. Announced May 6, 2026, and launched without a leaderboard. Task counts differ across sources: the page cites 1,200 and 1,250 tasks, Mercor lists 1,749. Third-party rankings exist (Mercor, and an Artificial Analysis private set of 120 tasks). The 'Google, xAI printed' labels were not confirmed in a model card."
+        "notes": "Maintainer detail: (open-source repository harveyai/harvey-labs); Artificial Analysis and Mercor run separate third-party evaluations. Announced May 6, 2026, and launched without a leaderboard. Task counts differ across sources: the page cites 1,200 and 1,250 tasks, Mercor lists 1,749. Third-party rankings exist (Mercor, and an Artificial Analysis private set of 120 tasks). The 'Google, xAI printed' labels were not confirmed in a model card."
       }
     },
     {
@@ -1033,7 +1033,7 @@
         "introduced": 2025,
         "status": "checked",
         "evidence_url": "https://arxiv.org/pdf/2510.25726",
-        "notes": "Maintainer detail: Junlong Li, Junxian He and co-authors), with collaborators at All Hands AI, Carnegie Mellon and Duke. Accepted to ICLR 2026; code at github.com/hkust-nlp/toolathlon. The paper's first version names a different top model than a later version, so leaderboard leaders depend on the version cited. Printed label says Alibaba, which no source confirms. The 'Verified (Pass@1)' label refers to a subset or setting that was not checked in this run."
+        "notes": "Maintainer detail: (Junlong Li, Junxian He and co-authors), with collaborators at All Hands AI, Carnegie Mellon and Duke. Accepted to ICLR 2026; code at github.com/hkust-nlp/toolathlon. The paper's first version names a different top model than a later version, so leaderboard leaders depend on the version cited. Printed label says Alibaba, which no source confirms. The 'Verified (Pass@1)' label refers to a subset or setting that was not checked in this run."
       }
     },
     {
@@ -1354,7 +1354,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2608.10978",
-        "notes": "Maintainer detail: authors of OSSQ-OMR), built on the OpenScore String Quartet corpus from the OpenScore project. arXiv 2608.10978, submitted August 11, 2026, accepted to ISMIR 2026. The page does not mention OpenAI, so the catalog's OpenAI attribution is not supported. The page reports OMR-NED values but does not define the metric; the 'higher is better' reading of one minus OMR-NED is inferred from the name."
+        "notes": "Maintainer detail: (authors of OSSQ-OMR), built on the OpenScore String Quartet corpus from the OpenScore project. arXiv 2608.10978, submitted August 11, 2026, accepted to ISMIR 2026. The page does not mention OpenAI, so the catalog's OpenAI attribution is not supported. The page reports OMR-NED values but does not define the metric; the 'higher is better' reading of one minus OMR-NED is inferred from the name."
       }
     },
     {
@@ -1443,7 +1443,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://www.emergentmind.com/papers/2605.10865",
-        "notes": "Maintainer detail: listed as Haozhe Zhang, Kaichen Liu and Hanjie Chen by an aggregator); a host organisation is not confirmed, and no OpenAI link was found. The job label says OpenAI prints this benchmark, but I found only the academic arXiv paper and no OpenAI publication or card that uses it, so the printed attribution is unconfirmed. Independent leaderboard numbers were not found."
+        "notes": "Maintainer detail: (listed as Haozhe Zhang, Kaichen Liu and Hanjie Chen by an aggregator); a host organisation is not confirmed, and no OpenAI link was found. The job label says OpenAI prints this benchmark, but I found only the academic arXiv paper and no OpenAI publication or card that uses it, so the printed attribution is unconfirmed. Independent leaderboard numbers were not found."
       }
     },
     {
@@ -1468,7 +1468,7 @@
         "introduced": null,
         "status": "checked",
         "evidence_url": "https://github.com/huggingface/cadgenbench",
-        "notes": "Maintainer detail: the benchmark sits in the huggingface GitHub organisation); xAI prints the scores. Leaderboard figures in aggregators conflict across snapshots, so no score is given here; the official Hugging Face leaderboard is the place to check. The reward label printed by xAI is not explained by the repository."
+        "notes": "Maintainer detail: (the benchmark sits in the huggingface GitHub organisation); xAI prints the scores. Leaderboard figures in aggregators conflict across snapshots, so no score is given here; the official Hugging Face leaderboard is the place to check. The reward label printed by xAI is not explained by the repository."
       }
     },
     {
@@ -1492,7 +1492,7 @@
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://benchlm.ai/benchmarks/eebench",
-        "notes": "Maintainer detail: per an aggregator); not confirmed from the project itself. Do not confuse with EEE-Bench (CVPR 2025), a separate multimodal electrical and electronics benchmark. One aggregator page describes EEBench as a physics-simulation framework, which conflicts with the other sources and was not used. The eebench.org site was not opened."
+        "notes": "Maintainer detail: (per an aggregator); not confirmed from the project itself. Do not confuse with EEE-Bench (CVPR 2025), a separate multimodal electrical and electronics benchmark. One aggregator page describes EEBench as a physics-simulation framework, which conflicts with the other sources and was not used. The eebench.org site was not opened."
       }
     },
     {
@@ -1656,7 +1656,7 @@
         "introduced": 2025,
         "status": "checked",
         "evidence_url": "https://rdi.berkeley.edu/blog/cybergym/",
-        "notes": "Maintainer detail: Berkeley RDI); authors Zhun Wang, Tianneng Shi, Jingxuan He, Matthew Cai, Jialin Zhang and Dawn Song. The paper (arXiv 2506.02548, first posted June 2025) was published at ICLR 2026. Printed label says xAI, and the xAI Grok 4.7 launch page does not mention CyberGym, so that attribution is unconfirmed. The RDI page links a live observatory at https://rdi.berkeley.edu/frontier-ai-impact-on-cybersecurity/benchmarks.html for leaderboard results."
+        "notes": "Maintainer detail: (Berkeley RDI); authors Zhun Wang, Tianneng Shi, Jingxuan He, Matthew Cai, Jialin Zhang and Dawn Song. The paper (arXiv 2506.02548, first posted June 2025) was published at ICLR 2026. Printed label says xAI, and the xAI Grok 4.7 launch page does not mention CyberGym, so that attribution is unconfirmed. The RDI page links a live observatory at https://rdi.berkeley.edu/frontier-ai-impact-on-cybersecurity/benchmarks.html for leaderboard results."
       }
     },
     {
@@ -1700,7 +1700,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://rdi.berkeley.edu/blog/exploitgym",
-        "notes": "Maintainer detail: Zhun Wang, Dawn Song and co-authors) with contributors from several universities; secondary coverage also lists staff from Anthropic, OpenAI and Google among the co-authors. Printed label says OpenAI. The arXiv page does not show affiliations, and the lead team is academic, so OpenAI is not the maintainer. The GPT-6 Astra system card lists ExploitGym as an OpenAI cyber evaluation and a separate honeypot test built on it, so OpenAI does use it. The preprint date is 2026-05-11 on arXiv; a secondary write-up cites 2026-07-22 for results, which is not used here."
+        "notes": "Maintainer detail: (Zhun Wang, Dawn Song and co-authors) with contributors from several universities; secondary coverage also lists staff from Anthropic, OpenAI and Google among the co-authors. Printed label says OpenAI. The arXiv page does not show affiliations, and the lead team is academic, so OpenAI is not the maintainer. The GPT-6 Astra system card lists ExploitGym as an OpenAI cyber evaluation and a separate honeypot test built on it, so OpenAI does use it. The preprint date is 2026-05-11 on arXiv; a secondary write-up cites 2026-07-22 for results, which is not used here."
       }
     },
     {
@@ -1790,7 +1790,7 @@
         "introduced": 2026,
         "status": "unverified",
         "evidence_url": "https://android-developers.googleblog.com/2026/03/elevating-ai-assisted-android-development-and-improving-llms-with-android-bench.html",
-        "notes": "Maintainer detail: Android team) for the Android Bench of that name; the Alibaba-printed AndroidBench label is not confirmed as the same benchmark. The Google blog was not fetched (a redirect to a Google sorry page blocked it), so the description rests on search snippets and secondary coverage. The Alibaba-printed AndroidBench listing (Qwen3.8 Max at 0.751 on llm-stats) is a different entry and could not be matched to any source. Google's benchmark has been the closest name match, but the family may not be the same test."
+        "notes": "Maintainer detail: (Android team) for the Android Bench of that name; the Alibaba-printed AndroidBench label is not confirmed as the same benchmark. The Google blog was not fetched (a redirect to a Google sorry page blocked it), so the description rests on search snippets and secondary coverage. The Alibaba-printed AndroidBench listing (Qwen3.8 Max at 0.751 on llm-stats) is a different entry and could not be matched to any source. Google's benchmark has been the closest name match, but the family may not be the same test."
       }
     },
     {
@@ -1877,7 +1877,7 @@
         "introduced": 2025,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2512.12730v1",
-        "notes": "Maintainer detail: first author Jingzhe Ding; 49 authors on arXiv; affiliations not shown on the abstract page); Alibaba attribution not confirmed. arXiv 2512.12730 was posted in December 2025 and accepted to ICML 2026 (PMLR 306). The abstract reports that even the strongest agents average below 40 percent test pass rate. The Alibaba label was not supported by the affiliations read."
+        "notes": "Maintainer detail: (first author Jingzhe Ding; 49 authors on arXiv; affiliations not shown on the abstract page); Alibaba attribution not confirmed. arXiv 2512.12730 was posted in December 2025 and accepted to ICML 2026 (PMLR 306). The abstract reports that even the strongest agents average below 40 percent test pass rate. The Alibaba label was not supported by the affiliations read."
       }
     },
     {
@@ -1925,7 +1925,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://benchlm.ai/benchmarks/sweMarathon",
-        "notes": "Maintainer detail: first author Rishi Desai; affiliations not shown on the NeurIPS page); the xAI attribution rests on a third-party review of Grok 4.5 launch numbers. The xAI 29.0 percent pass@1 figure for Grok 4.5 comes from a third-party review page, not an xAI primary source, and was not verified. An AI Engineer talk reported a historical best of 26 percent. The paper reports that about 18.8 percent of rollouts showed reward hacking. The NeurIPS 2026 poster page gives no author affiliations, so the xAI link is unconfirmed."
+        "notes": "Maintainer detail: (first author Rishi Desai; affiliations not shown on the NeurIPS page); the xAI attribution rests on a third-party review of Grok 4.5 launch numbers. The xAI 29.0 percent pass@1 figure for Grok 4.5 comes from a third-party review page, not an xAI primary source, and was not verified. An AI Engineer talk reported a historical best of 26 percent. The paper reports that about 18.8 percent of rollouts showed reward hacking. The NeurIPS 2026 poster page gives no author affiliations, so the xAI link is unconfirmed."
       }
     },
     {
@@ -2076,7 +2076,7 @@
         "introduced": 2023,
         "status": "checked",
         "evidence_url": "https://arxiv.org/pdf/2412.15204",
-        "notes": "Maintainer detail: with Zhipu AI); LongBench v2 authors include Yushi Bai and Shangqing Tu. Family dates from the original LongBench (arXiv 2308.14508, 2023, ACL 2024). LongBench v2 (arXiv 2412.15204) is from December 2024. The human baseline is 53.7% per the paper. Model scores are not repeated."
+        "notes": "Maintainer detail: (with Zhipu AI); LongBench v2 authors include Yushi Bai and Shangqing Tu. Family dates from the original LongBench (arXiv 2308.14508, 2023, ACL 2024). LongBench v2 (arXiv 2412.15204) is from December 2024. The human baseline is 53.7% per the paper. Model scores are not repeated."
       }
     },
     {
@@ -2186,7 +2186,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2607.05462",
-        "notes": "Maintainer detail: San Francisco company); xAI prints the scores in its Grok 4.6 reporting. Refusal paper is arXiv 2607.05462; Surveillance is arXiv 2607.19262; Function is a preprint listed on Sciety (doi 10.64898/2026.09.03.749010). The xAI Grok 4.6 post (x.ai/news/biosafety-at-the-frontier) names BioSecBench-Refusal and BioSecBench-Surveillance and gives scores for Grok 4.6; the post is the source for the xAI attribution. Scores are not repeated here because they are vendor-reported."
+        "notes": "Maintainer detail: (San Francisco company); xAI prints the scores in its Grok 4.6 reporting. Refusal paper is arXiv 2607.05462; Surveillance is arXiv 2607.19262; Function is a preprint listed on Sciety (doi 10.64898/2026.09.03.749010). The xAI Grok 4.6 post (x.ai/news/biosafety-at-the-frontier) names BioSecBench-Refusal and BioSecBench-Surveillance and gives scores for Grok 4.6; the post is the source for the xAI attribution. Scores are not repeated here because they are vendor-reported."
       }
     },
     {
@@ -2286,7 +2286,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://gigazine.net/gsc_news/en/20260701-genebench-pro",
-        "notes": "The OpenAI page returned HTTP 403 to WebFetch, so the facts come from secondary coverage that agrees on a June 30, 2026 release and the 129-problem count. One outlet describes it as 10 genomics case studies, which conflicts with the count. Ten questions were said to be open-sourced on Hugging Face; not verified."
+        "notes": "The OpenAI page returned HTTP 403 when read, so the facts come from secondary coverage that agrees on a June 30, 2026 release and the 129-problem count. One outlet describes it as 10 genomics case studies, which conflicts with the count. Ten questions were said to be open-sourced on Hugging Face; not verified."
       }
     },
     {
@@ -2358,7 +2358,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://aiweekly.co/alerts/openais-lifescibench-tests-ai-on-750-life-science-research-tasks",
-        "notes": "Maintainer detail: with 173 scientists and Tacit Labs (a drug-development feedback startup) writing the tasks. The OpenAI page returned HTTP 403 to WebFetch. The June 17, 2026 date and the task counts come from secondary coverage (AI Weekly, Let's Data Science, Gigazine), which agree. A reader comment says the questions are not public; not confirmed. Scores are omitted."
+        "notes": "Maintainer detail: with 173 scientists and Tacit Labs (a drug-development feedback startup) writing the tasks. The OpenAI page returned HTTP 403 when read. The June 17, 2026 date and the task counts come from secondary coverage (AI Weekly, Let's Data Science, Gigazine), which agree. A reader comment says the questions are not public; not confirmed. Scores are omitted."
       }
     },
     {
@@ -2456,7 +2456,7 @@
         "introduced": 2026,
         "status": "unverified",
         "evidence_url": "https://arxiv.org/abs/2605.08678",
-        "notes": "Maintainer detail: catalog hint, not confirmed for the Lite subset). The MLS-Bench paper lists 28 authors including Chi Jin, Dawn Song and Max Simchowitz. The arXiv abstract page confirms MLS-Bench (first version May 9, 2026; v3 July 6, 2026) but does not mention Lite. The 30-task Lite subset comes only from aggregators (LLM Reference, BenchLM, benchmarklist). LLM Reference describes its scores as Moonshot-reported from Kimi launch materials, so the Lite maintainer is unconfirmed."
+        "notes": "Maintainer detail: (catalog hint, not confirmed for the Lite subset). The MLS-Bench paper lists 28 authors including Chi Jin, Dawn Song and Max Simchowitz. The arXiv abstract page confirms MLS-Bench (first version May 9, 2026; v3 July 6, 2026) but does not mention Lite. The 30-task Lite subset comes only from aggregators (LLM Reference, BenchLM, benchmarklist). LLM Reference describes its scores as Moonshot-reported from Kimi launch materials, so the Lite maintainer is unconfirmed."
       }
     },
     {
@@ -2580,7 +2580,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://arxiv.org/html/2601.16669v1",
-        "notes": "Maintainer detail: Qwen Team), with Tsinghua University, University of Waterloo, Shanghai Jiao Tong University, University of Pittsburgh and University of Bologna (per the arXiv affiliations. Submitted January 23, 2026 (v2 January 28, 2026). Data is at github.com/skylenage/PLawbench. The evalscope documentation describes a 280-sample version split into subsets, which does not match the paper's 850 questions, so the counts depend on the release used. Not to be confused with the older LawBench (2023)."
+        "notes": "Maintainer detail: (Qwen Team), with Tsinghua University, University of Waterloo, Shanghai Jiao Tong University, University of Pittsburgh and University of Bologna (per the arXiv affiliations. Submitted January 23, 2026 (v2 January 28, 2026). Data is at github.com/skylenage/PLawbench. The evalscope documentation describes a 280-sample version split into subsets, which does not match the paper's 850 questions, so the counts depend on the release used. Not to be confused with the older LawBench (2023)."
       }
     },
     {
@@ -2690,7 +2690,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://arxiv.org/html/2603.07980v2",
-        "notes": "Maintainer detail: per the arXiv affiliations); the aggregator's Alibaba label is not supported by the paper. The first version was submitted March 9, 2026 and the current version was revised October 8, 2026. Project code is at github.com/humanlaya/OneMillion-Bench. The expert-score leaderboard seen on a third-party site (dated 2026-08-03) was not verified and its model names were not captured."
+        "notes": "Maintainer detail: (per the arXiv affiliations); the aggregator's Alibaba label is not supported by the paper. The first version was submitted March 9, 2026 and the current version was revised October 8, 2026. Project code is at github.com/humanlaya/OneMillion-Bench. The expert-score leaderboard seen on a third-party site (dated 2026-08-03) was not verified and its model names were not captured."
       }
     },
     {
@@ -2764,7 +2764,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://arxiv.org/abs/2605.26329",
-        "notes": "Maintainer detail: affiliations not shown on the abstract page); Alibaba attribution not confirmed. The paper was submitted May 25, 2026. Its author list shows no Alibaba affiliation on the page read, so the aggregator's Alibaba label is unconfirmed; this may be a different benchmark from any Alibaba-printed one. The paper reports the best of 36 models at 45.9 percent (Claude Opus 4.7 under Claude Code). The BenchLM figure of 33.4 for Qwen3.8-27B was not verified."
+        "notes": "Maintainer detail: (affiliations not shown on the abstract page); Alibaba attribution not confirmed. The paper was submitted May 25, 2026. Its author list shows no Alibaba affiliation on the page read, so the aggregator's Alibaba label is unconfirmed; this may be a different benchmark from any Alibaba-printed one. The paper reports the best of 36 models at 45.9 percent (Claude Opus 4.7 under Claude Code). The BenchLM figure of 33.4 for Qwen3.8-27B was not verified."
       }
     },
     {
@@ -2878,7 +2878,7 @@
         "introduced": 2026,
         "status": "unverified",
         "evidence_url": "https://arxiv.org/abs/2605.11086",
-        "notes": "Maintainer detail: internal variant, per the printed label); the public ExploitGym benchmark is described in an arXiv paper whose author list I did not confirm. The arXiv paper is the public base benchmark, not confirmed to be the same as the internal honeypot variant. Secondary coverage in July 2026 linked an OpenAI evaluation to an incident involving Hugging Face; those are secondary accounts and are not used in this description."
+        "notes": "Maintainer detail: (internal variant, per the printed label); the public ExploitGym benchmark is described in an arXiv paper whose author list I did not confirm. The arXiv paper is the public base benchmark, not confirmed to be the same as the internal honeypot variant. Secondary coverage in July 2026 linked an OpenAI evaluation to an incident involving Hugging Face; those are secondary accounts and are not used in this description."
       }
     },
     {
@@ -2904,7 +2904,7 @@
         "introduced": null,
         "status": "unverified",
         "evidence_url": "https://arxiv.org/abs/2605.11086",
-        "notes": "Maintainer detail: internal, per the printed label); not confirmed. Secondary write-ups (an external investigation by METR and Redwood Research, cited second-hand) discuss unsolvable ExploitGym tasks, but they do not describe a benchmark named Impossible ExploitGym. The datalearner page for the name redirects to another site and gave no content."
+        "notes": "Maintainer detail: (internal, per the printed label); not confirmed. Secondary write-ups (an external investigation by METR and Redwood Research, cited second-hand) discuss unsolvable ExploitGym tasks, but they do not describe a benchmark named Impossible ExploitGym. The datalearner page for the name redirects to another site and gave no content."
       }
     },
     {
@@ -3362,7 +3362,7 @@
         "introduced": 2026,
         "status": "checked",
         "evidence_url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B",
-        "notes": "Maintainer detail: Qwen team), as named in the Qwen3.8 model card. All scores are vendor-reported and the card says results come from Qwen's own testing. No independent evaluation or paper was found. The year is inferred from the Qwen3.8 release, not from a stated introduction date. BenchLM figures (75.3 and 74.8) are secondary and were not checked against the card."
+        "notes": "Maintainer detail: (Qwen team), as named in the Qwen3.8 model card. All scores are vendor-reported and the card says results come from Qwen's own testing. No independent evaluation or paper was found. The year is inferred from the Qwen3.8 release, not from a stated introduction date. BenchLM figures (75.3 and 74.8) are secondary and were not checked against the card."
       }
     },
     {
