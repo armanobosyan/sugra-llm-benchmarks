@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101566, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101567, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -78,8 +78,9 @@ What the catalog holds as of data version 2026101566, and what it does not. Coun
 | Claude Haiku 4.5 | Anthropic | 48 | 6 | 10 |
 | Claude Opus 4.5 | Anthropic | 46 | 6 | 10 |
 | Claude Opus 4.6 | Anthropic | 81 | 7 | 16 |
+| Claude Sonnet 4.6 | Anthropic | 100 | 11 | 16 |
 
-72 publications, 7455 observations, 188 models, 492 benchmark definitions in 293 families.
+73 publications, 7555 observations, 188 models, 492 benchmark definitions in 293 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -114,8 +115,8 @@ Two categories are empty in this version. They stay in the taxonomy because the 
 
 ## Known gaps
 
-- `release_date` is recorded for 152 of 188 models and `published_at` for 57 of 72 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
-- `reasoning_effort` is stated for 2268 observations, `tools` for 1043, `harness` for 784. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 152 of 188 models and `published_at` for 58 of 73 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `reasoning_effort` is stated for 2283 observations, `tools` for 1070, `harness` for 793. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
