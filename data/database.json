@@ -1,6 +1,6 @@
 {
  "schema_version": "1.1.0",
- "data_version": "2026101585",
+ "data_version": "2026101586",
  "as_of": "2026-10-15",
  "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
  "default_publication_id": "publication-google-gemini-4-argon",
@@ -952,7 +952,7 @@
   },
   {
    "id": "harvey-s-legal-agent-benchmark",
-   "name": "Harvey’s Legal Agent Benchmark",
+   "name": "Harvey's Legal Agent Benchmark",
    "category_id": "knowledge-work",
    "tags": [
     "legal",
@@ -9368,10 +9368,10 @@
    "id": "harvey-s-legal-agent-benchmark--percent",
    "family_id": "harvey-s-legal-agent-benchmark",
    "category_id": "knowledge-work",
-   "name": "Harvey's Legal Agent Benchmark, all-pass rate (Vals AI)",
+   "name": "Harvey's Legal Agent Benchmark",
    "version": null,
    "version_label": "Harvey's Legal Agent Benchmark",
-   "metric_label": "all-pass rate, Vals AI held-out set",
+   "metric_label": "Harvey's Legal Agent Benchmark",
    "unit": "percent",
    "higher_is_better": true,
    "definition_status": "source_label_preserved",
@@ -11118,10 +11118,10 @@
    "id": "harvey-lab-aa--percent",
    "family_id": "harvey-s-legal-agent-benchmark",
    "category_id": "knowledge-work",
-   "name": "Harvey Legal Agent Benchmark, criterion pass rate (Artificial Analysis)",
+   "name": "Harvey's Legal Agent Benchmark (criterion pass rate)",
    "version": null,
-   "version_label": "Harvey's Legal Agent Benchmark",
-   "metric_label": "criterion pass rate, Artificial Analysis",
+   "version_label": "Harvey's Legal Agent Benchmark (criterion pass rate)",
+   "metric_label": "Harvey's Legal Agent Benchmark (criterion pass rate)",
    "unit": "percent",
    "higher_is_better": true,
    "definition_status": "source_label_preserved",
@@ -323019,6 +323019,12 @@
    "at": "2026-10-15",
    "reviewer": "Sugra research preparation",
    "reason": "One row per test: 44 benchmark definitions that differed from another only by a publisher's label (ARC-AGI verified sets, HLE / HLE-Full / Humanity's Last Exam, SWE-Bench Pro public set, AutomationBench, DeepSWE, GPQA Diamond and other score-unit copies, fraction-unit copies of COLLIE, IFBench, IFEval and GraphWalks converted to percent) were merged into the definition carrying the test's own name; 675 observations moved, 0 exact duplicate rows (same page, same model, same value) collapsed, 0 rows gained a dataset_revision from their label. 92 definitions renamed after the test's own name (Greek letters for the tau benchmarks, no pipe labels, '(no tools)' and '(with tools)' spelled one way). Three single-definition families folded into the family of the same test. Five hallucination and deception rates now marked lower-is-better.",
+   "added_observations": 0
+  },
+  {
+   "at": "2026-10-15",
+   "reviewer": "Sugra research preparation",
+   "reason": "Harvey's Legal Agent Benchmark: the two rows are named plainly, the all-pass rate under the test's own name and the Artificial Analysis criterion pass rate as '(criterion pass rate)', so the table shows no metric sub-line; the publisher and set stay in each observation's conditions.",
    "added_observations": 0
   }
  ],
