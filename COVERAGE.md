@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101574, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101575, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -86,8 +86,9 @@ What the catalog holds as of data version 2026101574, and what it does not. Coun
 | Claude Opus 5 | Anthropic | 51 | 5 | 14 |
 | Grok 4.5 | xAI | 25 | 6 | 5 |
 | Medium is the new large | Mistral AI | 76 | 6 | 14 |
+| Announcing Magistral | Mistral AI | 30 | 5 | 9 |
 
-80 publications, 7875 observations, 190 models, 499 benchmark definitions in 294 families.
+81 publications, 7905 observations, 192 models, 503 benchmark definitions in 294 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -122,7 +123,7 @@ Two categories are empty in this version. They stay in the taxonomy because the 
 
 ## Known gaps
 
-- `release_date` is recorded for 160 of 190 models and `published_at` for 65 of 80 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `release_date` is recorded for 162 of 192 models and `published_at` for 66 of 81 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
 - `reasoning_effort` is stated for 2304 observations, `tools` for 1120, `harness` for 817. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
