@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101557, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101558, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -69,8 +69,9 @@ What the catalog holds as of data version 2026101557, and what it does not. Coun
 | MiniMax-M2.7 model card | MiniMax | 44 | 6 | 11 |
 | StepFun Step 3.7 Flash model card | StepFun | 7 | 1 | 7 |
 | AI21 Jamba2 Mini model card | AI21 Labs | 20 | 4 | 5 |
+| Mistral Medium 3.5 model card | Mistral AI | 76 | 12 | 10 |
 
-63 publications, 6934 observations, 171 models, 485 benchmark definitions in 292 families.
+64 publications, 7010 observations, 177 models, 490 benchmark definitions in 293 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -99,14 +100,14 @@ Only rows the publisher printed as text or a table were transcribed. Values that
 | Engineering and design | 4 | 19 |
 | Preference and composite rankings | 1 | 6 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 192 checked against the maintainer's own page, the developer page or paper that prints the test, 100 written from the printed label alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 192 checked against the maintainer's own page, the developer page or paper that prints the test, 101 written from the printed label alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
 
 Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
 
 ## Known gaps
 
-- `release_date` is recorded for 136 of 171 models and `published_at` for 48 of 63 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
-- `reasoning_effort` is stated for 2006 observations, `tools` for 1005, `harness` for 691. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 141 of 177 models and `published_at` for 49 of 64 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `reasoning_effort` is stated for 2080 observations, `tools` for 1005, `harness` for 736. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
