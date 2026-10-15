@@ -78,7 +78,7 @@ def fixture() -> dict:
         ],
         "observations": [obs("obs-00000000000000000001", 46.2, "max"), obs("obs-00000000000000000002", 52.1, "xhigh")],
         "change_log": [{"at": "2026-10-14", "reviewer": "test", "reason": "seed", "added_observations": 2}],
-        "research_catalog": {"policy": "never exported", "benchmark_registry": [{"name": "Imported — label kept as reported"}]},
+        "research_catalog": {"policy": "never exported", "benchmark_registry": [{"name": "Imported label kept as reported"}]},
     }
 
 
@@ -226,10 +226,13 @@ class ValidateFixture(unittest.TestCase):
         del db["categories"][0]["description_en"]
         self.assertTrue(any("description_en" in p for p in validate.validate(db)))
 
-    def test_em_dash_outside_the_catalog_is_refused(self):
+    def test_em_dash_in_the_score_file_is_refused(self):
         db = fixture()
-        self.assertEqual(validate.validate(db), [], "catalog labels are kept as reported")
+        self.assertEqual(validate.validate(db), [])
         db["observations"][0]["source_locator"] = "Table 1 — row 2"
+        self.assertTrue(any("em dash" in p for p in validate.validate(db)))
+        db = fixture()
+        db["research_catalog"]["policy"] = "never — exported"
         self.assertTrue(any("em dash" in p for p in validate.validate(db)))
 
     def test_supersedes_must_resolve(self):
@@ -416,6 +419,16 @@ class RealDatabase(unittest.TestCase):
     def test_database_is_valid(self):
         self.assertEqual(validate.validate(self.db), [])
 
+    def test_score_file_has_no_unverified_draft(self):
+        self.assertNotIn("research_catalog", self.db)
+        draft_path = DATA.parent / "research-catalog.json"
+        draft = json.loads(draft_path.read_text(encoding="utf-8"))
+        self.assertIn("not scores", draft["notice"])
+        self.assertGreaterEqual(len(draft["benchmark_registry"]), 318)
+        self.assertGreaterEqual(len(draft["model_configurations"]), 897)
+        self.assertGreaterEqual(len(draft["family_evidence"]), 634)
+        self.assertNotIn("observations", draft)
+
     def test_seed_counts_never_shrink(self):
         self.assertGreaterEqual(len(self.db["observations"]), 596)
         self.assertGreaterEqual(len(self.db["publications"]), 7)
@@ -511,6 +524,41 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(muse["muse-spark-1-1"]["release_date"], "2026-07-09")
         self.assertIsNone(muse["muse-spark"]["release_date"])
         self.assertTrue(all(o["model_id"] not in muse for o in self.db["observations"]))
+
+    def test_official_dates_match_the_page(self):
+        models = {m["id"]: m for m in self.db["models"]}
+        pubs = {p["id"]: p for p in self.db["publications"]}
+        self.assertEqual(pubs["publication-anthropic-claude-opus-5-5"]["published_at"], "2026-09-22")
+        self.assertEqual(models["claude-opus-5-5"]["release_date"], "2026-09-22")
+        self.assertEqual(pubs["publication-anthropic-claude-sonnet-5-5"]["published_at"], "2026-09-28")
+        self.assertEqual(models["claude-sonnet-5-5"]["release_date"], "2026-09-28")
+        self.assertEqual(pubs["publication-xai-grok-4-7-model-card"]["published_at"], "2026-09-21")
+        self.assertEqual(models["grok-4-7"]["release_date"], "2026-09-21")
+        self.assertEqual(pubs["publication-openai-gpt-6-astra"]["published_at"], "2026-09-03")
+        self.assertEqual(models["gpt-6-astra"]["release_date"], "2026-09-03")
+        self.assertIsNone(pubs["publication-openai-gpt-6-1-sol"]["published_at"])
+        self.assertEqual(models["gpt-6-1-sol"]["release_date"], "2026-09-29")
+        self.assertIsNone(pubs["publication-deepseek-v4-pro-0813"]["published_at"])
+        self.assertIsNone(models["deepseek-v4-pro-0813"]["release_date"])
+        self.assertIsNone(pubs["publication-deepseek-v4-flash-0731"]["published_at"])
+        self.assertIsNone(models["deepseek-v4-flash-0731"]["release_date"])
+        self.assertIsNone(models["qwen3-8-27b"]["release_date"])
+        self.assertEqual(models["glm-5-3"]["release_date"], "2026-08-18")
+        self.assertEqual(models["deepseek-v4-1-flash"]["release_date"], "2026-09-10")
+        self.assertEqual(models["gemini-4-argon"]["release_date"], "2026-09-30")
+        self.assertEqual(models["claude-fable-5-1"]["release_date"], "2026-09-01")
+        self.assertEqual(models["qwen3-8-max"]["release_date"], "2026-08-03")
+        self.assertEqual(models["kimi-k3"]["release_date"], "2026-07-16")
+        self.assertEqual(models["gpt-6-sol"]["release_date"], "2026-09-22")
+        self.assertEqual(models["gpt-6-luna"]["release_date"], "2026-09-22")
+        self.assertIsNone(models["qwen3-7-max"]["release_date"])
+        self.assertIsNone(models["qwen3-8-flash-next"]["release_date"])
+        self.assertIsNone(models["qwen3-8-2-4t-a95b"]["release_date"])
+        self.assertIsNone(models["qwen3-max-thinking"]["release_date"])
+        self.assertIsNone(models["qwen-max"]["release_date"])
+        self.assertIsNone(models["deepseek-v4-vision-exp"]["release_date"])
+        self.assertIsNone(pubs["publication-anthropic-claude-fable-5-1"]["published_at"])
+        self.assertIsNone(pubs["publication-google-gemini-4-argon"]["published_at"])
 
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"

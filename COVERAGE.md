@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101582, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101587, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -40,20 +40,20 @@ What the catalog holds as of data version 2026101582, and what it does not: the 
 | DeepSeek-V4-Pro (preview) model card | DeepSeek | 289 | 10 | 45 |
 | DeepSeek-V3.2-Exp model card | DeepSeek | 28 | 2 | 14 |
 | DeepSeek-V3.1-Terminus model card | DeepSeek | 24 | 2 | 12 |
-| DeepSeek-R1-0528 model card | DeepSeek | 61 | 9 | 18 |
+| DeepSeek-R1-0528 model card | DeepSeek | 61 | 9 | 17 |
 | DeepSeek-R1 model card | DeepSeek | 175 | 13 | 22 |
-| GLM-5.2 model card | Z.ai | 133 | 8 | 20 |
-| GLM-5.1 model card | Z.ai | 143 | 9 | 17 |
-| GLM-5 model card | Z.ai | 122 | 7 | 18 |
+| GLM-5.2 model card | Z.ai | 133 | 8 | 18 |
+| GLM-5.1 model card | Z.ai | 143 | 9 | 16 |
+| GLM-5 model card | Z.ai | 122 | 7 | 17 |
 | GLM-4.7 model card | Z.ai | 125 | 8 | 16 |
 | Kimi K2.7 Code model card | Moonshot AI | 24 | 4 | 6 |
 | Kimi K2.6 model card | Moonshot AI | 154 | 5 | 32 |
-| Kimi K2.5 model card | Moonshot AI | 186 | 6 | 41 |
+| Kimi K2.5 model card | Moonshot AI | 186 | 6 | 39 |
 | Qwen3.8-Flash-Next model card | Alibaba | 109 | 5 | 27 |
 | Qwen3.6-27B model card | Alibaba | 247 | 6 | 45 |
 | Qwen3.6-35B-A3B model card | Alibaba | 254 | 6 | 51 |
-| Qwen3.5-397B-A17B model card | Alibaba | 476 | 7 | 88 |
-| Qwen3.5-122B-A10B model card | Alibaba | 471 | 8 | 88 |
+| Qwen3.5-397B-A17B model card | Alibaba | 476 | 7 | 87 |
+| Qwen3.5-122B-A10B model card | Alibaba | 471 | 8 | 87 |
 | Kimi K2 Thinking release page | Moonshot AI | 137 | 7 | 22 |
 | Kimi K2 release page | Moonshot AI | 212 | 7 | 31 |
 | MiniMax-M2.5 model card | MiniMax | 46 | 7 | 7 |
@@ -96,9 +96,9 @@ What the catalog holds as of data version 2026101582, and what it does not: the 
 | Muse Spark 1.1 | Meta | 0 | 0 | 0 |
 | GLM-5.3 post | Z.ai | 5 | 4 | 1 |
 
-89 publications, 8579 observations, 442 models, 547 benchmark definitions in 323 families.
+89 publications, 8579 observations, 442 models, 502 benchmark definitions in 320 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
-Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
+A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
 ## Official prices
 
@@ -116,7 +116,7 @@ Checked on 2026-10-15 against each publisher's own price page. Schema 1.1.0. A p
 | Mistral API pricing | Mistral AI | 24 |
 | Z.AI API pricing | Z.ai | 86 |
 
-2,367 price rows. 237 models are in the catalog only because a price page names them; the other priced models also carry benchmark rows. `latest` is still one flagship per developer and was not changed.
+2,367 price rows. 237 models are in the catalog only because a price page names them. 82 models have both a price and at least one benchmark row. 120 models have benchmark rows and no price. Three named models have neither: Llama 3.1 70B, Muse Spark, and Muse Spark 1.1. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens, except Kimi, which stays in CNY because that is the unit on the page. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
@@ -126,45 +126,46 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 
 | Category | Benchmarks | Observations |
 |---|---|---|
-| Knowledge work | 15 | 86 |
-| Agentic coding | 19 | 137 |
-| ML engineering | 4 | 17 |
-| Science and math | 14 | 62 |
-| Long context | 6 | 20 |
-| Computer use | 3 | 14 |
-| Multimodal understanding | 4 | 17 |
-| Cybersecurity | 12 | 42 |
-| General knowledge and reasoning | 8 | 38 |
-| Code generation | 2 | 10 |
-| Tool use and workflows | 6 | 25 |
-| Web search and research | 2 | 8 |
-| Instruction following | 1 | 5 |
-| Multilingual | 0 | 0 |
-| Writing and conversation | 0 | 0 |
-| Healthcare | 3 | 15 |
+| Knowledge work | 40 | 618 |
+| Agentic coding | 53 | 1361 |
+| ML engineering | 13 | 97 |
+| Science and math | 51 | 1249 |
+| Long context | 39 | 305 |
+| Computer use | 13 | 199 |
+| Multimodal understanding | 75 | 1393 |
+| Cybersecurity | 19 | 177 |
+| General knowledge and reasoning | 39 | 1004 |
+| Code generation | 26 | 344 |
+| Tool use and workflows | 39 | 814 |
+| Web search and research | 17 | 328 |
+| Instruction following | 6 | 160 |
+| Multilingual | 13 | 195 |
+| Writing and conversation | 3 | 26 |
+| Healthcare | 8 | 87 |
 | Biosecurity | 8 | 27 |
-| Safety and alignment | 17 | 48 |
-| Engineering and design | 4 | 19 |
-| Preference and composite rankings | 1 | 6 |
+| Safety and alignment | 27 | 109 |
+| Engineering and design | 6 | 43 |
+| Preference and composite rankings | 7 | 43 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 192 checked against the maintainer's own page, the developer page or paper that prints the test, 130 written from the printed label alone (each one's `notes` says what is missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 191 checked against the maintainer's own page, the developer page or paper that prints the test, 128 not yet checked against the maintainer's page (each one's `notes` says what is still missing; some of those notes already cite a paper), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
 
-Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
+Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 172 of 442 models and `published_at` for 74 of 89 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
-- `reasoning_effort` is stated for 2415 observations, `tools` for 1249, `harness` for 890. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 195 of 442 models and `published_at` for 76 of 89 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
+- `reasoning_effort` is stated for 2420 observations, `tools` for 1249, `harness` for 890. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
-- Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
+- Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 152 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
+- Locally run models are a separate review. A model is listed here when a publisher prints it on an official page. An open-weight name appears only in that case. Weights run on your own machine are not collected.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
 - Independent sources (leaderboards, third-party evaluations) are absent. Adding one is a new `kind` and a new `evidence_type`, which means extending the contract and its tests first.
 
 ## Research catalog (not published)
 
-The database carries a working catalog: 318 benchmark registry entries, 897 model configurations and 634 family evidence rows, gathered from third-party catalogs, plus a pointer to a local import file of 9,749 candidate rows that is not committed. None of this is verified and none of it reaches the payload. It is a map of where to look next, in this order:
+The unverified draft lives in `data/research-catalog.json`, not in the score file: 318 benchmark registry entries, 897 model configurations and 634 family evidence rows, gathered from third-party catalogs, plus a pointer to a local import file of 9,749 candidate rows that is not committed. None of this is verified and none of it reaches the payload. It is a map of where to look next, in this order:
 
-1. New official releases from the five publishers already covered.
+1. New official releases from the publishers already in the catalog.
 2. System cards and model cards not yet transcribed.
 3. Exact values behind dynamic charts, when a publisher also prints them.
 4. Independent sources, after the contract is extended for them.

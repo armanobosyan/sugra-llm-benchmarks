@@ -1,6 +1,6 @@
 # Data contract
 
-`data/database.json` is the source. `tools/benchdb/validate.py` enforces everything below; a rule that is not in this file is not enforced, and a new kind of source or unit extends this file first.
+`data/database.json` is the source. `tools/benchdb/validate.py` enforces the structural rules in this file: ids, references, kinds, units, dates, punctuation, the price publisher, and one row when two labels carry the same values. It does not re-read a publisher page, and it does not fill a missing field. A rule that is not in this file is not enforced, and a new kind of source or unit extends this file first.
 
 ## Top level
 
@@ -13,11 +13,11 @@
 | `comparison_policy` | Free text the article shows. Score selection, missing values, percent rule, no overall ranking. |
 | `taxonomy_note` | Why the categories are editorial. |
 | `categories`, `families`, `benchmarks`, `models`, `publications`, `observations`, `prices`, `change_log` | The records below. `prices` is required from schema 1.1.0 and may be an empty list. A 1.0.0 database may omit it. |
-| `research_catalog` | Internal working material. Never exported to the payload. The only place where imported labels keep their original punctuation. |
+| `data/research-catalog.json` | A separate unverified draft. Not a key of this file. `validate` and `build` do not load that file. A `research_catalog` key pasted back into the score file is ordinary text: `validate` checks it, and `build` still leaves it out of the payload. |
 
 ## Text
 
-Outside the research catalog, no string may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in the database, the research catalog included, is English.
+No string in `data/database.json` may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in that file is English. The draft file may keep the punctuation of an imported label.
 
 ## Records
 
@@ -55,7 +55,7 @@ One record per exact test, version and metric. A publisher's own label for a tes
 | `unit` | `percent`, `score`, `elo`, `usd` or `fraction`. |
 | `unit_denominator` | Required for `usd` (for example `task`), otherwise null. |
 | `higher_is_better` | Boolean. False for cost, refusal and error rates. |
-| `definition_status` | `source_label_preserved` until a benchmark is documented independently. |
+| `definition_status` | `source_label_preserved` until a benchmark is documented independently. The checker requires the field. It does not decide whether a definition has been documented independently. |
 | `cross_publication_equivalence` | `not_established` unless two publications are shown to use one protocol. |
 
 ### models
@@ -80,7 +80,7 @@ One record per number on a page.
 | `benchmark_id`, `model_id`, `publication_id` | Must exist. |
 | `value` | A number. Percent in 0..100, fraction in 0..1, elo a positive number (a decimal stays as printed), usd not negative. |
 | `unit`, `unit_denominator` | Must equal the benchmark's. |
-| `conditions` | Object with exactly the known keys: `model_label_as_published`, `benchmark_label_as_published`, `setup_as_reported`, `model_setup_as_reported` (all required), `reasoning_effort`, `harness`, `tools`, `fallback_policy`, `attempt_budget`, `context_tokens`, `dataset_revision` (null when the publisher did not say), `protocol_equivalence` (required). |
+| `conditions` | Object. Required and non-empty: `model_label_as_published`, `benchmark_label_as_published`, `setup_as_reported`, `model_setup_as_reported`, `protocol_equivalence`. Allowed, and omitted or null when the publisher did not say: `reasoning_effort`, `harness`, `tools`, `fallback_policy`, `attempt_budget`, `context_tokens`, `dataset_revision`. Any other key is refused. The checker does not fill a missing key. |
 | `source_url` | https. The page the number is on. |
 | `source_locator` | Where on the page: table name, section, page number. |
 | `methodology_url` | Optional. |
@@ -138,4 +138,4 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 
 ## Research catalog
 
-`research_catalog` holds a benchmark registry, model configurations and family evidence pulled from third-party catalogs, plus a pointer to a local `imports/` file. These entries are navigation and candidate material: not verified scores, never exported, never matched to observations by name similarity. Promoting a candidate means reading the publisher's page and creating an observation by the runbook.
+`data/research-catalog.json` holds a benchmark registry, model configurations and family evidence pulled from third-party catalogs, plus a pointer to a local `imports/` file. These entries are navigation and candidate material: not verified scores, not loaded by the payload, never matched to observations by name similarity. Promoting a candidate means reading the publisher's page and creating an observation by the runbook. The score file does not contain this object. If a copy is passed to `build` under the old key, the payload still drops it.
