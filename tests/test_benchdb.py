@@ -135,6 +135,12 @@ class ValidateFixture(unittest.TestCase):
         problems = validate.validate(db)
         self.assertTrue(any("identical conditions" in p for p in problems), problems)
 
+    def test_second_configuration_in_the_same_cell_is_a_row(self):
+        db = fixture()
+        db["observations"][1]["conditions"]["reasoning_effort"] = "max"
+        db["observations"][1]["conditions"]["model_setup_as_reported"] = 'second value printed in the same cell as "60.9% (Mythos 5.1)"'
+        self.assertEqual(validate.validate(db), [])
+
     def test_unit_must_match_benchmark(self):
         db = fixture()
         db["observations"][0]["unit"] = "score"
@@ -146,15 +152,15 @@ class ValidateFixture(unittest.TestCase):
         db["observations"][0]["value"] = 101
         self.assertTrue(any("percent out of range" in p for p in validate.validate(db)))
 
-    def test_elo_is_a_positive_integer(self):
+    def test_elo_is_a_positive_number(self):
         db = fixture()
         db["benchmarks"][0]["unit"] = "elo"
         db["benchmarks"][0]["id"] = "arena--elo"
         for o in db["observations"]:
             o["benchmark_id"] = "arena--elo"
             o["unit"] = "elo"
-        db["observations"][0]["value"] = 1846
-        db["observations"][1]["value"] = 18.5
+        db["observations"][0]["value"] = 1747.8
+        db["observations"][1]["value"] = 0
         problems = validate.validate(db)
         self.assertEqual(len([p for p in problems if "elo must be" in p]), 1, problems)
 
@@ -456,6 +462,8 @@ class RealDatabase(unittest.TestCase):
                 "Alibaba": "qwen3-8-max",
                 "xAI": "grok-4-7",
                 "Moonshot AI": "kimi-k3",
+                "DeepSeek": "deepseek-v4-1-flash",
+                "Z.ai": "glm-5-3",
             },
         )
 
