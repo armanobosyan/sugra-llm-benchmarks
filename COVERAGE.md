@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101587, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101589, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -147,7 +147,7 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 | Engineering and design | 6 | 43 |
 | Preference and composite rankings | 7 | 43 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 191 checked against the maintainer's own page, the developer page or paper that prints the test, 128 not yet checked against the maintainer's page (each one's `notes` says what is still missing; some of those notes already cite a paper), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 287 checked against the maintainer's own page or paper, 33 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
