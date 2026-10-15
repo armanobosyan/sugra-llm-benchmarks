@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "data_version": "2026101555",
+  "data_version": "2026101556",
   "as_of": "2026-10-15",
   "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
   "default_publication_id": "publication-google-gemini-4-argon",
@@ -8641,6 +8641,32 @@
         "evidence_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
         "notes": "Known only from the MiniMax-M2.7 model card. Written as remembered; not re-read for this entry."
       }
+    },
+    {
+      "id": "claweval",
+      "name": "ClawEval",
+      "category_id": "tool-use-workflows",
+      "tags": [
+        "agents",
+        "multi-turn",
+        "policy"
+      ],
+      "classification_note": "Editorial assignment by test subject and source catalog; version, protocol and result metric remain separate fields.",
+      "priority": 2,
+      "published_by": [
+        "StepFun"
+      ],
+      "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
+      "catalog_order": 404,
+      "about": {
+        "maintainer": "Not stated on the pages read",
+        "url": null,
+        "what_it_tests": "ClawEval scores an agent on multi-turn tool orchestration tasks with adversarial traps and system policies to respect; the page reporting it (StepFun) cites version 1.1 dated 2026-05-09 and reports a 0 to 100 score.",
+        "introduced": 2026,
+        "status": "unverified",
+        "evidence_url": null,
+        "notes": "Known only from the StepFun Step 3.7 Flash model card. Written as remembered; not re-read for this entry."
+      }
     }
   ],
   "benchmarks": [
@@ -15349,6 +15375,20 @@
       "definition_status": "source_label_preserved",
       "cross_publication_equivalence": "not_established",
       "unit_denominator": null
+    },
+    {
+      "id": "claweval-1-1--percent",
+      "family_id": "claweval",
+      "category_id": "tool-use-workflows",
+      "name": "ClawEval-1.1",
+      "version": "1.1",
+      "version_label": "ClawEval-1.1",
+      "metric_label": "ClawEval-1.1",
+      "unit": "percent",
+      "higher_is_better": true,
+      "definition_status": "source_label_preserved",
+      "cross_publication_equivalence": "not_established",
+      "unit_denominator": null
     }
   ],
   "models": [
@@ -16687,6 +16727,14 @@
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
       "release_date": null,
       "latest": false
+    },
+    {
+      "id": "step-3-7-flash",
+      "name": "Step 3.7 Flash",
+      "developer": "StepFun",
+      "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
+      "release_date": "2026-05-29",
+      "latest": false
     }
   ],
   "publications": [
@@ -17482,6 +17530,19 @@
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
       "coverage": "The benchmark overview chart (figures/benchmark_overview.png): eight panels (SWE Bench Pro, Multi-SWE Bench, VIBE-Pro, MLE-Bench lite, GDPval-AA, Toolathlon, MM-ClawBench, Artificial Analysis) for M2.7, M2.5, Gemini 3.1 Pro, Sonnet 4.6, Opus 4.6 and GPT 5.4; a missing bar is stored as no value. The GDPval-AA panel is left out: its bars sit on a 0 to 100 scale with no unit stated, while the prose gives M2.7 an Elo of 1495; the prose Elo is stored instead. Also stored from the prose: SWE Multilingual 76.5, Terminal Bench 2 57.0 and NL2Repo 39.8 for M2.7. Values read from the bar labels of the chart image; the page prints no table. Left out: the agent harness and MLE-Bench medal-rate figures, the deployment and usage sections."
+    },
+    {
+      "id": "publication-stepfun-step-3-7-flash-model-card",
+      "name": "StepFun Step 3.7 Flash model card",
+      "publisher": "StepFun",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_id": "publication-stepfun-step-3-7-flash-model-card",
+      "published_at": "2026-05-29",
+      "checked_on": "2026-10-15",
+      "kind": "model_card",
+      "comparison_scope": "publisher_comparison",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "coverage": "Section 2 Capabilities and Performance: the Step 3.7 Flash bars of the benchmark chart (assets/benchmarks.png: SWE-Bench Pro, Terminal-Bench 2.1, SimpleVQA with Tool, V* with Python, GDPval, Toolathlon, ClawEval-1.1, HLE with Tool) and the same figures in the prose. The comparison bars are left out: the chart identifies them only by vendor icons, never by model name or version. The GDPval panel is left out as well: its 0 to 66 scale carries no unit, while the prose calls it GDPVal-AA. Values read from the bar labels of the chart image; the page prints no table. Left out: pricing, availability and examples."
     }
   ],
   "observations": [
@@ -238508,6 +238569,230 @@
       "status": "active",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
+    },
+    {
+      "id": "obs-025e7902c483f81eec84",
+      "benchmark_id": "swe-bench-pro--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 56.3,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "SWE-Bench Pro",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: Agentic Coding. The prose repeats 56.3.",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high).",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
+    },
+    {
+      "id": "obs-ff49defb7c7102537802",
+      "benchmark_id": "terminal-bench-2-1--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 59.5,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "Terminal-Bench 2.1",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: Agentic Coding. The prose repeats 59.5.",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high).",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
+    },
+    {
+      "id": "obs-fe928d521bed4ef97a98",
+      "benchmark_id": "simplevqa--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 79.2,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "SimpleVQA (with Tool)",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: Multimodal. The prose calls it SimpleVQA (Search).",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high).",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": "search",
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
+    },
+    {
+      "id": "obs-7956dc88e1603d1d929a",
+      "benchmark_id": "v-star-with-tools--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 95.3,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "V* (with Python)",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: Multimodal. The prose repeats 95.3.",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high).",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": "Python",
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
+    },
+    {
+      "id": "obs-3ee4f218899feeecc457",
+      "benchmark_id": "toolathlon--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 49.5,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "Toolathlon",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: General Agent. The prose repeats 49.5.",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high).",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
+    },
+    {
+      "id": "obs-8b3573827e1c7edae03e",
+      "benchmark_id": "claweval-1-1--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 67.1,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "ClawEval-1.1 (2026-05-09)",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: General Agent. Dated 2026-05-09 on the chart; the prose repeats 67.1.",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high).",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
+    },
+    {
+      "id": "obs-558364658246c098ef81",
+      "benchmark_id": "hle-w-tools--percent",
+      "model_id": "step-3-7-flash",
+      "publication_id": "publication-stepfun-step-3-7-flash-model-card",
+      "value": 47.2,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Step 3.7 Flash",
+        "benchmark_label_as_published": "HLE (with Tool)",
+        "setup_as_reported": "Section 2 benchmark chart (assets/benchmarks.png), publisher bar. Values read from the bar labels of the chart image; the page prints no table. Group: General Agent. The chart bar reads 47.2; the prose says 48.1 on HLE w. Tool.",
+        "model_setup_as_reported": "Publisher model as charted; the card states no reasoning level for these runs (the model offers low, medium and high). The chart reads 47.2; the prose of the same card says 48.1.",
+        "reasoning_effort": null,
+        "harness": null,
+        "tools": "tools",
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "source_locator": "Section 2 benchmark chart",
+      "methodology_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash",
+      "checked_on": "2026-10-15",
+      "evidence_type": "official_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "publisher_comparison",
+      "supersedes": null
     }
   ],
   "research_catalog": {
@@ -265649,6 +265934,12 @@
       "reviewer": "Sugra research preparation",
       "reason": "MiniMax-M2.7 model card: M2.7 against M2.5, Gemini 3.1 Pro, Claude Sonnet 4.6, Claude Opus 4.6 and GPT-5.4 on seven chart panels plus four figures from the prose.",
       "added_observations": 44
+    },
+    {
+      "at": "2026-10-15",
+      "reviewer": "Sugra research preparation",
+      "reason": "StepFun Step 3.7 Flash model card: the publisher's own results on seven benchmarks, from the chart and the prose.",
+      "added_observations": 7
     }
   ]
 }
