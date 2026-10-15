@@ -459,6 +459,28 @@ class RealDatabase(unittest.TestCase):
             },
         )
 
+    def test_publisher_pages_keep_printed_numbers(self):
+        def one(publication_id, benchmark_id, model_id, **cond):
+            hits = [
+                o for o in self.db["observations"]
+                if o["publication_id"] == publication_id
+                and o["benchmark_id"] == benchmark_id
+                and o["model_id"] == model_id
+                and all(o["conditions"].get(k) == v for k, v in cond.items())
+            ]
+            self.assertEqual(len(hits), 1, (publication_id, benchmark_id, model_id, cond))
+            return hits[0]["value"]
+
+        self.assertEqual(one("publication-mistral-large-4", "deepswe-v1-1--percent", "mistral-large-4"), 61.7)
+        self.assertEqual(one("publication-zai-glm-5-3", "terminal-bench-2-1--score", "glm-5-3"), 88.2)
+        self.assertEqual(one("publication-zai-glm-5-3", "cybergym-pass-1--percent", "claude-fable-5"), 83.8)
+        self.assertEqual(one("publication-deepseek-v4-1-flash", "gpqa-diamond--percent", "deepseek-v4-1-flash"), 90.9)
+        self.assertEqual(one("publication-moonshot-kimi-k3", "gpqa-diamond--percent", "kimi-k3"), 93.5)
+        self.assertEqual(one("publication-zai-glm-5-3", "exploitgym-tasks--score", "glm-5-3", attempt_budget="2h"), 105)
+        muse = {m["id"]: m for m in self.db["models"] if m["developer"] == "Meta"}
+        self.assertEqual(set(muse), {"muse-spark", "muse-spark-1-1"})
+        self.assertTrue(all(o["model_id"] not in muse for o in self.db["observations"]))
+
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"
         self.assertTrue(out.exists(), "run python -m tools.benchdb build")

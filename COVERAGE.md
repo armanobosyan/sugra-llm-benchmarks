@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds, and what it does not. The benchmark slice is still the 2026-10-14 transcription (596 observations, data version 2026101402). Official prices were added on 2026-10-15; the catalog data version is now 2026101501. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds, and what it does not. The 2026-10-14 transcription is still the first 596 observations. Official prices were added the same week (data version 2026101501), and publisher pages checked on 2026-10-15 added 620 observations (data version 2026101502). Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -13,8 +13,14 @@ What the catalog holds, and what it does not. The benchmark slice is still the 2
 | GPT-6.1 Sol | OpenAI | 10 | 5 | 4 |
 | Grok 4.7 model card | xAI | 145 | 11 | 38 |
 | Qwen3.8-Max comparison | Alibaba | 151 | 5 | 32 |
+| Mistral Large 4 | Mistral | 16 | 6 | 11 |
+| GLM-5.3 | Z.AI | 125 | 8 | 17 |
+| DeepSeek-V4-Pro-0813 model card | DeepSeek | 84 | 8 | 11 |
+| DeepSeek-V4.1-Flash model card | DeepSeek | 125 | 7 | 22 |
+| Kimi K3 model card | Moonshot AI | 270 | 6 | 46 |
+| Muse Spark 1.1 | Meta | 0 | 0 | 0 |
 
-Seven publications, 596 observations, 21 models in that slice, 129 benchmark definitions in 97 families. The file now also holds the priced models named below. The 596 observations are unchanged.
+The first seven publications are unchanged: 596 observations. The five new tables add 620 observations. Muse Spark 1.1 is a publication with no observation, because the post prints no benchmark number. The file also holds the priced models named below. Benchmark definitions are now 184, in 134 families that have at least one benchmark.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -65,13 +71,13 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 | Engineering and design | 4 | 19 |
 | Preference and composite rankings | 1 | 6 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 69 checked against the maintainer's own page or paper, 28 written from secondary coverage or from the name alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 69 checked against the maintainer's own page or paper, 28 written from secondary coverage or from the name alone (each one's `notes` says what is missing), 37 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
 
 Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
 
 ## Known gaps
 
-- `release_date` is null for every model and `published_at` for every publication: the pages were checked, their publication dates were not recorded yet.
+- `release_date` is set only where the page prints a date: Mistral Large 4 on 2026-10-06, GLM-5.3 on 2026-08-14, Muse Spark 1.1 on 2026-07-09. The first seven publications have no `published_at`. DeepSeek and Kimi cards print no calendar date. `latest` is unchanged: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3.
 - `reasoning_effort` is stated for 176 observations, `tools` for 30, `harness` for none. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
