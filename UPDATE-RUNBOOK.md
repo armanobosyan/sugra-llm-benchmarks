@@ -11,6 +11,16 @@ Every change to the catalog is one pull request that changes `data/database.json
 5. Add `observations` (section 2).
 6. Append a `change_log` entry, bump `data_version` and `as_of`.
 
+## 1b. Add a price
+
+A price is not an observation. Do not put it in `observations`, or a table that shades the best cell in a row will shade the cheapest model.
+
+1. Open the developer's own price page. A figure on another lab's page is not this model's price.
+2. Add one `official_price_list` publication for that page (`comparison_scope` `price_list`) if it is not there yet. `coverage` names what was transcribed and what was left as a rule instead of a row (a regional multiplier, a batch discount stated only as a percent, audio, tools, training hours).
+3. Add a `models` record for a SKU that is not already in the catalog. `latest` stays false unless that developer has no latest model and this one is the flagship the developer lists first. Do not move `latest` off the current flagship just because a smaller model is newer.
+4. Add one `prices` row per printed number: component, schedule, context band and the page's threshold, modality, region, meter, offer, and `valid_from` / `valid_until` only when the page states them. A printed zero is free. A dash is no row. Do not compute a discount the page only describes as a multiplier. Do not convert yuan to dollars.
+5. Append a `change_log` entry with `added_observations` 0, and bump `data_version` and `as_of`.
+
 ## 2. Add an observation
 
 For every number on the page:

@@ -215,6 +215,120 @@ class ValidateFixture(unittest.TestCase):
         db["change_log"].append({"at": "2026-11-01", "reviewer": "t", "reason": "r"})
         self.assertTrue(any("newer than as_of" in p for p in validate.validate(db)))
 
+    def test_prices_are_optional_on_a_1_0_database(self):
+        self.assertEqual(validate.validate(fixture()), [])
+
+    def test_price_publisher_must_be_the_model_developer(self):
+        db = fixture()
+        db["publications"].append(
+            {
+                "id": "publication-prices",
+                "name": "Vendor A prices",
+                "publisher": "Vendor B",
+                "url": "https://example.com/prices",
+                "source_id": "publication-prices",
+                "published_at": None,
+                "checked_on": "2026-10-15",
+                "kind": "official_price_list",
+                "comparison_scope": "price_list",
+                "methodology_url": None,
+                "coverage": "The token table only.",
+            }
+        )
+        db["prices"] = [
+            {
+                "id": "price-model-x-input-standard-any-list",
+                "model_id": "model-x",
+                "publication_id": "publication-prices",
+                "component": "input",
+                "value": 2,
+                "unit": "usd_per_million_tokens",
+                "schedule": "standard",
+                "context_band": "any",
+                "context_threshold_tokens": None,
+                "modality": "text",
+                "region": None,
+                "meter": None,
+                "offer": "list",
+                "valid_from": None,
+                "valid_until": None,
+                "checked_on": "2026-10-15",
+                "source_url": "https://example.com/prices",
+                "source_locator": "Standard table",
+                "status": "active",
+                "note": None,
+            }
+        ]
+        problems = validate.validate(db)
+        self.assertTrue(any("not the model developer" in p for p in problems), problems)
+        db["publications"][-1]["publisher"] = "Vendor A"
+        self.assertEqual(validate.validate(db), [])
+
+    def test_observation_cannot_hang_on_a_price_list(self):
+        db = fixture()
+        db["publications"].append(
+            {
+                "id": "publication-prices",
+                "name": "Vendor A prices",
+                "publisher": "Vendor A",
+                "url": "https://example.com/prices",
+                "source_id": "publication-prices",
+                "published_at": None,
+                "checked_on": "2026-10-15",
+                "kind": "official_price_list",
+                "comparison_scope": "price_list",
+                "methodology_url": None,
+                "coverage": "The token table only.",
+            }
+        )
+        db["observations"][0]["publication_id"] = "publication-prices"
+        self.assertTrue(any("cannot hang on a price list" in p for p in validate.validate(db)))
+
+    def test_duplicate_active_price_is_refused(self):
+        db = fixture()
+        db["publications"].append(
+            {
+                "id": "publication-prices",
+                "name": "Vendor A prices",
+                "publisher": "Vendor A",
+                "url": "https://example.com/prices",
+                "source_id": "publication-prices",
+                "published_at": None,
+                "checked_on": "2026-10-15",
+                "kind": "official_price_list",
+                "comparison_scope": "price_list",
+                "methodology_url": None,
+                "coverage": "The token table only.",
+            }
+        )
+        row = {
+            "id": "price-model-x-input-standard-any-list",
+            "model_id": "model-x",
+            "publication_id": "publication-prices",
+            "component": "input",
+            "value": 2,
+            "unit": "usd_per_million_tokens",
+            "schedule": "standard",
+            "context_band": "any",
+            "context_threshold_tokens": None,
+            "modality": "text",
+            "region": None,
+            "meter": None,
+            "offer": "list",
+            "valid_from": None,
+            "valid_until": None,
+            "checked_on": "2026-10-15",
+            "source_url": "https://example.com/prices",
+            "source_locator": "Standard table",
+            "status": "active",
+            "note": None,
+        }
+        other = dict(row)
+        other["id"] = "price-model-x-input-standard-any-list-again"
+        other["value"] = 3
+        db["prices"] = [row, other]
+        self.assertTrue(any("duplicate active price" in p for p in validate.validate(db)))
+
 
 class BuildFixture(unittest.TestCase):
     def test_payload_drops_catalog_and_nulls(self):
@@ -306,6 +420,44 @@ class RealDatabase(unittest.TestCase):
             if o["model_id"] == "claude-sonnet-5-5" and o["benchmark_id"] == "frontiercode-v1-1-main--percent"
         }
         self.assertEqual(rows, {"max": 46.2, "xhigh": 52.1})
+
+    def test_benchmark_rows_do_not_hang_on_a_price_list(self):
+        price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
+        self.assertEqual(len(price_pubs), 9)
+        self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
+        self.assertGreaterEqual(len(self.db["prices"]), 2367)
+
+    def test_official_price_spot_checks(self):
+        active = [p for p in self.db["prices"] if p["status"] == "active"]
+
+        def one(**query):
+            hits = [p for p in active if all(p.get(k) == v for k, v in query.items())]
+            self.assertEqual(len(hits), 1, query)
+            return hits[0]
+
+        self.assertEqual(one(model_id="gpt-6-astra", schedule="standard", context_band="short", component="input")["value"], 10)
+        self.assertEqual(one(model_id="gpt-5-4", schedule="batch", context_band="short", component="cached_input")["value"], 0.13)
+        self.assertEqual(one(model_id="claude-fable-5-1", schedule="standard", component="cached_input")["value"], 0.25)
+        self.assertEqual(one(model_id="grok-4-7", schedule="fast", context_band="short", component="input")["value"], 4)
+        self.assertEqual(one(model_id="gemini-4-argon", schedule="standard", component="input", offer="promotional", valid_until="2026-11-30")["value"], 2)
+        self.assertEqual(one(model_id="gemini-3-8-flash", schedule="standard", component="storage", offer="promotional", valid_until="2026-12-31")["value"], 0.5)
+        self.assertEqual(one(model_id="kimi-k3", component="input")["unit"], "cny_per_million_tokens")
+        self.assertEqual(one(model_id="glm-5-3", component="input")["value"], 1.4)
+        self.assertEqual(one(model_id="qwen3-8-max", component="input", region="international")["value"], 2)
+        self.assertEqual(one(model_id="mistral-large-4", component="input", offer="promotional")["value"], 0.68)
+        self.assertIsNone(one(model_id="mistral-large-4", component="input", offer="promotional").get("valid_until"))
+        latest = {m["developer"]: m["id"] for m in self.db["models"] if m.get("latest") is True}
+        self.assertEqual(
+            latest,
+            {
+                "Google": "gemini-4-argon",
+                "OpenAI": "gpt-6-astra",
+                "Anthropic": "claude-fable-5-1",
+                "Alibaba": "qwen3-8-max",
+                "xAI": "grok-4-7",
+                "Moonshot AI": "kimi-k3",
+            },
+        )
 
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"

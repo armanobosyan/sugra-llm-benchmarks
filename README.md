@@ -8,7 +8,7 @@ The catalog feeds the comparison article on the Sugra Systems blog. The article 
 
 | Path | What it is |
 |---|---|
-| `data/database.json` | The editable source. Categories, benchmark families, benchmark definitions, model identities, publications, observations, change log and the internal research catalog. |
+| `data/database.json` | The editable source. Categories, benchmark families, benchmark definitions, model identities, publications, observations, official prices, change log and the internal research catalog. |
 | `public/benchmarks.v1.json` | The built payload the article loads. Generated, committed, checked in CI. Never edit by hand. |
 | `tools/benchdb/` | `validate` and `build`, standard library only. |
 | `tests/` | Contract tests plus checks against the real database. |
@@ -36,6 +36,7 @@ Python 3.12 or newer, no dependencies.
 - `percent` gets a percent sign. `score`, `elo` and `usd` are shown in their own units.
 - A model with no result for a test shows a dash, not a zero.
 - A result a publisher printed under one model's name while its footnote names another configuration is stored under the model the heading names, and the footnote stays on the result (`conditions.model_setup_as_reported`).
+- A token price is not a benchmark result. It lives in `prices`, taken from that developer's own price page. The payload's `counts.prices` is the number of active prices. A missing end date means the page did not state one.
 
 ## Taxonomy
 
