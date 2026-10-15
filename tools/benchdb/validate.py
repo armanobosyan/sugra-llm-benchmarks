@@ -135,9 +135,8 @@ def validate(db: dict) -> list[str]:
     if "prices" in db and not isinstance(db["prices"], list):
         err("top: prices must be a list")
 
-    # ---- text hygiene (everything except the imported research catalog) ---
-    public_part = {k: v for k, v in db.items() if k != "research_catalog"}
-    for where, text in _walk_strings(public_part):
+    # ---- text hygiene (the whole score file, including a leftover draft key) ---
+    for where, text in _walk_strings(db):
         for char, name in FORBIDDEN_CHARS.items():
             if char in text:
                 err(f"text: {name} in {where}")

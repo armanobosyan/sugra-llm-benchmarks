@@ -13,11 +13,11 @@
 | `comparison_policy` | Free text the article shows. Score selection, missing values, percent rule, no overall ranking. |
 | `taxonomy_note` | Why the categories are editorial. |
 | `categories`, `families`, `benchmarks`, `models`, `publications`, `observations`, `prices`, `change_log` | The records below. `prices` is required from schema 1.1.0 and may be an empty list. A 1.0.0 database may omit it. |
-| `research_catalog` | Internal working material. Never exported to the payload. The only place where imported labels keep their original punctuation. |
+| `data/research-catalog.json` | A separate unverified draft. Not a key of this file. `validate` and `build` do not load that file. A `research_catalog` key pasted back into the score file is ordinary text: `validate` checks it, and `build` still leaves it out of the payload. |
 
 ## Text
 
-Outside the research catalog, no string may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in the database, the research catalog included, is English.
+No string in `data/database.json` may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in that file is English. The draft file may keep the punctuation of an imported label.
 
 ## Records
 
@@ -138,4 +138,4 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 
 ## Research catalog
 
-`research_catalog` holds a benchmark registry, model configurations and family evidence pulled from third-party catalogs, plus a pointer to a local `imports/` file. These entries are navigation and candidate material: not verified scores, never exported, never matched to observations by name similarity. Promoting a candidate means reading the publisher's page and creating an observation by the runbook.
+`data/research-catalog.json` holds a benchmark registry, model configurations and family evidence pulled from third-party catalogs, plus a pointer to a local `imports/` file. These entries are navigation and candidate material: not verified scores, not loaded by the payload, never matched to observations by name similarity. Promoting a candidate means reading the publisher's page and creating an observation by the runbook. The score file does not contain this object. If a copy is passed to `build` under the old key, the payload still drops it.
