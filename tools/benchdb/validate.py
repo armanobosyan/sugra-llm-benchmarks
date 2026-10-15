@@ -87,7 +87,7 @@ CONDITION_KEYS = {
 }
 # Conditions that make two observations of one (benchmark, model, publication)
 # legitimately distinct: the same row published at two efforts or two harnesses.
-DISTINGUISHING = ("reasoning_effort", "harness", "tools", "fallback_policy", "attempt_budget", "context_tokens", "dataset_revision")
+DISTINGUISHING = ("reasoning_effort", "harness", "tools", "fallback_policy", "attempt_budget", "context_tokens", "dataset_revision", "model_setup_as_reported")
 
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 DATA_VERSION_RE = re.compile(r"^\d{8}\d{2}$")
@@ -297,8 +297,8 @@ def validate(db: dict) -> list[str]:
                 err(f"{tag}: percent out of range: {value}")
             if unit == "fraction" and not 0 <= value <= 1:
                 err(f"{tag}: fraction out of range: {value}")
-            if unit == "elo" and (value <= 0 or value != int(value)):
-                err(f"{tag}: elo must be a positive integer: {value}")
+            if unit == "elo" and value <= 0:
+                err(f"{tag}: elo must be a positive number: {value}")
             if unit == "usd" and value < 0:
                 err(f"{tag}: usd must not be negative: {value}")
         cond = o.get("conditions")
@@ -343,7 +343,7 @@ def validate(db: dict) -> list[str]:
             cond = r.get("conditions") or {}
             sig = tuple(cond.get(k) for k in DISTINGUISHING)
             if sig in seen:
-                err(f"observations: {key} has two active rows with identical conditions; add reasoning_effort/harness or supersede one")
+                err(f"observations: {key} has two active rows with identical conditions; add reasoning_effort/harness, state the second configuration in model_setup_as_reported, or supersede one")
             seen.add(sig)
 
     # ---- prices (official lists; never benchmark observations) -----------
