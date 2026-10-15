@@ -1,6 +1,6 @@
 {
  "schema_version": "1.1.0",
- "data_version": "2026101581",
+ "data_version": "2026101582",
  "as_of": "2026-10-15",
  "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
  "default_publication_id": "publication-google-gemini-4-argon",
@@ -9360,6 +9360,30 @@
     "evidence_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
     "notes": "Known from the Nemotron 3 Ultra card label. Written as remembered; not re-read for this entry."
    }
+  },
+  {
+   "id": "zai-code-bench",
+   "name": "Z.ai Code Bench",
+   "category_id": "agentic-coding",
+   "tags": [
+    "agentic-coding"
+   ],
+   "classification_note": "Editorial assignment by test subject and source catalog; version, protocol and result metric remain separate fields.",
+   "priority": 1,
+   "published_by": [
+    "Z.ai"
+   ],
+   "vendor_flags_scope": "blank does not mean never used",
+   "catalog_order": 429,
+   "about": {
+    "maintainer": null,
+    "url": null,
+    "what_it_tests": null,
+    "introduced": null,
+    "status": "pending",
+    "evidence_url": null,
+    "notes": "Maintainer page was not checked."
+   }
   }
  ],
  "benchmarks": [
@@ -17006,6 +17030,20 @@
    "definition_status": "source_label_preserved",
    "cross_publication_equivalence": "not_established",
    "unit_denominator": null
+  },
+  {
+   "id": "zai-code-bench--percent",
+   "family_id": "zai-code-bench",
+   "category_id": "agentic-coding",
+   "name": "Z.ai Code Bench",
+   "version": null,
+   "version_label": "Z.ai Code Bench",
+   "metric_label": "Z.ai Code Bench",
+   "unit": "percent",
+   "higher_is_better": true,
+   "definition_status": "source_label_preserved",
+   "cross_publication_equivalence": "not_established",
+   "unit_denominator": null
   }
  ],
  "models": [
@@ -20528,6 +20566,22 @@
    "identity_scope": "named video model; API price on the publisher price list. No benchmark observation in this version.",
    "release_date": null,
    "latest": false
+  },
+  {
+   "id": "muse-spark",
+   "name": "Muse Spark",
+   "developer": "Meta",
+   "identity_scope": "named model; no printed score and no release date on the Muse Spark 1.1 page",
+   "release_date": null,
+   "latest": false
+  },
+  {
+   "id": "muse-spark-1-1",
+   "name": "Muse Spark 1.1",
+   "developer": "Meta",
+   "identity_scope": "named model; the 9 July 2026 post prints no benchmark number",
+   "release_date": "2026-07-09",
+   "latest": false
   }
  ],
  "publications": [
@@ -21778,6 +21832,32 @@
    "comparison_scope": "price_list",
    "methodology_url": "https://docs.z.ai/guides/overview/pricing",
    "coverage": "Text, vision, image, video and the printed agent token rates. Limited-time free storage has no printed end date. Left out: web search per use, and GLM-ASR audio."
+  },
+  {
+   "id": "publication-meta-muse-spark-1-1",
+   "name": "Muse Spark 1.1",
+   "publisher": "Meta",
+   "url": "https://research.meta.ai/blog/introducing-muse-spark-meta-model-api",
+   "source_id": "publication-meta-muse-spark-1-1",
+   "published_at": "2026-07-09",
+   "checked_on": "2026-10-15",
+   "kind": "official_blog",
+   "comparison_scope": "publisher_comparison",
+   "methodology_url": "https://research.meta.ai/blog/introducing-muse-spark-meta-model-api",
+   "coverage": "Post dated 2026-07-09. No benchmark number is printed. Charts and methodology PDFs are not included. Muse Spark has no release date on this page."
+  },
+  {
+   "id": "publication-zai-glm-5-3-blog",
+   "name": "GLM-5.3",
+   "publisher": "Z.ai",
+   "url": "https://z.ai/blog/glm-5.3",
+   "source_id": "publication-zai-glm-5-3-blog",
+   "published_at": "2026-08-14",
+   "checked_on": "2026-10-15",
+   "kind": "official_blog",
+   "comparison_scope": "publisher_comparison",
+   "methodology_url": "https://z.ai/blog/glm-5.3",
+   "coverage": "Prose percents for Z.ai Code Bench in the post dated 2026-08-14. The comparison table is on the GLM-5.3 model card. Charts without a printed number are not stored."
   }
  ],
  "observations": [
@@ -296148,6 +296228,166 @@
    "status": "active",
    "comparison_scope": "publisher_comparison",
    "supersedes": null
+  },
+  {
+   "id": "obs-715e92881933e6f7455e",
+   "benchmark_id": "zai-code-bench--percent",
+   "model_id": "glm-5-3",
+   "publication_id": "publication-zai-glm-5-3-blog",
+   "value": 34.5,
+   "unit": "percent",
+   "unit_denominator": null,
+   "conditions": {
+    "model_label_as_published": "GLM-5.3",
+    "benchmark_label_as_published": "Z.ai Code Bench",
+    "setup_as_reported": "Prose under Z.ai Code Bench on the GLM-5.3 post. The figure is also a chart; these percents are written out.",
+    "model_setup_as_reported": "At Max effort, 34.5 percent at roughly 75K output tokens.",
+    "reasoning_effort": "Max",
+    "harness": null,
+    "tools": null,
+    "fallback_policy": null,
+    "attempt_budget": null,
+    "context_tokens": null,
+    "dataset_revision": null,
+    "protocol_equivalence": "not_established"
+   },
+   "source_url": "https://z.ai/blog/glm-5.3",
+   "source_locator": "Prose, Z.ai Code Bench",
+   "methodology_url": "https://z.ai/blog/glm-5.3",
+   "checked_on": "2026-10-15",
+   "evidence_type": "official_publication_checked",
+   "review_status": "source_checked",
+   "status": "active",
+   "comparison_scope": "publisher_comparison",
+   "supersedes": null
+  },
+  {
+   "id": "obs-83b8325863753627125b",
+   "benchmark_id": "zai-code-bench--percent",
+   "model_id": "glm-5-2",
+   "publication_id": "publication-zai-glm-5-3-blog",
+   "value": 23.4,
+   "unit": "percent",
+   "unit_denominator": null,
+   "conditions": {
+    "model_label_as_published": "GLM-5.2",
+    "benchmark_label_as_published": "Z.ai Code Bench",
+    "setup_as_reported": "Prose under Z.ai Code Bench on the GLM-5.3 post. The figure is also a chart; these percents are written out.",
+    "model_setup_as_reported": "At Max effort, 23.4 percent at 96K output tokens.",
+    "reasoning_effort": "Max",
+    "harness": null,
+    "tools": null,
+    "fallback_policy": null,
+    "attempt_budget": null,
+    "context_tokens": null,
+    "dataset_revision": null,
+    "protocol_equivalence": "not_established"
+   },
+   "source_url": "https://z.ai/blog/glm-5.3",
+   "source_locator": "Prose, Z.ai Code Bench",
+   "methodology_url": "https://z.ai/blog/glm-5.3",
+   "checked_on": "2026-10-15",
+   "evidence_type": "official_publication_checked",
+   "review_status": "source_checked",
+   "status": "active",
+   "comparison_scope": "publisher_comparison",
+   "supersedes": null
+  },
+  {
+   "id": "obs-581d2014ff6c15dda611",
+   "benchmark_id": "zai-code-bench--percent",
+   "model_id": "glm-5-3",
+   "publication_id": "publication-zai-glm-5-3-blog",
+   "value": 31.4,
+   "unit": "percent",
+   "unit_denominator": null,
+   "conditions": {
+    "model_label_as_published": "GLM-5.3",
+    "benchmark_label_as_published": "Z.ai Code Bench",
+    "setup_as_reported": "Prose under Z.ai Code Bench on the GLM-5.3 post. The figure is also a chart; these percents are written out.",
+    "model_setup_as_reported": "At High effort, 31.4 percent at around 50K output tokens.",
+    "reasoning_effort": "High",
+    "harness": null,
+    "tools": null,
+    "fallback_policy": null,
+    "attempt_budget": null,
+    "context_tokens": null,
+    "dataset_revision": null,
+    "protocol_equivalence": "not_established"
+   },
+   "source_url": "https://z.ai/blog/glm-5.3",
+   "source_locator": "Prose, Z.ai Code Bench",
+   "methodology_url": "https://z.ai/blog/glm-5.3",
+   "checked_on": "2026-10-15",
+   "evidence_type": "official_publication_checked",
+   "review_status": "source_checked",
+   "status": "active",
+   "comparison_scope": "publisher_comparison",
+   "supersedes": null
+  },
+  {
+   "id": "obs-f6d9865442636ae3b98f",
+   "benchmark_id": "zai-code-bench--percent",
+   "model_id": "claude-opus-4-8",
+   "publication_id": "publication-zai-glm-5-3-blog",
+   "value": 29.5,
+   "unit": "percent",
+   "unit_denominator": null,
+   "conditions": {
+    "model_label_as_published": "Claude Opus 4.8",
+    "benchmark_label_as_published": "Z.ai Code Bench",
+    "setup_as_reported": "Prose under Z.ai Code Bench on the GLM-5.3 post. The figure is also a chart; these percents are written out.",
+    "model_setup_as_reported": "At High effort, 29.5 percent with 120K output tokens.",
+    "reasoning_effort": "High",
+    "harness": null,
+    "tools": null,
+    "fallback_policy": null,
+    "attempt_budget": null,
+    "context_tokens": null,
+    "dataset_revision": null,
+    "protocol_equivalence": "not_established"
+   },
+   "source_url": "https://z.ai/blog/glm-5.3",
+   "source_locator": "Prose, Z.ai Code Bench",
+   "methodology_url": "https://z.ai/blog/glm-5.3",
+   "checked_on": "2026-10-15",
+   "evidence_type": "official_publication_checked",
+   "review_status": "source_checked",
+   "status": "active",
+   "comparison_scope": "publisher_comparison",
+   "supersedes": null
+  },
+  {
+   "id": "obs-bbadd4b2eee10184adec",
+   "benchmark_id": "zai-code-bench--percent",
+   "model_id": "claude-fable-5",
+   "publication_id": "publication-zai-glm-5-3-blog",
+   "value": 39.5,
+   "unit": "percent",
+   "unit_denominator": null,
+   "conditions": {
+    "model_label_as_published": "Claude Fable 5",
+    "benchmark_label_as_published": "Z.ai Code Bench",
+    "setup_as_reported": "Prose under Z.ai Code Bench on the GLM-5.3 post. The figure is also a chart; these percents are written out.",
+    "model_setup_as_reported": "39.5 percent at Max effort.",
+    "reasoning_effort": "Max",
+    "harness": null,
+    "tools": null,
+    "fallback_policy": null,
+    "attempt_budget": null,
+    "context_tokens": null,
+    "dataset_revision": null,
+    "protocol_equivalence": "not_established"
+   },
+   "source_url": "https://z.ai/blog/glm-5.3",
+   "source_locator": "Prose, Z.ai Code Bench",
+   "methodology_url": "https://z.ai/blog/glm-5.3",
+   "checked_on": "2026-10-15",
+   "evidence_type": "official_publication_checked",
+   "review_status": "source_checked",
+   "status": "active",
+   "comparison_scope": "publisher_comparison",
+   "supersedes": null
   }
  ],
  "research_catalog": {
@@ -323451,6 +323691,12 @@
    "reviewer": "Sugra research preparation",
    "reason": "Official price lists checked on 2026-10-15. The 596 benchmark observations are unchanged.",
    "added_observations": 0
+  },
+  {
+   "at": "2026-10-15",
+   "reviewer": "Sugra research preparation",
+   "reason": "Muse Spark 1.1 post checked on 2026-10-15: no printed score. Z.ai Code Bench percents from the GLM-5.3 post. The publication pages already in the catalog are unchanged.",
+   "added_observations": 5
   }
  ],
  "prices": [

@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101581, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101582, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -93,8 +93,10 @@ What the catalog holds as of data version 2026101581, and what it does not: the 
 | Introducing GPT-5 | OpenAI | 113 | 7 | 27 |
 | MiniMax M3 | MiniMax | 181 | 9 | 33 |
 | NVIDIA Nemotron 3 Ultra 550B-A55B model card | NVIDIA | 236 | 7 | 32 |
+| Muse Spark 1.1 | Meta | 0 | 0 | 0 |
+| GLM-5.3 post | Z.ai | 5 | 4 | 1 |
 
-87 publications, 8574 observations, 440 models, 546 benchmark definitions in 322 families.
+89 publications, 8579 observations, 442 models, 547 benchmark definitions in 323 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -145,13 +147,13 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 | Engineering and design | 4 | 19 |
 | Preference and composite rankings | 1 | 6 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 192 checked against the maintainer's own page, the developer page or paper that prints the test, 130 written from the printed label alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 192 checked against the maintainer's own page, the developer page or paper that prints the test, 130 written from the printed label alone (each one's `notes` says what is missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
 
 Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
 
 ## Known gaps
 
-- `release_date` is recorded for 171 of 440 models and `published_at` for 72 of 87 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `release_date` is recorded for 172 of 442 models and `published_at` for 74 of 89 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
 - `reasoning_effort` is stated for 2415 observations, `tools` for 1249, `harness` for 890. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.

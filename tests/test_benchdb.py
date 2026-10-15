@@ -467,6 +467,30 @@ class RealDatabase(unittest.TestCase):
             },
         )
 
+    def test_publisher_pages_keep_printed_numbers(self):
+        def one(publication_id, benchmark_id, model_id, **cond):
+            hits = [
+                o for o in self.db["observations"]
+                if o["publication_id"] == publication_id
+                and o["benchmark_id"] == benchmark_id
+                and o["model_id"] == model_id
+                and all(o["conditions"].get(k) == v for k, v in cond.items())
+            ]
+            self.assertEqual(len(hits), 1, (publication_id, benchmark_id, model_id, cond))
+            return hits[0]["value"]
+
+        self.assertEqual(one("publication-mistral-large-4", "deepswe-v1-1--percent", "mistral-large-4"), 61.7)
+        self.assertEqual(one("publication-zai-glm-5-3", "terminal-bench-2-1--percent", "glm-5-3"), 88.2)
+        self.assertEqual(one("publication-zai-glm-5-3", "cybergym--percent", "claude-fable-5"), 83.8)
+        self.assertEqual(one("publication-deepseek-v4-1-flash", "gpqa-diamond--percent", "deepseek-v4-1-flash"), 90.9)
+        self.assertEqual(one("publication-moonshot-kimi-k3", "gpqa-diamond--percent", "kimi-k3"), 93.5)
+        self.assertEqual(one("publication-zai-glm-5-3-blog", "zai-code-bench--percent", "glm-5-3", reasoning_effort="Max"), 34.5)
+        self.assertEqual(one("publication-zai-glm-5-3-blog", "zai-code-bench--percent", "claude-fable-5"), 39.5)
+        muse = {m["id"]: m for m in self.db["models"] if m["id"] in ("muse-spark", "muse-spark-1-1")}
+        self.assertEqual(muse["muse-spark-1-1"]["release_date"], "2026-07-09")
+        self.assertIsNone(muse["muse-spark"]["release_date"])
+        self.assertTrue(all(o["model_id"] not in muse for o in self.db["observations"]))
+
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"
         self.assertTrue(out.exists(), "run python -m tools.benchdb build")
