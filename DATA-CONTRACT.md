@@ -45,7 +45,7 @@ The article renders `what_it_tests`, the maintainer link and the note under the 
 
 ### benchmarks
 
-One record per exact test, version and metric.
+One record per exact test, version and metric. A publisher's own label for a test lives in the observation's `benchmark_label_as_published`, never in a second record: two records of one family in the same unit whose shared models (two or more) all carry equal values are refused by the validator.
 
 | Field | Rule |
 |---|---|
