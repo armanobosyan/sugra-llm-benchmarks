@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101525, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101526, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -37,8 +37,9 @@ What the catalog holds as of data version 2026101525, and what it does not. Coun
 | Grok 4.1 Fast and Agent Tools API | xAI | 21 | 4 | 6 |
 | DeepSeek-V4-Pro-0813 model card | DeepSeek | 84 | 8 | 11 |
 | DeepSeek-V4-Flash-0731 model card | DeepSeek | 44 | 5 | 9 |
+| DeepSeek-V4-Pro (preview) model card | DeepSeek | 289 | 10 | 45 |
 
-31 publications, 2659 observations, 73 models, 291 benchmark definitions in 174 families.
+32 publications, 2948 observations, 78 models, 322 benchmark definitions in 199 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -67,14 +68,14 @@ Only rows the publisher printed as text or a table were transcribed. Values that
 | Engineering and design | 4 | 19 |
 | Preference and composite rankings | 1 | 6 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 155 checked against the maintainer's own page, the developer page or paper that prints the test, 19 written from the printed label alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 180 checked against the maintainer's own page, the developer page or paper that prints the test, 19 written from the printed label alone (each one's `notes` says what is missing), 0 pending. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending.
 
 Two categories are empty in this version. They stay in the taxonomy because the research catalog lists families for them; the article hides a category with no rows for the selected publication.
 
 ## Known gaps
 
-- `release_date` is recorded for 49 of 73 models and `published_at` for 19 of 31 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
-- `reasoning_effort` is stated for 1085 observations, `tools` for 359, `harness` for 148. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 52 of 78 models and `published_at` for 20 of 32 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `reasoning_effort` is stated for 1302 observations, `tools` for 388, `harness` for 148. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
