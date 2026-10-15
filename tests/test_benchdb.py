@@ -141,6 +141,27 @@ class ValidateFixture(unittest.TestCase):
         db["observations"][1]["conditions"]["model_setup_as_reported"] = 'second value printed in the same cell as "60.9% (Mythos 5.1)"'
         self.assertEqual(validate.validate(db), [])
 
+    def test_same_values_under_two_labels_is_refused(self):
+        db = fixture()
+        db["benchmarks"].append({**db["benchmarks"][0], "id": "frontiercode-v1-1-main--percent", "name": "FrontierCode v1.1 (main)"})
+        db["observations"] += [
+            obs("obs-00000000000000000003", 46.2, "max", benchmark_id="frontiercode-v1-1-main--percent"),
+            obs("obs-00000000000000000004", 30.0, None, model_id="model-y-reported-as-x"),
+            obs("obs-00000000000000000005", 30.0, None, model_id="model-y-reported-as-x", benchmark_id="frontiercode-v1-1-main--percent"),
+        ]
+        problems = validate.validate(db)
+        self.assertTrue(any("one test under two labels" in p for p in problems), problems)
+
+    def test_different_values_under_two_labels_are_two_definitions(self):
+        db = fixture()
+        db["benchmarks"].append({**db["benchmarks"][0], "id": "frontiercode-v1-1-main--percent", "name": "FrontierCode v1.1 (main)"})
+        db["observations"] += [
+            obs("obs-00000000000000000003", 41.0, "max", benchmark_id="frontiercode-v1-1-main--percent"),
+            obs("obs-00000000000000000004", 30.0, None, model_id="model-y-reported-as-x"),
+            obs("obs-00000000000000000005", 30.0, None, model_id="model-y-reported-as-x", benchmark_id="frontiercode-v1-1-main--percent"),
+        ]
+        self.assertEqual(validate.validate(db), [])
+
     def test_unit_must_match_benchmark(self):
         db = fixture()
         db["observations"][0]["unit"] = "score"
