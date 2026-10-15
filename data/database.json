@@ -1,6 +1,6 @@
 {
  "schema_version": "1.1.0",
- "data_version": "2026101583",
+ "data_version": "2026101584",
  "as_of": "2026-10-15",
  "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
  "default_publication_id": "publication-google-gemini-4-argon",
@@ -9433,7 +9433,7 @@
    "id": "harvey-s-legal-agent-benchmark--percent",
    "family_id": "harvey-s-legal-agent-benchmark",
    "category_id": "knowledge-work",
-   "name": "Harvey’s Legal Agent Benchmark",
+   "name": "Harvey's Legal Agent Benchmark, all-pass rate (Vals AI)",
    "version": null,
    "version_label": "Harvey’s Legal Agent Benchmark",
    "metric_label": "Harvey’s Legal Agent Benchmark",
@@ -10718,20 +10718,6 @@
    "unit_denominator": null
   },
   {
-   "id": "legal-agent-benchmark-harvey-final-score--percent",
-   "family_id": "harvey-s-legal-agent-benchmark",
-   "category_id": "knowledge-work",
-   "name": "Legal Agent Benchmark | Harvey final score",
-   "version": null,
-   "version_label": "Legal Agent Benchmark | Harvey final score",
-   "metric_label": "Legal Agent Benchmark | Harvey final score",
-   "unit": "percent",
-   "higher_is_better": true,
-   "definition_status": "source_label_preserved",
-   "cross_publication_equivalence": "not_established",
-   "unit_denominator": null
-  },
-  {
    "id": "eebench-reward--percent",
    "family_id": "eebench",
    "category_id": "engineering-design",
@@ -11407,7 +11393,7 @@
    "id": "harvey-lab-aa--percent",
    "family_id": "harvey-s-legal-agent-benchmark",
    "category_id": "knowledge-work",
-   "name": "Harvey LAB-AA",
+   "name": "Harvey Legal Agent Benchmark, criterion pass rate (Artificial Analysis)",
    "version": null,
    "version_label": "Harvey LAB-AA",
    "metric_label": "Harvey LAB-AA",
@@ -11510,20 +11496,6 @@
    "version_label": "AA-Briefcase",
    "metric_label": "AA-Briefcase",
    "unit": "elo",
-   "higher_is_better": true,
-   "definition_status": "source_label_preserved",
-   "cross_publication_equivalence": "not_established",
-   "unit_denominator": null
-  },
-  {
-   "id": "harvey-lab-vals--percent",
-   "family_id": "harvey-s-legal-agent-benchmark",
-   "category_id": "knowledge-work",
-   "name": "Harvey LAB (Vals)",
-   "version": null,
-   "version_label": "Harvey LAB (Vals)",
-   "metric_label": "Harvey LAB (Vals)",
-   "unit": "percent",
    "higher_is_better": true,
    "definition_status": "source_label_preserved",
    "cross_publication_equivalence": "not_established",
@@ -16283,20 +16255,6 @@
    "version": "Diamond",
    "version_label": "FrontierCode (Diamond)",
    "metric_label": "FrontierCode (Diamond)",
-   "unit": "percent",
-   "higher_is_better": true,
-   "definition_status": "source_label_preserved",
-   "cross_publication_equivalence": "not_established",
-   "unit_denominator": null
-  },
-  {
-   "id": "legal-agent-benchmark--percent",
-   "family_id": "harvey-s-legal-agent-benchmark",
-   "category_id": "knowledge-work",
-   "name": "Legal Agent Benchmark",
-   "version": null,
-   "version_label": "Legal Agent Benchmark",
-   "metric_label": "Legal Agent Benchmark",
    "unit": "percent",
    "higher_is_better": true,
    "definition_status": "source_label_preserved",
@@ -36199,7 +36157,7 @@
   },
   {
    "id": "obs-7b96e660b4bceaf64bf9",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "grok-4-7",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 19.6,
@@ -36231,7 +36189,7 @@
   },
   {
    "id": "obs-4e95c955db40b7e084d2",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "grok-4-6",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 15.8,
@@ -36263,7 +36221,7 @@
   },
   {
    "id": "obs-976e8bd2545ca5e7685e",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-fable-5",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 11.3,
@@ -36295,7 +36253,7 @@
   },
   {
    "id": "obs-8e26c9ec576c7df6ad8a",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-fable-5-1",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 6.7,
@@ -36327,7 +36285,7 @@
   },
   {
    "id": "obs-530589d473d093915842",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-sonnet-5",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 5.0,
@@ -36359,7 +36317,7 @@
   },
   {
    "id": "obs-f6ca672cfa604c532163",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gpt-5-6-sol",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 2.5,
@@ -36391,7 +36349,7 @@
   },
   {
    "id": "obs-62e9fe063d01b8825d7f",
-   "benchmark_id": "legal-agent-benchmark-harvey-final-score--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gpt-5-6-terra",
    "publication_id": "publication-xai-grok-4-7-model-card",
    "value": 0.8,
@@ -49447,7 +49405,7 @@
   },
   {
    "id": "obs-2c61c1a3771009217507",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "grok-4-6",
    "publication_id": "publication-xai-grok-4-6",
    "value": 15.8,
@@ -49479,7 +49437,7 @@
   },
   {
    "id": "obs-34ef6cbadb82e37050e3",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "grok-4-5",
    "publication_id": "publication-xai-grok-4-6",
    "value": 12.9,
@@ -49511,7 +49469,7 @@
   },
   {
    "id": "obs-d28b3a4490d1d3447937",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gpt-5-6-sol",
    "publication_id": "publication-xai-grok-4-6",
    "value": 2.5,
@@ -49543,7 +49501,7 @@
   },
   {
    "id": "obs-23f720daa6b266ec9e18",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-fable-5",
    "publication_id": "publication-xai-grok-4-6",
    "value": 11.3,
@@ -267399,7 +267357,7 @@
   },
   {
    "id": "obs-756c1ae2503ac932caf0",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-mythos-5",
    "publication_id": "publication-anthropic-claude-fable-5-mythos-5",
    "value": 13.3,
@@ -267431,7 +267389,7 @@
   },
   {
    "id": "obs-6bfff3bd65fe2b7619aa",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-opus-4-8",
    "publication_id": "publication-anthropic-claude-fable-5-mythos-5",
    "value": 10.4,
@@ -267463,7 +267421,7 @@
   },
   {
    "id": "obs-19999ddfd38e5ba6a7d3",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gpt-5-5",
    "publication_id": "publication-anthropic-claude-fable-5-mythos-5",
    "value": 2.1,
@@ -267495,7 +267453,7 @@
   },
   {
    "id": "obs-3204fbaa57c4bffb6fae",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gemini-3-1-pro-preview",
    "publication_id": "publication-anthropic-claude-fable-5-mythos-5",
    "value": 0.0,
@@ -270183,7 +270141,7 @@
   },
   {
    "id": "obs-7c8158d2b1bb5cedf015",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-opus-5",
    "publication_id": "publication-anthropic-claude-opus-5",
    "value": 11.7,
@@ -270215,7 +270173,7 @@
   },
   {
    "id": "obs-62310394c06d3b46f3be",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-fable-5",
    "publication_id": "publication-anthropic-claude-opus-5",
    "value": 13.3,
@@ -270247,7 +270205,7 @@
   },
   {
    "id": "obs-b09765dcb63b7aaa430c",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "claude-opus-4-8",
    "publication_id": "publication-anthropic-claude-opus-5",
    "value": 10.4,
@@ -270279,7 +270237,7 @@
   },
   {
    "id": "obs-53a11bd1642a5bf5f4e4",
-   "benchmark_id": "legal-agent-benchmark--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gpt-5-6-sol",
    "publication_id": "publication-anthropic-claude-opus-5",
    "value": 2.5,
@@ -278503,7 +278461,7 @@
   },
   {
    "id": "obs-3cfc90aea37b6c8747ea",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "mistral-large-4",
    "publication_id": "publication-mistral-large-4",
    "value": 15.8,
@@ -278535,7 +278493,7 @@
   },
   {
    "id": "obs-e00a7338980951ba92b3",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "gpt-6-astra",
    "publication_id": "publication-mistral-large-4",
    "value": 5.4,
@@ -278567,7 +278525,7 @@
   },
   {
    "id": "obs-644d3e188a74e78fe277",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "glm-5-2",
    "publication_id": "publication-mistral-large-4",
    "value": 7.1,
@@ -278599,7 +278557,7 @@
   },
   {
    "id": "obs-e6c61042e4039254a7c4",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "deepseek-v4-pro-0813",
    "publication_id": "publication-mistral-large-4",
    "value": 7.5,
@@ -278631,7 +278589,7 @@
   },
   {
    "id": "obs-70c9ab6e06b8b47356aa",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "glm-5-3",
    "publication_id": "publication-mistral-large-4",
    "value": 8.3,
@@ -278663,7 +278621,7 @@
   },
   {
    "id": "obs-925050fef9ae82855e94",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "qwen3-8-max",
    "publication_id": "publication-mistral-large-4",
    "value": 10.4,
@@ -278695,7 +278653,7 @@
   },
   {
    "id": "obs-ceee16177d5a01464e10",
-   "benchmark_id": "harvey-lab-vals--percent",
+   "benchmark_id": "harvey-s-legal-agent-benchmark--percent",
    "model_id": "kimi-k3",
    "publication_id": "publication-mistral-large-4",
    "value": 12.9,
@@ -323702,6 +323660,12 @@
    "at": "2026-10-15",
    "reviewer": "Sugra research preparation",
    "reason": "Release dates filled for 32 models from the developers' announcement pages, model cards and weight releases; the Multilingual and Writing and conversation descriptions updated now that both areas hold results. Observations unchanged.",
+   "added_observations": 0
+  },
+  {
+   "at": "2026-10-15",
+   "reviewer": "Sugra research preparation",
+   "reason": "Harvey's Legal Agent Benchmark: the xAI label 'Legal Agent Benchmark | Harvey final score', the 'Harvey LAB (Vals)' label and Anthropic's 'Legal Agent Benchmark' are the same Vals AI all-pass rate on the held-out set and now share one row (26 observations moved; the pages agree on every shared value except Anthropic's own run of Claude Fable 5, 13.3 against 11.3 printed by others, and both stay). The Artificial Analysis criterion pass rate stays a separate row, named so. Observation count unchanged.",
    "added_observations": 0
   }
  ],
