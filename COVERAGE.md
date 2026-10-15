@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101551, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101552, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -63,8 +63,9 @@ What the catalog holds as of data version 2026101551, and what it does not. Coun
 | Meta Llama 4 model card | Meta | 58 | 8 | 17 |
 | Microsoft Phi-4-reasoning-vision-15B model card | Microsoft | 150 | 9 | 10 |
 | Xiaomi MiMo-V2.5-Pro model card | Xiaomi | 90 | 7 | 24 |
+| DeepSeek-V3-0324 model card | DeepSeek | 25 | 5 | 5 |
 
-57 publications, 6769 observations, 161 models, 476 benchmark definitions in 287 families.
+58 publications, 6794 observations, 164 models, 476 benchmark definitions in 287 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -99,7 +100,7 @@ Two categories are empty in this version. They stay in the taxonomy because the 
 
 ## Known gaps
 
-- `release_date` is recorded for 126 of 161 models and `published_at` for 42 of 57 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `release_date` is recorded for 128 of 164 models and `published_at` for 43 of 58 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
 - `reasoning_effort` is stated for 1979 observations, `tools` for 998, `harness` for 679. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
