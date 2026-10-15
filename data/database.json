@@ -1,6 +1,6 @@
 {
  "schema_version": "1.1.0",
- "data_version": "2026101588",
+ "data_version": "2026101589",
  "as_of": "2026-10-15",
  "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
  "default_publication_id": "publication-google-gemini-4-argon",
@@ -1171,13 +1171,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 42,
    "about": {
-    "maintainer": "Min et al. (University of Washington and collaborators)",
-    "url": "https://github.com/shmsw25/FActScore",
-    "what_it_tests": "FActScore scores long-form text by breaking it into atomic facts and checking each against a knowledge source; publishers report the share of unsupported facts as a hallucination rate, so lower is better.",
+    "maintainer": "Sewon Min and co-authors",
+    "url": "https://arxiv.org/abs/2305.14251",
+    "what_it_tests": "FActScore measures how much of a long generated text is supported by a knowledge source. The generation is split into atomic facts, and each fact is checked against that source. The score is the percentage of atomic facts the source supports. The paper also describes an automatic estimator that uses retrieval and a language model in place of a human check.",
     "introduced": 2023,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2305.14251",
-    "notes": "Paper arXiv 2305.14251 (May 2023). OpenAI reports its own grading on these prompts; details in its system cards. Written as remembered; not re-read for this entry."
+    "notes": "The paper's score is the share of supported atomic facts, not a rate of unsupported facts."
    }
   },
   {
@@ -1195,13 +1195,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 43,
    "about": {
-    "maintainer": "Google DeepMind (Wei et al.)",
-    "url": "https://github.com/google-deepmind/long-form-factuality",
-    "what_it_tests": "LongFact is a set of open-ended fact-seeking prompts in two parts, Concepts and Objects, used to measure the factuality of long-form answers: each claim in a response is checked and the share of incorrect claims is reported as a hallucination rate, so lower is better.",
+    "maintainer": "Jerry Wei and co-authors (Google DeepMind)",
+    "url": "https://arxiv.org/abs/2403.18802",
+    "what_it_tests": "LongFact is a prompt set for measuring factuality in long open-ended answers. GPT-4 generated the prompts across 38 topics, split into LongFact-Concepts and LongFact-Objects, with 30 prompts per topic and 1,140 prompts in each task. The SAFE method splits a response into individual facts and checks each fact by sending queries to Google Search and deciding whether the results support it. The aggregate score is an F1 that balances the percentage of supported facts with how many facts the response gives relative to a preferred length.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2403.18802",
-    "notes": "Paper arXiv 2403.18802 (March 2024). OpenAI reports its own grading on these prompts; details in its system cards. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2403.18802v4",
+    "notes": "The paper scores this with F1 at a preferred length, not with a hallucination rate."
    }
   },
   {
@@ -1226,7 +1226,7 @@
     "introduced": 2025,
     "status": "unverified",
     "evidence_url": "https://arxiv.org/html/2503.03750v3",
-    "notes": "The description is of the base MASK benchmark (arXiv 2503.03750, first submitted 2025-03-05), read from the paper. What the Rectified variant changes is not stated in the paper or in any source found, so the MASK-Rectified figure stays unverified. The xAI Grok 4.7 card PDF returned no readable text here, so the xAI attribution and the printed direction (dishonesty rate, lower is better) are unconfirmed; the base MASK reports honesty, where higher is better. No scores are given."
+    "notes": "The page's revision line is dated 05 Jan 2026 and still describes only MASK."
    }
   },
   {
@@ -1286,13 +1286,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 47,
    "about": {
-    "maintainer": "Allen Institute for AI",
-    "url": "https://allenai.org/data/arc",
-    "what_it_tests": "The AI2 Reasoning Challenge (ARC) is a set of grade-school science multiple-choice questions; the Challenge set holds the 2,590 questions that retrieval and co-occurrence baselines both got wrong. The score is accuracy, usually few-shot.",
+    "maintainer": "AI2 (Peter Clark and co-authors)",
+    "url": "https://arxiv.org/abs/1803.05457",
+    "what_it_tests": "The AI2 Reasoning Challenge is a set of natural grade-school science questions written for human tests. The questions are multiple choice and do not use diagrams. The full set has 7,787 questions, and the Challenge Set is the 2,590 that both a retrieval method and a word co-occurrence method answered incorrectly; the other 5,197 form an Easy Set. Scores are the percentage of questions answered correctly on the test split.",
     "introduced": 2018,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/1803.05457",
-    "notes": "Paper arXiv 1803.05457 (March 2018). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/1803.05457v1",
+    "notes": "The Challenge Set is the hard partition of ARC, not a separate exam."
    }
   },
   {
@@ -1333,13 +1333,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 49,
    "about": {
-    "maintainer": "Google DeepMind and Kaggle",
-    "url": "https://www.kaggle.com/facts-leaderboard",
-    "what_it_tests": "FACTS Grounding asks the model to answer a request using only a supplied document of up to 32k tokens; judge models check that each response is fully grounded in the document and still answers the request. The score is the share of responses judged grounded.",
-    "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2501.03200",
-    "notes": "Paper arXiv 2501.03200 (December 2024). Written as remembered; not re-read for this entry."
+    "maintainer": "Google DeepMind, Google Research, and Kaggle (Alon Jacovi and co-authors)",
+    "url": "https://arxiv.org/abs/2501.03200",
+    "what_it_tests": "FACTS Grounding tests whether a long answer stays inside a document supplied in the prompt and still fulfills the user's request. Each example pairs a human-written request with a document of at most 32k tokens. The benchmark has 860 public examples and 859 private examples. Judge models first disqualify a response that does not answer the request, then mark it accurate only if it is fully grounded in the document, and the factuality score aggregates those judgments.",
+    "introduced": 2025,
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2501.03200v1",
+    "notes": "The paper's first version is dated 06 Jan 2025, not 2024."
    }
   },
   {
@@ -1357,13 +1357,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 50,
    "about": {
-    "maintainer": "David Rein and co-authors (NYU, Cohere, Anthropic)",
-    "url": "https://github.com/idavidrein/gpqa",
-    "what_it_tests": "GPQA is a set of 448 graduate-level multiple-choice questions in biology, physics and chemistry written and validated by domain experts so that skilled non-experts with web access still fail most of them. The main set is reported here when a card prints \"GPQA\" without a subset; the Diamond subset is catalogued separately.",
+    "maintainer": "David Rein and co-authors",
+    "url": "https://arxiv.org/abs/2311.12022",
+    "what_it_tests": "GPQA is a set of 448 multiple-choice questions in biology, physics, and chemistry, written by domain experts. The questions are written so that experts in the matching field can answer many of them, while skilled non-experts still miss most of them even with unrestricted access to the web. Model results are reported as accuracy. The abstract describes this full set and does not name a smaller subset.",
     "introduced": 2023,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2311.12022",
-    "notes": "Paper arXiv 2311.12022 (November 2023). Written as remembered; not re-read for this entry."
+    "notes": "The abstract describes the full set of 448 questions and does not name a Diamond subset."
    }
   },
   {
@@ -1729,13 +1729,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 66,
    "about": {
-    "maintainer": "Shunyu Yao and co-authors (Princeton)",
-    "url": "https://github.com/princeton-nlp/Collie",
-    "what_it_tests": "COLLIE is a grammar-based framework for compositional constraints on generated text: word-, sentence- and paragraph-level constraints (counts, positions, included or excluded words) that the model must satisfy exactly. The score is the share of constraints satisfied.",
+    "maintainer": "Shunyu Yao and co-authors",
+    "url": "https://arxiv.org/abs/2307.08689",
+    "what_it_tests": "COLLIE is a grammar-based framework for building text-generation tasks whose constraints can be composed. Constraints cover word, sentence, paragraph, and passage levels, including counts, positions, and words that must appear or must not appear. COLLIE-v1 has 2,080 instances across 13 constraint structures, with target values taken from text corpora. A parser marks each generation true or false against the constraint, and the main score is the average success rate.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2307.08689",
-    "notes": "Paper arXiv 2307.08689 (July 2023). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2307.08689v1",
+    "notes": "The score is the share of generations that satisfy the constraint, checked by a parser rather than a judge model."
    }
   },
   {
@@ -1796,12 +1796,12 @@
    "catalog_order": 69,
    "about": {
     "maintainer": "Scale AI (Ved Sirdeshmukh and co-authors)",
-    "url": "https://github.com/ekwinox117/multi-challenge",
-    "what_it_tests": "MultiChallenge tests multi-turn conversation ability with four challenge types: instruction retention, inference memory of user information, versioned editing and self-coherence. Each conversation ends with a turn the model must answer while honouring everything said before; a judge scores it and the result is the share of conversations passed.",
+    "url": "https://arxiv.org/abs/2501.17399",
+    "what_it_tests": "MultiChallenge tests whether a model can answer the last turn of a conversation while respecting what was said earlier. Each example is a conversation of at most 10 turns that ends with a user request, and the released set has 273 conversations. The four challenge types are instruction retention, inference memory of user information, reliable versioned editing, and self-coherence. A judge answers a yes-or-no rubric written for that example, and a yes means the response passed; the reported result is accuracy.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2501.17399",
-    "notes": "Paper arXiv 2501.17399 (January 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2501.17399v2",
+    "notes": "The paper's author line names Scale AI, and the score is accuracy on the binary rubric."
    }
   },
   {
@@ -1838,7 +1838,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://aireleasetracker.com/md/benchmark/cathedralbench",
-    "notes": "No maintainer page, paper or repository was found. The printed label says xAI, but the xAI Grok 4.7 launch page does not mention CathedralBench, and the same aggregator lists the developer as SpaceXAI, a discrepancy that is unresolved. The aggregator's score figures are not used. Maintainer and url stay null until a primary source is found."
+    "notes": "The tracker names model developers, not a benchmark maintainer, and it gives no method."
    }
   },
   {
@@ -2032,13 +2032,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 80,
    "about": {
-    "maintainer": "Google (Android team), for Android Bench",
+    "maintainer": "Android Developers",
     "url": "https://developer.android.com/bench/methodology",
-    "what_it_tests": "Google's Android Bench measures how well AI models build and change Android apps. The methodology page describes version 2.0, with 30 long-horizon tasks in four streams: app creation from design mocks, migrations of production apps to newer libraries, new features, and conversions of Flutter or React Native projects. Each task runs in a fresh container with Android emulators, and the primary metric is the pass rate: every functional test passes, visual checks match and there are no constraint violations. The dataset is private.",
+    "what_it_tests": "Android Bench 2.0 measures whether a coding agent can finish long Android engineering tasks. The page describes 30 private tasks in four streams: creating an app from design mocks, migrating production apps to newer libraries, adding features such as widgets or camera support, and converting Flutter or React Native apps to native Android. Every task runs in a fresh container with an Android emulator. The primary score is the pass rate, the share of runs in which every functional test passes, the visual checks match, and there are no constraint violations.",
     "introduced": 2026,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://developer.android.com/bench/methodology",
-    "notes": "Google's methodology page was read; the 2026 date is taken from the Google blog URL path (android-developers.googleblog.com/2026/03/...), which was not opened. The family's printed label is Alibaba's AndroidBench, which the Qwen3.8 model page describes only as a 95-task public subset scored avg@3, with no description of content. Google's 2.0 set is private and has 30 tasks, and 1.0 used localized GitHub pull requests, so the printed family is not confirmed to be any Google version. Keep unverified until the Alibaba label is matched to a version record. No scores are given."
+    "notes": "The page calls this Android Bench 2.0 and says the task set is private; the only year it prints is the last-updated date 2026-09-17."
    }
   },
   {
@@ -2111,13 +2111,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 84,
    "about": {
-    "maintainer": "Jacob Austin and co-authors (Google Research)",
-    "url": "https://github.com/google-research/google-research/tree/master/mbpp",
-    "what_it_tests": "MBPP (Mostly Basic Python Problems) is a set of about 1,000 crowd-sourced entry-level Python programming tasks, each with a description and three test cases. The score is pass@1 on the hidden tests; MBPP+ is the EvalPlus variant with many more tests per task.",
+    "maintainer": "Jacob Austin and co-authors",
+    "url": "https://arxiv.org/abs/2108.07732",
+    "what_it_tests": "MBPP, Mostly Basic Programming Problems, asks a model to write a short Python program from a natural language description. The dataset has 974 crowd-sourced tasks meant to be solvable by entry-level programmers. Each task includes test cases, and the prompts consistently contain three input-output examples written as assert statements. A task counts as solved when the synthesized program passes those tests, and the paper reports the share of problems solved.",
     "introduced": 2021,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2108.07732",
-    "notes": "Paper arXiv 2108.07732 (August 2021). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2108.07732v1",
+    "notes": "The paper does not define an MBPP+ variant."
    }
   },
   {
@@ -2133,13 +2133,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 85,
    "about": {
-    "maintainer": "Federico Cassano and co-authors (Northeastern University and others)",
-    "url": "https://github.com/nuprl/MultiPL-E",
-    "what_it_tests": "MultiPL-E translates the HumanEval and MBPP Python problems into 18 other programming languages with their unit tests, so a model is scored on the same tasks across languages. The score is pass@1 averaged over the languages reported.",
+    "maintainer": "Federico Cassano and co-authors",
+    "url": "https://arxiv.org/abs/2208.08227",
+    "what_it_tests": "MultiPL-E translates unit-test code generation benchmarks from Python into other programming languages. It translates HumanEval and MBPP, including the function signature, the comment, and simple unit tests, into 18 additional languages so the same problems can be scored in each language. A completion is judged correct only if it passes every unit test. Because generation is stochastic, the paper samples several completions per problem and reports an estimated pass rate.",
     "introduced": 2022,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2208.08227",
-    "notes": "Paper arXiv 2208.08227 (August 2022). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2208.08227",
+    "notes": "The paper reports a pass rate from hidden unit tests in each language, not one named average across languages."
    }
   },
   {
@@ -2177,13 +2177,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 87,
    "about": {
-    "maintainer": "OJBench authors (Zhexu Wang and co-authors)",
+    "maintainer": "Zhexu Wang and co-authors",
     "url": "https://arxiv.org/abs/2506.16395",
-    "what_it_tests": "OJBench tests competition-level programming with 232 problems taken from the Chinese National Olympiad in Informatics and ICPC contests, judged by an online-judge style execution against hidden tests. Solutions can be written in Python or C++, and model cards print the language in the label; the score is the share of problems solved.",
+    "what_it_tests": "OJBench tests competition-level programming. It has 232 problems from China's National Olympiad in Informatics and the International Collegiate Programming Contest, together with the test cases released by the organizers. A model may answer in Python or CPP. A solution is correct only if it passes every test case, and the reported metric is Pass@n, which counts a problem as passed when at least one of n solutions is correct.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2506.16395",
-    "notes": "Paper arXiv 2506.16395 (June 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2506.16395v2",
+    "notes": "The paper prints the second language as CPP, and a problem passes only when every organizer test case passes."
    }
   },
   {
@@ -2374,7 +2374,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/introducing-gpt-5-2/",
-    "notes": "OpenAI release pages print it under Long context with the context length in the label and give no separate methodology page; the description here is inferred from the name and the placement and was not checked against a primary source."
+    "notes": "The launch page prints the name and two context lengths, and it does not define the test."
    }
   },
   {
@@ -2481,13 +2481,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 101,
    "about": {
-    "maintainer": "PolyMath authors (Yiming Wang and co-authors, Alibaba Qwen team and partners)",
-    "url": "https://github.com/QwenLM/PolyMath",
-    "what_it_tests": "PolyMath tests mathematical reasoning in 18 languages at four difficulty levels, 125 problems per language, with the same problems across languages so that the gap between languages is visible. The score is accuracy, often weighted by difficulty.",
+    "maintainer": "Qwen Team, Alibaba Group (Yiming Wang and co-authors)",
+    "url": "https://arxiv.org/abs/2504.18428",
+    "what_it_tests": "PolyMath tests mathematical reasoning in 18 languages. The same problems are written in each language and divided into four difficulty levels, from school mathematics through olympiad and frontier problems, with 125 problems per language at each level. Translations are calibrated by language experts rather than left as raw model output. The paper scores results with a difficulty-weighted accuracy made for this set.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2504.18428",
-    "notes": "Paper arXiv 2504.18428 (April 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2504.18428v4",
+    "notes": "Each problem exists in 18 language versions, and the paper's metric is a difficulty-weighted accuracy."
    }
   },
   {
@@ -2558,7 +2558,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": null,
-    "notes": "No primary source found. The closest published items are BioTIER (arXiv 2607.14479, 542 expert-curated prompts), BioSecBench-Refusal (LatchBio, arXiv 2607.05462) and RefusalBench (arXiv 2605.21545). None is named BioUseBench, so the name may be a mislabel of one of them; that is not confirmed. The xAI Grok 4.7 card PDF was not readable, so the printed label is unconfirmed."
+    "notes": "There is no evidence page or maintainer page to read."
    }
   },
   {
@@ -2866,11 +2866,11 @@
    "about": {
     "maintainer": "Colin White, Samuel Dooley and co-authors (Abacus.AI, NYU and others)",
     "url": "https://livebench.ai/",
-    "what_it_tests": "LiveBench is a contamination-limited benchmark that refreshes its questions regularly from recent sources (new math competitions, papers, news, datasets) across six categories: math, coding, reasoning, language, instruction following and data analysis. Every question has an objective ground truth; the score is the average over the categories, and a date in the label names the question release.",
+    "what_it_tests": "LiveBench is a contamination-limited benchmark whose questions are drawn from recent math competitions, arXiv papers, news articles, and datasets. The paper version has 18 tasks in six categories: math, coding, reasoning, language, instruction following, and data analysis, and every question has an objective ground-truth answer. Each question is scored from 0 to 1, each category score is the average of its tasks, and the LiveBench score is the average of the six category scores. Questions are added and replaced on a monthly schedule.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2406.19314",
-    "notes": "Paper arXiv 2406.19314 (June 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2406.19314v2",
+    "notes": "The 2024 paper defines this six-category benchmark; the livebench.ai homepage now shows a different LiveBench 2.0 long-horizon suite."
    }
   },
   {
@@ -3162,7 +3162,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": null,
-    "notes": "The only candidate is an individual's Substack post found by search. It is not confirmed to be the benchmark Alibaba printed; the Qwen3.8 page lists WorkSpaceBench only as a row in its General Agent results table. The family may need to be dropped or re-scoped. Both WebFetch and the workstation browser were blocked on the post."
+    "notes": "Both the evidence URL and the maintainer URL were empty."
    }
   },
   {
@@ -3178,13 +3178,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 133,
    "about": {
-    "maintainer": "Cohere For AI",
-    "url": "https://huggingface.co/datasets/CohereForAI/Global-MMLU",
-    "what_it_tests": "Global-MMLU is a multilingual version of MMLU with professionally and community translated questions in 42 languages, annotated for cultural sensitivity. Global-MMLU-Lite is the smaller balanced subset. The score is accuracy averaged over the languages reported.",
+    "maintainer": "Cohere Labs (Shivalika Singh and co-authors)",
+    "url": "https://huggingface.co/datasets/CohereLabs/Global-MMLU",
+    "what_it_tests": "Global MMLU is a multilingual copy of the MMLU exam questions, with coverage across 42 languages. The questions were machine-translated, then reviewed by compensated professional annotators and community annotators, and a subset is labeled culturally sensitive or culturally agnostic. The dataset card's lite release is balanced, with 200 culturally agnostic and 200 culturally sensitive samples per language, and it includes human translations for 15 languages. The paper reports accuracy, including average accuracy across languages.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2412.03304",
-    "notes": "Paper arXiv 2412.03304 (December 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2412.03304v2",
+    "notes": "Global-MMLU-Lite is a smaller balanced release, not a substitute name for the full 42-language set."
    }
   },
   {
@@ -3200,13 +3200,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 134,
    "about": {
-    "maintainer": "Angelika Romanou and co-authors (EPFL and Cohere For AI community)",
-    "url": "https://huggingface.co/datasets/CohereForAI/include-base-44",
-    "what_it_tests": "INCLUDE tests regional knowledge with multiple-choice questions taken from real local exams, academic, professional and licensing tests, in 44 languages from 52 countries, so that a model is scored on what people in each region are actually asked rather than on translated English questions. The score is accuracy.",
+    "maintainer": "Angelika Romanou and co-authors; dataset hosted by Cohere Labs",
+    "url": "https://huggingface.co/datasets/CohereLabs/include-base-44",
+    "what_it_tests": "INCLUDE measures knowledge and reasoning in the languages where the questions were originally written, using local exams rather than English questions translated into those languages. The full collection has 197,243 multiple-choice pairs from 1,926 examinations in 44 written languages, collected from local sources in 52 countries, covering academic exams, professional certifications and licenses, and regional licenses such as driving and marine licenses. The released base set keeps only four-option questions; the dataset card counts 22,637 of them. The paper reports accuracy.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2411.19799",
-    "notes": "Paper arXiv 2411.19799 (ICLR 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2411.19799v1",
+    "notes": "The full exam collection is larger than the four-option include-base-44 subset used for the standard evaluation."
    }
   },
   {
@@ -3224,11 +3224,11 @@
    "about": {
     "maintainer": "Weihao Xuan and co-authors (University of Tokyo and others)",
     "url": "https://mmluprox.github.io/",
-    "what_it_tests": "MMLU-ProX is MMLU-Pro translated and verified into 29 languages, so the same reasoning-heavy multiple-choice questions can be compared across languages. The score is accuracy; the Qwen cards print the average over the 29 languages.",
+    "what_it_tests": "MMLU-ProX takes the reasoning-focused MMLU-Pro questions and presents the same items in 29 languages. Each language has 11,829 questions in the full set and 658 in the lite set, and each question is multiple choice with 10 options across 57 subjects. Translations were made by language models and then checked by expert review for accurate expression, terminology, and cultural relevance. The paper reports accuracy, including an average across the 29 languages.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2503.10497",
-    "notes": "Paper arXiv 2503.10497 (March 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2503.10497v2",
+    "notes": "The lite set is a shorter sample of the same parallel questions, not a different task."
    }
   },
   {
@@ -3280,7 +3280,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": null,
-    "notes": "The name does not appear in the GPT-6 Astra card text read. The card's honeypot section (8.2.3) is the nearest match and is a different evaluation; section 10.1.3 mentions earlier tests that were not solvable under test conditions, which may or may not be related. Secondary write-ups about unsolvable ExploitGym tasks do not name this variant. Keep unverified; the family may need to be dropped or re-scoped."
+    "notes": "The name was not printed on the GPT-6 Astra system card section that discusses difficult ExploitGym problems."
    }
   },
   {
@@ -3377,7 +3377,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://deploymentsafety.openai.com/gpt-6-astra/",
-    "notes": "Maintainer OpenAI (publisher-internal). The name does not appear in the Astra system card as read: the card was read in two passes that covered all but about 16,000 characters of its end. The launch page https://openai.com/index/gpt-6-astra/ mentions only a capability-hallucination evaluation, in which Astra makes fewer misleading claims about its capabilities; it is not confirmed to be this benchmark. The previous text rested on the name alone and has been replaced. No system card names this benchmark, so the mapping to section 7.1 stays a judgment."
+    "notes": "Section 7.1 scores user-flagged factual errors, and the launch page separately mentions a capability-hallucination check; neither page uses this name."
    }
   },
   {
@@ -3554,7 +3554,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/gpt-6-astra/",
-    "notes": "Only the launch page's chart label was found. The Astra system card sections read did not describe this evaluation, and the card's last part was not read. The earlier description came from a third-party aggregator (aireleasetracker.com) and has been removed. Searches for an OpenAI card with a description found nothing usable."
+    "notes": "The row has no task statement, inputs, or scoring rule."
    }
   },
   {
@@ -3700,7 +3700,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/gpt-6-astra/",
-    "notes": "Only the launch page's chart label and a footnote were found. The footnote says Claude Fable 5 and 5.1 are left out of MedChemBench because they refuse most of its questions; that is a detail, not a description of the test. The Astra system card sections read, including its last part, do not describe MedChemBench. Aggregators disagree on the score and on which OpenAI card reports it, so none of their figures are used. The earlier description, which came from a third-party aggregator, has been removed."
+    "notes": "A footnote says two models are left out because they refuse most of the questions, which still does not define the questions."
    }
   },
   {
@@ -3722,7 +3722,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/gpt-6-astra/",
-    "notes": "Only the chart label was found. The system card's MLE-Bench Revised section (10.1.3.5, Kaggle-style machine learning problems) is a different, named benchmark and is not treated as this internal evaluation. The earlier description, which came from aggregators, has been removed."
+    "notes": "The system card's MLE-Bench Revised section is a different, named evaluation and is not this row."
    }
   },
   {
@@ -3772,7 +3772,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/gpt-6-astra/",
-    "notes": "Only the chart label was found. The system card's DNA Sequence Design for Transcription Factor Binding section (10.1.1.3.2) is a different test and is not treated as this one. The GPT-6 Astra system card sections read do not describe Design Tasks by name."
+    "notes": "BenchCAD is described on the same page, but that description is not applied to Internal Design Tasks."
    }
   },
   {
@@ -3875,7 +3875,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.minimax.io/blog/minimax-m3",
-    "notes": "Scoring as described in the MiniMax M3 evaluation methodology. Written as remembered; not re-read for this entry."
+    "notes": "The only DRACO text on the page is a scoring footnote in the model launch post."
    }
   },
   {
@@ -4137,11 +4137,11 @@
    "about": {
     "maintainer": "Andon Labs",
     "url": "https://andonlabs.com/evals/vending-bench-2",
-    "what_it_tests": "Vending-Bench puts a model in charge of a simulated vending-machine business for a long run of simulated days: it orders stock from suppliers by e-mail, sets prices, pays fees and keeps the machine filled, using tools in a long multi-turn loop. The result is the money in the bank at the end of the run, so the unit is dollars rather than a percentage. Version 2 is the harder successor with a stricter simulation and a fixed one-year horizon.",
+    "what_it_tests": "Vending-Bench puts a model in charge of a simulated vending-machine business and scores the money left in the bank. On the version 2 page, the model starts with $500, has one simulated year, and is stopped early if it cannot pay the $2 daily machine fee for more than 10 days in a row. It finds suppliers on the web, orders by email, moves stock between storage and the machine, and sets prices, while sales depend on the day, season, weather, and price. Version 2 also lets suppliers act adversarially, delay deliveries, or disappear, and lets customers demand refunds.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://andonlabs.com/evals/vending-bench-2",
-    "notes": "Description written from the Andon Labs evaluation page as remembered; the page was not re-read for this record. Z.ai model cards state that the runs are conducted independently by Andon Labs."
+    "notes": "This page is Vending-Bench 2, the one-year successor, and its score is the ending bank balance rather than a percentage."
    }
   },
   {
@@ -4155,13 +4155,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 183,
    "about": {
-    "maintainer": "Meituan (VitaBench authors)",
+    "maintainer": "Meituan LongCat Team (Wei He and co-authors)",
     "url": "https://vitabench.github.io/",
-    "what_it_tests": "VitaBench tests agents on versatile interactive tasks from daily life, such as food delivery, in-store services and travel, with simulated users, tools and policies, including cross-scenario tasks that combine them. A judge scores whether the task was completed; cards print an average over the sub-domains.",
+    "what_it_tests": "VitaBench tests agents on interactive tasks taken from food delivery, in-store consumption, and online travel services. The simulation has 66 tools and is split into 100 cross-scenario tasks and 300 single-scenario tasks, each built from real user requests. The agent has to use those tools across a multi-turn conversation, clarify unclear instructions, and follow a user intent that can change. A rubric-based sliding window evaluator judges the outcome, and the reported result is a success rate.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2509.26490",
-    "notes": "Paper arXiv 2509.26490 (September 2025). Written as remembered; not re-read for this entry. The Qwen3.6 cards judge with Claude 4 Sonnet because the official judge is no longer available."
+    "notes": "Cross-scenario tasks are the main set; the 300 single-scenario tasks are scored as separate domains."
    }
   },
   {
@@ -4259,11 +4259,11 @@
    "about": {
     "maintainer": "Artificial Analysis",
     "url": "https://artificialanalysis.ai/evaluations/omniscience",
-    "what_it_tests": "AA-Omniscience is the Artificial Analysis knowledge and hallucination evaluation: 6,000 questions across 42 topics where a correct answer scores +1, a wrong answer -1 and an abstention 0. The Omniscience Index (-100 to 100) rewards knowing when not to answer; model cards also print the accuracy and the non-hallucination rate separately.",
-    "introduced": 2025,
-    "status": "unverified",
+    "what_it_tests": "AA-Omniscience measures factual recall and whether a model admits a gap instead of guessing. It contains 6,000 questions on 42 topics in six domains, drawn from academic and industry sources. The Omniscience Index runs from -100 to 100: a correct answer raises it, a hallucination lowers it, a refusal is not penalized, and 0 means the model is right as often as it is wrong. The page also reports accuracy, the share of all questions answered correctly, and a hallucination rate among responses that were not correct.",
+    "introduced": null,
+    "status": "checked",
     "evidence_url": "https://artificialanalysis.ai/evaluations/omniscience",
-    "notes": "Artificial Analysis evaluation page. Written as remembered; not re-read for this entry."
+    "notes": "The index is not accuracy, because a refusal is not penalized and a wrong answer pulls the score down."
    }
   },
   {
@@ -4664,7 +4664,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://codeforces.com/",
-    "notes": "Written from the printed label and general knowledge of the platform. The card does not say which contests, how many attempts or what method produced the rating, and no maintainer page describes an evaluation protocol for models."
+    "notes": "The page shows contest announcements and a Rating column, but it does not state a scoring protocol for models."
    }
   },
   {
@@ -4705,13 +4705,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 219,
    "about": {
-    "maintainer": "Stanford Scaling Intelligence Lab",
+    "maintainer": "Scaling Intelligence Lab at Stanford University",
     "url": "https://github.com/ScalingIntelligence/KernelBench",
-    "what_it_tests": "KernelBench asks a model to write GPU kernels that replace PyTorch reference operators and measures correctness and speed-up. The Hard subset printed by MiniMax scores each of nine questions by the submitted operator's TFLOPs relative to the hardware peak and averages them.",
+    "what_it_tests": "KernelBench asks a language model to replace a PyTorch machine-learning workload with a GPU kernel, in CUDA or another kernel language, that is both correct and fast. The paper uses 250 PyTorch workloads, and the repository splits the core set into 100 single operators, 100 fused patterns, and 50 full architectures. A kernel is correct when its outputs match the PyTorch reference on randomized inputs. The score, fast_p, is the share of kernels that are correct and faster than that PyTorch baseline by more than a chosen threshold p, using wall-clock time.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2502.10517",
-    "notes": "Paper arXiv 2502.10517 (February 2025); the Hard subset scoring is from the MiniMax M3 methodology. Written as remembered; not re-read for this entry."
+    "notes": "The paper and repository do not define a nine-question Hard subset scored by TFLOPs against peak hardware."
    }
   },
   {
@@ -4834,13 +4834,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 228,
    "about": {
-    "maintainer": "SWE-Atlas authors",
-    "url": "https://huggingface.co/datasets/SWE-Atlas",
-    "what_it_tests": "SWE-Atlas-QnA asks repository-level questions about real codebases that an agent has to answer by exploring the code; the strict setting runs without internet access. The score is the share of questions answered correctly. Sister tasks cover refactoring and test writing.",
+    "maintainer": "Scale AI",
+    "url": "https://arxiv.org/abs/2605.08366",
+    "what_it_tests": "SWE Atlas Codebase QnA asks a coding agent to answer technical questions about a real repository that it can build and run inside a container. The leaderboard has 124 tasks drawn from 11 production repositories in Go, Python, C, and TypeScript. Human experts write a rubric of factual claims for each question, and a model judge marks each claim as met or not met. The task resolve rate is the share of answers that meet every rubric item, and a task also fails if the agent changes the source code.",
     "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://huggingface.co/datasets/SWE-Atlas",
-    "notes": "Named on the IFM K2-Horizon model card (September 2026). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://labs.scale.com/leaderboard/sweatlas-qna",
+    "notes": "The stored Hugging Face dataset link returns a 404; this leaderboard links the live set, and the page does not describe an internet-off setting."
    }
   },
   {
@@ -4868,12 +4868,12 @@
    "catalog_order": 230,
    "about": {
     "maintainer": "Scale AI",
-    "url": "https://labs.scale.com/",
-    "what_it_tests": "SWE-Atlas-Test Writing asks an agent to write tests for real repositories so that the tests pass on the reference implementation and catch the planted defects; one of the SWE-Atlas task groups published on labs.scale.com. The score is the share of tasks solved.",
+    "url": "https://arxiv.org/abs/2605.08366",
+    "what_it_tests": "SWE Atlas Test Writing asks a coding agent to add tests for a behavior that a prompt describes in ordinary language, inside a real repository. The set has 90 tasks from 11 production repositories in Go, Python, C, and TypeScript. A submission is resolved only if a manifest of the new tests is accepted, those tests pass on the original code and fail after the relevant code is removed, and every mandatory rubric item passes. The reported figure is the task resolve rate, the share of tasks that pass all three checks.",
     "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://labs.scale.com/",
-    "notes": "Scale AI leaderboard family; sister tasks are QnA and Refactoring. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://labs.scale.com/leaderboard/sweatlas-tw",
+    "notes": "Mandatory rubrics cover whether the tests cover the requested cases; placement and style rubrics are not used to rank."
    }
   },
   {
@@ -4999,13 +4999,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 239,
    "about": {
-    "maintainer": "NVIDIA",
-    "url": "https://github.com/NVIDIA/RULER",
-    "what_it_tests": "RULER is a synthetic long-context benchmark: needle-in-a-haystack retrieval with several needles, multi-hop tracing, aggregation and question answering over padded contexts of fixed lengths (4K to 1M tokens and beyond). The score at a given length is accuracy over the tasks; \"RULER-100\" denotes the 100-task set evaluated at the stated context length.",
+    "maintainer": "Cheng-Ping Hsieh, Simeng Sun, Samuel Kriman, Shantanu Acharya, Dima Rekesh, Fei Jia, Yang Zhang, and Boris Ginsburg",
+    "url": "https://arxiv.org/abs/2404.06654",
+    "what_it_tests": "RULER is a synthetic test of how well a language model uses a long context. It extends needle-in-a-haystack retrieval to different kinds and numbers of needles, and it adds multi-hop tracing, aggregation, and question answering over short-context datasets. The paper uses 13 tasks, and the repository groups them into retrieval, multi-hop tracing, aggregation, and question answering. The repository reports one score at each length from 4K through 128K tokens; the paper calls the result accuracy and says the length can be configured.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2404.06654",
-    "notes": "Paper arXiv 2404.06654 (April 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://github.com/NVIDIA/RULER",
+    "notes": "The paper and repository do not define a 100-task set called RULER-100, and the README says this is not an official NVIDIA product."
    }
   },
   {
@@ -5052,7 +5052,7 @@
     "introduced": 2025,
     "status": "unverified",
     "evidence_url": "https://ioinformatics.org/",
-    "notes": "Contest format as remembered; the Nemotron 3 Ultra card prints IOI 2025 total points. Written as remembered; not re-read for this entry."
+    "notes": "The old regulations file link no longer resolves, so the six-problem, 600-point account was not confirmed."
    }
   },
   {
@@ -5121,13 +5121,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 247,
    "about": {
-    "maintainer": "Mathematical Association of America",
-    "url": "https://maa.org/",
-    "what_it_tests": "USAMO problems are the six proof problems of a given year's USA Mathematical Olympiad, each worth 7 points for a total of 42. Model proofs are graded against human rubrics (MathArena protocol); publishers print either the points or the share of the maximum.",
+    "maintainer": "Jasper Dekoninck and co-authors (ETH Zurich and INSAIT), on the MathArena platform",
+    "url": "https://arxiv.org/abs/2503.21934",
+    "what_it_tests": "This evaluation uses the six proof problems of the 2025 USA Mathematical Olympiad, given over two days. A model must write a full natural-language proof for each problem, and each model attempts every problem four times. Two expert graders score each proof against a written scheme, with partial credit, out of 7 points per problem and 42 points in total. The published result is the average of those scores across the four runs.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://matharena.ai/",
-    "notes": "MathArena grading protocol as named on the MiniMax M3 page. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2503.21934v5",
+    "notes": "The paper grades the 2025 contest; MathArena also lists a 2026 USAMO set, and the pages read do not name the Mathematical Association of America."
    }
   },
   {
@@ -5974,13 +5974,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 296,
    "about": {
-    "maintainer": "Claw-Eval team (project linked to PKU and HKU; the README names Lei Li of HKU as project lead; paper lead author Bowen Ye)",
+    "maintainer": "Bowen Ye and co-authors at Peking University and the University of Hong Kong; the README names Lei Li of HKU as project lead",
     "url": "https://github.com/claw-eval/claw-eval",
-    "what_it_tests": "The multimodal split of Claw-Eval, an end-to-end evaluation suite for LLM agents on multi-step software workflows, tests whether a model can complete perception and creation tasks. The README describes the split as covering webpage generation, video QA and document extraction. The paper states that the split holds 101 tasks across three domains: video (53), document and image (22) and code (26). Grading covers completion, safety and robustness and uses execution traces, audit logs and environment snapshots. The paper defines Pass@k as the fraction of tasks passed at least once in k runs, average score as the mean over all runs, and Pass^k as the fraction of tasks passed on every trial.",
+    "what_it_tests": "The multimodal group of Claw-Eval asks an agent to perceive and create, rather than only to call text tools. The paper counts 101 tasks: 53 on video, 22 on documents and images, and 26 on code such as webpage generation, SVG animation, and video editing. Each run is graded for completion, safety, and robustness from execution traces, audit logs, and environment snapshots. A trial passes above 0.75; Pass@3 is the share of tasks passed at least once in three trials, Pass^3 is the share passed every time, and the average score is the mean over the trials.",
     "introduced": 2026,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/html/2604.06132v3",
-    "notes": "The arXiv paper (v1 submitted 7 April 2026, lead author Bowen Ye, v3 revised 7 May 2026) gives the 101-task multimodal split and the Pass@k, Pass^k and average-score definitions. Neither the paper text read nor the GitHub README uses the name ClawEval-MM, so the label used on model cards is not confirmed; the multimodal split of Claw-Eval is the closest primary match. The README names Pass^3 as its primary metric, and only the paper defines Pass@3 and average score."
+    "notes": "The paper and the README do not use the name ClawEval-MM; they call this group the multimodal split."
    }
   },
   {
@@ -6207,7 +6207,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/gpt-5-6/",
-    "notes": "The release page is the only description of this evaluation; OpenAI has not published its tasks or grading. The name suggests a training-recipe optimization task in the style of the public NanoGPT speedrun, but the page does not say so."
+    "notes": "The launch page is the only public mention found, and a name plus a percentage is not a definition of the task."
    }
   },
   {
@@ -6333,7 +6333,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/introducing-gpt-5-5/",
-    "notes": "The relation to GeneBench Pro (family genebench-pro) is inferred from the names; the page does not state it. Values under the two names are kept apart."
+    "notes": "GeneBench Pro is described on the later GPT-5.6 page as its own genomics evaluation, with no statement that it continues GeneBench."
    }
   },
   {
@@ -6358,7 +6358,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://openai.com/index/introducing-gpt-5-4/",
-    "notes": "The relation to OfficeQA Pro (family officeqa-pro) is inferred from the names; the page does not state it. Values under the two names are kept apart."
+    "notes": "The two names stay apart because neither page states that one is the base version of the other."
    }
   },
   {
@@ -7042,7 +7042,7 @@
     "introduced": 2024,
     "status": "unverified",
     "evidence_url": "https://huggingface.co/deepseek-ai/DeepSeek-R1",
-    "notes": "There is no benchmark paper; DeepSeek model cards print \"CNMO 2024 (Pass@1)\" without saying how the problems were graded."
+    "notes": "A model card that only prints the name is not the definition of this contest."
    }
   },
   {
@@ -7119,11 +7119,11 @@
    "about": {
     "maintainer": "Sierra",
     "url": "https://github.com/sierra-research/tau2-bench",
-    "what_it_tests": "tau3-bench (tau-cubed) is the third generation of the Sierra tau-bench line of customer-service agent tests: the agent talks to a simulated user and acts through domain tools under policy rules, and the new generation adds knowledge-retrieval and voice domains. A run passes when the final state matches the annotated target; the score is the pass rate. Model cards that print a single tau3-bench number do not say which domains are averaged.",
+    "what_it_tests": "tau3-bench tests a customer-service agent that talks with a simulated user and acts through domain tools while following a written policy. The repository includes airline, retail, telecom, and banking-knowledge domains, and this release also adds full-duplex voice. For the usual text domains, the reward is the product of two checks: the final database state must match the state produced by replaying a reference solution, and the agent must say the required facts. A single published tau3-bench number does not by itself say which domains were included.",
     "introduced": 2026,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://github.com/sierra-research/tau2-bench",
-    "notes": "The tau2-bench repository presents the project as tau3-bench; see the separate tau3-Banking family for the banking_knowledge domain. The GLM-5.1 card prints one number labelled tau3-Bench without a domain."
+    "notes": "The repository says banking-knowledge scores from before the July 2026 grading fix are not comparable with later scores."
    }
   },
   {
@@ -7171,13 +7171,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 343,
    "about": {
-    "maintainer": "Claw-Eval team (project linked to PKU and HKU; the README names Lei Li of HKU as project lead)",
+    "maintainer": "Bowen Ye and co-authors at Peking University and the University of Hong Kong; the README names Lei Li of HKU as project lead",
     "url": "https://github.com/claw-eval/claw-eval",
-    "what_it_tests": "Claw-Eval is an end-to-end evaluation suite for LLM agents on multi-step software workflows: the agent has to finish realistic tasks inside tool environments, and a task counts only when the end state is right. Model cards print two readings of the same runs: pass@3, the share of tasks solved in at least one of three attempts, and pass^3, the share solved in all three, which rewards consistency.",
+    "what_it_tests": "Claw-Eval is an end-to-end suite for agents doing multi-step software work. It has 300 human-checked tasks in nine categories and three groups: general workflows (161), multimodal perception and creation (101), and multi-turn professional dialogue (38). Graders use execution traces, audit logs, and environment snapshots to score completion, safety, and robustness. Over three trials, the average score is the mean, Pass@3 is the share of tasks that pass at least once, with a pass defined as a score above 0.75, and Pass^3 is the share that pass every time.",
     "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://github.com/claw-eval/claw-eval",
-    "notes": "The text split of Claw-Eval; the multimodal split is the separate ClawEval-MM family. The Kimi K2.6 card ran version 1.1 with max-tokens-per-step 16384. Maintainer detail copied from the ClawEval-MM record; the repository was not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2604.06132v3",
+    "notes": "The README names Pass^3 as the primary leaderboard metric."
    }
   },
   {
@@ -7196,13 +7196,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 344,
    "about": {
-    "maintainer": "Penghao Wu and Saining Xie (New York University)",
+    "maintainer": "Penghao Wu (UC San Diego) and Saining Xie (New York University)",
     "url": "https://arxiv.org/abs/2312.14135",
-    "what_it_tests": "V* Bench tests whether a multimodal model can find and reason about small visual details in high-resolution images: 191 images with questions about the attributes of a small object or the spatial relation between two of them, where the answer is only visible after locating the right region. The score is accuracy over the multiple-choice questions.",
+    "what_it_tests": "V* Bench tests whether a multimodal model can find small visual details in high-resolution images. It has 191 images, with an average resolution of 2246 by 1582, and two sub-tasks: attribute recognition on 115 samples and spatial-relationship reasoning on 76 samples. Attribute questions ask about a property of an object, such as color or material, and spatial questions ask how two objects are placed relative to each other. The project page presents the questions as multiple choice, with one option marked correct.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2312.14135",
-    "notes": "Written from the paper \"V*: Guided Visual Search as a Core Mechanism in Multimodal LLMs\" (December 2023) as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://vstar-seal.github.io/",
+    "notes": "The project page does not print a sentence that names the aggregate score."
    }
   },
   {
@@ -7221,13 +7221,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 345,
    "about": {
-    "maintainer": "Pan Lu and co-authors (UCLA and Microsoft Research)",
+    "maintainer": "Pan Lu and co-authors (UCLA, University of Washington, and Microsoft Research)",
     "url": "https://mathvista.github.io/",
-    "what_it_tests": "MathVista tests mathematical reasoning in visual contexts: questions about figures, charts, geometry diagrams, scientific plots and natural images that need both reading the picture and doing the math. The full set has 6,141 examples drawn from 28 existing datasets plus three new ones; testmini is the 1,000-example subset most model cards report, printed as accuracy.",
+    "what_it_tests": "MathVista tests mathematical reasoning that depends on a picture, including figures, charts, geometry diagrams, function plots, tables, scientific figures, and natural images. The full set has 6,141 examples, drawn from 28 existing multimodal datasets plus three new ones, IQTest, FunctionQA, and PaperQA. Most reported results use testmini, a 1,000-example subset; the remaining 5,141 examples are the held-out test set. The published result is accuracy.",
     "introduced": 2023,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2310.02255",
-    "notes": "Paper arXiv 2310.02255 (October 2023, ICLR 2024). Written as remembered; not re-read for this entry."
+    "notes": "The arXiv submission date is 3 October 2023, and the project page lists the conference version as ICLR 2024."
    }
   },
   {
@@ -7246,13 +7246,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 346,
    "about": {
-    "maintainer": "Yuliang Liu and co-authors (Huazhong University of Science and Technology)",
+    "maintainer": "Yuliang Liu and co-authors",
     "url": "https://github.com/Yuliang-Liu/MultimodalOCR",
-    "what_it_tests": "OCRBench tests the text-reading abilities of multimodal models with 1,000 question-answer pairs across five task types: text recognition, scene-text visual question answering, document question answering, key information extraction and handwritten mathematical expression recognition. The native score is the number of correct answers out of 1,000; model cards may print it rescaled.",
+    "what_it_tests": "OCRBench tests whether a multimodal model can read text in an image and answer from it. The scored set has 1,000 manually checked question-answer pairs in five parts: text recognition, scene-text visual question answering, document-oriented visual question answering, key information extraction, and handwritten mathematical expression recognition. Those pairs come out of a wider study that uses 29 text datasets. The published result is a final score that adds the five part scores.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2305.07895",
-    "notes": "Written from the paper \"On the Hidden Mystery of OCR in Large Multimodal Models\" as remembered; not re-read for this entry. The Kimi K2.5 card prints values such as 92.3, read here as a percentage-like score as printed."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2305.07895v7",
+    "notes": "The same repository later added OCRBench v2, a separate set of 10,000 human-checked pairs, so a bare OCRBench name can mean either set."
    }
   },
   {
@@ -7271,13 +7271,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 347,
    "about": {
-    "maintainer": "Minesh Mathew and co-authors (IIIT Hyderabad and CVC Barcelona); hosted on the DocVQA challenge site",
+    "maintainer": "Minesh Mathew and co-authors (IIIT Hyderabad, IISER Pune, and CVC, Universitat Autonoma de Barcelona)",
     "url": "https://www.docvqa.org/datasets/infographicvqa",
-    "what_it_tests": "InfographicVQA tests question answering over infographic images, which mix text, charts, icons and layout: 5,485 infographics with about 30,000 questions, many needing arithmetic or counting over the numbers shown. The usual metric is ANLS, a string-similarity score tolerant to small OCR errors, reported on the validation or test split.",
+    "what_it_tests": "InfographicVQA asks questions about infographic images, which mix writing, graphics, layout, and charts. The paper reports 30,035 questions on 5,485 images, including items that need counting, sorting, or arithmetic, and answers that are a text span or a number. A prediction is scored with Average Normalized Levenshtein Similarity, which still gives partial credit for a small string edit, and also with exact-match accuracy. The similarity gives no credit once the normalized edit distance reaches 0.5.",
     "introduced": 2021,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2104.12756",
-    "notes": "Paper arXiv 2104.12756 (WACV 2022). Written as remembered; not re-read for this entry. Model cards print it as InfoVQA with the split in the label."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2104.12756v2",
+    "notes": "The DocVQA dataset page returned no dataset text, so the counts and the scoring rule are taken from the paper, which points to docvqa.org."
    }
   },
   {
@@ -7296,13 +7296,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 348,
    "about": {
-    "maintainer": "SimpleVQA authors (Xianfu Cheng and co-authors)",
+    "maintainer": "Xianfu Cheng and co-authors (Beihang University, with Baidu and M-A-P among the listed affiliations)",
     "url": "https://arxiv.org/abs/2502.13059",
-    "what_it_tests": "SimpleVQA tests the factual knowledge of multimodal models with short-answer questions about what an image shows, in the spirit of SimpleQA for text: the questions are objective, the answers are short and checked for correctness, so the score is the share of questions answered correctly rather than a reasoning rate.",
+    "what_it_tests": "SimpleVQA tests whether a multimodal model can give a short factual answer about an image. The paper collects 2,025 question-answer pairs, placed in 9 tasks and 9 topics, in English and Chinese, with reference answers that are not supposed to change over time. A separate language model judges each reply right or wrong. The reported result is the share of answers judged correct.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2502.13059",
-    "notes": "Written from the arXiv listing as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2502.13059v1",
+    "notes": "The same paper also groups the items into 16 visual-question forms and 4 broader question forms, so the 9-task cut is not the only one."
    }
   },
   {
@@ -7323,11 +7323,11 @@
    "about": {
     "maintainer": "Wenyi Hong and co-authors (Tsinghua University and Zhipu AI)",
     "url": "https://motion-bench.github.io/",
-    "what_it_tests": "MotionBench tests fine-grained motion understanding in video models: multiple-choice questions about how things move within short clips, such as motion recognition, direction, speed, order and interaction, where a single frame is not enough. The score is accuracy over the questions.",
+    "what_it_tests": "MotionBench tests fine-grained motion understanding in video. It has 8,052 manually written multiple-choice questions on clips from the web, public datasets, and synthetic scenes. The six question groups are motion recognition, location-related motion, camera motion, motion-related objects, action order, and repetition count. The reported result is accuracy.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2501.02955",
-    "notes": "Paper arXiv 2501.02955 (January 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2501.02955v2",
+    "notes": "The project page labels those six groups MR, LM, CM, MO, AO, and RC, and it reports separate dev and test averages."
    }
   },
   {
@@ -7346,13 +7346,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 350,
    "about": {
-    "maintainer": "Haoning Wu and co-authors (Nanyang Technological University)",
+    "maintainer": "Haoning Wu, Dongxu Li, Bei Chen, and Junnan Li",
     "url": "https://longvideobench.github.io/",
-    "what_it_tests": "LongVideoBench tests understanding of long videos with subtitles, up to an hour long: multiple-choice questions that refer to a specific moment or span and ask what happens there, so the model has to find the right part of a long input before answering. The score is accuracy over the questions.",
+    "what_it_tests": "LongVideoBench tests understanding of long videos that come with subtitles. It has 3,763 web videos, grouped from a few seconds up to an hour, and 6,678 human-written multiple-choice questions in 17 categories. Each question first points at one or more moments, called the referred context, and then asks what is there or how those moments relate. The reported result is accuracy.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2407.15754",
-    "notes": "Paper arXiv 2407.15754 (NeurIPS 2024 datasets track). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2407.15754v1",
+    "notes": "The project page marks it as a NeurIPS 2024 datasets and benchmarks release, and the pages opened here do not name a university."
    }
   },
   {
@@ -7371,13 +7371,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 351,
    "about": {
-    "maintainer": "ByteDance Seed",
+    "maintainer": "ByteDance Seed and Columbia Business School",
     "url": "https://arxiv.org/abs/2509.13160",
-    "what_it_tests": "FinSearchComp tests search agents on realistic financial information tasks in three tiers: T1 time-sensitive data fetching, T2 simple historical lookup and T3 complex historical investigation, across global and Greater China markets. Answers are checked against expert-verified references; the score is accuracy. Model cards often print only the T2 and T3 tiers, whose answers do not change with the date.",
+    "what_it_tests": "FinSearchComp tests whether a search agent can finish realistic financial lookup tasks. It has 635 questions, written with 70 financial experts, covering global markets and Greater China. The three families are time-sensitive data fetching (T1), simple historical lookup (T2), and complex historical investigation (T3). Many items have an expert-marked acceptable range rather than one exact string, and a language model judges the reply against that rubric, allowing small differences such as rounding.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2509.13160",
-    "notes": "Written from the arXiv listing (September 2025) as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2509.13160v1",
+    "notes": "Time-sensitive items are graded after the relevant markets close, and the allowed range depends on the kind of asset."
    }
   },
   {
@@ -7397,12 +7397,12 @@
    "catalog_order": 352,
    "about": {
     "maintainer": "Thinh Pham and co-authors (Virginia Tech)",
-    "url": "https://github.com/vtllms/sealqa",
-    "what_it_tests": "Seal-0 is the core subset of SealQA, a benchmark of search-augmented question answering whose questions bring back conflicting, noisy or unhelpful web results. Seal-0 keeps the questions on which frontier models with search mostly failed when the set was built, so it measures whether a model can reason over contradictory evidence instead of trusting the first result. The score is accuracy.",
+    "url": "https://arxiv.org/abs/2506.01062",
+    "what_it_tests": "Seal-0 is the main subset of SealQA, a set of fact-seeking questions whose web search returns conflicting, noisy, or unhelpful pages. It has 111 questions that were rewritten until strong non-reasoning chat models with browsing still failed. The model has to answer from that messy evidence rather than from the first page. The reported result is accuracy.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2506.01062",
-    "notes": "Paper arXiv 2506.01062 (June 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2506.01062v4",
+    "notes": "The GitHub path named for this entry returns a 404; the paper releases the data at huggingface.co/datasets/vtllms/sealqa, and SealQA also has Seal-Hard and LongSeal, each with 254 questions."
    }
   },
   {
@@ -7472,13 +7472,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 355,
    "about": {
-    "maintainer": "Chengke Zou and co-authors (University of Illinois Urbana-Champaign and UC Berkeley)",
+    "maintainer": "Chengke Zou and co-authors (University of Illinois Urbana-Champaign and University of California, Berkeley)",
     "url": "https://dynamath.github.io/",
-    "what_it_tests": "DynaMath tests how robust the visual mathematical reasoning of a model is: 501 seed questions are each generated as a program that can vary the numbers, graphs or figures, giving many concrete variants of the same problem. The usual score is average accuracy over the generated variants; a worst-case accuracy over the variants of each seed is also defined.",
+    "what_it_tests": "DynaMath tests whether visual math reasoning still holds after a problem is rewritten. It has 501 seed questions, each stored as a Python program that can change numbers, graphs, or figures. The authors generate 10 variants of each seed, which makes 5,010 concrete questions. Average-case accuracy is the share of concrete questions answered correctly, and worst-case accuracy is the share of seeds for which every variant is correct.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2411.00836",
-    "notes": "Paper arXiv 2411.00836 (ICLR 2025). Written as remembered; not re-read for this entry. Qwen cards print one number without naming which accuracy."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2411.00836v2",
+    "notes": "The preprint date on the page is 2024, and the page says the paper was accepted at ICLR 2025."
    }
   },
   {
@@ -7499,11 +7499,11 @@
    "about": {
     "maintainer": "Pooyan Rahmanzadehgervi and co-authors (Auburn University and University of Alberta)",
     "url": "https://vlmsareblind.github.io/",
-    "what_it_tests": "VLMs are Blind (BlindTest) is a set of seven very simple visual tasks that people solve at a glance, such as whether two lines intersect, whether two circles overlap, which letter is circled, and counting nested squares or grid rows. It measures low-level visual perception rather than knowledge; the score is average accuracy over the tasks.",
+    "what_it_tests": "VLMs are Blind, also called BlindTest, checks low-level vision that a person can settle at a glance. The project page lists seven tasks: counting how many times two lines meet, judging whether two circles touch or overlap, naming the circled letter in a word, counting overlapping shapes, counting nested squares, counting cells in a grid, and following a path on a subway-style map. Each item has a fixed set of possible answers. The reported result is accuracy on a task, and the page also prints a mean across the seven tasks.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2407.06581",
-    "notes": "Paper arXiv 2407.06581 (July 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://vlmsareblind.github.io/",
+    "notes": "The paper abstract names four of the seven tasks and calls the suite BlindTest; the project page is the page that lists all seven."
    }
   },
   {
@@ -7522,13 +7522,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 357,
    "about": {
-    "maintainer": "Lin Chen and co-authors (University of Science and Technology of China and Shanghai AI Laboratory)",
+    "maintainer": "Lin Chen and co-authors (University of Science and Technology of China, the Chinese University of Hong Kong, and Shanghai Artificial Intelligence Laboratory)",
     "url": "https://mmstar-benchmark.github.io/",
-    "what_it_tests": "MMStar is a curated set of 1,500 multiple-choice samples chosen so that the image is indispensable: questions a text-only model could answer from the words alone, or that leak into training data, were filtered out. It covers six core capabilities and 18 detailed axes; the score is accuracy.",
+    "what_it_tests": "MMStar tests multimodal understanding on items that were kept only when the image is needed. Humans selected 1,500 samples, with 250 for each of six capabilities and 18 finer axes. The six capabilities are coarse perception, fine-grained perception, instance reasoning, logical reasoning, science and technology, and mathematics. The main result is accuracy, and the paper also defines Multi-modal Gain and Multi-modal Leakage for separate analyses.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2403.20330",
-    "notes": "Paper arXiv 2403.20330 (NeurIPS 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://mmstar-benchmark.github.io/",
+    "notes": "The project page says MMStar was accepted at NeurIPS 2024."
    }
   },
   {
@@ -7547,13 +7547,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 358,
    "about": {
-    "maintainer": "OpenCompass (Shanghai AI Laboratory; Yuan Liu and co-authors)",
+    "maintainer": "Yuan Liu and co-authors (Shanghai AI Laboratory); the repository is run by the OpenCompass community",
     "url": "https://github.com/open-compass/MMBench",
-    "what_it_tests": "MMBench tests multimodal understanding with multiple-choice questions over 20 ability dimensions, from object localization and OCR to attribute and relation reasoning. Its circular evaluation asks each question several times with the options rotated and counts it right only if every pass is right. Cards name the language split and version, for example MMBench-EN dev v1.1, and print accuracy.",
+    "what_it_tests": "MMBench tests broad multimodal skill with single-answer multiple-choice questions in English and Chinese. The paper describes 3,217 questions across 20 ability dimensions, while the current repository lists 1,164 development questions and 1,784 test questions in each language. A free-form reply is mapped to a choice, by a matching rule when that works and otherwise by a language model. Under CircularEval the choices are rotated, the question is asked once for each order, and it counts as correct only when every pass is correct.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2307.06281",
-    "notes": "Paper arXiv 2307.06281 (ECCV 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2307.06281v5",
+    "notes": "The revised paper calls this release MMBench v1.1, and the live repository count does not match the 3,217 figure in the paper text."
    }
   },
   {
@@ -7572,13 +7572,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 359,
    "about": {
-    "maintainer": "Alibaba (Qwen team; Zhibo Yang and co-authors)",
-    "url": "https://github.com/QwenLM/CC-OCR",
-    "what_it_tests": "CC-OCR tests OCR-centred reading in four tracks: multi-scene text reading, multilingual text reading, document parsing and key information extraction, over 39 subsets with 7,058 images in which about 41% were not public before. The score is an average over the tracks of their native metrics.",
+    "maintainer": "Zhibo Yang and co-authors (Alibaba Group)",
+    "url": "https://arxiv.org/abs/2412.02210",
+    "what_it_tests": "CC-OCR tests reading and structured understanding of text in images. It has four tracks, multi-scene text reading, multilingual text reading, document parsing, and key information extraction, with 39 subsets and 7,058 fully annotated images, of which 41 percent are released here for the first time. Text reading is scored with an F1 over matched text units, document and formula parsing with normalized edit distance, tables with a tree-edit similarity, and key information extraction with a field-level F1. The paper does not define one metric that is used for every track.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2412.02210",
-    "notes": "Paper arXiv 2412.02210 (December 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2412.02210v3",
+    "notes": "The QwenLM GitHub path named for this entry returns a 404, so this description follows the paper."
    }
   },
   {
@@ -7596,13 +7596,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 360,
    "about": {
-    "maintainer": "Roni Paiss and co-authors (Google Research and Tel Aviv University), from the \"Teaching CLIP to Count to Ten\" work",
+    "maintainer": "Roni Paiss and co-authors (Google Research and the Weizmann Institute of Science)",
     "url": "https://teaching-clip-to-count.github.io/",
-    "what_it_tests": "CountBench is a counting benchmark of 540 images, each with a caption naming between two and ten objects of one kind, built from LAION-400M. A model is asked how many instances appear, and the score is accuracy over the images.",
+    "what_it_tests": "CountBench tests whether a model can tell how many objects of one kind are in a picture. It has 540 images, checked by hand and taken from LAION-400M, whose captions state a count from two to ten, with 60 images for each count. In the published test, the count word in the caption is replaced by every count from two to ten, and the prediction is the caption with the highest image-text similarity. The paper also reports top-1 accuracy and the mean absolute distance from the true count.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2302.12066",
-    "notes": "Paper arXiv 2302.12066 (ICCV 2023). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://teaching-clip-to-count.github.io/",
+    "notes": "This is a closed choice among the nine counts from two to ten, not an open question that asks for a free-text number."
    }
   },
   {
@@ -7621,13 +7621,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 361,
    "about": {
-    "maintainer": "Licheng Yu, Sahar Kazemzadeh and co-authors (University of North Carolina at Chapel Hill and others); COCO images",
+    "maintainer": "Licheng Yu and co-authors (UNC); RefCOCO and RefCOCO+ are the UNC ReferItGame collections",
     "url": "https://github.com/lichengunc/refer",
-    "what_it_tests": "RefCOCO, RefCOCO+ and RefCOCOg are referring-expression grounding sets on COCO images: given a phrase such as \"the man in the red shirt on the left\", the model must return the bounding box of that object. A prediction counts when its box overlaps the reference box by at least 0.5 IoU; model cards print an average accuracy over the splits of the three sets.",
-    "introduced": 2016,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/1608.00272",
-    "notes": "The RefCOCO and RefCOCO+ splits date from Kazemzadeh et al. 2014 and Yu et al. 2016, RefCOCOg from Mao et al. 2016. Written as remembered; not re-read for this entry."
+    "what_it_tests": "RefCOCO, RefCOCO+, and RefCOCOg test referring expressions on COCO images: given a phrase, the model should localize that object. RefCOCO and RefCOCO+ were collected in a two-player game, RefCOCO+ forbids location words, and RefCOCOg was written separately without that game. The paper counts 142,209 expressions for 50,000 objects in 19,994 images for RefCOCO, and 141,564 expressions for 49,856 objects in 19,992 images for RefCOCO+. For comprehension, a predicted box counts when its intersection-over-union with the reference box is above 0.5, and that rate is averaged over images.",
+    "introduced": 2014,
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/1608.00272v3",
+    "notes": "The UNC repository also documents RefClef and more than one split, and it recommends the UMD split for RefCOCOg because the images do not overlap across train, validation, and test."
    }
   },
   {
@@ -7648,11 +7648,11 @@
    "about": {
     "maintainer": "Mengfei Du and co-authors (Fudan University)",
     "url": "https://github.com/mengfeidu/EmbSpatial-Bench",
-    "what_it_tests": "EmbSpatial-Bench tests spatial understanding from an embodied, egocentric point of view: multiple-choice questions about six spatial relations (above, below, left, right, close, far) between objects in indoor scenes drawn from embodied simulation environments. The score is accuracy.",
+    "what_it_tests": "EmbSpatial-Bench tests spatial understanding from the camera's own point of view, rather than from an object drawn inside the picture. The questions are multiple choice and are built from indoor embodied scenes in MP3D, AI2-THOR, and ScanNet, then checked by people. The paper names six relations: above, below, left, right, far, and close. The reported result is accuracy, taken either from the generated choice or from the choice the model assigns the highest probability.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2406.05756",
-    "notes": "Paper arXiv 2406.05756 (ACL 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2406.05756v1",
+    "notes": "The public release also includes an instruction-tuning set, EmbSpatial-SFT, which is not the scored benchmark."
    }
   },
   {
@@ -7672,13 +7672,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 363,
    "about": {
-    "maintainer": "Enshen Zhou and co-authors (the RoboRefer work, Beijing Academy of Artificial Intelligence and Peking University)",
+    "maintainer": "Enshen Zhou and co-authors (Beihang University, Peking University, and Beijing Academy of Artificial Intelligence)",
     "url": "https://zhoues.github.io/RoboRefer/",
-    "what_it_tests": "RefSpatial-Bench tests spatial referring for robotics: the model must point to a location in an image described in words, such as a spot to the left of one object and behind another, in two tasks, Location and Placement, with multi-step reasoning. A prediction counts when the point falls inside the ground-truth mask; the score is accuracy.",
+    "what_it_tests": "RefSpatial-Bench tests spatial referring for robotics: the model must mark one point in an image that matches a written location or placement instruction. It has 200 real-world images, 100 for Location and 100 for Placement, each with a precise mask, and more than 70 percent of the samples need multi-step reasoning, up to five steps. A predicted point succeeds when it falls inside the ground-truth mask. The reported result is the average success rate.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2506.04308",
-    "notes": "Paper arXiv 2506.04308 (June 2025, RoboRefer). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2506.04308v4",
+    "notes": "This benchmark is part of the RoboRefer paper; the much larger RefSpatial training set, described as 20 million question-answer pairs, is a different release."
    }
   },
   {
@@ -7698,12 +7698,12 @@
    "catalog_order": 364,
    "about": {
     "maintainer": "Junjie Zhou and co-authors (Beijing Academy of Artificial Intelligence and others)",
-    "url": "https://github.com/JUNJIE99/MLVU",
-    "what_it_tests": "MLVU, Multi-task Long Video Understanding, tests understanding of videos from three minutes to two hours long across nine tasks, such as topic reasoning, anomaly recognition, needle-in-a-haystack retrieval and summarization. Multiple-choice tasks are scored by accuracy, the generation tasks by a judge; cards usually print the multiple-choice average (M-Avg).",
+    "url": "https://arxiv.org/abs/2406.04264",
+    "what_it_tests": "MLVU, Multi-task Long Video Understanding, asks a model questions about long videos whose lengths run from 3 minutes to more than 2 hours, including movies, surveillance, egocentric video, cartoons, and games. The paper defines 9 tasks, among them topic reasoning, anomaly recognition, summarization, and needle question answering, and it counts 1,730 videos and 3,102 questions. Multiple-choice tasks are scored by accuracy. Open-ended generation is scored by a judge model, and the paper averages the two groups separately as M-Avg and G-Avg.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2406.04264",
-    "notes": "Paper arXiv 2406.04264 (CVPR 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2406.04264v3",
+    "notes": "Model cards usually print M-Avg, the multiple-choice average, not the generation average."
    }
   },
   {
@@ -7722,13 +7722,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 365,
    "about": {
-    "maintainer": "Kunchang Li and co-authors (OpenGVLab, Shanghai AI Laboratory)",
-    "url": "https://github.com/OpenGVLab/Ask-Anything/tree/main/video_chat2",
-    "what_it_tests": "MVBench tests temporal understanding of short videos with 20 task types that cannot be solved from a single frame, such as action sequence, moving direction, object shuffle and counterfactual inference, 200 multiple-choice questions each. The score is accuracy over the 4,000 questions.",
+    "maintainer": "Kunchang Li and co-authors (OpenGVLab)",
+    "url": "https://arxiv.org/abs/2311.17005",
+    "what_it_tests": "MVBench tests temporal understanding of video. It has 20 tasks that cannot be solved from a single frame, made by turning static image tasks into dynamic ones, such as action sequence, moving direction, and counterfactual inference. Public video annotations are converted into multiple-choice questions, 200 per task, so the correct option is the annotated ground truth. The score is accuracy, and the paper also reports the average accuracy across tasks.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2311.17005",
-    "notes": "Paper arXiv 2311.17005 (CVPR 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2311.17005v4",
+    "notes": "The paper dates the benchmark to a November 2023 submission and a CVPR 2024 version."
    }
   },
   {
@@ -7753,7 +7753,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
-    "notes": "Appears on the Qwen3.5 and Qwen3.6 model cards without a note. The maintainer and the public release were not confirmed for this entry."
+    "notes": "The card explains other rows in footnotes, and DeepPlanning is not one of them."
    }
   },
   {
@@ -7772,13 +7772,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 367,
    "about": {
-    "maintainer": "Tianrui Guan, Fuxiao Liu and co-authors (University of Maryland)",
-    "url": "https://github.com/tianyi-lab/HallusionBench",
-    "what_it_tests": "HallusionBench tests whether a model trusts the image over its prior beliefs: paired yes/no questions over 346 images, including edited images, charts, maps and visual illusions, where a model relying on language priors answers wrong. Several accuracies are defined (per question, per figure, per question pair); cards print one number, usually the overall or question-pair accuracy.",
+    "maintainer": "Tianrui Guan, Fuxiao Liu, and co-authors (University of Maryland, College Park)",
+    "url": "https://arxiv.org/abs/2310.14566",
+    "what_it_tests": "HallusionBench tests whether a model reasons from the image or falls back on language priors and visual illusions. Human experts wrote 1,129 yes/no questions on 346 figures, mixing original images, edited images, charts, tables, maps, and illusions, and arranged them as control pairs. Each answer is marked correct or not. The paper then reports accuracy over all questions, accuracy over a whole figure, and question-pair accuracy, which counts a pair only when the model is right on every image in that pair.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2310.14566",
-    "notes": "Paper arXiv 2310.14566 (CVPR 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2310.14566v5",
+    "notes": "Question-pair accuracy is stricter than the per-question accuracy, so a single printed number can be either one."
    }
   },
   {
@@ -7797,13 +7797,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 368,
    "about": {
-    "maintainer": "Allen Institute for AI (Aniruddha Kembhavi and co-authors)",
-    "url": "https://allenai.org/data/diagrams",
-    "what_it_tests": "AI2D is a set of about 5,000 grade-school science diagrams with multiple-choice questions about their content, such as the stages of a life cycle or the parts of a food web. Cards report accuracy on the test split; some evaluations mask the diagram labels and some do not.",
+    "maintainer": "Aniruddha Kembhavi and co-authors (Allen Institute for Artificial Intelligence)",
+    "url": "https://arxiv.org/abs/1603.07396",
+    "what_it_tests": "AI2D, AI2 Diagrams, is a set of grade-school science diagrams with multiple-choice questions about what the diagram shows. The paper counts more than 5,000 diagrams and more than 15,000 questions, collected from topics in grade 1 to 6 science textbooks, and each question has four choices. The images are split into 4,000 for training and 1,000 for a blind test. Question answering is scored by accuracy on that test set.",
     "introduced": 2016,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/1603.07396",
-    "notes": "Paper \"A Diagram Is Worth a Dozen Images\" (ECCV 2016). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/1603.07396",
+    "notes": "The Allen Institute data page did not load; this description is from the 2016 paper, which does not discuss a later label-masking variant."
    }
   },
   {
@@ -7822,13 +7822,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 369,
    "about": {
-    "maintainer": "Microsoft (introduced with GLIP; Liunian Harold Li and co-authors), later part of the ELEVATER benchmark",
-    "url": "https://github.com/microsoft/GLIP",
-    "what_it_tests": "ODinW, Object Detection in the Wild, is a collection of real-world object detection datasets from Roboflow covering domains such as aerial images, thermal images, underwater and medical images. ODinW-13 is the 13-dataset subset; the score is average mAP over the datasets, usually zero-shot.",
+    "maintainer": "Liunian Harold Li and co-authors (GLIP; code at microsoft/GLIP)",
+    "url": "https://arxiv.org/abs/2112.03857",
+    "what_it_tests": "ODinW, Object Detection in the Wild, is the transfer setting in the GLIP paper. It uses 13 public object-detection datasets from Roboflow, each asking the model to localize a different set of objects, including drone views, aquarium scenes, ego-centric hands, and thermal images. The paper reports average precision on this collection. The same table includes a zero-shot column and several few-shot columns.",
     "introduced": 2022,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2112.03857",
-    "notes": "Introduced in the GLIP paper (CVPR 2022). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2112.03857v2",
+    "notes": "ODinW-13 is this 13-dataset set; the paper is a CVPR 2022 submission first posted in 2021."
    }
   },
   {
@@ -7853,7 +7853,7 @@
     "introduced": null,
     "status": "unverified",
     "evidence_url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
-    "notes": "Only the row on the Qwen3.5 model cards (February 2026) was seen; maintainer, task and metric were not confirmed for this entry."
+    "notes": "The name suggests 63 languages, but the card never says that."
    }
   },
   {
@@ -7872,13 +7872,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 371,
    "about": {
-    "maintainer": "Tyler A. Chang, Catherine Arnett and co-authors with the MRL 2025 shared task participants",
-    "url": "https://huggingface.co/datasets/global-piqa/global-piqa",
-    "what_it_tests": "Global PIQA is a participatory physical commonsense reasoning benchmark: physical-intuition questions in the PIQA style written by native speakers for over 100 languages, with culturally local content rather than translations. The score is accuracy averaged over the languages.",
+    "maintainer": "Tyler A. Chang, Catherine Arnett, and co-authors (5th Multilingual Representation Learning Workshop)",
+    "url": "https://arxiv.org/abs/2510.24081",
+    "what_it_tests": "Global PIQA is a participatory commonsense benchmark in the PIQA format: a prompt and two candidate solutions, one correct and one incorrect, that need physical, temporal, cultural, or everyday knowledge. Researchers who speak the languages wrote a non-parallel split for 136 language varieties, with little or no translation, and a parallel split translates more culturally agnostic questions into 131 varieties. The full set covers 141 language varieties, and native speakers checked the examples. The score is accuracy, reported as an average across languages, either from completion probabilities or from a prompted answer.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2510.24081",
-    "notes": "Paper arXiv 2510.24081 (October 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2510.24081v2",
+    "notes": "The non-parallel split is not a translation of English PIQA; the parallel split is."
    }
   },
   {
@@ -7896,13 +7896,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 372,
    "about": {
-    "maintainer": "Google (Daniel Deutsch and co-authors)",
-    "url": "https://huggingface.co/datasets/google/wmt24pp",
-    "what_it_tests": "WMT24++ extends the WMT24 translation test set from English into 55 languages and dialects with human-written references. Translation quality is scored by an automatic metric; the Qwen cards use XCOMET-XXL and print an average over the 55 languages on a harder, rebalanced subset.",
+    "maintainer": "Daniel Deutsch and co-authors (Google)",
+    "url": "https://arxiv.org/abs/2502.12404",
+    "what_it_tests": "WMT24++ is an English-to-many translation test. It reuses the WMT24 English sources, 998 paragraphs from literary, news, social, and speech text, and adds human-written references and post-edits so the set covers 55 languages and dialects. Systems translate those English sources, and the translations are scored with automatic metrics. The paper's main metric is MetricX-24, with and without a reference, and the appendix also reports BLEU, ChrF, XCOMET, and COMETKiwi, using the post-edits as references.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2502.12404",
-    "notes": "Paper arXiv 2502.12404 (February 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2502.12404v1",
+    "notes": "A Qwen card instead averages XCOMET-XXL over a harder, rebalanced 55-language subset, which is not the paper's main metric."
    }
   },
   {
@@ -7921,13 +7921,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 373,
    "about": {
-    "maintainer": "MaXIFE authors (Yile Liu and co-authors)",
+    "maintainer": "Yile Liu and co-authors (Waseda University and OPPO AI Center)",
     "url": "https://arxiv.org/abs/2506.01776",
-    "what_it_tests": "MaXIFE tests instruction following across many languages with verifiable constraints in the IFEval style, over 23 language settings including English and multilingual prompts written originally in each language rather than translated. The score is the share of prompts whose constraints are all met.",
+    "what_it_tests": "MaXIFE tests whether a model follows verifiable instructions in 23 languages. Each example joins one of 795 basic questions with one to three instructions, 1,667 instructions in a language, and the non-English text is a checked translation of the English set, giving 18,285 examples in all. Instructions about format, repetition, keywords, length, and similar constraints are scored by a program, either pass-or-fail or on a tiered point scale. Instructions about style, tone, or switching language are scored by a judge model.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2506.01776",
-    "notes": "Paper arXiv 2506.01776 (ACL 2025). Written as remembered; not re-read for this entry. The Qwen cards print the accuracy on the 23 original-prompt settings."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2506.01776v2",
+    "notes": "The prompts are parallel translations, not texts written separately in each language. A Qwen card says it reports accuracy on English plus the multilingual prompts, 23 settings in all."
    }
   },
   {
@@ -7945,13 +7945,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 374,
    "about": {
-    "maintainer": "Alibaba (SecCodeBench authors)",
+    "maintainer": "Alibaba Group, with Tsinghua University, Zhejiang University, Fudan University, and Peking University",
     "url": "https://github.com/alibaba/sec-code-bench",
-    "what_it_tests": "SecCodeBench tests whether code written by a model is secure: coding tasks where a working but vulnerable solution is easy, scored by whether the output both works and avoids the vulnerability. The score is the share of tasks solved securely.",
-    "introduced": 2025,
-    "status": "unverified",
+    "what_it_tests": "SecCodeBench tests whether code from a model or a coding agent is both functional and secure. It has 98 runnable project tasks drawn from real vulnerabilities, in Java, C and C++, Python, Go, and Node.js, covering 22 CWE types, in both code generation and code repair. Code must pass the functional tests before any security check. Security is checked first by running an exploit, and otherwise by a judge model, and the published score is a weighted pass@1 that gives more weight to the setting with no security hint and to more severe weaknesses.",
+    "introduced": 2026,
+    "status": "checked",
     "evidence_url": "https://github.com/alibaba/sec-code-bench",
-    "notes": "Written as remembered; the repository was not re-read for this entry."
+    "notes": "The README says the repository has moved to alibaba/last-secure-code-benchmark, and the citation printed there is dated 2026."
    }
   },
   {
@@ -7971,12 +7971,12 @@
    "catalog_order": 375,
    "about": {
     "maintainer": "Runqi Qiao and co-authors (Beijing University of Posts and Telecommunications and others)",
-    "url": "https://we-math.github.io/",
-    "what_it_tests": "We-Math tests visual mathematical reasoning by breaking each problem into the knowledge concepts it needs, so that a model can be scored not only on the final answer but on whether it has the sub-steps right. It has 6,500 problems over 67 concepts; cards print one accuracy, usually the strict score on the test set.",
+    "url": "https://arxiv.org/abs/2407.01284",
+    "what_it_tests": "We-Math tests visual math reasoning beyond the final answer. It collects 6.5K diagram problems spanning 67 knowledge concepts in five layers, and it splits each multi-step problem into the one-step sub-problems those concepts require. The model is scored on both the steps and the full problem, then placed in one of four outcomes: insufficient knowledge, inadequate generalization, complete mastery, or rote memorization. The project page also defines a strict and a loose version of that judgment, and it recommends the strict score on its 1,740-example testmini set.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2407.01284",
-    "notes": "Paper arXiv 2407.01284 (July 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://we-math.github.io/",
+    "notes": "A model card that prints one We-Math number is usually the strict accuracy, not the four-way breakdown."
    }
   },
   {
@@ -7996,12 +7996,12 @@
    "catalog_order": 376,
    "about": {
     "maintainer": "Yubo Ma and co-authors (Nanyang Technological University and others)",
-    "url": "https://mayubo2333.github.io/MMLongBench-Doc/",
-    "what_it_tests": "MMLongBench-Doc tests question answering over long PDF documents, on average about 47 pages, where the answer may need several pages and several modalities, text, tables, charts and images, and some questions have no answer in the document. The score is accuracy, with the unanswerable questions counted.",
+    "url": "https://arxiv.org/abs/2407.01523",
+    "what_it_tests": "MMLongBench-Doc tests question answering over long PDF documents that mix text, images, charts, tables, and layout. The current paper counts 1,062 expert-written questions on 130 documents, with an average of 49.4 pages and 20,971 text tokens. About a third of the questions need evidence from more than one page, and 22.8% are written so the document does not contain the answer. The reported score is an F1 score over these answers, including the unanswerable ones.",
     "introduced": 2024,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2407.01523",
-    "notes": "Paper arXiv 2407.01523 (NeurIPS 2024 datasets track). Written as remembered; not re-read for this entry."
+    "notes": "The project page still prints an older count, 1,091 questions on 135 documents averaging 47.5 pages; the November 2024 paper abstract is the later count."
    }
   },
   {
@@ -8020,13 +8020,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 377,
    "about": {
-    "maintainer": "Wayve (Ana-Maria Marcu and co-authors)",
-    "url": "https://github.com/wayveai/LingoQA",
-    "what_it_tests": "LingoQA tests video question answering for autonomous driving: questions about short driving clips, such as what the car should do and why, answered in free text and scored by Lingo-Judge, a learned classifier trained to agree with human raters. The score is the share of answers the judge accepts.",
+    "maintainer": "Ana-Maria Marcu and co-authors (Wayve)",
+    "url": "https://arxiv.org/abs/2312.14115",
+    "what_it_tests": "LingoQA is a visual question-answering benchmark for driving. The dataset has 28K short video scenarios and 419K free-text annotations, asking what is in the scene, what the vehicle should do next, why, and what deserves attention. The published evaluation suite has 1,000 examples. A learned text classifier, Lingo-Judge, reads the question, a human answer, and the model answer, without seeing the video, and the score is the share of answers it marks correct.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2312.14115",
-    "notes": "Paper arXiv 2312.14115 (ECCV 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2312.14115v4",
+    "notes": "Lingo-Judge is a text classifier trained to agree with human raters, not a string-overlap metric such as BLEU."
    }
   },
   {
@@ -8046,13 +8046,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 378,
    "about": {
-    "maintainer": "Apple (Mike Roberts and co-authors)",
-    "url": "https://github.com/apple/ml-hypersim",
-    "what_it_tests": "Hypersim is a photorealistic synthetic dataset of indoor scenes with full 3D ground truth: depth, normals, semantic and instance labels, and camera poses. Multimodal model cards use it to score 3D or depth-aware perception; the Qwen cards print a single number without naming the metric.",
+    "maintainer": "Mike Roberts and co-authors (Apple)",
+    "url": "https://arxiv.org/abs/2011.02523",
+    "what_it_tests": "Hypersim is a photorealistic synthetic dataset for indoor scene understanding, not a question-answering test. It has 77,400 images of 461 indoor scenes, with per-pixel depth, surface normals, instance labels, camera information, and a split of each image into reflectance, illumination, and a residual lighting term. The paper uses the images as pre-training and then scores transfer to semantic segmentation and to 3D shape prediction. It does not define the single unnamed number some model cards print in a Hypersim cell.",
     "introduced": 2020,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2011.02523",
-    "notes": "Dataset paper arXiv 2011.02523 (ICCV 2021). The task and metric behind the Qwen cell are not stated on the card; written as remembered, not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2011.02523v5",
+    "notes": "A Hypersim cell on a model card is not, by itself, the semantic-segmentation or 3D-shape score from this paper."
    }
   },
   {
@@ -8072,13 +8072,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 379,
    "about": {
-    "maintainer": "Shuran Song, Samuel Lichtenberg and Jianxiong Xiao (Princeton University)",
+    "maintainer": "S. Song, S. Lichtenberg, and J. Xiao",
     "url": "https://rgbd.cs.princeton.edu/",
-    "what_it_tests": "SUN RGB-D is a benchmark of about 10,000 RGB-D indoor images with 2D and 3D object bounding boxes and room layouts, used for 3D object detection and scene understanding. Multimodal model cards use it to score 3D grounding; the Qwen cards print a single number without naming the metric.",
+    "what_it_tests": "SUN RGB-D is an RGB-D benchmark for indoor scene understanding. The project page describes about 10,000 images from four sensors, densely labeled with 146,617 2D polygons, 58,657 oriented 3D boxes, a 3D room layout, and a scene category, and the released archive contains 10,335 images. The suite is for training and for evaluation with 3D metrics. The page ships separate evaluators for object detection, holistic scene understanding, and room layout, and it does not name the single number a model card may print.",
     "introduced": 2015,
-    "status": "unverified",
-    "evidence_url": "https://rgbd.cs.princeton.edu/paper.pdf",
-    "notes": "Dataset paper CVPR 2015. The task and metric behind the Qwen cell are not stated on the card; written as remembered, not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://rgbd.cs.princeton.edu/",
+    "notes": "The PDF at paper.pdf did not load; the project page includes the paper abstract and the CVPR 2015 citation."
    }
   },
   {
@@ -8097,13 +8097,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 380,
    "about": {
-    "maintainer": "Motional (formerly nuTonomy; Holger Caesar and co-authors)",
-    "url": "https://www.nuscenes.org/",
-    "what_it_tests": "nuScenes is an autonomous driving dataset of 1,000 scenes with camera, lidar and radar data and 3D bounding boxes for 23 object classes, the standard set for 3D detection and tracking in driving. Multimodal model cards use it to score 3D grounding from camera images; the Qwen cards print a single number without naming the metric.",
+    "maintainer": "Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom",
+    "url": "https://arxiv.org/abs/1903.11027",
+    "what_it_tests": "nuScenes is a driving dataset for detecting and tracking objects around a vehicle. It has 1,000 scenes, each 20 seconds long, from 6 cameras, 5 radars, and 1 lidar, all with a full 360 degree field of view. Every scene is annotated with 3D bounding boxes for 23 classes and 8 attributes. The paper defines its own 3D detection and tracking metrics for those boxes, but it does not print the metric formulas in the abstract.",
     "introduced": 2019,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/1903.11027",
-    "notes": "Dataset paper arXiv 1903.11027 (CVPR 2020). The card spells it Nuscene. The task and metric are not stated on the card; written as remembered, not re-read for this entry."
+    "notes": "The project site returned no text, so this follows the 2019 dataset paper (CVPR 2020 camera ready) rather than a model-card grounding score."
    }
   },
   {
@@ -8122,13 +8122,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 381,
    "about": {
-    "maintainer": "Bo Liu and co-authors (Hong Kong Polytechnic University and others)",
+    "maintainer": "Bo Liu, Li-Ming Zhan, Li Xu, Lin Ma, Yan Yang, and Xiao-Ming Wu",
     "url": "https://www.med-vqa.com/slake/",
-    "what_it_tests": "SLAKE is a bilingual (English and Chinese) medical visual question answering set of 642 radiology images with about 14,000 questions, with semantic annotations and a medical knowledge base behind them. Cards usually print overall accuracy on the English test split.",
+    "what_it_tests": "SLAKE is a bilingual English and Chinese medical visual question answering dataset. It has 642 radiology images and 14,028 question-answer pairs, plus segmentation masks, bounding boxes, and a medical knowledge graph. Questions are vision-only or knowledge-based, answers are closed-ended or open-ended, and images are split into training, validation, and test. The paper scores accuracy, reported separately for English and Chinese and for the question types.",
     "introduced": 2021,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2102.09542",
-    "notes": "Paper arXiv 2102.09542 (ISBI 2021). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2102.09542",
+    "notes": "The project page says the downloadable release was cleaned again and may differ slightly from the paper."
    }
   },
   {
@@ -8146,13 +8146,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 382,
    "about": {
-    "maintainer": "Xiaoman Zhang and co-authors (Shanghai Jiao Tong University and Shanghai AI Laboratory)",
+    "maintainer": "Xiaoman Zhang, Chaoyi Wu, Ziheng Zhao, Weixiong Lin, Ya Zhang, Yanfeng Wang, and Weidi Xie (Shanghai Jiao Tong University and Shanghai AI Laboratory)",
     "url": "https://github.com/xiaoman-zhang/PMC-VQA",
-    "what_it_tests": "PMC-VQA is a large medical visual question answering set built from PubMed Central figures: about 227,000 question-answer pairs over 149,000 images across many modalities and diseases, with a cleaned multiple-choice test split. The score is accuracy on the test set.",
+    "what_it_tests": "PMC-VQA is a medical visual question answering set built from PubMed Central figures. It contains 227k question-answer pairs over 149k images covering many modalities and diseases. The authors treat the main task as free-form generation, and they also score a manually checked test split both as multiple choice and as open-ended blanking. Choice is scored by accuracy, and blanking is scored by accuracy and BLEU-1.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2305.10415",
-    "notes": "Paper arXiv 2305.10415 (May 2023). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2305.10415v6",
+    "notes": "A larger random test split exists, but the paper says only the manually checked split is the challenging benchmark."
    }
   },
   {
@@ -8171,13 +8171,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 383,
    "about": {
-    "maintainer": "ByteDance Seed (Siyao Liu and co-authors)",
+    "maintainer": "ByteDance Seed Foundation Code Team (Siyao Liu and co-authors)",
     "url": "https://github.com/bytedance/FullStackBench",
-    "what_it_tests": "FullStackBench tests code generation across the full stack of real programming work: 3,374 problems over 11 domains such as front-end, back-end, data analysis, machine learning and operating systems, in 16 languages, each checked by unit tests in a sandbox. Cards print pass rates on the English and Chinese halves separately.",
+    "what_it_tests": "FullStack Bench tests whether a model can write code for full-stack programming work, not only short algorithm problems. It has 3,374 problems in 16 programming languages, and each problem exists in both Chinese and English (1,687 each), across domains such as basic programming, data analysis, software engineering, mathematics, and machine learning. Each item includes a question, unit tests, a reference solution, and labels. A sandbox runs the tests, and the reported score is the pass rate, including test Pass@1.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2412.00535",
-    "notes": "Paper arXiv 2412.00535 (December 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2412.00535v6",
+    "notes": "The paper reports Chinese and English pass rates separately, along with a compile pass rate for compiled languages."
    }
   },
   {
@@ -8196,13 +8196,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 384,
    "about": {
-    "maintainer": "TIR-Bench authors (Ming Li and co-authors)",
+    "maintainer": "Ming Li, Jike Zhong, Shitian Zhao, Haoquan Zhang, Shaoheng Lin, Yuxiang Lai, Chen Wei, Konstantinos Psounis, and Kaipeng Zhang",
     "url": "https://arxiv.org/abs/2511.01833",
-    "what_it_tests": "TIR-Bench tests \"thinking with images\": visual reasoning tasks that need the model to act on the picture, zoom, crop, rotate, draw or run code over it, rather than answer from a single look. The score is accuracy; cards print it with and without a code interpreter.",
+    "what_it_tests": "TIR-Bench tests agentic visual reasoning in which the model must use tools to change an image while it thinks, rather than answer from one look. It has 13 tasks that require operations such as zooming, rotating, raising contrast, drawing auxiliary lines, cropping, flipping, or reassembling a jigsaw. The paper scores accuracy, and it also checks whether a model calls the right tool with the right parameters on a rotation task. A code interpreter is one tool setting in the experiments, not a separate definition of the benchmark.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2511.01833",
-    "notes": "Written from the arXiv listing (November 2025) as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2511.01833v2",
+    "notes": "The paper is a November 2025 preprint and does not name a single official headline metric beyond accuracy."
    }
   },
   {
@@ -8228,7 +8228,7 @@
     "introduced": 2025,
     "status": "unverified",
     "evidence_url": "https://www.kimi.ai/blog/kimi-k2-thinking",
-    "notes": "Described only by its label and a completion-token budget footnote on the Kimi K2 Thinking page; no public release is named."
+    "notes": "This name appears only as a row on a model release page, with no public problem set or rubric."
    }
   },
   {
@@ -8247,13 +8247,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 386,
    "about": {
-    "maintainer": "ByteDance Seed",
-    "url": "https://multi-swe-bench.github.io/",
-    "what_it_tests": "Multi-SWE-bench tests repository-level issue resolving across seven programming languages (Java, TypeScript, JavaScript, Go, Rust, C and C++) with 1,632 human-validated GitHub issues: the agent has to produce a patch that makes the hidden tests pass. The score is the share of issues resolved.",
+    "maintainer": "Daoguang Zan and co-authors (ByteDance)",
+    "url": "https://arxiv.org/abs/2504.02605",
+    "what_it_tests": "Multi-SWE-bench tests whether a model can edit a repository so that a reported software issue is fixed. It covers Java, TypeScript, JavaScript, Go, Rust, C, and C++, with 1,632 instances chosen by 68 expert annotators from 2,456 candidates. The task is to produce a patch that addresses the given issue. The primary score is the resolved rate, the percentage of issues resolved.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2504.02605",
-    "notes": "Paper arXiv 2504.02605 (April 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2504.02605v1",
+    "notes": "The project site returned no text; the correspondence address on the paper is at bytedance.com."
    }
   },
   {
@@ -8272,13 +8272,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 387,
    "about": {
-    "maintainer": "AceBench authors (Chen Chen and co-authors, Huawei Noah's Ark Lab)",
+    "maintainer": "Chen Chen, Xinlong Hao, Weiwen Liu, and co-authors",
     "url": "https://arxiv.org/abs/2501.12851",
-    "what_it_tests": "AceBench tests tool use (function calling) across normal, special and agent settings: single and parallel calls, calls with imperfect instructions, and multi-turn agent dialogues where the model has to drive a simulated environment. The score is accuracy over the test cases; model cards print the English split.",
+    "what_it_tests": "ACEBench tests tool use, meaning function calls, in three settings called Normal, Special, and Agent. Normal checks a call against ground truth by parsing the call, Special checks whether the model spots missing, wrong, or mismatched instructions, and Agent checks multi-turn tool use with a simulated user. The set has 2,000 entries in parallel Chinese and English versions. Normal and Special use accuracy, Agent reports end-to-end accuracy and process accuracy, and an overall accuracy is a weighted sum of the three.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2501.12851",
-    "notes": "Paper arXiv 2501.12851 (January 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2501.12851v8",
+    "notes": "Chinese and English are parallel, so the paper does not define an English-only score as the benchmark."
    }
   },
   {
@@ -8297,13 +8297,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 388,
    "about": {
-    "maintainer": "Bill Yuchen Lin and co-authors (Allen Institute for AI and University of Washington)",
-    "url": "https://huggingface.co/spaces/WildEval/ZebraLogic",
-    "what_it_tests": "ZebraLogic tests logical reasoning with 1,000 grid-based logic puzzles (zebra puzzles) of controlled size: the model has to assign attributes to houses so that every clue holds. The score is puzzle-level accuracy, which falls steeply as the grid grows.",
-    "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2502.01100",
-    "notes": "Blog post 2024, paper arXiv 2502.01100 (February 2025). Written as remembered; not re-read for this entry."
+    "maintainer": "Bill Yuchen Lin and co-authors (University of Washington, Allen Institute for AI, and Stanford University)",
+    "url": "https://arxiv.org/abs/2502.01100",
+    "what_it_tests": "ZebraLogic tests logical reasoning on logic grid puzzles, also called zebra puzzles, built as constraint satisfaction problems. The benchmark has 1,000 puzzles whose size and clue complexity can be controlled. Each puzzle has houses and attributes, and the model must give each house a unique value for every attribute so that every clue holds. Overall accuracy is the share of puzzles solved completely, and cell accuracy is the share of individual cells filled correctly.",
+    "introduced": 2025,
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2502.01100v2",
+    "notes": "The paper was submitted in 2025 and accepted to ICML 2025; the Hugging Face space did not load."
    }
   },
   {
@@ -8322,13 +8322,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 389,
    "about": {
-    "maintainer": "AutoLogi authors (Qin Zhu and co-authors, Fudan University and Alibaba)",
+    "maintainer": "Qin Zhu and co-authors (Fudan University and the Qwen team, Alibaba Group)",
     "url": "https://arxiv.org/abs/2502.16906",
-    "what_it_tests": "AutoLogi tests logical reasoning with automatically generated open-ended logic puzzles in English and Chinese, where each puzzle comes with a program that verifies any proposed solution, so answers are checked exactly rather than by multiple choice. The score is accuracy over the puzzles.",
+    "what_it_tests": "AutoLogi tests open-ended logical reasoning in English and Chinese, instead of multiple choice. Puzzles are synthesized from background text and logical constraints, and a program checks both the answer format and the constraints. The benchmark split has 206 English and 139 Chinese puzzles, and an augmented release expands that to 1,575 English and 883 Chinese puzzles. A proposed solution counts only when the verifier accepts it.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2502.16906",
-    "notes": "Paper arXiv 2502.16906 (February 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2502.16906v1",
+    "notes": "The paper's Table 1 uses the stage-2 counts for the benchmark and the larger stage-3 counts for the augmented set."
    }
   },
   {
@@ -8347,13 +8347,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 390,
    "about": {
-    "maintainer": "Kunhao Zheng, Jesse Michael Han and Stanislas Polu (OpenAI)",
+    "maintainer": "Kunhao Zheng, Jesse Michael Han, and Stanislas Polu (repository published under openai)",
     "url": "https://github.com/openai/miniF2F",
-    "what_it_tests": "MiniF2F is a set of 488 formal statements of olympiad-level mathematics problems (AIME, AMC, IMO and textbook exercises) in Lean, Isabelle and Metamath. The model has to produce a machine-checked proof; the score is the share of statements proved, at pass@1 or with a larger attempt budget (pass@32).",
+    "what_it_tests": "MiniF2F is a formal mathematics benchmark for neural theorem proving. It has 488 problem statements drawn from AIME, AMC, the International Mathematical Olympiad, and high-school and undergraduate courses, written for Metamath, Lean, and partially for Isabelle and HOL Light. The model must produce a proof that the proof assistant accepts. The paper reports the pass rate on a held-out test split, including Pass@1 and Pass@8.",
     "introduced": 2021,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2109.00110",
-    "notes": "Paper arXiv 2109.00110 (September 2021). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2109.00110v2",
+    "notes": "The GitHub v1 freeze of August 2021 uses 244 test statements and 244 validation statements for Lean and Metamath."
    }
   },
   {
@@ -8378,7 +8378,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://huggingface.co/thinkingmachines/Inkling",
-    "notes": "Known only from the Inkling card label."
+    "notes": "The name is known only as a row on the Inkling card."
    }
   },
   {
@@ -8397,13 +8397,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 392,
    "about": {
-    "maintainer": "Sreyan Ghosh and co-authors (University of Maryland)",
+    "maintainer": "S Sakshi, Utkarsh Tyagi, Sonal Kumar, Ashish Seth, Ramaneswaran Selvakumar, Oriol Nieto, Ramani Duraiswami, Sreyan Ghosh, and Dinesh Manocha (University of Maryland, College Park, and Adobe)",
     "url": "https://sakshi113.github.io/mmau_homepage/",
-    "what_it_tests": "MMAU (Massive Multi-Task Audio Understanding) holds 10,000 audio clips of speech, environmental sound and music paired with multiple-choice questions that need both perception and reasoning. The score is accuracy.",
+    "what_it_tests": "MMAU, Massive Multi-Task Audio Understanding and Reasoning, tests whether a model can answer questions about audio. It has 10k curated clips of speech, environmental sound, and music, paired with human-written questions and answers that require information extraction or reasoning across 27 skills. The project page shows the questions with listed answer options. The paper scores accuracy.",
     "introduced": 2024,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2410.19168",
-    "notes": "Paper arXiv 2410.19168 (October 2024). Written as remembered; not re-read for this entry."
+    "notes": "The homepage and the paper both describe the same 10k-clip question set; the homepage is where the answer options are visible."
    }
   },
   {
@@ -8422,13 +8422,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 393,
    "about": {
-    "maintainer": "Yiming Chen and co-authors (National University of Singapore)",
+    "maintainer": "Yiming Chen, Xianghu Yue, Chen Zhang, Xiaoxue Gao, Robby T. Tan, and Haizhou Li",
     "url": "https://github.com/MatthewCYM/VoiceBench",
-    "what_it_tests": "VoiceBench evaluates speech-input assistants on spoken versions of instruction, knowledge and safety tests under varied speakers, environments and content conditions. The score is the average over its sub-tests.",
+    "what_it_tests": "VoiceBench evaluates voice assistants on spoken instructions rather than on clean text alone. It mixes real and synthetic speech and varies speaker, environment, and content, covering general knowledge, instruction following, and safety. Open-ended answers get a 1 to 5 judge score, reference and multiple-choice sets use accuracy, instruction following averages strict and loose accuracy, and the safety set uses a refusal rate. The paper reports those subset scores for both text-form and speech-form instructions.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2410.17196",
-    "notes": "Paper arXiv 2410.17196 (October 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2410.17196v3",
+    "notes": "There is no single scoring rule: the paper defines a different metric for each subset."
    }
   },
   {
@@ -8448,13 +8448,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 394,
    "about": {
-    "maintainer": "Scale AI",
-    "url": "https://scale.com/research/fortress",
-    "what_it_tests": "FORTRESS (Frontier Risk Evaluation for National Security and Public Safety) pairs adversarial prompts in CBRNE, political violence and criminal domains with benign look-alikes, so a model is scored both on refusing harmful requests (Adversarial) and on answering benign ones (Benign). Higher is better on both.",
+    "maintainer": "Christina Q. Knight, Kaustubh Deshpande, Ved Sirdeshmukh, Meher Mankikar, Scale Red Team, SEAL Research Team, and Julian Michael",
+    "url": "https://labs.scale.com/papers/fortress",
+    "what_it_tests": "FORTRESS tests whether a model stays safe on national-security and public-safety prompts and whether it still answers matched harmless prompts. The public set has 500 expert-written adversarial prompts across chemical, biological, radiological, nuclear and explosive hazards, political violence and terrorism, and criminal and financial illicit activity, with 10 subcategories in all. Each prompt has a rubric of 4 to 7 yes-or-no questions, plus a benign twin used to check over-refusal. The paper scores an average risk score from the adversarial rubrics and an over-refusal score from the benign prompts.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2506.14922",
-    "notes": "Paper arXiv 2506.14922 (June 2025). Written as remembered; not re-read for this entry."
+    "notes": "The Scale Labs page says the full set is 1,010 prompts, of which 500 are public, and that a private set is kept for evaluation."
    }
   },
   {
@@ -8473,13 +8473,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 395,
    "about": {
-    "maintainer": "Alexandra Souly, Qingyuan Lu and co-authors (UC Berkeley)",
+    "maintainer": "Alexandra Souly, Qingyuan Lu, Dillon Bowen, Tu Trinh, Elvis Hsieh, Sana Pandey, Pieter Abbeel, Justin Svegliato, Scott Emmons, Olivia Watkins, and Sam Toyer",
     "url": "https://github.com/dsbowen/strong_reject",
-    "what_it_tests": "StrongREJECT scores how well a model resists jailbreak attempts: forbidden prompts are wrapped in known jailbreak techniques and a rubric-based judge rates whether the reply is a harmful, specific and convincing answer. Model cards print the share of attempts refused, so higher is better.",
+    "what_it_tests": "StrongREJECT measures how much useful information a model gives when asked forbidden prompts that require specific harmful information. The project page groups those prompts into six categories: disinformation and deception, illegal goods and services, hate, harassment and discrimination, non-violent crimes, violence, and sexual content. An automated evaluator scores how useful the reply is, either with a rubric judged by a language model or with a smaller model trained on that rubric. The paper uses that score as the measure of whether a jailbreak produced a genuinely useful answer, checked against human judgments.",
     "introduced": 2024,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2402.10260",
-    "notes": "Paper arXiv 2402.10260 (February 2024). Written as remembered; not re-read for this entry."
+    "notes": "The paper scores usefulness of the reply, not a refusal rate, and the code and data are released with the paper."
    }
   },
   {
@@ -8498,13 +8498,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 396,
    "about": {
-    "maintainer": "WildClawBench authors",
-    "url": "https://github.com/WildClawBench",
-    "what_it_tests": "WildClawBench collects in-the-wild agentic tasks of the kind users give autonomous assistants, with text-only and multimodal subsets; a task passes when its checker accepts the final result. The score is the pass rate on the subset the publisher states.",
+    "maintainer": "Shuangrui Ding and co-authors",
+    "url": "https://arxiv.org/abs/2605.10912",
+    "what_it_tests": "WildClawBench is a set of 60 human-authored tasks for agents that already run in a command-line harness. The tasks are bilingual and multimodal and fall into six categories. Each task runs in a Docker container with a real harness, such as OpenClaw, Claude Code, Codex, or Hermes Agent, and with real tools rather than mock services. Grading mixes fixed rule checks, an audit of side effects in the environment, and a language or vision-language judge.",
     "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://github.com/WildClawBench",
-    "notes": "Named on the IFM K2-Horizon model card (September 2026); the card uses a subset of English text-only tasks. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/abs/2605.10912",
+    "notes": "The paper links the code at github.com/internlm/WildClawBench; github.com/WildClawBench does not resolve."
    }
   },
   {
@@ -8523,13 +8523,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 397,
    "about": {
-    "maintainer": "Google Research",
-    "url": "https://github.com/google-research-datasets/tydiqa",
-    "what_it_tests": "TyDi QA is a question-answering benchmark over 11 typologically diverse languages with questions written by native speakers without seeing the answer passage. The score is F1 averaged over languages.",
+    "maintainer": "Google Research (Jonathan H. Clark and co-authors)",
+    "url": "https://arxiv.org/abs/2003.05002",
+    "what_it_tests": "TyDi QA is a question-answering benchmark in 11 typologically diverse languages, with 204K question-answer pairs. People wrote the questions in each language because they wanted the answer and did not already know it, and the text was not translated from English. The primary tasks are to pick the answering passage, or to mark a minimal answer span, including yes, no, or no answer. The official score is an F1 computed per language and then averaged over the languages other than English.",
     "introduced": 2020,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2003.05002",
-    "notes": "Paper arXiv 2003.05002 (March 2020). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://github.com/google-research-datasets/tydiqa",
+    "notes": "Name the task when citing a number: passage selection, minimal span, or the separate gold-passage setting."
    }
   },
   {
@@ -8548,13 +8548,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 398,
    "about": {
-    "maintainer": "Ahmed Masry and co-authors (York University)",
-    "url": "https://github.com/vis-nlp/ChartQA",
-    "what_it_tests": "ChartQA asks questions about chart images that need visual reading and arithmetic or logical reasoning, with human-written and machine-generated question sets. The score is relaxed accuracy on the test split.",
+    "maintainer": "Ahmed Masry and co-authors",
+    "url": "https://arxiv.org/abs/2203.10244",
+    "what_it_tests": "ChartQA asks questions about real chart images that need visual reading plus arithmetic or logical steps. It has 9.6K questions written by people and 23.1K questions generated from human-written chart summaries. A numeric answer counts as correct when it is within 5 percent of the gold value. A non-numeric answer must match exactly.",
     "introduced": 2022,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2203.10244",
-    "notes": "Paper arXiv 2203.10244 (March 2022). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2203.10244v1",
+    "notes": "The dataset folder splits human-authored questions (ChartQA-H) from machine-generated ones (ChartQA-M)."
    }
   },
   {
@@ -8573,13 +8573,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 399,
    "about": {
-    "maintainer": "Minesh Mathew and co-authors (IIIT Hyderabad and CVC)",
+    "maintainer": "Minesh Mathew, Dimosthenis Karatzas, and C. V. Jawahar",
     "url": "https://www.docvqa.org/",
-    "what_it_tests": "DocVQA is visual question answering over scanned document images (forms, letters, reports). The score is ANLS (average normalised Levenshtein similarity), printed as a 0-100 number.",
+    "what_it_tests": "DocVQA is visual question answering on document images. The set has 50,000 questions defined on more than 12,000 document images. The primary score is Average Normalized Levenshtein Similarity (ANLS), so a small mismatch is not treated as a total miss. The paper also reports exact-match accuracy.",
     "introduced": 2020,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2007.00398",
-    "notes": "Paper arXiv 2007.00398 (July 2020). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2007.00398v3",
+    "notes": "The project site returned an empty page shell; the task and the ANLS metric are stated in the paper."
    }
   },
   {
@@ -8600,12 +8600,12 @@
    "catalog_order": 400,
    "about": {
     "maintainer": "Garrett Tanzer and co-authors",
-    "url": "https://github.com/lukemelas/mtob",
-    "what_it_tests": "MTOB (Machine Translation from One Book) asks a model to translate between English and Kalamang, a language with almost no web presence, using only a grammar book (half or full) placed in the context. The score is chrF in each direction.",
+    "url": "https://arxiv.org/abs/2309.16575",
+    "what_it_tests": "MTOB (Machine Translation from One Book) asks a model to translate between English and Kalamang, a language with fewer than 200 speakers and almost no text on the web. The material is one grammar book, a bilingual word list, and a small set of parallel sentences. After examples used in the book are removed, 500 sentences are split into 400 for training and 100 for test. The paper scores each direction with chrF.",
     "introduced": 2023,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2309.16575",
-    "notes": "Paper arXiv 2309.16575 (September 2023). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://github.com/lukemelas/mtob",
+    "notes": "The grammar book and word list are released encrypted, with the password printed in the repository, so the test text stays off ordinary web crawls."
    }
   },
   {
@@ -8624,13 +8624,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 401,
    "about": {
-    "maintainer": "Renrui Zhang and co-authors (CUHK)",
-    "url": "https://mathverse-cuhk.github.io/",
-    "what_it_tests": "MathVerse holds 2,612 visual math problems, each transformed into six versions with varying amounts of information in the diagram versus the text, to test whether a model really reads the figure. The score is accuracy; the MINI split is the common subset.",
+    "maintainer": "Renrui Zhang and co-authors (CUHK MMLab, Shanghai AI Laboratory, and UCLA)",
+    "url": "https://arxiv.org/abs/2403.14624",
+    "what_it_tests": "MathVerse tests whether a multimodal model actually uses the diagram in a visual math problem. It collects 2,612 multi-subject problems with diagrams, and people rewrite each problem into six versions that move information between the text and the figure, giving 15K test samples. The project page reports accuracy on the testmini subset. The authors also score a written solution by extracting reasoning steps and marking each step, rather than only marking the final answer true or false.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2403.14624",
-    "notes": "Paper arXiv 2403.14624 (March 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://mathverse-cuhk.github.io/",
+    "notes": "The six versions run from text-heavy to vision-only, so a single accuracy number can hide whether the model read the figure."
    }
   },
   {
@@ -8649,13 +8649,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 402,
    "about": {
-    "maintainer": "OS-Copilot",
+    "maintainer": "OS-Copilot (Zhiyong Wu and co-authors)",
     "url": "https://github.com/OS-Copilot/OS-Atlas",
-    "what_it_tests": "ScreenSpot-v2 is the corrected version of ScreenSpot: given a screenshot of a desktop, mobile or web interface and an instruction, the model has to locate the target element. The score is grounding accuracy.",
+    "what_it_tests": "ScreenSpot-v2 is a corrected edition of the ScreenSpot grounding test for graphical interfaces. The model sees a mobile, desktop, or web screenshot and an instruction, and it has to locate the element the instruction names. The authors replaced bad or ambiguous items and corrected wrong boxes, and they kept the same number of test items. A prediction is correct when the predicted location falls inside the ground-truth box, and the reported score is that grounding accuracy.",
     "introduced": 2024,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2410.23218",
-    "notes": "Paper arXiv 2410.23218 (October 2024). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2410.23218v1",
+    "notes": "ScreenSpot-v2 is defined inside the OS-Atlas paper, not as its own paper."
    }
   },
   {
@@ -8676,12 +8676,12 @@
    "catalog_order": 403,
    "about": {
     "maintainer": "MiniMax",
-    "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
-    "what_it_tests": "MM-ClawBench (MM Claw) is an end-to-end agent benchmark MiniMax reports beside its M2.x releases: tasks run through complex skills and tool search, scored as a 0 to 100 completion rate.",
+    "url": "https://www.minimax.io/news/minimax-m27-en",
+    "what_it_tests": "MM Claw is an evaluation set MiniMax built from tasks people commonly give OpenClaw agents. It covers work and life jobs, including personal learning plans, office document processing and delivery, scheduled research and investment advice, and code development and maintenance. The end-to-end score on that set is accuracy. MiniMax also reports a skill-compliance rate on the same name for 40 complex skills, each longer than 2,000 tokens.",
     "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
-    "notes": "Known only from the MiniMax-M2.7 model card. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://www.minimax.io/news/minimax-m27-en",
+    "notes": "MiniMax states this only on the M2.7 launch post; there is no separate paper, and the name covers both an end-to-end accuracy and a skill-compliance rate."
    }
   },
   {
@@ -8706,7 +8706,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.ai21.com/blog/introducing-jamba2/",
-    "notes": "Defined on the Jamba2 release page (January 2026). Written as remembered; not re-read for this entry."
+    "notes": "A chart file name mentions an enterprise reliability score, but the article text never says how that score is computed."
    }
   },
   {
@@ -8725,13 +8725,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 406,
    "about": {
-    "maintainer": "ByteDance Seed",
+    "maintainer": "ByteDance-Seed",
     "url": "https://huggingface.co/datasets/ByteDance-Seed/BeyondAIME",
-    "what_it_tests": "BeyondAIME is a set of 100 competition-style mathematics problems written to be harder than AIME and free of memorised answers. The score is the share solved, usually averaged over several samples (avg@16).",
+    "what_it_tests": "BeyondAIME is a 100-problem mathematics test released by ByteDance-Seed. The problems are drawn from high-school and university competitions and are written to be at least as hard as AIME problems 11 to 15. Each problem was revised by hand so it is not a copy of a public contest item, and the only answer is a positive integer. A response is scored by an exact match to that integer.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://huggingface.co/datasets/ByteDance-Seed/BeyondAIME",
-    "notes": "Dataset card (2025). Written as remembered; not re-read for this entry."
+    "notes": "The card does not describe a multi-sample average such as avg@16; it only describes exact checking of the integer."
    }
   },
   {
@@ -8757,7 +8757,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.anthropic.com/news/claude-opus-5",
-    "notes": "Known only from the Claude Opus 5 release page (July 2026), which runs it on the mini-SWE-agent harness. Written as remembered; not re-read for this entry."
+    "notes": "www.frontierbench.ai redirected to Terminal-Bench, which is a different benchmark and does not describe Frontier-Bench."
    }
   },
   {
@@ -8778,12 +8778,12 @@
    "catalog_order": 408,
    "about": {
     "maintainer": "Artificial Analysis",
-    "url": "https://artificialanalysis.ai/",
-    "what_it_tests": "The Artificial Analysis Cyber Index measures how well a model finds, reproduces and fixes security flaws in real software across several cyber tasks; the Mistral Large 4 page prints it as a count of successes, with safety blocks (refusals) shown separately.",
-    "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://mistral.ai/news/mistral-large-4/",
-    "notes": "Known from the Mistral Large 4 release page (October 2026), which calls it an independent evaluation. Written as remembered; not re-read for this entry."
+    "url": "https://artificialanalysis.ai/evaluations/artificial-analysis-cyber-index",
+    "what_it_tests": "The Artificial Analysis Cyber Index measures defensive work on real software: finding vulnerabilities, reproducing and checking them, and patching them without breaking existing behavior. It does not ask a model to build a working exploit. The index is an equal average of three scores, CWE-Bench-AA pass@1, DeepsecBench-AA F2 (the median of three runs), and CyberGym-E2E-AA pass@1, each placed on a 0 to 100 scale. A task declined on safety grounds scores zero, and safety blocks are also reported as their own average across the three tests.",
+    "introduced": null,
+    "status": "checked",
+    "evidence_url": "https://artificialanalysis.ai/evaluations/artificial-analysis-cyber-index",
+    "notes": "The index page does not print a four-digit introduction year."
    }
   },
   {
@@ -8803,13 +8803,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 409,
    "about": {
-    "maintainer": "Lakera",
-    "url": "https://www.lakera.ai/",
-    "what_it_tests": "The B3 (Backbone Breaker) AI Security Benchmark from Lakera attacks an LLM agent backbone with prompt-injection and related attacks drawn from its Gandalf red-teaming game; the score printed is the share of attacks resisted, so higher is better.",
+    "maintainer": "Lakera AI (Julia Bazinska, Max Mathys, and co-authors)",
+    "url": "https://arxiv.org/abs/2510.22620",
+    "what_it_tests": "The b3 benchmark, Breaking Agent Backbones, tests whether the language model inside an agent gives in to realistic prompt-injection attacks. The attacks were crowdsourced, 194,331 unique attempts in all, and then placed into threat snapshots: frozen states of 10 agent applications, each tried at three defense levels. The paper scores the main set of 210 attacks by repeating each one and applying that snapshot's own checker. The published figure is a vulnerability score, the average of those checker scores, and a lower score means the model was harder to break.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://www.lakera.ai/",
-    "notes": "Named on the Mistral Large 4 release page (October 2026) as the public B3 AI Security Benchmark. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2510.22620v2",
+    "notes": "The public Hugging Face file is a weaker subset with 630 rows; the paper's ranking uses 210 stronger attacks, and the strongest attacks are withheld."
    }
   },
   {
@@ -8828,13 +8828,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 410,
    "about": {
-    "maintainer": "Andy K. Zhang and co-authors (Stanford)",
+    "maintainer": "Andy K. Zhang and co-authors (Stanford CRFM)",
     "url": "https://cybench.github.io/",
-    "what_it_tests": "Cybench is a set of 40 professional-level capture-the-flag tasks from four recent security competitions (HackTheBox, Sekai CTF, Glacier, HKCert), run by an agent in a sandbox; a task counts when the agent recovers the flag, and subtasks give partial credit. The score is the share of tasks solved.",
+    "what_it_tests": "Cybench gives a language-model agent 40 professional capture-the-flag tasks drawn from four distinct competitions chosen to be recent and to span a wide range of difficulty. Each task has its own description and starter files, and it starts in an environment where the agent can run commands and see the output. A task is solved when the answer the agent submits matches the answer key. Subtasks break a task into intermediate steps and are scored separately from fully unguided solutions.",
     "introduced": 2024,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://arxiv.org/abs/2408.08926",
-    "notes": "Paper arXiv 2408.08926 (August 2024). Written as remembered; not re-read for this entry."
+    "notes": "The project page reports an unguided solve rate and a subtask score; those are not the same number."
    }
   },
   {
@@ -8860,7 +8860,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://mistral.ai/news/mistral-large-4/",
-    "notes": "Known only from the Mistral Large 4 release page (October 2026). Written as remembered; not re-read for this entry."
+    "notes": "No paper or project page defining Dense 200 turned up; the launch post only names the chart."
    }
   },
   {
@@ -8880,13 +8880,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 412,
    "about": {
-    "maintainer": "Not stated on the page read",
-    "url": null,
-    "what_it_tests": "FinWorkBench (printed as Finch on the Mistral Large 4 page) tests whether a model can create and edit spreadsheets for real finance and accounting use cases; the score is the share of tasks completed correctly.",
-    "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://mistral.ai/news/mistral-large-4/",
-    "notes": "The page describes it as testing spreadsheet creation and editing on real-life finance and accounting use cases. Written as remembered; not re-read for this entry."
+    "maintainer": "Haoyu Dong and co-authors",
+    "url": "https://arxiv.org/abs/2512.13168",
+    "what_it_tests": "FinWorkBench, also called Finch, tests agents on finance and accounting work taken from real company files. A workflow can mix data entry, structuring, formatting, web search, cross-file retrieval, calculation, modeling, validation, translation, visualization, and reporting. The release has 172 composite workflows and 384 tasks, including 1,710 spreadsheets with 27 million cells, plus PDFs and other files, drawn from Enron archives and other financial institutions. Human judges mark whether a workflow passes, and the paper also runs an automated evaluation.",
+    "introduced": 2025,
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/abs/2512.13168",
+    "notes": "The Mistral Large 4 post uses the same Finch (FinWorkBench) name for a spreadsheet chart, but the task is defined in the 2025 paper."
    }
   },
   {
@@ -8905,13 +8905,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 413,
    "about": {
-    "maintainer": "Not stated on the page read",
-    "url": null,
-    "what_it_tests": "The KORA Benchmark scores how responsibly a model engages with users; results are an aggregate score from 0 to 2, where 2 is labelled Exemplary.",
+    "maintainer": "KORA (KoraBench), founded by Mathilde Collin",
+    "url": "https://korabench.ai/",
+    "what_it_tests": "KORA measures how AI systems behave with children and teenagers. The project names 26 child-safety risks and evaluates models on synthetic conversations meant to resemble questions children ask, not on sessions with real children. Scenarios are grouped by age band: Big Kids (7 to 9), Tweens (10 to 12), and Teens (13 and older). The public models leaderboard prints one score as a percentage, and a higher score means the model responded more appropriately to the scenarios.",
     "introduced": 2026,
-    "status": "unverified",
-    "evidence_url": "https://mistral.ai/news/mistral-large-4/",
-    "notes": "Known only from the Mistral Large 4 release page (October 2026). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://korabench.ai/about-us",
+    "notes": "Mistral's 6 October 2026 post prints a 0 to 2 score with 2 labelled Exemplary, while the KORA models leaderboard prints a percentage."
    }
   },
   {
@@ -8930,13 +8930,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 414,
    "about": {
-    "maintainer": "Ahmed Masry and co-authors (York University)",
-    "url": "https://github.com/vis-nlp/ChartQAPro",
-    "what_it_tests": "ChartQAPro is the harder successor of ChartQA: 1,341 charts from 157 sources with 1,948 questions of several types (multiple choice, conversational, hypothetical, unanswerable), many needing multi-step visual reasoning. The score is accuracy.",
+    "maintainer": "Ahmed Masry and co-authors",
+    "url": "https://arxiv.org/abs/2504.05506",
+    "what_it_tests": "ChartQAPro asks a vision-language model to answer questions about chart images. The benchmark has 1,341 charts from 157 sources, including infographics and dashboards, and 1,948 questions, including multiple-choice, conversational, hypothetical, and unanswerable questions. Numeric answers use a relaxed match with a 5 percent margin, except years, which must match exactly. Text answers use ANLS, and multiple-choice and fact-checking answers must match exactly.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2504.05506",
-    "notes": "Paper arXiv 2504.05506 (April 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2504.05506v2",
+    "notes": "The paper was submitted on 7 April 2025, and the code repository lists it in the ACL 2025 findings."
    }
   },
   {
@@ -8956,13 +8956,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 415,
    "about": {
-    "maintainer": "Surge AI (commissioned by Mistral AI)",
-    "url": "https://www.surgehq.ai/",
-    "what_it_tests": "A blind human evaluation of coding quality run by Surge AI for Mistral AI: professional annotators rate model outputs on a 1 to 5 scale with model identities hidden. The score is the mean rating.",
+    "maintainer": "Mistral AI with Surge AI",
+    "url": "https://mistral.ai/news/mistral-large-4/",
+    "what_it_tests": "This is a blind human study of coding quality run by Mistral with Surge AI. Professional annotators rate model outputs, and the model names are hidden. Each rating is on a 1 to 5 scale. The post reports that rating as the result and does not describe the coding tasks or how the ratings are combined.",
     "introduced": 2026,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://mistral.ai/news/mistral-large-4/",
-    "notes": "Known only from the Mistral Large 4 release page (October 2026). Written as remembered; not re-read for this entry."
+    "notes": "The Surge company site does not describe this study, so the Mistral Large 4 post of 6 October 2026 is the only definition read."
    }
   },
   {
@@ -8982,13 +8982,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 416,
    "about": {
-    "maintainer": "Mistral AI (composite over public sets)",
+    "maintainer": "Mistral AI",
     "url": "https://mistral.ai/news/mistral-large-4/",
-    "what_it_tests": "The average refusal rate on malicious cybersecurity prompts drawn from JailbreakBench, StrongREJECT and AgentHarm, as computed by Mistral AI; higher means more harmful requests refused.",
+    "what_it_tests": "Mistral reports how often a model refuses cybersecurity prompts that it treats as malicious. The prompts are drawn from JailbreakBench, StrongREJECT, and AgentHarm. The score is the average refusal rate across those cyber prompts. The post does not print how many prompts are used or how the three sets are weighted.",
     "introduced": 2026,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://mistral.ai/news/mistral-large-4/",
-    "notes": "Defined on the Mistral Large 4 release page (October 2026). Written as remembered; not re-read for this entry."
+    "notes": "This composite is defined on the Mistral Large 4 post of 6 October 2026 and is not a separate public benchmark."
    }
   },
   {
@@ -9059,13 +9059,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 419,
    "about": {
-    "maintainer": "SWE-fficiency authors",
-    "url": "https://github.com/swefficiency/swefficiency",
-    "what_it_tests": "SWE-fficiency asks an agent to speed up real repositories: each task is a performance regression or optimisation drawn from merged pull requests, and the agent's patch is scored by the speed-up it reaches relative to the human patch while the tests keep passing.",
+    "maintainer": "Jeffrey Jian Ma, Milad Hashemi, Amir Yazdanbakhsh, and co-authors",
+    "url": "https://arxiv.org/abs/2511.06090",
+    "what_it_tests": "SWE-fficiency asks an agent to make a real repository faster on a real workload without breaking behavior. The suite has 498 tasks from nine Python libraries, including numpy, pandas, and scipy. Each task provides a codebase, a slow workload, and the repository tests that must still pass. The score is the speedup ratio, the agent's runtime speedup divided by the human patch's speedup, combined across tasks with a harmonic mean, and a patch that fails the tests or does not apply is scored as if no edit was made.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://github.com/swefficiency/swefficiency",
-    "notes": "Open-source dataset and workflow named on the MiniMax M3 page. Written as remembered; not re-read for this entry."
+    "notes": "The repository copyright line names Google LLC and says this is not an officially supported Google product. The paper was submitted on 8 November 2025."
    }
   },
   {
@@ -9084,13 +9084,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 420,
    "about": {
-    "maintainer": "BIRD team (University of Hong Kong and Alibaba)",
+    "maintainer": "BIRD Team, HKU, and Google Cloud",
     "url": "https://livesqlbench.ai/",
-    "what_it_tests": "LiveSQLBench is a contamination-free text-to-SQL benchmark with live-updated questions over realistic databases; the Base-Full v1 split holds 600 questions on 22 PostgreSQL databases. A question counts when the generated SQL returns the reference result.",
+    "what_it_tests": "LiveSQLBench is a contamination-free text-to-SQL benchmark that adds new databases and tasks over time. The Base-Full v1 release, dated 4 September 2025, has 600 tasks on 22 real databases, covering business-intelligence queries and database management statements, with a hierarchical knowledge base for each database. A SELECT answer is checked by comparing its execution result with the gold SQL, and a management statement is checked with test cases. The score is the success rate, the share of tasks that pass those checks.",
     "introduced": 2025,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://livesqlbench.ai/",
-    "notes": "Base-Full v1 split as named on the MiniMax M3 page. Written as remembered; not re-read for this entry."
+    "notes": "The site also publishes Base-Lite and Large-v1, which are different task sets from Base-Full v1."
    }
   },
   {
@@ -9115,7 +9115,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.minimax.io/blog/minimax-m3",
-    "notes": "Open-source data and rubrics named on the MiniMax M3 page; the page runs the official procedure. Written as remembered; not re-read for this entry."
+    "notes": "The listed GitHub address is only the GitHub homepage, so it is not a source."
    }
   },
   {
@@ -9137,11 +9137,11 @@
    "about": {
     "maintainer": "MiniMax",
     "url": "https://www.minimax.io/blog/minimax-m3",
-    "what_it_tests": "SVG-Bench is a MiniMax internal benchmark: from a text or image brief the agent builds SVG assets from scratch or edits existing ones in a coding scaffold, and a vision-language model verifies the rendering. The score is averaged over three runs.",
+    "what_it_tests": "SVG-Bench is a MiniMax internal benchmark. The input is text or an image, and the task is to build an SVG from scratch or edit an existing asset. The work is done in a coding scaffold. A vision-language model checks whether the rendering is accurate, and the score is the average of three runs.",
     "introduced": 2026,
-    "status": "unverified",
+    "status": "checked",
     "evidence_url": "https://www.minimax.io/blog/minimax-m3",
-    "notes": "Described only in the MiniMax M3 evaluation methodology."
+    "notes": "The only definition read is the MiniMax M3 evaluation note dated 2026-06-01, which does not print how many items are in the set."
    }
   },
   {
@@ -9167,7 +9167,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.minimax.io/blog/minimax-m3",
-    "notes": "Public dataset named on the MiniMax M3 page, which uses MiniMax M2.7 as the scoring model. Written as remembered; not re-read for this entry."
+    "notes": "The listed Hugging Face address is only the site homepage, so it is not a source."
    }
   },
   {
@@ -9192,7 +9192,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.minimax.io/blog/minimax-m3",
-    "notes": "Official codebase and configuration named on the MiniMax M3 page. Written as remembered; not re-read for this entry."
+    "notes": "The listed GitHub address is only the GitHub homepage, so it is not a source."
    }
   },
   {
@@ -9217,7 +9217,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://www.minimax.io/blog/minimax-m3",
-    "notes": "Official codebase named on the MiniMax M3 page, react mode, 256k environment description. Written as remembered; not re-read for this entry."
+    "notes": "The listed GitHub address is only the GitHub homepage, so it is not a source."
    }
   },
   {
@@ -9236,13 +9236,13 @@
    "vendor_flags_scope": "15 inspected official publications; blank does not mean never used",
    "catalog_order": 426,
    "about": {
-    "maintainer": "International Mathematical Olympiad",
-    "url": "https://www.imo-official.org/",
-    "what_it_tests": "IMO problems are the six proof problems of a given year's International Mathematical Olympiad, each worth 7 points for a total of 42. Model proofs are graded against human rubrics (MathArena protocol), and publishers print the points reached.",
+    "maintainer": "MathArena (ETH Zurich and INSAIT), using International Mathematical Olympiad problems",
+    "url": "https://arxiv.org/abs/2505.23281",
+    "what_it_tests": "In the MathArena setup, the International Mathematical Olympiad is a proof contest of 6 problems. The model must write a full proof rather than a final answer. Expert graders write a scheme meant to resemble the contest scheme, including points for partial progress, and two judges score each anonymized solution. Each model produces four proofs per problem, and the reported score is the average of those runs.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://matharena.ai/",
-    "notes": "MathArena grading protocol as named on the MiniMax M3 page. Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2505.23281v3",
+    "notes": "2025 is the MathArena paper year and the IMO sitting it describes. The official IMO homepage names the contest but does not print the exam format or a founding year."
    }
   },
   {
@@ -9263,12 +9263,12 @@
    "catalog_order": 427,
    "about": {
     "maintainer": "NVIDIA",
-    "url": "https://github.com/NVlabs/ProfBench",
-    "what_it_tests": "ProfBench scores long-form answers to professional tasks (physics and chemistry PhD, finance and consulting MBA work) against thousands of expert-written rubric criteria; the \"(Search)\" setting lets the model use web search. The score is the share of rubric criteria met.",
+    "url": "https://arxiv.org/abs/2510.18941",
+    "what_it_tests": "ProfBench asks a model to write a long report for a professional task given in text. The paper counts 7,347 human-written response-criterion pairs across 80 tasks, split evenly across Physics PhD, Chemistry PhD, Finance MBA, and Consulting MBA. Experts with a PhD, an MBA, or equivalent experience wrote the prompts and the criteria. An LLM judge marks each criterion as fulfilled or not, and the benchmark reports performance from those judgments.",
     "introduced": 2025,
-    "status": "unverified",
-    "evidence_url": "https://arxiv.org/abs/2510.18941",
-    "notes": "Paper arXiv 2510.18941 (October 2025). Written as remembered; not re-read for this entry."
+    "status": "checked",
+    "evidence_url": "https://arxiv.org/html/2510.18941v2",
+    "notes": "The paper text says 7,347 pairs and 80 tasks. The code repository overview still says over 3000 pairs across 40 tasks. The sections read do not describe a separate search setting."
    }
   },
   {
@@ -9293,7 +9293,7 @@
     "introduced": 2026,
     "status": "unverified",
     "evidence_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
-    "notes": "Known from the Nemotron 3 Ultra card label. Written as remembered; not re-read for this entry."
+    "notes": "The card groups PinchBench with tests run from an official implementation or from internal scaffolding."
    }
   },
   {
@@ -296265,6 +296265,12 @@
    "at": "2026-10-15",
    "reviewer": "Sugra research preparation",
    "reason": "Definition names in one format: the direction of a metric is no longer written into the name (the table marks lower-is-better rows itself), GraphWalks rows read task, context size and metric in one order, qualifiers sit in parentheses in lower case, cost rows carry '(average cost per task)', default metric words such as 'accuracy' are dropped, and one family keeps one spelling (Vals Finance Agent, SWE-bench, MLE-bench, Arena-Hard v2). xAI's internal Biosecurity VCT is its own family, separate from SecureBio's Virology Capabilities Test, because the Grok 4.7 model card reports the two side by side with different values. Arena-Hard sits in one area. Scores and prices are unchanged.",
+   "added_observations": 0
+  },
+  {
+   "at": "2026-10-15",
+   "reviewer": "Sugra research preparation",
+   "reason": "Family descriptions were read again against the author's own page or paper. 95 descriptions now follow that page. The others stay unverified: the page that was opened does not define that test, or it did not load. Scores and prices are unchanged.",
    "added_observations": 0
   }
  ],
