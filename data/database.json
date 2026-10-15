@@ -1,6 +1,6 @@
 {
  "schema_version": "1.1.0",
- "data_version": "2026101582",
+ "data_version": "2026101583",
  "as_of": "2026-10-15",
  "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
  "default_publication_id": "publication-google-gemini-4-argon",
@@ -96,13 +96,13 @@
    "id": "multilingual",
    "name_en": "Multilingual",
    "order": 14,
-   "description_en": "Knowledge and task performance across natural languages other than English. No publication in the catalog has printed a result here yet."
+   "description_en": "Knowledge and task performance across natural languages other than English: translation, multilingual question sets and regional exams."
   },
   {
    "id": "writing-conversation",
    "name_en": "Writing and conversation",
    "order": 15,
-   "description_en": "Creative and editorial writing, style, role play, and the emotional and social quality of a conversation. No publication in the catalog has printed a result here yet."
+   "description_en": "Creative and editorial writing, style, role play, and the emotional and social quality of a conversation."
   },
   {
    "id": "healthcare",
@@ -17052,7 +17052,7 @@
    "name": "Gemini 4 Argon",
    "developer": "Google",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-30",
    "latest": true
   },
   {
@@ -17060,7 +17060,7 @@
    "name": "GPT-6 Astra",
    "developer": "OpenAI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-03",
    "latest": true
   },
   {
@@ -17068,7 +17068,7 @@
    "name": "Claude Fable 5.1",
    "developer": "Anthropic",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-01",
    "latest": true
   },
   {
@@ -17076,7 +17076,7 @@
    "name": "Claude Opus 5.5",
    "developer": "Anthropic",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-22",
    "latest": false
   },
   {
@@ -17108,7 +17108,7 @@
    "name": "Gemini 3.8 Flash",
    "developer": "Google",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-02",
    "latest": false
   },
   {
@@ -17116,7 +17116,7 @@
    "name": "GPT-6.1 Sol",
    "developer": "OpenAI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-29",
    "latest": false
   },
   {
@@ -17124,7 +17124,7 @@
    "name": "GPT-6 Sol",
    "developer": "OpenAI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-22",
    "latest": false
   },
   {
@@ -17132,7 +17132,7 @@
    "name": "GPT-6 Luna",
    "developer": "OpenAI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-22",
    "latest": false
   },
   {
@@ -17148,7 +17148,7 @@
    "name": "Qwen3.7-Max",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-05-20",
    "latest": false
   },
   {
@@ -17156,7 +17156,7 @@
    "name": "Qwen3.8-Max",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-08-03",
    "latest": true
   },
   {
@@ -17164,7 +17164,7 @@
    "name": "Grok 4.7",
    "developer": "xAI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-21",
    "latest": true
   },
   {
@@ -17204,7 +17204,7 @@
    "name": "Kimi K3",
    "developer": "Moonshot AI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-07-16",
    "latest": true
   },
   {
@@ -17212,7 +17212,7 @@
    "name": "Claude Sonnet 5.5",
    "developer": "Anthropic",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-28",
    "latest": false
   },
   {
@@ -17324,7 +17324,7 @@
    "name": "Qwen3.7-Plus",
    "developer": "Alibaba",
    "identity_scope": "named model (closed, API-only; appears as a column on Qwen model cards); row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-06-01",
    "latest": false
   },
   {
@@ -17332,7 +17332,7 @@
    "name": "Muse Glimmer-30B",
    "developer": "Meta",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-08-09",
    "latest": false
   },
   {
@@ -17380,7 +17380,7 @@
    "name": "Claude Mythos Preview",
    "developer": "Anthropic",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-04-07",
    "latest": false
   },
   {
@@ -17548,7 +17548,7 @@
    "name": "Gemini 3.1 Flash-Lite",
    "developer": "Google",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-03-03",
    "latest": false
   },
   {
@@ -17884,7 +17884,7 @@
    "name": "Qwen3.6-Plus",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-04-02",
    "latest": false
   },
   {
@@ -17908,7 +17908,7 @@
    "name": "Kimi K2.5",
    "developer": "Moonshot AI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-01-27",
    "latest": false
   },
   {
@@ -17948,7 +17948,7 @@
    "name": "Kimi K2.7 Code",
    "developer": "Moonshot AI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-06-11",
    "latest": false
   },
   {
@@ -17956,7 +17956,7 @@
    "name": "Qwen3-VL-235B-A22B-Thinking",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2025-09-23",
    "latest": false
   },
   {
@@ -17964,7 +17964,7 @@
    "name": "Qwen3.8-Flash-Next",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-08-26",
    "latest": false
   },
   {
@@ -18004,7 +18004,7 @@
    "name": "Qwen3-Max-Thinking",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-01-26",
    "latest": false
   },
   {
@@ -18012,7 +18012,7 @@
    "name": "Qwen3-VL-235B-A22B",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2025-09-23",
    "latest": false
   },
   {
@@ -18308,7 +18308,7 @@
    "name": "MiMo-V2-Pro",
    "developer": "Xiaomi",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-03-18",
    "latest": false
   },
   {
@@ -18340,7 +18340,7 @@
    "name": "Qwen-Max",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2025-01-28",
    "latest": false
   },
   {
@@ -18380,7 +18380,7 @@
    "name": "DeepSeek-V4-Vision-Exp",
    "developer": "DeepSeek",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-08-31",
    "latest": false
   },
   {
@@ -18444,7 +18444,7 @@
    "name": "Mistral Medium 3.1",
    "developer": "Mistral AI",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2025-08-12",
    "latest": false
   },
   {
@@ -18588,7 +18588,7 @@
    "name": "DeepSWE-Preview",
    "developer": "Agentica",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2025-07-01",
    "latest": false
   },
   {
@@ -18612,7 +18612,7 @@
    "name": "Qwen3-Coder-Plus",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2025-07-23",
    "latest": false
   },
   {
@@ -18636,7 +18636,7 @@
    "name": "MiMo-V2.6-Pro",
    "developer": "Xiaomi",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-09-21",
    "latest": false
   },
   {
@@ -18644,7 +18644,7 @@
    "name": "Qwen3.8-2.4T-A95B",
    "developer": "Alibaba",
    "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
-   "release_date": null,
+   "release_date": "2026-08-12",
    "latest": false
   },
   {
@@ -323697,6 +323697,12 @@
    "reviewer": "Sugra research preparation",
    "reason": "Muse Spark 1.1 post checked on 2026-10-15: no printed score. Z.ai Code Bench percents from the GLM-5.3 post. The publication pages already in the catalog are unchanged.",
    "added_observations": 5
+  },
+  {
+   "at": "2026-10-15",
+   "reviewer": "Sugra research preparation",
+   "reason": "Release dates filled for 32 models from the developers' announcement pages, model cards and weight releases; the Multilingual and Writing and conversation descriptions updated now that both areas hold results. Observations unchanged.",
+   "added_observations": 0
   }
  ],
  "prices": [
