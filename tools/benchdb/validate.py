@@ -229,8 +229,8 @@ def validate(db: dict) -> list[str]:
                 err(f"{tag}: percent out of range: {value}")
             if unit == "fraction" and not 0 <= value <= 1:
                 err(f"{tag}: fraction out of range: {value}")
-            if unit == "elo" and (value <= 0 or value != int(value)):
-                err(f"{tag}: elo must be a positive integer: {value}")
+            if unit == "elo" and value <= 0:
+                err(f"{tag}: elo must be a positive number: {value}")
             if unit == "usd" and value < 0:
                 err(f"{tag}: usd must not be negative: {value}")
         cond = o.get("conditions")

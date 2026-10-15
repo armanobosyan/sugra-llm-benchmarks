@@ -152,15 +152,15 @@ class ValidateFixture(unittest.TestCase):
         db["observations"][0]["value"] = 101
         self.assertTrue(any("percent out of range" in p for p in validate.validate(db)))
 
-    def test_elo_is_a_positive_integer(self):
+    def test_elo_is_a_positive_number(self):
         db = fixture()
         db["benchmarks"][0]["unit"] = "elo"
         db["benchmarks"][0]["id"] = "arena--elo"
         for o in db["observations"]:
             o["benchmark_id"] = "arena--elo"
             o["unit"] = "elo"
-        db["observations"][0]["value"] = 1846
-        db["observations"][1]["value"] = 18.5
+        db["observations"][0]["value"] = 1747.8
+        db["observations"][1]["value"] = 0
         problems = validate.validate(db)
         self.assertEqual(len([p for p in problems if "elo must be" in p]), 1, problems)
 

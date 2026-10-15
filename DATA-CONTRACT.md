@@ -76,7 +76,7 @@ One record per number on a page.
 |---|---|
 | `id` | `obs-` plus 20 hex characters, unique, never reused. |
 | `benchmark_id`, `model_id`, `publication_id` | Must exist. |
-| `value` | A number. Percent in 0..100, fraction in 0..1, elo a positive integer, usd not negative. |
+| `value` | A number. Percent in 0..100, fraction in 0..1, elo a positive number (a decimal stays as printed), usd not negative. |
 | `unit`, `unit_denominator` | Must equal the benchmark's. |
 | `conditions` | Object with exactly the known keys: `model_label_as_published`, `benchmark_label_as_published`, `setup_as_reported`, `model_setup_as_reported` (all required), `reasoning_effort`, `harness`, `tools`, `fallback_policy`, `attempt_budget`, `context_tokens`, `dataset_revision` (null when the publisher did not say), `protocol_equivalence` (required). |
 | `source_url` | https. The page the number is on. |
@@ -103,7 +103,7 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 
 - `percent` is shown with a percent sign.
 - `score` is shown as a number. A Qwen `score` is not a percent and must not be labeled as one.
-- `elo` is shown as an integer. It is never converted to a percent.
+- `elo` is shown as printed, decimals included. It is never converted to a percent.
 - `usd` is shown with the denominator (`5.47 per task`).
 - A missing result is a dash.
 
