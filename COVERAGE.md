@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101524, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101525, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -36,8 +36,9 @@ What the catalog holds as of data version 2026101524, and what it does not. Coun
 | Gemma 4 model card | Google | 88 | 6 | 17 |
 | Grok 4.1 Fast and Agent Tools API | xAI | 21 | 4 | 6 |
 | DeepSeek-V4-Pro-0813 model card | DeepSeek | 84 | 8 | 11 |
+| DeepSeek-V4-Flash-0731 model card | DeepSeek | 44 | 5 | 9 |
 
-30 publications, 2615 observations, 73 models, 291 benchmark definitions in 174 families.
+31 publications, 2659 observations, 73 models, 291 benchmark definitions in 174 families.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
 
@@ -72,7 +73,7 @@ Two categories are empty in this version. They stay in the taxonomy because the 
 
 ## Known gaps
 
-- `release_date` is recorded for 49 of 73 models and `published_at` for 18 of 30 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
+- `release_date` is recorded for 49 of 73 models and `published_at` for 19 of 31 publications; the rest were checked before dates were recorded and fill in as their pages are read again.
 - `reasoning_effort` is stated for 1085 observations, `tools` for 359, `harness` for 148. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Google's row-specific exceptions (effort or fallback that differ from the headline setup) are recorded in the methodology text, not yet as per-row condition fields.
