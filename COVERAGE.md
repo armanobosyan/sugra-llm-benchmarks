@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026-10-14.1, and what it does not. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds, and what it does not. The benchmark slice is still the 2026-10-14 transcription (596 observations, data version 2026101402). Official prices were added on 2026-10-15; the catalog data version is now 2026101501. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -14,9 +14,31 @@ What the catalog holds as of data version 2026-10-14.1, and what it does not. Co
 | Grok 4.7 model card | xAI | 145 | 11 | 38 |
 | Qwen3.8-Max comparison | Alibaba | 151 | 5 | 32 |
 
-Seven publications, 596 observations, 21 models, 129 benchmark definitions in 97 families.
+Seven publications, 596 observations, 21 models in that slice, 129 benchmark definitions in 97 families. The file now also holds the priced models named below. The 596 observations are unchanged.
 
 Only rows the publisher printed as text or a table were transcribed. Values that exist only inside an interactive chart were not, unless the article text also prints them. Each publication's `coverage` field says what was left out.
+
+## Official prices
+
+Checked on 2026-10-15 against each publisher's own price page. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
+
+| Price list | Publisher | Rows |
+|---|---|---|
+| OpenAI API pricing | OpenAI | 641 |
+| Anthropic API pricing | Anthropic | 153 |
+| Gemini API pricing | Google | 389 |
+| xAI API pricing | xAI | 60 |
+| Alibaba Model Studio pricing | Alibaba | 988 |
+| DeepSeek API pricing | DeepSeek | 12 |
+| Kimi API pricing | Moonshot AI | 14 |
+| Mistral API pricing | Mistral | 24 |
+| Z.AI API pricing | Z.AI | 86 |
+
+2,367 price rows. 298 models were added because a price page names them. `latest` is still one flagship per developer and was not changed.
+
+Text rates are USD per 1,000,000 tokens, except Kimi, which stays in CNY because that is the unit on the page. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
+
+Left in each price publication's coverage, not expanded into rows: audio, voice, live, transcription, TTS, tools, fine-tuning, and a regional multiplier the page states without printing every cell. A model hosted on another lab's page is not given that host's price. Mistral's page quotes GLM 5.3 cached input at $0.14; Z.AI's own page prints $0.26, and only the Z.AI row is stored. DeepSeek still prints V4-Pro prices on the price page. Meta has no public token price, so there is no Meta price row.
 
 ## Categories
 

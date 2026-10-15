@@ -19,7 +19,7 @@ from pathlib import Path
 
 from .validate import load, validate
 
-PAYLOAD_SCHEMA = "1.0.0"
+PAYLOAD_SCHEMA = "1.1.0"
 # Observation fields copied into the payload. Nulls are dropped by compact().
 OBS_FIELDS = (
     "id",
@@ -39,6 +39,29 @@ OBS_FIELDS = (
     "comparison_scope",
 )
 FAMILY_FIELDS = ("id", "name", "category_id", "tags", "about")
+# Price fields copied into the payload. Nulls are dropped by compact(), so a
+# missing valid_until means the page stated no end date.
+PRICE_FIELDS = (
+    "id",
+    "model_id",
+    "publication_id",
+    "component",
+    "value",
+    "unit",
+    "schedule",
+    "context_band",
+    "context_threshold_tokens",
+    "modality",
+    "region",
+    "meter",
+    "offer",
+    "valid_from",
+    "valid_until",
+    "checked_on",
+    "source_url",
+    "source_locator",
+    "note",
+)
 
 
 def compact(node):
@@ -66,6 +89,9 @@ def build_payload(db: dict, source_sha256: str) -> dict:
     ]
     observations = [compact({k: o.get(k) for k in OBS_FIELDS}) for o in active]
     observations.sort(key=lambda o: o["id"])
+    active_prices = [p for p in db.get("prices", []) if p.get("status") == "active"]
+    prices = [compact({k: p.get(k) for k in PRICE_FIELDS}) for p in active_prices]
+    prices.sort(key=lambda p: p["id"])
     payload = {
         "payload_schema": PAYLOAD_SCHEMA,
         "schema_version": db["schema_version"],
@@ -81,6 +107,7 @@ def build_payload(db: dict, source_sha256: str) -> dict:
         "models": sorted(db["models"], key=lambda m: m["id"]),
         "publications": sorted(db["publications"], key=lambda p: p["id"]),
         "observations": observations,
+        "prices": prices,
         "change_log": db["change_log"],
         "counts": {
             "categories": len(db["categories"]),
@@ -88,6 +115,7 @@ def build_payload(db: dict, source_sha256: str) -> dict:
             "models": len(db["models"]),
             "publications": len(db["publications"]),
             "observations": len(observations),
+            "prices": len(prices),
         },
     }
     return compact(payload)
@@ -111,7 +139,11 @@ def no_loss_problems(previous: dict | None, db: dict) -> list[str]:
         return []
     present = {o["id"] for o in db["observations"]}
     missing = sorted(o["id"] for o in previous.get("observations", []) if o["id"] not in present)
-    return [f"build: observation {oid} was in the published payload and is gone from data" for oid in missing]
+    problems = [f"build: observation {oid} was in the published payload and is gone from data" for oid in missing]
+    price_ids = {p["id"] for p in db.get("prices", [])}
+    gone_prices = sorted(p["id"] for p in previous.get("prices", []) if p["id"] not in price_ids)
+    problems += [f"build: price {pid} was in the published payload and is gone from data" for pid in gone_prices]
+    return problems
 
 
 def main(argv: list[str] | None = None) -> int:

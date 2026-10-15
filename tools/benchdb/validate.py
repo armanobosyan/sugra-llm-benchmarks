@@ -18,7 +18,59 @@ EVIDENCE_TYPES = {"official_publication_checked"}
 REVIEW_STATUSES = {"source_checked"}
 OBS_STATUSES = {"active", "superseded", "withdrawn"}
 COMPARISON_SCOPES = {"publisher_comparison"}
-PUBLICATION_KINDS = {"official_release_comparison", "model_card", "official_blog"}
+COMPARISON_KINDS = {"official_release_comparison", "model_card", "official_blog"}
+PRICE_KIND = "official_price_list"
+PUBLICATION_KINDS = COMPARISON_KINDS | {PRICE_KIND}
+PRICE_COMPONENTS = {
+    "input",
+    "cached_input",
+    "cache_write",
+    "cache_write_5m",
+    "cache_write_1h",
+    "output",
+    "storage",
+    "generation",
+}
+PRICE_UNITS = {
+    "usd_per_million_tokens",
+    "usd_per_million_tokens_per_hour",
+    "usd_per_image",
+    "usd_per_second",
+    "usd_per_minute",
+    "usd_per_video",
+    "usd_per_million_chars",
+    "usd_per_thousand_pages",
+    "cny_per_million_tokens",
+}
+PRICE_SCHEDULES = {
+    "standard",
+    "batch",
+    "fast",
+    "flex",
+    "ultrafast",
+    "peak",
+    "off_peak",
+    "priority",
+    "contributor",
+    "free",
+}
+PRICE_BANDS = {"short", "long", "any"}
+PRICE_MODALITIES = {"text", "image", "video"}
+PRICE_OFFERS = {"list", "promotional"}
+# Active rows that share this key are the same price printed twice.
+PRICE_KEY = (
+    "model_id",
+    "publication_id",
+    "component",
+    "schedule",
+    "context_band",
+    "region",
+    "modality",
+    "offer",
+    "meter",
+    "valid_from",
+    "valid_until",
+)
 CONDITION_KEYS = {
     "model_label_as_published",
     "benchmark_label_as_published",
@@ -78,6 +130,10 @@ def validate(db: dict) -> list[str]:
         err(f"top: as_of must be YYYY-MM-DD, got {db['as_of']!r}")
     if db.get("default_publication_id") and db["default_publication_id"] not in {p.get("id") for p in db["publications"]}:
         err(f"top: default_publication_id {db['default_publication_id']!r} is not a publication")
+    if str(db.get("schema_version", "")) >= "1.1.0" and "prices" not in db:
+        err("top: schema 1.1.0 and later require a prices list (it may be empty)")
+    if "prices" in db and not isinstance(db["prices"], list):
+        err("top: prices must be a list")
 
     # ---- text hygiene (everything except the imported research catalog) ---
     public_part = {k: v for k, v in db.items() if k != "research_catalog"}
@@ -173,6 +229,13 @@ def validate(db: dict) -> list[str]:
         # identity: the id says so, and the name must say so too.
         if mid and "reported-as" in mid and "reported as" not in str(m.get("name", "")).lower():
             err(f"models[{mid}]: a reported-as identity must carry 'reported as' in its name")
+    latest_by_dev: dict[str, list[str]] = defaultdict(list)
+    for m in db["models"]:
+        if m.get("latest") is True:
+            latest_by_dev[m.get("developer")].append(m.get("id"))
+    for dev, ids in latest_by_dev.items():
+        if len(ids) > 1:
+            err(f"models: {dev} has more than one latest model: {ids}")
 
     # ---- publications ----------------------------------------------------
     pubs: dict[str, dict] = {}
@@ -186,10 +249,13 @@ def validate(db: dict) -> list[str]:
                 err(f"publications[{pid}]: missing {key}")
         if p.get("url") and not URL_RE.match(p["url"]):
             err(f"publications[{pid}]: url must be https")
-        if p.get("kind") not in PUBLICATION_KINDS:
-            err(f"publications[{pid}]: kind {p.get('kind')!r} not in {sorted(PUBLICATION_KINDS)}")
-        if p.get("comparison_scope") not in COMPARISON_SCOPES:
-            err(f"publications[{pid}]: comparison_scope {p.get('comparison_scope')!r} unknown")
+        kind = p.get("kind")
+        if kind not in PUBLICATION_KINDS:
+            err(f"publications[{pid}]: kind {kind!r} not in {sorted(PUBLICATION_KINDS)}")
+        elif kind == PRICE_KIND and p.get("comparison_scope") != "price_list":
+            err(f"publications[{pid}]: official_price_list must use comparison_scope price_list")
+        elif kind in COMPARISON_KINDS and p.get("comparison_scope") != "publisher_comparison":
+            err(f"publications[{pid}]: comparison_scope {p.get('comparison_scope')!r} must be publisher_comparison")
         if p.get("checked_on") and not DATE_RE.match(str(p["checked_on"])):
             err(f"publications[{pid}]: checked_on must be YYYY-MM-DD")
         if p.get("published_at") is not None and not DATE_RE.match(str(p["published_at"])):
@@ -213,6 +279,8 @@ def validate(db: dict) -> list[str]:
             err(f"{tag}: unknown model_id {o.get('model_id')!r}")
         if o.get("publication_id") not in pubs:
             err(f"{tag}: unknown publication_id {o.get('publication_id')!r}")
+        elif pubs[o.get("publication_id")].get("kind") == PRICE_KIND:
+            err(f"{tag}: observations cannot hang on a price list")
         value = o.get("value")
         if not isinstance(value, (int, float)) or isinstance(value, bool):
             err(f"{tag}: value must be a number, got {value!r}")
@@ -278,6 +346,83 @@ def validate(db: dict) -> list[str]:
                 err(f"observations: {key} has two active rows with identical conditions; add reasoning_effort/harness or supersede one")
             seen.add(sig)
 
+    # ---- prices (official lists; never benchmark observations) -----------
+    price_ids: set[str] = set()
+    price_keys: dict[tuple, str] = {}
+    for row in db.get("prices", []):
+        pid = row.get("id")
+        tag = f"prices[{pid}]"
+        if pid in price_ids:
+            err(f"prices: duplicate id {pid}")
+        price_ids.add(pid)
+        if not pid or not str(pid).startswith("price-") or not ID_RE.match(str(pid)):
+            err(f"{tag}: id must be kebab-case and start with price-")
+        mid = row.get("model_id")
+        if mid not in models:
+            err(f"{tag}: unknown model_id {mid!r}")
+        pub_id = row.get("publication_id")
+        pub = pubs.get(pub_id)
+        if pub is None:
+            err(f"{tag}: unknown publication_id {pub_id!r}")
+        elif pub.get("kind") != PRICE_KIND:
+            err(f"{tag}: publication {pub_id} is not an official_price_list")
+        elif mid in models and pub.get("publisher") != models[mid].get("developer"):
+            err(
+                f"{tag}: publisher {pub.get('publisher')!r} is not the model developer "
+                f"{models[mid].get('developer')!r}"
+            )
+        if row.get("component") not in PRICE_COMPONENTS:
+            err(f"{tag}: component {row.get('component')!r} not in {sorted(PRICE_COMPONENTS)}")
+        value = row.get("value")
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            err(f"{tag}: value must be a number >= 0, got {value!r}")
+        elif value < 0:
+            err(f"{tag}: value must be >= 0, got {value}")
+        if row.get("unit") not in PRICE_UNITS:
+            err(f"{tag}: unit {row.get('unit')!r} not in {sorted(PRICE_UNITS)}")
+        if row.get("schedule") not in PRICE_SCHEDULES:
+            err(f"{tag}: schedule {row.get('schedule')!r} not in {sorted(PRICE_SCHEDULES)}")
+        band = row.get("context_band")
+        if band not in PRICE_BANDS:
+            err(f"{tag}: context_band {band!r} not in {sorted(PRICE_BANDS)}")
+        threshold = row.get("context_threshold_tokens")
+        if band in {"short", "long"}:
+            if isinstance(threshold, bool) or not isinstance(threshold, int) or threshold <= 0:
+                err(f"{tag}: short and long bands need a positive integer context_threshold_tokens")
+        elif threshold is not None:
+            err(f"{tag}: context_band any must leave context_threshold_tokens null")
+        if row.get("modality") not in PRICE_MODALITIES:
+            err(f"{tag}: modality {row.get('modality')!r} not in {sorted(PRICE_MODALITIES)}")
+        if row.get("offer") not in PRICE_OFFERS:
+            err(f"{tag}: offer {row.get('offer')!r} not in {sorted(PRICE_OFFERS)}")
+        region = row.get("region")
+        if region is not None and (not isinstance(region, str) or not region or not ID_RE.match(region)):
+            err(f"{tag}: region must be null or kebab-case")
+        meter = row.get("meter")
+        if meter is not None and (not isinstance(meter, str) or not meter or not ID_RE.match(meter)):
+            err(f"{tag}: meter must be null or kebab-case")
+        for key in ("valid_from", "valid_until"):
+            if row.get(key) is not None and not DATE_RE.match(str(row.get(key))):
+                err(f"{tag}: {key} must be YYYY-MM-DD or null")
+        if row.get("valid_from") and row.get("valid_until") and str(row["valid_from"]) > str(row["valid_until"]):
+            err(f"{tag}: valid_from is after valid_until")
+        if not DATE_RE.match(str(row.get("checked_on"))):
+            err(f"{tag}: checked_on must be YYYY-MM-DD")
+        if not row.get("source_url") or not URL_RE.match(str(row.get("source_url"))):
+            err(f"{tag}: source_url must be https")
+        if not row.get("source_locator"):
+            err(f"{tag}: source_locator is required")
+        if row.get("status") not in OBS_STATUSES:
+            err(f"{tag}: status {row.get('status')!r} not in {sorted(OBS_STATUSES)}")
+        if row.get("note") is not None and not isinstance(row.get("note"), str):
+            err(f"{tag}: note must be a string or null")
+        if row.get("status") == "active":
+            sig = tuple(row.get(k) for k in PRICE_KEY)
+            if sig in price_keys:
+                err(f"{tag}: duplicate active price, same key as {price_keys[sig]}")
+            else:
+                price_keys[sig] = pid
+
     # ---- change log ------------------------------------------------------
     if not isinstance(db["change_log"], list) or not db["change_log"]:
         err("change_log: must be a non-empty list")
@@ -306,7 +451,7 @@ def main(argv: list[str] | None = None) -> int:
     problems = validate(db)
     for line in problems:
         print(line)
-    counts = {k: len(db.get(k, [])) for k in ("categories", "benchmarks", "models", "publications", "observations")}
+    counts = {k: len(db.get(k, [])) for k in ("categories", "benchmarks", "models", "publications", "observations", "prices")}
     if problems:
         print(f"validate: FAIL ({len(problems)} problems) {counts}")
         return 1

@@ -12,7 +12,7 @@
 | `default_publication_id` | The publication the article opens with. Must exist. |
 | `comparison_policy` | Free text the article shows. Score selection, missing values, percent rule, no overall ranking. |
 | `taxonomy_note` | Why the categories are editorial. |
-| `categories`, `families`, `benchmarks`, `models`, `publications`, `observations`, `change_log` | The records below. |
+| `categories`, `families`, `benchmarks`, `models`, `publications`, `observations`, `prices`, `change_log` | The records below. `prices` is required from schema 1.1.0 and may be an empty list. A 1.0.0 database may omit it. |
 | `research_catalog` | Internal working material. Never exported to the payload. The only place where imported labels keep their original punctuation. |
 
 ## Text
@@ -66,7 +66,9 @@ A result printed under one model's heading while a footnote names another config
 
 ### publications
 
-`id` (unique), `name`, `publisher`, `url` (https), `source_id`, `published_at` (date or null), `checked_on` (date), `kind` (`official_release_comparison`, `model_card`, `official_blog`), `comparison_scope` (`publisher_comparison`), `methodology_url`, `coverage` (what of the page was transcribed).
+`id` (unique), `name`, `publisher`, `url` (https), `source_id`, `published_at` (date or null), `checked_on` (date), `kind`, `comparison_scope`, `methodology_url`, `coverage` (what of the page was transcribed).
+
+`kind` is `official_release_comparison`, `model_card` or `official_blog` with `comparison_scope` `publisher_comparison`, or `official_price_list` with `comparison_scope` `price_list`. A price list is not a benchmark publication: observations cannot reference it, and a price cannot reference any other kind. The publisher string must equal `models.developer` for every price on that list. A number printed by a different lab is not that model's price.
 
 ### observations
 
@@ -91,13 +93,39 @@ One record per number on a page.
 
 Two active rows may share one (benchmark, model, publication) only when a distinguishing condition differs: effort, harness, tools, fallback, attempt budget, context length or dataset revision. The same number twice is refused. A corrected number is a new row with `supersedes` pointing at the old one, and the old one becomes `superseded`.
 
+### prices
+
+One record per number on an official price page. A price is not an observation: it is never a benchmark result, and the article must not rank it as one.
+
+| Field | Rule |
+|---|---|
+| `id` | kebab-case, unique, starts with `price-`. |
+| `model_id`, `publication_id` | Must exist. The publication is an `official_price_list`, and its publisher equals the model's developer. |
+| `component` | `input`, `cached_input`, `cache_write`, `cache_write_5m`, `cache_write_1h`, `output`, `storage` or `generation`. Only a component the page prints. Cache hit or cache read is `cached_input`. A single per-image, per-video or per-page price is `generation`. |
+| `value` | A number >= 0. Zero is a printed free price, not a missing cell. A missing cell is no record. |
+| `unit` | `usd_per_million_tokens`, `usd_per_million_tokens_per_hour`, `usd_per_image`, `usd_per_second`, `usd_per_minute`, `usd_per_video`, `usd_per_million_chars`, `usd_per_thousand_pages`, or `cny_per_million_tokens` when the page prints yuan. Do not convert currencies. |
+| `schedule` | `standard`, `batch`, `fast`, `flex`, `ultrafast`, `peak`, `off_peak`, `priority`, `contributor` or `free`. A multiplier the page states without printing the resulting cells (a regional uplift, a batch percent) is coverage text, not a computed row. |
+| `context_band` | `short`, `long` or `any`. |
+| `context_threshold_tokens` | Positive integer when the band is `short` or `long`, otherwise null. The threshold is the one the page prints. |
+| `modality` | `text`, `image` or `video`. |
+| `region` | kebab-case when the page prints a separate regional price, otherwise null. |
+| `meter` | kebab-case when one component is priced twice on the page and the other fields cannot tell the rows apart (annotated pages beside pages, 720p beside 4k, or a context range that is not a single short/long split), otherwise null. |
+| `offer` | `list` or `promotional`. |
+| `valid_from`, `valid_until` | Date or null. Null means the page stated no such date. Do not invent an end for a sale. |
+| `checked_on` | Date the number was read. |
+| `source_url`, `source_locator` | https, and where on the page the number is. |
+| `status` | `active`, `superseded` or `withdrawn`. Only active rows reach the payload. |
+| `note` | Optional. A condition the page states that the fields above do not carry. |
+
+Two active rows may not share one (model, publication, component, schedule, band, region, modality, offer, meter, valid_from, valid_until). A corrected price is a new row. The payload drops null fields, so a missing `valid_until` there means the page gave no end date.
+
 ### change_log
 
 Append-only list of `{at, reviewer, reason, added_observations}`. The article shows it as the update history.
 
 ## No loss
 
-`build` compares the database with the committed payload. Every observation id the payload carries must still exist in the database, in any status. A row may be superseded or withdrawn; it may not disappear.
+`build` compares the database with the committed payload. Every observation id the payload carries must still exist in the database, in any status. The same rule applies to price ids once a payload has carried them. A row may be superseded or withdrawn; it may not disappear.
 
 ## Units in the article
 
@@ -106,6 +134,7 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 - `elo` is shown as an integer. It is never converted to a percent.
 - `usd` is shown with the denominator (`5.47 per task`).
 - A missing result is a dash.
+- A token price is not a benchmark cell. It is a `prices` record. The payload carries active prices under `prices`, and `counts.prices` is how many.
 
 ## Research catalog
 
