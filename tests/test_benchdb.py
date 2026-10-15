@@ -135,6 +135,12 @@ class ValidateFixture(unittest.TestCase):
         problems = validate.validate(db)
         self.assertTrue(any("identical conditions" in p for p in problems), problems)
 
+    def test_second_configuration_in_the_same_cell_is_a_row(self):
+        db = fixture()
+        db["observations"][1]["conditions"]["reasoning_effort"] = "max"
+        db["observations"][1]["conditions"]["model_setup_as_reported"] = 'second value printed in the same cell as "60.9% (Mythos 5.1)"'
+        self.assertEqual(validate.validate(db), [])
+
     def test_unit_must_match_benchmark(self):
         db = fixture()
         db["observations"][0]["unit"] = "score"
@@ -146,15 +152,15 @@ class ValidateFixture(unittest.TestCase):
         db["observations"][0]["value"] = 101
         self.assertTrue(any("percent out of range" in p for p in validate.validate(db)))
 
-    def test_elo_is_a_positive_integer(self):
+    def test_elo_is_a_positive_number(self):
         db = fixture()
         db["benchmarks"][0]["unit"] = "elo"
         db["benchmarks"][0]["id"] = "arena--elo"
         for o in db["observations"]:
             o["benchmark_id"] = "arena--elo"
             o["unit"] = "elo"
-        db["observations"][0]["value"] = 1846
-        db["observations"][1]["value"] = 18.5
+        db["observations"][0]["value"] = 1747.8
+        db["observations"][1]["value"] = 0
         problems = validate.validate(db)
         self.assertEqual(len([p for p in problems if "elo must be" in p]), 1, problems)
 
@@ -456,6 +462,8 @@ class RealDatabase(unittest.TestCase):
                 "Alibaba": "qwen3-8-max",
                 "xAI": "grok-4-7",
                 "Moonshot AI": "kimi-k3",
+                "DeepSeek": "deepseek-v4-1-flash",
+                "Z.ai": "glm-5-3",
             },
         )
 
@@ -472,13 +480,15 @@ class RealDatabase(unittest.TestCase):
             return hits[0]["value"]
 
         self.assertEqual(one("publication-mistral-large-4", "deepswe-v1-1--percent", "mistral-large-4"), 61.7)
-        self.assertEqual(one("publication-zai-glm-5-3", "terminal-bench-2-1--score", "glm-5-3"), 88.2)
-        self.assertEqual(one("publication-zai-glm-5-3", "cybergym-pass-1--percent", "claude-fable-5"), 83.8)
+        self.assertEqual(one("publication-zai-glm-5-3", "terminal-bench-2-1--percent", "glm-5-3"), 88.2)
+        self.assertEqual(one("publication-zai-glm-5-3", "cybergym--percent", "claude-fable-5"), 83.8)
         self.assertEqual(one("publication-deepseek-v4-1-flash", "gpqa-diamond--percent", "deepseek-v4-1-flash"), 90.9)
         self.assertEqual(one("publication-moonshot-kimi-k3", "gpqa-diamond--percent", "kimi-k3"), 93.5)
-        self.assertEqual(one("publication-zai-glm-5-3", "exploitgym-tasks--score", "glm-5-3", attempt_budget="2h"), 105)
-        muse = {m["id"]: m for m in self.db["models"] if m["developer"] == "Meta"}
-        self.assertEqual(set(muse), {"muse-spark", "muse-spark-1-1"})
+        self.assertEqual(one("publication-zai-glm-5-3-blog", "zai-code-bench--percent", "glm-5-3", reasoning_effort="Max"), 34.5)
+        self.assertEqual(one("publication-zai-glm-5-3-blog", "zai-code-bench--percent", "claude-fable-5"), 39.5)
+        muse = {m["id"]: m for m in self.db["models"] if m["id"] in ("muse-spark", "muse-spark-1-1")}
+        self.assertEqual(muse["muse-spark-1-1"]["release_date"], "2026-07-09")
+        self.assertIsNone(muse["muse-spark"]["release_date"])
         self.assertTrue(all(o["model_id"] not in muse for o in self.db["observations"]))
 
     def test_payload_matches_committed_file(self):

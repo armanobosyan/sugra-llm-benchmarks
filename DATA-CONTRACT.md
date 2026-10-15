@@ -17,13 +17,13 @@
 
 ## Text
 
-Outside the research catalog, no string may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them.
+Outside the research catalog, no string may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in the database, the research catalog included, is English.
 
 ## Records
 
 ### categories
 
-`id` (kebab-case, unique), `name_en`, `name_ru`, `order` (unique), `description_ru`, `description_en`. Twenty editorial categories; a family belongs to exactly one. `description_en` is the reader-facing paragraph the article prints at the head of each category in its glossary: what the category covers, how its tests are usually scored, and what it deliberately leaves to a neighbour.
+`id` (kebab-case, unique), `name_en`, `order` (unique), `description_en`. Twenty editorial categories; a family belongs to exactly one. `description_en` is the reader-facing paragraph the article prints at the head of each category in its glossary: what the category covers, how its tests are usually scored, and what it deliberately leaves to a neighbour.
 
 ### families
 
@@ -78,7 +78,7 @@ One record per number on a page.
 |---|---|
 | `id` | `obs-` plus 20 hex characters, unique, never reused. |
 | `benchmark_id`, `model_id`, `publication_id` | Must exist. |
-| `value` | A number. Percent in 0..100, fraction in 0..1, elo a positive integer, usd not negative. |
+| `value` | A number. Percent in 0..100, fraction in 0..1, elo a positive number (a decimal stays as printed), usd not negative. |
 | `unit`, `unit_denominator` | Must equal the benchmark's. |
 | `conditions` | Object with exactly the known keys: `model_label_as_published`, `benchmark_label_as_published`, `setup_as_reported`, `model_setup_as_reported` (all required), `reasoning_effort`, `harness`, `tools`, `fallback_policy`, `attempt_budget`, `context_tokens`, `dataset_revision` (null when the publisher did not say), `protocol_equivalence` (required). |
 | `source_url` | https. The page the number is on. |
@@ -91,7 +91,7 @@ One record per number on a page.
 | `comparison_scope` | `publisher_comparison`. |
 | `supersedes` | Id of the row this one replaces, or null. |
 
-Two active rows may share one (benchmark, model, publication) only when a distinguishing condition differs: effort, harness, tools, fallback, attempt budget, context length or dataset revision. The same number twice is refused. A corrected number is a new row with `supersedes` pointing at the old one, and the old one becomes `superseded`.
+Two active rows may share one (benchmark, model, publication) only when a distinguishing condition differs: effort, harness, tools, fallback, attempt budget, context length, dataset revision, or `model_setup_as_reported` when the page prints a second configuration in the same cell (a Mythos value under a Fable heading). The same number twice is refused. A corrected number is a new row with `supersedes` pointing at the old one, and the old one becomes `superseded`.
 
 ### prices
 
@@ -131,7 +131,7 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 
 - `percent` is shown with a percent sign.
 - `score` is shown as a number. A Qwen `score` is not a percent and must not be labeled as one.
-- `elo` is shown as an integer. It is never converted to a percent.
+- `elo` is shown as printed, decimals included. It is never converted to a percent.
 - `usd` is shown with the denominator (`5.47 per task`).
 - A missing result is a dash.
 - A token price is not a benchmark cell. It is a `prices` record. The payload carries active prices under `prices`, and `counts.prices` is how many.
