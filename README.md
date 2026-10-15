@@ -9,7 +9,6 @@ The catalog feeds the comparison article on the Sugra Systems blog. The article 
 | Path | What it is |
 |---|---|
 | `data/database.json` | The checked catalog. Categories, benchmark families, benchmark definitions, model identities, publications, observations, official prices and the change log. |
-| `data/research-catalog.json` | Unverified draft from third-party catalogs. Not scores. Not loaded by the payload. |
 | `public/benchmarks.v1.json` | The built payload the article loads. Generated, committed, checked in CI. Never edit by hand. |
 | `tools/benchdb/` | `validate` and `build`, standard library only. |
 | `tests/` | Contract tests plus checks against the real database. |
@@ -17,7 +16,7 @@ The catalog feeds the comparison article on the Sugra Systems blog. The article 
 | `UPDATE-RUNBOOK.md` | How to add a publication or a result, step by step. |
 | `COVERAGE.md` | What is in the catalog today, and what is not. |
 
-`imports/` (candidate rows pulled from third-party catalogs) stays local and is never published. See the research catalog policy in the contract.
+`imports/` (candidate rows pulled from third-party catalogs) stays local and is never published.
 
 ## Commands
 
@@ -49,4 +48,4 @@ Open a pull request that changes `data/database.json`, run `build` and commit th
 
 ## Licence
 
-The code under `tools/` and `tests/` is MIT (see `LICENSE`). The catalog under `data/` and the built payload under `public/` are published under CC BY 4.0: reuse them with a credit to Sugra Systems, Inc. and a link to this repository. Every number in `data/database.json` and in the built payload remains the statement of the publisher that printed it, cited by publication and locator. `data/research-catalog.json` is an unverified draft and is not one of those statements. The licence covers the compilation and the descriptions, not the publishers' pages.
+The code under `tools/` and `tests/` is MIT (see `LICENSE`). The catalog under `data/` and the built payload under `public/` are published under CC BY 4.0: reuse them with a credit to Sugra Systems, Inc. and a link to this repository. Every number in `data/database.json` and in the built payload remains the statement of the publisher that printed it, cited by publication and locator. The licence covers the compilation and the descriptions, not the publishers' pages.

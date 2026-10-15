@@ -421,13 +421,7 @@ class RealDatabase(unittest.TestCase):
 
     def test_score_file_has_no_unverified_draft(self):
         self.assertNotIn("research_catalog", self.db)
-        draft_path = DATA.parent / "research-catalog.json"
-        draft = json.loads(draft_path.read_text(encoding="utf-8"))
-        self.assertIn("not scores", draft["notice"])
-        self.assertGreaterEqual(len(draft["benchmark_registry"]), 318)
-        self.assertGreaterEqual(len(draft["model_configurations"]), 897)
-        self.assertGreaterEqual(len(draft["family_evidence"]), 634)
-        self.assertNotIn("observations", draft)
+        self.assertFalse((DATA.parent / "research-catalog.json").exists())
 
     def test_seed_counts_never_shrink(self):
         self.assertGreaterEqual(len(self.db["observations"]), 596)

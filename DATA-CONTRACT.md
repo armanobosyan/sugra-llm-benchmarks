@@ -13,11 +13,12 @@
 | `comparison_policy` | Free text the article shows. Score selection, missing values, percent rule, no overall ranking. |
 | `taxonomy_note` | Why the categories are editorial. |
 | `categories`, `families`, `benchmarks`, `models`, `publications`, `observations`, `prices`, `change_log` | The records below. `prices` is required from schema 1.1.0 and may be an empty list. A 1.0.0 database may omit it. |
-| `data/research-catalog.json` | A separate unverified draft. Not a key of this file. `validate` and `build` do not load that file. A `research_catalog` key pasted back into the score file is ordinary text: `validate` checks it, and `build` still leaves it out of the payload. |
+
+There is no draft file beside the score file. `validate` and `build` read `data/database.json` only. A `research_catalog` key pasted into the score file is ordinary text: `validate` checks it, and `build` leaves it out of the payload.
 
 ## Text
 
-No string in `data/database.json` may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in that file is English. The draft file may keep the punctuation of an imported label.
+No string in `data/database.json` may contain an em dash, an en dash or an emoji. A range in a label is written with "to" (`256k to 1M`). Labels are otherwise kept as the publisher printed them. Every string in that file is English.
 
 ## Records
 
@@ -136,6 +137,6 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 - A missing result is a dash.
 - A token price is not a benchmark cell. It is a `prices` record. The payload carries active prices under `prices`, and `counts.prices` is how many.
 
-## Research catalog
+## Draft keys
 
-`data/research-catalog.json` holds a benchmark registry, model configurations and family evidence pulled from third-party catalogs, plus a pointer to a local `imports/` file. These entries are navigation and candidate material: not verified scores, not loaded by the payload, never matched to observations by name similarity. Promoting a candidate means reading the publisher's page and creating an observation by the runbook. The score file does not contain this object. If a copy is passed to `build` under the old key, the payload still drops it.
+This repository does not publish a third-party draft. A score is added by reading the publisher's own page and following the runbook. If a `research_catalog` key is pasted into the score file, `validate` checks that text and `build` leaves it out of the payload. An imported row is not matched to an observation by name.

@@ -161,9 +161,9 @@ Every category has at least one observation. A category with no rows for the sel
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
 - Independent sources (leaderboards, third-party evaluations) are absent. Adding one is a new `kind` and a new `evidence_type`, which means extending the contract and its tests first.
 
-## Research catalog (not published)
+## Not in this repository
 
-The unverified draft lives in `data/research-catalog.json`, not in the score file: 318 benchmark registry entries, 897 model configurations and 634 family evidence rows, gathered from third-party catalogs, plus a pointer to a local import file of 9,749 candidate rows that is not committed. None of this is verified and none of it reaches the payload. It is a map of where to look next, in this order:
+Third-party catalog dumps are not published here. A score enters `data/database.json` only after the publisher's own page is read. The next reading, in this order:
 
 1. New official releases from the publishers already in the catalog.
 2. System cards and model cards not yet transcribed.

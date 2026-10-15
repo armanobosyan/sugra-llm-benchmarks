@@ -2,9 +2,9 @@
 
 The payload is what the article loads. It carries the editorial taxonomy,
 the benchmark definitions, the model identities, the publications and every
-ACTIVE observation with its conditions and source. It never carries the
-research catalog or the import candidates: those are working material, not
-verified scores.
+ACTIVE observation with its conditions and source. It copies those fields
+only. A leftover key in the score file, including a pasted research draft,
+stays out of the payload.
 
 The output is deterministic (sorted keys, fixed separators, trailing newline)
 so `build --check` can compare it byte for byte with the committed file.
