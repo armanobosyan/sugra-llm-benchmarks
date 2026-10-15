@@ -141,6 +141,27 @@ class ValidateFixture(unittest.TestCase):
         db["observations"][1]["conditions"]["model_setup_as_reported"] = 'second value printed in the same cell as "60.9% (Mythos 5.1)"'
         self.assertEqual(validate.validate(db), [])
 
+    def test_same_values_under_two_labels_is_refused(self):
+        db = fixture()
+        db["benchmarks"].append({**db["benchmarks"][0], "id": "frontiercode-v1-1-main--percent", "name": "FrontierCode v1.1 (main)"})
+        db["observations"] += [
+            obs("obs-00000000000000000003", 46.2, "max", benchmark_id="frontiercode-v1-1-main--percent"),
+            obs("obs-00000000000000000004", 30.0, None, model_id="model-y-reported-as-x"),
+            obs("obs-00000000000000000005", 30.0, None, model_id="model-y-reported-as-x", benchmark_id="frontiercode-v1-1-main--percent"),
+        ]
+        problems = validate.validate(db)
+        self.assertTrue(any("one test under two labels" in p for p in problems), problems)
+
+    def test_different_values_under_two_labels_are_two_definitions(self):
+        db = fixture()
+        db["benchmarks"].append({**db["benchmarks"][0], "id": "frontiercode-v1-1-main--percent", "name": "FrontierCode v1.1 (main)"})
+        db["observations"] += [
+            obs("obs-00000000000000000003", 41.0, "max", benchmark_id="frontiercode-v1-1-main--percent"),
+            obs("obs-00000000000000000004", 30.0, None, model_id="model-y-reported-as-x"),
+            obs("obs-00000000000000000005", 30.0, None, model_id="model-y-reported-as-x", benchmark_id="frontiercode-v1-1-main--percent"),
+        ]
+        self.assertEqual(validate.validate(db), [])
+
     def test_unit_must_match_benchmark(self):
         db = fixture()
         db["observations"][0]["unit"] = "score"
@@ -524,6 +545,18 @@ class RealDatabase(unittest.TestCase):
         self.assertIsNone(models["qwen3-8-27b"]["release_date"])
         self.assertEqual(models["glm-5-3"]["release_date"], "2026-08-18")
         self.assertEqual(models["deepseek-v4-1-flash"]["release_date"], "2026-09-10")
+        self.assertEqual(models["gemini-4-argon"]["release_date"], "2026-09-30")
+        self.assertEqual(models["claude-fable-5-1"]["release_date"], "2026-09-01")
+        self.assertEqual(models["qwen3-8-max"]["release_date"], "2026-08-03")
+        self.assertEqual(models["kimi-k3"]["release_date"], "2026-07-16")
+        self.assertEqual(models["gpt-6-sol"]["release_date"], "2026-09-22")
+        self.assertEqual(models["gpt-6-luna"]["release_date"], "2026-09-22")
+        self.assertIsNone(models["qwen3-7-max"]["release_date"])
+        self.assertIsNone(models["qwen3-8-flash-next"]["release_date"])
+        self.assertIsNone(models["qwen3-8-2-4t-a95b"]["release_date"])
+        self.assertIsNone(models["qwen3-max-thinking"]["release_date"])
+        self.assertIsNone(models["qwen-max"]["release_date"])
+        self.assertIsNone(models["deepseek-v4-vision-exp"]["release_date"])
         self.assertIsNone(pubs["publication-anthropic-claude-fable-5-1"]["published_at"])
         self.assertIsNone(pubs["publication-google-gemini-4-argon"]["published_at"])
 

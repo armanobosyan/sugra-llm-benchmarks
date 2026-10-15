@@ -1,6 +1,6 @@
 # Data contract
 
-`data/database.json` is the source. `tools/benchdb/validate.py` enforces everything below; a rule that is not in this file is not enforced, and a new kind of source or unit extends this file first.
+`data/database.json` is the source. `tools/benchdb/validate.py` enforces the structural rules in this file: ids, references, kinds, units, dates, punctuation, the price publisher, and one row when two labels carry the same values. It does not re-read a publisher page, and it does not fill a missing field. A rule that is not in this file is not enforced, and a new kind of source or unit extends this file first.
 
 ## Top level
 
@@ -45,7 +45,7 @@ The article renders `what_it_tests`, the maintainer link and the note under the 
 
 ### benchmarks
 
-One record per exact test, version and metric.
+One record per exact test, version and metric. A publisher's own label for a test lives in the observation's `benchmark_label_as_published`, never in a second record: two records of one family in the same unit whose shared models (two or more) all carry equal values are refused by the validator.
 
 | Field | Rule |
 |---|---|
@@ -55,7 +55,7 @@ One record per exact test, version and metric.
 | `unit` | `percent`, `score`, `elo`, `usd` or `fraction`. |
 | `unit_denominator` | Required for `usd` (for example `task`), otherwise null. |
 | `higher_is_better` | Boolean. False for cost, refusal and error rates. |
-| `definition_status` | `source_label_preserved` until a benchmark is documented independently. |
+| `definition_status` | `source_label_preserved` until a benchmark is documented independently. The checker requires the field. It does not decide whether a definition has been documented independently. |
 | `cross_publication_equivalence` | `not_established` unless two publications are shown to use one protocol. |
 
 ### models
@@ -80,7 +80,7 @@ One record per number on a page.
 | `benchmark_id`, `model_id`, `publication_id` | Must exist. |
 | `value` | A number. Percent in 0..100, fraction in 0..1, elo a positive number (a decimal stays as printed), usd not negative. |
 | `unit`, `unit_denominator` | Must equal the benchmark's. |
-| `conditions` | Object with exactly the known keys: `model_label_as_published`, `benchmark_label_as_published`, `setup_as_reported`, `model_setup_as_reported` (all required), `reasoning_effort`, `harness`, `tools`, `fallback_policy`, `attempt_budget`, `context_tokens`, `dataset_revision` (null when the publisher did not say), `protocol_equivalence` (required). |
+| `conditions` | Object. Required and non-empty: `model_label_as_published`, `benchmark_label_as_published`, `setup_as_reported`, `model_setup_as_reported`, `protocol_equivalence`. Allowed, and omitted or null when the publisher did not say: `reasoning_effort`, `harness`, `tools`, `fallback_policy`, `attempt_budget`, `context_tokens`, `dataset_revision`. Any other key is refused. The checker does not fill a missing key. |
 | `source_url` | https. The page the number is on. |
 | `source_locator` | Where on the page: table name, section, page number. |
 | `methodology_url` | Optional. |

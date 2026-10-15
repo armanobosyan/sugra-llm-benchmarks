@@ -345,6 +345,26 @@ def validate(db: dict) -> list[str]:
                 err(f"observations: {key} has two active rows with identical conditions; add reasoning_effort/harness, state the second configuration in model_setup_as_reported, or supersede one")
             seen.add(sig)
 
+    # Two definitions of one family in the same unit whose shared models all
+    # carry equal values are one test under two publisher labels: the label
+    # belongs in benchmark_label_as_published, not in a second definition.
+    values_by_bench: dict[str, dict[str, set]] = defaultdict(lambda: defaultdict(set))
+    for o in db["observations"]:
+        if o.get("status") == "active" and isinstance(o.get("value"), (int, float)):
+            values_by_bench[o.get("benchmark_id")][o.get("model_id")].add(o.get("value"))
+    by_family: dict[str, list[dict]] = defaultdict(list)
+    for b in db["benchmarks"]:
+        by_family[b.get("family_id")].append(b)
+    for fam, defs in by_family.items():
+        for i, a in enumerate(defs):
+            for b in defs[i + 1:]:
+                if a.get("unit") != b.get("unit"):
+                    continue
+                va, vb = values_by_bench.get(a["id"], {}), values_by_bench.get(b["id"], {})
+                shared = set(va) & set(vb)
+                if len(shared) >= 2 and all(va[m] & vb[m] for m in shared):
+                    err(f"benchmarks: {a['id']} and {b['id']} (family {fam}) carry equal values for all {len(shared)} shared models; one test under two labels, merge them and keep the label in benchmark_label_as_published")
+
     # ---- prices (official lists; never benchmark observations) -----------
     price_ids: set[str] = set()
     price_keys: dict[tuple, str] = {}

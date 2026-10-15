@@ -484,7 +484,7 @@
    "observations": 205,
    "catalog_url": "https://benchmarkheaven.com/api/dataset",
    "verification": "Aggregator catalog; source is stated, full primary verification not performed",
-   "sugra_family_id": "tau3-banking",
+   "sugra_family_id": "tau3-bench",
    "sugra_category_id": "tool-use-workflows"
   },
   {
@@ -3202,7 +3202,7 @@
    "observations": 1,
    "catalog_url": "https://benchmarkheaven.com/api/dataset",
    "verification": "Aggregator catalog; source is stated, full primary verification not performed",
-   "sugra_family_id": "tau3-banking",
+   "sugra_family_id": "tau3-bench",
    "sugra_category_id": "tool-use-workflows"
   },
   {
@@ -3436,7 +3436,7 @@
    "observations": 3,
    "catalog_url": "https://benchmarkheaven.com/api/dataset",
    "verification": "Aggregator catalog; source is stated, full primary verification not performed",
-   "sugra_family_id": "tau3-banking",
+   "sugra_family_id": "tau3-bench",
    "sugra_category_id": "tool-use-workflows"
   },
   {
