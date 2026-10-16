@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from tools.benchdb import build, validate  # noqa: E402
+from tools.benchdb import build, compact, validate  # noqa: E402
 
 DATA = ROOT / "data" / "database.json"
 
@@ -403,11 +403,69 @@ class BuildFixture(unittest.TestCase):
             out = Path(tmp) / "benchmarks.v1.json"
             data.write_text(json.dumps(fixture()), encoding="utf-8")
             self.assertEqual(build.main([str(data), str(out)]), 0)
+            self.assertTrue((Path(tmp) / "benchmarks.v1.compact.json").exists())
             self.assertEqual(build.main(["--check", str(data), str(out)]), 0)
             db = fixture()
             db["data_version"] = "2026101501"
             data.write_text(json.dumps(db), encoding="utf-8")
             self.assertEqual(build.main(["--check", str(data), str(out)]), 1)
+
+    def test_check_detects_stale_compact_payload(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp) / "database.json"
+            out = Path(tmp) / "benchmarks.v1.json"
+            data.write_text(json.dumps(fixture()), encoding="utf-8")
+            self.assertEqual(build.main([str(data), str(out)]), 0)
+            (Path(tmp) / "benchmarks.v1.compact.json").write_text("{}", encoding="utf-8")
+            self.assertEqual(build.main(["--check", str(data), str(out)]), 1)
+
+
+class CompactFixture(unittest.TestCase):
+    def test_round_trip_is_exact(self):
+        payload = build.build_payload(fixture(), "abc")
+        small = compact.encode(payload)
+        self.assertEqual(small["encoding"], "columns")
+        self.assertEqual(compact.decode(small), payload)
+
+    def test_strings_are_written_once_and_numbers_stay_numbers(self):
+        payload = build.build_payload(fixture(), "abc")
+        small = compact.encode(payload)
+        self.assertEqual(len(small["strings"]), len(set(small["strings"])))
+        value_col = small["observation_columns"].index("value")
+        for row in small["observations"]:
+            self.assertIsInstance(row[value_col], list)
+            self.assertEqual(len(row[value_col]), 1)
+
+    def test_absent_cells_are_zero_and_trailing_ones_are_dropped(self):
+        payload = build.build_payload(fixture(), "abc")
+        small = compact.encode(payload)
+        cols = small["observation_columns"]
+        for row in small["observations"]:
+            self.assertLessEqual(len(row), len(cols))
+            self.assertNotEqual(row[-1], 0)
+        # a row without conditions decodes without the key
+        bare = {"observations": [{"id": "obs-1", "value": 1}], "prices": []}
+        self.assertEqual(compact.decode(compact.encode(bare)), bare)
+
+    def test_mixed_types_in_one_column_round_trip(self):
+        rows = {"observations": [
+            {"id": "obs-1", "value": 1, "conditions": {"context_tokens": 128000}},
+            {"id": "obs-2", "value": 2.5, "conditions": {"context_tokens": "up to 1M"}},
+        ], "prices": [{"id": "price-1", "value": 0}]}
+        self.assertEqual(compact.decode(compact.encode(rows)), rows)
+
+    def test_refuses_a_cell_that_is_not_text_or_number(self):
+        rows = {"observations": [{"id": "obs-1", "value": 1, "flag": True}], "prices": []}
+        with self.assertRaises(ValueError):
+            compact.encode(rows)
+        rows = {"observations": [{"id": "obs-1", "value": 1, "tags": ["a"]}], "prices": []}
+        with self.assertRaises(ValueError):
+            compact.encode(rows)
+
+    def test_render_is_deterministic(self):
+        a = build.render(compact.encode(build.build_payload(fixture(), "x")))
+        b = build.render(compact.encode(build.build_payload(copy.deepcopy(fixture()), "x")))
+        self.assertEqual(a, b)
 
 
 @unittest.skipUnless(DATA.exists(), "no data/database.json")
@@ -559,6 +617,15 @@ class RealDatabase(unittest.TestCase):
         self.assertTrue(out.exists(), "run python -m tools.benchdb build")
         text = build.render(build.build_payload(self.db, build.sha256_of(DATA)))
         self.assertEqual(out.read_text(encoding="utf-8"), text)
+
+    def test_compact_payload_matches_committed_file_and_decodes_to_the_full_one(self):
+        out = ROOT / "public" / "benchmarks.v1.compact.json"
+        self.assertTrue(out.exists(), "run python -m tools.benchdb build")
+        payload = build.build_payload(self.db, build.sha256_of(DATA))
+        small = compact.encode(payload)
+        self.assertEqual(out.read_text(encoding="utf-8"), build.render(small))
+        self.assertEqual(compact.decode(json.loads(out.read_text(encoding="utf-8"))), payload)
+        self.assertLess(out.stat().st_size * 4, (ROOT / "public" / "benchmarks.v1.json").stat().st_size)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,8 @@ The catalog feeds the comparison article on the Sugra Systems blog. The article 
 | Path | What it is |
 |---|---|
 | `data/database.json` | The checked catalog. Categories, benchmark families, benchmark definitions, model identities, publications, observations, official prices and the change log. |
-| `public/benchmarks.v1.json` | The built payload the article loads. Generated, committed, checked in CI. Never edit by hand. |
+| `public/benchmarks.v1.json` | The built payload: every record in plain JSON. Generated, committed, checked in CI. Never edit by hand. |
+| `public/benchmarks.v1.compact.json` | The same records in a smaller shape, about a fifth of the size: each distinct string once, rows as arrays. The article loads this file. Generated beside the full one. |
 | `tools/benchdb/` | `validate` and `build`, standard library only. |
 | `tests/` | Contract tests plus checks against the real database. |
 | `DATA-CONTRACT.md` | What every record must contain and the rules the validator enforces. |
@@ -44,7 +45,7 @@ The twenty categories are an editorial navigation aid for this catalog. They are
 
 ## Updating
 
-Open a pull request that changes `data/database.json`, run `build` and commit the payload with it. CI refuses a stale payload, a lost observation and any record that breaks the contract. The runbook has the full procedure.
+Open a pull request that changes `data/database.json`, run `build` and commit both payload files with it. CI refuses a stale payload, a lost observation and any record that breaks the contract. The runbook has the full procedure.
 
 ## Licence
 
