@@ -1,4 +1,6 @@
-"""Build the public payload public/benchmarks.v1.json from data/database.json.
+"""Build the public payload public/benchmarks.v1.json from data/database.json,
+and beside it public/benchmarks.v1.compact.json, the same records in the
+smaller shape compact.py describes.
 
 The payload is what the article loads. It carries the editorial taxonomy,
 the benchmark definitions, the model identities, the publications and every
@@ -17,6 +19,7 @@ import json
 import sys
 from pathlib import Path
 
+from . import compact as compact_form
 from .validate import load, validate
 
 PAYLOAD_SCHEMA = "1.1.0"
@@ -125,6 +128,11 @@ def render(payload: dict) -> str:
     return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
 
 
+def compact_path(out_path: Path) -> Path:
+    """public/benchmarks.v1.json -> public/benchmarks.v1.compact.json"""
+    return out_path.with_name(out_path.stem + ".compact" + out_path.suffix)
+
+
 def sha256_of(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -172,17 +180,22 @@ def main(argv: list[str] | None = None) -> int:
         print(f"build: FAIL ({len(problems)} problems)")
         return 1
 
-    text = render(build_payload(db, sha256_of(data_path)))
+    payload = build_payload(db, sha256_of(data_path))
+    outputs = [(out_path, render(payload)), (compact_path(out_path), render(compact_form.encode(payload)))]
     if check:
-        current = out_path.read_text(encoding="utf-8") if out_path.exists() else ""
-        if current != text:
-            print(f"build --check: {out_path} is stale; run `python -m tools.benchdb build` and commit the result")
-            return 1
-        print(f"build --check: OK {out_path} matches {data_path} ({len(text)} bytes)")
-        return 0
+        stale = False
+        for path, text in outputs:
+            current = path.read_text(encoding="utf-8") if path.exists() else ""
+            if current != text:
+                print(f"build --check: {path} is stale; run `python -m tools.benchdb build` and commit the result")
+                stale = True
+            else:
+                print(f"build --check: OK {path} matches {data_path} ({len(text)} bytes)")
+        return 1 if stale else 0
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(text, encoding="utf-8", newline="\n")
-    print(f"build: wrote {out_path} ({len(text)} bytes, {db['data_version']})")
+    for path, text in outputs:
+        path.write_text(text, encoding="utf-8", newline="\n")
+        print(f"build: wrote {path} ({len(text)} bytes, {db['data_version']})")
     return 0
 
 

@@ -124,6 +124,10 @@ Two active rows may not share one (model, publication, component, schedule, band
 
 Append-only list of `{at, reviewer, reason, added_observations}`. The article shows it as the update history.
 
+## Two payload files
+
+`build` writes `public/benchmarks.v1.json`, every active record in plain JSON, and `public/benchmarks.v1.compact.json`, the same records in a smaller shape. The compact file keeps each distinct string once in `strings` and writes every observation and price as an array of cells in the order `observation_columns`, `condition_columns` and `price_columns` give: a text cell is its 1-based index into `strings`, a number cell is a one-element list such as `[93.4]`, `0` is an absent field, and a row drops its trailing absent cells. Every other top-level field is copied as it is, and `encoding` is `"columns"`. Decoding the compact file gives the full file field for field; `tools/benchdb/compact.py` holds both directions and the tests check the round trip on the committed data. `build --check` refuses a stale copy of either file.
+
 ## No loss
 
 `build` compares the database with the committed payload. Every observation id the payload carries must still exist in the database, in any status. The same rule applies to price ids once a payload has carried them. A row may be superseded or withdrawn; it may not disappear.

@@ -1,6 +1,6 @@
 # Update runbook
 
-Every change to the catalog is one pull request that changes `data/database.json`, rebuilds `public/benchmarks.v1.json` and passes CI. Numbers are never edited in the article or its components.
+Every change to the catalog is one pull request that changes `data/database.json`, rebuilds `public/benchmarks.v1.json` and `public/benchmarks.v1.compact.json` (one `build` writes both) and passes CI. Numbers are never edited in the article or its components.
 
 ## 1. Add a publication
 
