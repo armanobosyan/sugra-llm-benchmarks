@@ -548,7 +548,7 @@ class RealDatabase(unittest.TestCase):
                 "Alibaba": "qwen3-8-max",
                 "xAI": "grok-4-7",
                 "Moonshot AI": "kimi-k3",
-                "DeepSeek": "deepseek-v4-1-flash",
+                "DeepSeek": "deepseek-v4-1-flash-1017",
                 "Z.ai": "glm-5-3",
             },
         )
