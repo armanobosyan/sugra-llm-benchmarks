@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101589, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101801, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -19,6 +19,7 @@ What the catalog holds as of data version 2026101589, and what it does not: the 
 | Gemini 3.7 Flash model card | Google | 84 | 5 | 20 |
 | Introducing Grok 4.6 | xAI | 39 | 4 | 10 |
 | DeepSeek-V4.1-Flash model card | DeepSeek | 125 | 7 | 19 |
+| DeepSeek-V4.1-Flash-1017 model card | DeepSeek | 65 | 6 | 11 |
 | GLM-5.3 model card | Z.ai | 120 | 8 | 17 |
 | Kimi K3 model card | Moonshot AI | 275 | 6 | 50 |
 | Qwen3.8-27B model card | Alibaba | 114 | 5 | 30 |
@@ -96,13 +97,13 @@ What the catalog holds as of data version 2026101589, and what it does not: the 
 | Muse Spark 1.1 | Meta | 0 | 0 | 0 |
 | GLM-5.3 post | Z.ai | 5 | 4 | 1 |
 
-89 publications, 8579 observations, 442 models, 502 benchmark definitions in 320 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+90 publications, 8644 observations, 443 models, 503 benchmark definitions in 322 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
 ## Official prices
 
-Checked on 2026-10-15 against each publisher's own price page. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
+Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
 
 | Price list | Publisher | Rows |
 |---|---|---|
@@ -111,12 +112,12 @@ Checked on 2026-10-15 against each publisher's own price page. Schema 1.1.0. A p
 | Gemini API pricing | Google | 389 |
 | xAI API pricing | xAI | 60 |
 | Alibaba Model Studio pricing | Alibaba | 988 |
-| DeepSeek API pricing | DeepSeek | 12 |
+| DeepSeek API pricing | DeepSeek | 18 |
 | Kimi API pricing | Moonshot AI | 14 |
 | Mistral API pricing | Mistral AI | 24 |
 | Z.AI API pricing | Z.ai | 86 |
 
-2,367 price rows. 237 models are in the catalog only because a price page names them. 82 models have both a price and at least one benchmark row. 120 models have benchmark rows and no price. Three named models have neither: Llama 3.1 70B, Muse Spark, and Muse Spark 1.1. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
+2,373 price rows. 237 models are in the catalog only because a price page names them. 83 models have both a price and at least one benchmark row. 120 models have benchmark rows and no price. Three named models have neither: Llama 3.1 70B, Muse Spark, and Muse Spark 1.1. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens, except Kimi, which stays in CNY because that is the unit on the page. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
@@ -147,13 +148,13 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 | Engineering and design | 6 | 43 |
 | Preference and composite rankings | 7 | 43 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 287 checked against the maintainer's own page or paper, 33 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 287 checked against the maintainer's own page or paper, 34 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 195 of 442 models and `published_at` for 76 of 89 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
+- `release_date` is recorded for 196 of 443 models and `published_at` for 76 of 90 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
 - `reasoning_effort` is stated for 2420 observations, `tools` for 1249, `harness` for 890. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 152 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
