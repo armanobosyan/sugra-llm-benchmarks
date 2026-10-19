@@ -515,9 +515,9 @@ class RealDatabase(unittest.TestCase):
 
     def test_benchmark_rows_do_not_hang_on_a_price_list(self):
         price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
-        self.assertEqual(len(price_pubs), 9)
+        self.assertEqual(len(price_pubs), 14)
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
-        self.assertGreaterEqual(len(self.db["prices"]), 2367)
+        self.assertGreaterEqual(len(self.db["prices"]), 2473)
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
@@ -533,7 +533,14 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="grok-4-7", schedule="fast", context_band="short", component="input")["value"], 4)
         self.assertEqual(one(model_id="gemini-4-argon", schedule="standard", component="input", offer="promotional", valid_until="2026-11-30")["value"], 2)
         self.assertEqual(one(model_id="gemini-3-8-flash", schedule="standard", component="storage", offer="promotional", valid_until="2026-12-31")["value"], 0.5)
-        self.assertEqual(one(model_id="kimi-k3", component="input")["unit"], "cny_per_million_tokens")
+        self.assertEqual(one(model_id="kimi-k3", component="input", publication_id="publication-moonshot-kimi-api-pricing")["unit"], "cny_per_million_tokens")
+        self.assertEqual(one(model_id="kimi-k3", component="input", publication_id="publication-moonshot-kimi-api-pricing-international")["value"], 3)
+        self.assertEqual(one(model_id="minimax-m3", component="input", schedule="standard", context_band="long")["value"], 0.6)
+        self.assertEqual(one(model_id="mimo-v2-6-pro", component="output", schedule="standard", region="international")["value"], 0.87)
+        self.assertEqual(one(model_id="muse-wonder", component="output")["value"], 20)
+        self.assertEqual(one(model_id="step-3-7-flash", component="cached_input")["value"], 0.04)
+        self.assertEqual(one(model_id="mistral-small-4", component="input")["value"], 0.15)
+        self.assertFalse({"mistral-small-2603", "mistral-large-2512", "ministral-14b-2512", "gemini-3-flash-preview"} & {m["id"] for m in self.db["models"]})
         self.assertEqual(one(model_id="glm-5-3", component="input")["value"], 1.4)
         self.assertEqual(one(model_id="qwen3-8-max", component="input", region="international")["value"], 2)
         self.assertEqual(one(model_id="mistral-large-4", component="input", offer="promotional")["value"], 0.68)

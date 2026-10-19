@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101907, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101908, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -104,13 +104,13 @@ What the catalog holds as of data version 2026101907, and what it does not: the 
 | Xiaomi MiMo-V2.6-Pro-RL model card | Xiaomi | 90 | 6 | 17 |
 | Microsoft AI: Introducing MAI-Thinking-1 | Microsoft | 43 | 8 | 8 |
 
-97 publications, 9375 observations, 453 models, 527 benchmark definitions in 331 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+97 publications, 9375 observations, 455 models, 527 benchmark definitions in 331 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
 ## Official prices
 
-Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
+Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
 
 | Price list | Publisher | Rows |
 |---|---|---|
@@ -121,12 +121,17 @@ Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on
 | Alibaba Model Studio pricing | Alibaba | 988 |
 | DeepSeek API pricing | DeepSeek | 18 |
 | Kimi API pricing | Moonshot AI | 14 |
-| Mistral API pricing | Mistral AI | 24 |
+| Mistral API pricing | Mistral AI | 32 |
 | Z.AI API pricing | Z.ai | 86 |
+| MiniMax API pricing | MiniMax | 15 |
+| Xiaomi MiMo API pricing | Xiaomi | 30 |
+| Meta Model API pricing | Meta | 18 |
+| StepFun API pricing | StepFun | 15 |
+| Kimi API pricing (international platform) | Moonshot AI | 14 |
 
-2,373 price rows. 237 models are in the catalog only because a price page names them. 83 models have both a price and at least one benchmark row. 130 models have benchmark rows and no price. Three named models have neither: Llama 3.1 70B, Muse Spark, and Muse Spark 1.1. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
+2,473 price rows. 240 models are in the catalog only because a price page names them. 93 models have both a price and at least one benchmark row. 120 models have benchmark rows and no price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
 
-Text rates are USD per 1,000,000 tokens, except Kimi, which stays in CNY because that is the unit on the page. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
+Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: the Chinese Kimi page and the domestic Xiaomi table. Their US-dollar prices come from the international Kimi page and the overseas Xiaomi table, never from a conversion. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
 Left in each price publication's coverage, not expanded into rows: audio, voice, live, transcription, TTS, tools, fine-tuning, and a regional multiplier the page states without printing every cell. A model hosted on another lab's page is not given that host's price. Mistral's page quotes GLM 5.3 cached input at $0.14; Z.AI's own page prints $0.26, and only the Z.AI row is stored. DeepSeek still prints V4-Pro prices on the price page. Meta has no public token price, so there is no Meta price row.
 
@@ -161,7 +166,7 @@ Every category has at least one observation. A category with no rows for the sel
 
 ## Known gaps
 
-- `release_date` is recorded for 204 of 453 models and `published_at` for 82 of 97 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
+- `release_date` is recorded for 204 of 455 models and `published_at` for 82 of 97 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
 - `reasoning_effort` is stated for 2593 observations, `tools` for 1310, `harness` for 915. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 152 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
