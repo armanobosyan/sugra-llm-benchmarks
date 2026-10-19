@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101910, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101911, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -109,9 +109,9 @@ What the catalog holds as of data version 2026101910, and what it does not: the 
 | GPT-6.1 Sol system card addendum | OpenAI | 446 | 9 | 74 |
 | GPT-6 Sol and GPT-6 Luna: October 2026 update | OpenAI | 237 | 6 | 49 |
 | Claude Sonnet 5.5 System Card | Anthropic | 349 | 12 | 72 |
-| Claude Haiku 5.5 System Card | Anthropic | 708 | 19 | 116 |
+| Claude Haiku 5.5 System Card | Anthropic | 688 | 19 | 114 |
 
-104 publications, 11274 observations, 456 models, 755 benchmark definitions in 407 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+104 publications, 11254 observations, 456 models, 755 benchmark definitions in 407 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
@@ -164,7 +164,7 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 | Writing and conversation | 3 | 17 |
 | Healthcare | 23 | 283 |
 | Biosecurity | 21 | 107 |
-| Safety and alignment | 189 | 1370 |
+| Safety and alignment | 189 | 1350 |
 | Engineering and design | 9 | 55 |
 | Preference and composite rankings | 10 | 76 |
 

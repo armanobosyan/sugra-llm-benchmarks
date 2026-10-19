@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1.0",
-  "data_version": "2026101910",
+  "data_version": "2026101911",
   "as_of": "2026-10-19",
   "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
   "default_publication_id": "publication-google-gemini-4-argon",
@@ -27052,7 +27052,7 @@
       "kind": "model_card",
       "comparison_scope": "publisher_comparison",
       "methodology_url": "https://www.anthropic.com/claude-haiku-5-5-system-card",
-      "coverage": "Transcribed from the card: Table 8.1.A (four columns) and the section 8 printed values for Terminal-Bench 4.0, Terminal-Bench Science 0.1, FrontierSWE v2, ProgramBench, Chartography, BenchCAD voxel IoU, OSWorld 2.1 (partial and strict), OfficeQA and OfficeQA Pro, GDPval-AA and AA-Briefcase (default and medium effort), PhysicianBench and HealthBench effort series, GMMLU and MILU averages; section 3.3 ExploitBench, CyScenarioBench and the Binary Exploitation count; section 4.1 to 4.4 safety tables and the multi-turn category figure 4.1.3.A; section 5.1 and 5.2 malicious-use and prompt-injection tables and figures; section 6.2 automated behavioral audit charts 6.2.1.A to 6.2.8.A (values as printed on the bars); section 6.3.1 sandbox rates and section 6.3.2 self-preference. Left out: charts with no printed numbers; figure 2.2.x and 2.3.2 (biology and Epoch Capabilities Index charts, not entered); figure 3.3.4.A (ExploitGym, not entered); section 6.3.3 (factual hallucination, MASK, AA-Omniscience, silent copying and concealment figures, not entered); section 6.4 (grader and evaluation awareness, SHADE-Arena, LinuxArena, CoT controllability charts, not entered); section 7 welfare figures; figure 8.3.A and 8.3.B scatter plots; figures 8.8.x scaling curves; figure 8.9.3.B and C cost plots; figure 8.9.3.A OSWorld bars for GPT-6.1 Sol and GPT-6 Luna (not entered); figures 8.11.1.A and 8.11.2.A trend and PhysicianBench bars beyond the rows listed; section 8.13 life-science tables (LatchBio SpatialBench, SingleCellBench, morphology-to-molecule, medchem, protein design, biomed image analysis, protocols; not entered in this pass); leaderboard values quoted from third-party leaderboards for GPT-6 Sol, GPT-6.1 Sol, GPT-6 Astra, Claude Opus 5 and Claude Fable 5 in the Terminal-Bench, FrontierSWE and HLE text (not entered as this card measurements). BBQ signed bias scores (Table 4.4.2.B) are left out: the card reads them as closer to zero is better, which one direction cannot express; the BBQ accuracy rows are kept."
+      "coverage": "Transcribed from the card: Table 8.1.A (four columns) and the section 8 printed values for Terminal-Bench 4.0, Terminal-Bench Science 0.1, FrontierSWE v2, ProgramBench, Chartography, BenchCAD voxel IoU, OSWorld 2.1 (partial and strict), OfficeQA and OfficeQA Pro, GDPval-AA and AA-Briefcase (default and medium effort), PhysicianBench and HealthBench effort series, GMMLU and MILU averages; section 3.3 ExploitBench, CyScenarioBench and the Binary Exploitation count; section 4.1 to 4.4 safety tables and the multi-turn category figure 4.1.3.A; section 5.1 and 5.2 malicious-use and prompt-injection tables and figures; section 6.2 automated behavioral audit charts 6.2.1.A to 6.2.8.A (values as printed on the bars); section 6.3.1 sandbox rates and section 6.3.2 self-preference. Left out: charts with no printed numbers; figure 2.2.x and 2.3.2 (biology and Epoch Capabilities Index charts, not entered); figure 3.3.4.A (ExploitGym, not entered); section 6.3.3 (factual hallucination, MASK, AA-Omniscience, silent copying and concealment figures, not entered); section 6.4 (grader and evaluation awareness, SHADE-Arena, LinuxArena, CoT controllability charts, not entered); section 7 welfare figures; figure 8.3.A and 8.3.B scatter plots; figures 8.8.x scaling curves; figure 8.9.3.B and C cost plots; figure 8.9.3.A OSWorld bars for GPT-6.1 Sol and GPT-6 Luna (not entered); figures 8.11.1.A and 8.11.2.A trend and PhysicianBench bars beyond the rows listed; section 8.13 life-science tables (LatchBio SpatialBench, SingleCellBench, morphology-to-molecule, medchem, protein design, biomed image analysis, protocols; not entered in this pass); leaderboard values quoted from third-party leaderboards for GPT-6 Sol, GPT-6.1 Sol, GPT-6 Astra, Claude Opus 5 and Claude Fable 5 in the Terminal-Bench, FrontierSWE and HLE text (not entered as this card measurements). BBQ signed bias scores (Table 4.4.2.B) are left out: the card reads them as closer to zero is better, which one direction cannot express; the BBQ accuracy rows are kept. Figure 4.1.3.A rows for Child safety and Suicide and self-harm repeat Tables 4.2.B and 4.3.1.B and are stored once, under those tables."
     }
   ],
   "observations": [
@@ -370092,7 +370092,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370124,7 +370124,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370156,7 +370156,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370188,7 +370188,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370220,7 +370220,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370252,7 +370252,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370284,7 +370284,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370316,7 +370316,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370348,7 +370348,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -370380,7 +370380,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372012,7 +372012,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372044,7 +372044,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372076,7 +372076,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372108,7 +372108,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372140,7 +372140,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372172,7 +372172,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372204,7 +372204,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372236,7 +372236,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372268,7 +372268,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -372300,7 +372300,7 @@
       "checked_on": "2026-10-19",
       "evidence_type": "official_publication_checked",
       "review_status": "source_checked",
-      "status": "active",
+      "status": "withdrawn",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
     },
@@ -388479,6 +388479,12 @@
       "reviewer": "Sugra research preparation",
       "reason": "Anthropic Claude Haiku 5.5 System Card (2026-10-07): printed evaluation tables and chart values for Haiku 5.5 and the comparison models the card prints.",
       "added_observations": 708
+    },
+    {
+      "at": "2026-10-19",
+      "reviewer": "Sugra research preparation",
+      "added_observations": 0,
+      "reason": "Claude Haiku 5.5 System Card: figure 4.1.3.A Child safety and Suicide and self-harm rows repeated the dedicated multi-turn tables; 20 duplicate rows withdrawn, the numbers stay under the tables."
     }
   ],
   "prices": [
