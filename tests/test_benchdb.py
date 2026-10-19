@@ -515,9 +515,9 @@ class RealDatabase(unittest.TestCase):
 
     def test_benchmark_rows_do_not_hang_on_a_price_list(self):
         price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
-        self.assertEqual(len(price_pubs), 14)
+        self.assertEqual(len(price_pubs), 15)
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
-        self.assertGreaterEqual(len(self.db["prices"]), 2473)
+        self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
@@ -538,6 +538,8 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="minimax-m3", component="input", schedule="standard", context_band="long")["value"], 0.6)
         self.assertEqual(one(model_id="mimo-v2-6-pro", component="output", schedule="standard", region="international")["value"], 0.87)
         self.assertEqual(one(model_id="muse-wonder", component="output")["value"], 20)
+        self.assertEqual(one(model_id="mai-thinking-1", component="output")["value"], 8)
+        self.assertEqual(one(model_id="phi-4-reasoning-plus", component="input")["value"], 0.125)
         self.assertEqual(one(model_id="step-3-7-flash", component="cached_input")["value"], 0.04)
         self.assertEqual(one(model_id="mistral-small-4", component="input")["value"], 0.15)
         self.assertFalse({"mistral-small-2603", "mistral-large-2512", "ministral-14b-2512", "gemini-3-flash-preview"} & {m["id"] for m in self.db["models"]})

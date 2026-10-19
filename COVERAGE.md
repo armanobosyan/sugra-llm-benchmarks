@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101908, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101909, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -110,7 +110,7 @@ A number stays when the page prints it as text, in a table, in alt text, or as a
 
 ## Official prices
 
-Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
+Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints, then the Microsoft Foundry Models list. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
 
 | Price list | Publisher | Rows |
 |---|---|---|
@@ -128,8 +128,9 @@ Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on
 | Meta Model API pricing | Meta | 18 |
 | StepFun API pricing | StepFun | 15 |
 | Kimi API pricing (international platform) | Moonshot AI | 14 |
+| Microsoft Foundry Models pricing, Microsoft models | Microsoft | 7 |
 
-2,473 price rows. 240 models are in the catalog only because a price page names them. 93 models have both a price and at least one benchmark row. 120 models have benchmark rows and no price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
+2,480 price rows. 240 models are in the catalog only because a price page names them. 96 models have both a price and at least one benchmark row. 117 models have benchmark rows and no price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: the Chinese Kimi page and the domestic Xiaomi table. Their US-dollar prices come from the international Kimi page and the overseas Xiaomi table, never from a conversion. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
