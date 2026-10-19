@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026101902, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026101903, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -98,8 +98,9 @@ What the catalog holds as of data version 2026101902, and what it does not: the 
 | GLM-5.3 post | Z.ai | 5 | 4 | 1 |
 | Meta Muse Wonder model card | Meta | 76 | 5 | 17 |
 | Meta Muse Spark Open 816B-A42B model card | Meta | 119 | 7 | 23 |
+| NVIDIA Nemotron 3.5 Super VL 120B-A12B model card | NVIDIA | 258 | 7 | 41 |
 
-92 publications, 8839 observations, 446 models, 514 benchmark definitions in 325 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+93 publications, 9097 observations, 448 models, 522 benchmark definitions in 328 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
@@ -119,7 +120,7 @@ Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on
 | Mistral API pricing | Mistral AI | 24 |
 | Z.AI API pricing | Z.ai | 86 |
 
-2,373 price rows. 237 models are in the catalog only because a price page names them. 83 models have both a price and at least one benchmark row. 123 models have benchmark rows and no price. Three named models have neither: Llama 3.1 70B, Muse Spark, and Muse Spark 1.1. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
+2,373 price rows. 237 models are in the catalog only because a price page names them. 83 models have both a price and at least one benchmark row. 125 models have benchmark rows and no price. Three named models have neither: Llama 3.1 70B, Muse Spark, and Muse Spark 1.1. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens, except Kimi, which stays in CNY because that is the unit on the page. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
@@ -129,34 +130,34 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 
 | Category | Benchmarks | Observations |
 |---|---|---|
-| Knowledge work | 42 | 663 |
-| Agentic coding | 53 | 1421 |
+| Knowledge work | 42 | 677 |
+| Agentic coding | 53 | 1463 |
 | ML engineering | 13 | 97 |
-| Science and math | 51 | 1262 |
-| Long context | 40 | 310 |
-| Computer use | 14 | 211 |
-| Multimodal understanding | 77 | 1431 |
+| Science and math | 51 | 1288 |
+| Long context | 41 | 324 |
+| Computer use | 14 | 215 |
+| Multimodal understanding | 80 | 1482 |
 | Cybersecurity | 19 | 179 |
-| General knowledge and reasoning | 40 | 1031 |
-| Code generation | 26 | 344 |
-| Tool use and workflows | 39 | 832 |
-| Web search and research | 17 | 328 |
-| Instruction following | 6 | 160 |
-| Multilingual | 13 | 195 |
-| Writing and conversation | 2 | 10 |
+| General knowledge and reasoning | 42 | 1064 |
+| Code generation | 26 | 351 |
+| Tool use and workflows | 39 | 859 |
+| Web search and research | 18 | 340 |
+| Instruction following | 6 | 167 |
+| Multilingual | 13 | 209 |
+| Writing and conversation | 3 | 17 |
 | Healthcare | 8 | 92 |
 | Biosecurity | 8 | 27 |
 | Safety and alignment | 30 | 127 |
 | Engineering and design | 6 | 43 |
 | Preference and composite rankings | 10 | 76 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 289 checked against the maintainer's own page or paper, 35 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 289 checked against the maintainer's own page or paper, 38 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 106 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 199 of 446 models and `published_at` for 78 of 92 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
+- `release_date` is recorded for 200 of 448 models and `published_at` for 79 of 93 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
 - `reasoning_effort` is stated for 2593 observations, `tools` for 1293, `harness` for 915. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 152 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
