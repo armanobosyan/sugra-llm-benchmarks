@@ -535,6 +535,8 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="gemini-3-8-flash", schedule="standard", component="storage", offer="promotional", valid_until="2026-12-31")["value"], 0.5)
         self.assertEqual(one(model_id="kimi-k3", component="input", publication_id="publication-moonshot-kimi-api-pricing")["unit"], "cny_per_million_tokens")
         self.assertEqual(one(model_id="kimi-k3", component="input", publication_id="publication-moonshot-kimi-api-pricing-international")["value"], 3)
+        self.assertEqual(one(model_id="kimi-k3-1-pro", component="output", publication_id="publication-moonshot-kimi-api-pricing-international")["value"], 10)
+        self.assertEqual(one(model_id="kimi-k3-1-pro-highspeed", component="output", publication_id="publication-moonshot-kimi-api-pricing")["value"], 136)
         self.assertEqual(one(model_id="minimax-m3", component="input", schedule="standard", context_band="long")["value"], 0.6)
         self.assertEqual(one(model_id="mimo-v2-6-pro", component="output", schedule="standard", region="international")["value"], 0.87)
         self.assertEqual(one(model_id="muse-wonder", component="output")["value"], 20)
@@ -556,7 +558,7 @@ class RealDatabase(unittest.TestCase):
                 "Anthropic": "claude-fable-5-1",
                 "Alibaba": "qwen3-8-max",
                 "xAI": "grok-4-7",
-                "Moonshot AI": "kimi-k3",
+                "Moonshot AI": "kimi-k3-1-pro",
                 "DeepSeek": "deepseek-v4-1-flash-1017",
                 "Z.ai": "glm-5-3",
             },
