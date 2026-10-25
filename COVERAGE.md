@@ -1,13 +1,13 @@
 # Coverage
 
-What the catalog holds as of data version 2026102401, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026102501, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
 | Publication | Publisher | Observations | Models | Benchmarks |
 |---|---|---|---|---|
 | Gemini 4 Argon | Google | 73 | 4 | 19 |
-| Claude Opus 5.5 | Anthropic | 39 | 5 | 9 |
+| Claude Opus 5.5 | Anthropic | 41 | 5 | 9 |
 | GPT-6 Astra | OpenAI | 149 | 6 | 40 |
 | GPT-6.1 Sol | OpenAI | 10 | 5 | 4 |
 | Qwen3.8-Max comparison | Alibaba | 151 | 5 | 32 |
@@ -111,8 +111,16 @@ What the catalog holds as of data version 2026102401, and what it does not: the 
 | Claude Sonnet 5.5 System Card | Anthropic | 349 | 12 | 72 |
 | Claude Haiku 5.5 System Card | Anthropic | 688 | 19 | 114 |
 | Introducing Kimi K3.1 Pro | Moonshot AI | 268 | 9 | 51 |
+| System Card: Claude Fable 5.1 & Claude Mythos 5.1 | Anthropic | 195 | 9 | 52 |
+| Claude Opus 5.5 System Card | Anthropic | 210 | 11 | 51 |
+| GPT-6 Astra System Card | OpenAI | 383 | 10 | 68 |
+| Grok 4.7 | xAI | 39 | 5 | 9 |
+| MiniMax-M3.1-Flash model card | MiniMax | 82 | 7 | 14 |
+| MiniMax M3.1 Flash release post | MiniMax | 5 | 1 | 5 |
+| Gemini 4 Argon: Built to solve your hardest problems | Google | 2 | 1 | 2 |
+| Gemini 4 Argon without cyber guardrails | Google | 1 | 1 | 1 |
 
-105 publications, 11522 observations, 458 models, 775 benchmark definitions in 414 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+113 publications, 12441 observations, 458 models, 798 benchmark definitions in 419 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
@@ -138,7 +146,7 @@ Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on
 | Kimi API pricing (international platform) | Moonshot AI | 24 |
 | Microsoft Foundry Models pricing, Microsoft models | Microsoft | 7 |
 
-2,500 price rows. 239 models are in the catalog only because a price page names them. 99 models have both a price and at least one benchmark row. 118 models have benchmark rows and no price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek and Z.ai: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3.1 Pro, DeepSeek-V4.1-Flash and GLM-5.3. The other developers in the file have no model marked latest.
+2,500 price rows. 237 models are in the catalog only because a price page names them. 101 models have both a price and at least one benchmark row. 118 models have benchmark rows and no price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek, Z.ai and MiniMax: Gemini 4 Argon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3.1 Pro, DeepSeek-V4.1-Flash, GLM-5.3 and MiniMax M3.1 Flash. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: the Chinese Kimi page and the domestic Xiaomi table. Their US-dollar prices come from the international Kimi page and the overseas Xiaomi table, never from a conversion. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
@@ -169,16 +177,16 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 | Engineering and design | 11 | 69 |
 | Preference and composite rankings | 10 | 76 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 314 checked against the maintainer's own page or paper, 99 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 99 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 319 checked against the maintainer's own page or paper, 99 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 99 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 206 of 458 models and `published_at` for 88 of 105 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card. The pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
-- `reasoning_effort` is stated for 3071 observations, `tools` for 1443, `harness` for 1028. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 207 of 458 models and `published_at` for 94 of 113 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Argon is 30 September 2026 from the announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. The release pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
+- `reasoning_effort` is stated for 3317 observations, `tools` for 1503, `harness` for 1037. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
-- Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 152 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
+- Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - Locally run models are a separate review. A model is listed here when a publisher prints it on an official page. An open-weight name appears only in that case. Weights run on your own machine are not collected.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
 - Independent sources (leaderboards, third-party evaluations) are absent. Adding one is a new `kind` and a new `evidence_type`, which means extending the contract and its tests first.
