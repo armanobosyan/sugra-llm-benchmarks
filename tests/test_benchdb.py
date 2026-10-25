@@ -561,6 +561,7 @@ class RealDatabase(unittest.TestCase):
                 "Moonshot AI": "kimi-k3-1-pro",
                 "DeepSeek": "deepseek-v4-1-flash-1017",
                 "Z.ai": "glm-5-3",
+                "MiniMax": "minimax-m3-1-flash",
             },
         )
 
