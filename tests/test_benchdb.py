@@ -546,6 +546,8 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="mistral-small-4", component="input")["value"], 0.15)
         self.assertFalse({"mistral-small-2603", "mistral-large-2512", "ministral-14b-2512", "gemini-3-flash-preview"} & {m["id"] for m in self.db["models"]})
         self.assertEqual(one(model_id="glm-5-3", component="input")["value"], 1.4)
+        self.assertEqual(one(model_id="gpt-6-1-terra", component="output", schedule="standard", context_band="short")["value"], 5)
+        self.assertEqual(one(model_id="gpt-6-1-terra", component="input", schedule="fast", context_band="long")["value"], 4)
         self.assertEqual(one(model_id="qwen3-8-max", component="input", region="international")["value"], 2)
         self.assertEqual(one(model_id="mistral-large-4", component="input", offer="promotional")["value"], 0.68)
         self.assertIsNone(one(model_id="mistral-large-4", component="input", offer="promotional").get("valid_until"))
