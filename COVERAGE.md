@@ -189,7 +189,7 @@ Every category has at least one observation. A category with no rows for the sel
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - Locally run models are a separate review. A model is listed here when a publisher prints it on an official page. An open-weight name appears only in that case. Weights run on your own machine are not collected.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
-- Independent sources (leaderboards, third-party evaluations) are absent. Adding one is a new `kind` and a new `evidence_type`, which means extending the contract and its tests first.
+- Independent sources carry one thing only: a cost per task measured by one evaluator under one setup. The first is Vals AI's Vibe Code Bench v1.1 leaderboard (Cost / Test, OpenHands harness, 73 models, read 2026-10-27), shown as the last row of the Price area. Its scores are not transcribed; independent scores stay out (`kind` `independent_leaderboard` refuses them).
 
 ## Not in this repository
 

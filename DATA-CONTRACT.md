@@ -56,6 +56,7 @@ One record per exact test, version and metric. A publisher's own label for a tes
 | `unit` | `percent`, `score`, `elo`, `usd` or `fraction`. |
 | `unit_denominator` | Required for `usd` (for example `task`), otherwise null. |
 | `higher_is_better` | Boolean. False for cost, refusal and error rates. |
+| `display_group` | Optional. `price` places the row in the article's Price area, after the list prices. Only a cost per task (`usd`, denominator `task`, lower is better) may carry it. |
 | `definition_status` | `source_label_preserved` until a benchmark is documented independently. The checker requires the field. It does not decide whether a definition has been documented independently. |
 | `cross_publication_equivalence` | `not_established` unless two publications are shown to use one protocol. |
 
@@ -69,7 +70,7 @@ A result printed under one model's heading while a footnote names another config
 
 `id` (unique), `name`, `publisher`, `url` (https), `source_id`, `published_at` (date or null), `checked_on` (date), `kind`, `comparison_scope`, `methodology_url`, `coverage` (what of the page was transcribed).
 
-`kind` is `official_release_comparison`, `model_card` or `official_blog` with `comparison_scope` `publisher_comparison`, or `official_price_list` with `comparison_scope` `price_list`. A price list is not a benchmark publication: observations cannot reference it, and a price cannot reference any other kind. The publisher string must equal `models.developer` for every price on that list. A number printed by a different lab is not that model's price.
+`kind` is `official_release_comparison`, `model_card` or `official_blog` with `comparison_scope` `publisher_comparison`, `independent_leaderboard` with `comparison_scope` `independent_measurement`, or `official_price_list` with `comparison_scope` `price_list`. An independent leaderboard is an evaluator that runs every listed model itself under one setup; it carries only a cost per task (`usd`, denominator `task`), never a score, and its observations use `evidence_type` `independent_publication_checked` and `comparison_scope` `independent_measurement`. A price list is not a benchmark publication: observations cannot reference it, and a price cannot reference any other kind. The publisher string must equal `models.developer` for every price on that list. A number printed by a different lab is not that model's price.
 
 ### observations
 
@@ -86,10 +87,10 @@ One record per number on a page.
 | `source_locator` | Where on the page: table name, section, page number. |
 | `methodology_url` | Optional. |
 | `checked_on` | Date the number was read from the page. |
-| `evidence_type` | `official_publication_checked`. Imported, unverified rows never carry this value and never enter `observations`. |
+| `evidence_type` | `official_publication_checked`, or `independent_publication_checked` on an independent leaderboard. Imported, unverified rows never carry either value and never enter `observations`. |
 | `review_status` | `source_checked`. |
 | `status` | `active`, `superseded` or `withdrawn`. Only active rows reach the payload. |
-| `comparison_scope` | `publisher_comparison`. |
+| `comparison_scope` | `publisher_comparison`, or `independent_measurement` on an independent leaderboard. |
 | `supersedes` | Id of the row this one replaces, or null. |
 
 Two active rows may share one (benchmark, model, publication) only when a distinguishing condition differs: effort, harness, tools, fallback, attempt budget, context length, dataset revision, or `model_setup_as_reported` when the page prints a second configuration in the same cell (a Mythos value under a Fable heading). The same number twice is refused. A corrected number is a new row with `supersedes` pointing at the old one, and the old one becomes `superseded`.
