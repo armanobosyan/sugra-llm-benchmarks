@@ -14,13 +14,17 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 UNITS = {"percent", "score", "elo", "usd", "fraction"}
-EVIDENCE_TYPES = {"official_publication_checked"}
+EVIDENCE_TYPES = {"official_publication_checked", "independent_publication_checked"}
 REVIEW_STATUSES = {"source_checked"}
 OBS_STATUSES = {"active", "superseded", "withdrawn"}
-COMPARISON_SCOPES = {"publisher_comparison"}
+COMPARISON_SCOPES = {"publisher_comparison", "independent_measurement"}
 COMPARISON_KINDS = {"official_release_comparison", "model_card", "official_blog"}
 PRICE_KIND = "official_price_list"
-PUBLICATION_KINDS = COMPARISON_KINDS | {PRICE_KIND}
+# An evaluator that runs every model itself under one setup. It may carry only
+# a cost per task: scores stay with the publishers (COVERAGE.md).
+INDEPENDENT_KIND = "independent_leaderboard"
+PUBLICATION_KINDS = COMPARISON_KINDS | {PRICE_KIND, INDEPENDENT_KIND}
+DISPLAY_GROUPS = {"price"}
 PRICE_COMPONENTS = {
     "input",
     "cached_input",
@@ -96,6 +100,10 @@ URL_RE = re.compile(r"^https://")
 ABOUT_STATUSES = {"checked", "unverified", "pending"}
 FORBIDDEN_CHARS = {"—": "em dash", "–": "en dash"}
 EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
+
+
+def is_cost_per_task(b: dict) -> bool:
+    return b.get("unit") == "usd" and b.get("unit_denominator") == "task" and b.get("higher_is_better") is False
 
 
 def load(path: Path) -> dict:
@@ -207,6 +215,11 @@ def validate(db: dict) -> list[str]:
         for key in ("name", "version_label", "metric_label", "definition_status", "cross_publication_equivalence"):
             if not b.get(key):
                 err(f"benchmarks[{bid}]: missing {key}")
+        if b.get("display_group") is not None:
+            if b["display_group"] not in DISPLAY_GROUPS:
+                err(f"benchmarks[{bid}]: display_group {b['display_group']!r} not in {sorted(DISPLAY_GROUPS)}")
+            elif not is_cost_per_task(b):
+                err(f"benchmarks[{bid}]: display_group price is only for a usd cost per task")
 
     # ---- models ----------------------------------------------------------
     models: dict[str, dict] = {}
@@ -255,6 +268,8 @@ def validate(db: dict) -> list[str]:
             err(f"publications[{pid}]: official_price_list must use comparison_scope price_list")
         elif kind in COMPARISON_KINDS and p.get("comparison_scope") != "publisher_comparison":
             err(f"publications[{pid}]: comparison_scope {p.get('comparison_scope')!r} must be publisher_comparison")
+        elif kind == INDEPENDENT_KIND and p.get("comparison_scope") != "independent_measurement":
+            err(f"publications[{pid}]: independent_leaderboard must use comparison_scope independent_measurement")
         if p.get("checked_on") and not DATE_RE.match(str(p["checked_on"])):
             err(f"publications[{pid}]: checked_on must be YYYY-MM-DD")
         if p.get("published_at") is not None and not DATE_RE.match(str(p["published_at"])):
@@ -280,6 +295,13 @@ def validate(db: dict) -> list[str]:
             err(f"{tag}: unknown publication_id {o.get('publication_id')!r}")
         elif pubs[o.get("publication_id")].get("kind") == PRICE_KIND:
             err(f"{tag}: observations cannot hang on a price list")
+        else:
+            independent = pubs[o.get("publication_id")].get("kind") == INDEPENDENT_KIND
+            if independent and b is not None and not is_cost_per_task(b):
+                err(f"{tag}: an independent leaderboard carries only a usd cost per task")
+            want = ("independent_publication_checked", "independent_measurement") if independent else ("official_publication_checked", "publisher_comparison")
+            if (o.get("evidence_type"), o.get("comparison_scope")) != want:
+                err(f"{tag}: evidence_type and comparison_scope must be {want[0]} and {want[1]} for this publication")
         value = o.get("value")
         if not isinstance(value, (int, float)) or isinstance(value, bool):
             err(f"{tag}: value must be a number, got {value!r}")

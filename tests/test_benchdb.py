@@ -314,6 +314,60 @@ class ValidateFixture(unittest.TestCase):
         db["observations"][0]["publication_id"] = "publication-prices"
         self.assertTrue(any("cannot hang on a price list" in p for p in validate.validate(db)))
 
+    def _independent(self, db: dict) -> dict:
+        db["publications"].append(
+            {
+                "id": "publication-evaluator",
+                "name": "Evaluator leaderboard",
+                "publisher": "Evaluator",
+                "url": "https://example.org/board",
+                "source_id": "publication-evaluator",
+                "published_at": None,
+                "checked_on": "2026-10-27",
+                "kind": "independent_leaderboard",
+                "comparison_scope": "independent_measurement",
+                "methodology_url": None,
+                "coverage": "The cost column only.",
+            }
+        )
+        row = obs(
+            "obs-00000000000000000009", 6.0, None,
+            benchmark_id="cost-per-task--usd", unit="usd", unit_denominator="task",
+            publication_id="publication-evaluator",
+            evidence_type="independent_publication_checked", comparison_scope="independent_measurement",
+        )
+        db["observations"].append(row)
+        return row
+
+    def test_independent_leaderboard_carries_a_cost_per_task(self):
+        db = fixture()
+        self._independent(db)
+        db["benchmarks"][1]["display_group"] = "price"
+        self.assertEqual(validate.validate(db), [])
+
+    def test_independent_leaderboard_refuses_a_score(self):
+        db = fixture()
+        row = self._independent(db)
+        row.update(benchmark_id="frontiercode-v1-1--percent", unit="percent", unit_denominator=None, value=50.0)
+        self.assertTrue(any("carries only a usd cost per task" in p for p in validate.validate(db)))
+
+    def test_independent_row_needs_its_own_evidence_type(self):
+        db = fixture()
+        row = self._independent(db)
+        row.update(evidence_type="official_publication_checked", comparison_scope="publisher_comparison")
+        self.assertTrue(any("must be independent_publication_checked" in p for p in validate.validate(db)))
+        db = fixture()
+        db["observations"][0].update(evidence_type="independent_publication_checked", comparison_scope="independent_measurement")
+        self.assertTrue(any("must be official_publication_checked" in p for p in validate.validate(db)))
+
+    def test_display_group_price_is_only_for_a_cost_per_task(self):
+        db = fixture()
+        db["benchmarks"][0]["display_group"] = "price"
+        self.assertTrue(any("only for a usd cost per task" in p for p in validate.validate(db)))
+        db = fixture()
+        db["benchmarks"][1]["display_group"] = "top"
+        self.assertTrue(any("display_group 'top'" in p for p in validate.validate(db)))
+
     def test_duplicate_active_price_is_refused(self):
         db = fixture()
         db["publications"].append(
@@ -519,6 +573,18 @@ class RealDatabase(unittest.TestCase):
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
         self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
+    def test_vals_cost_per_task_is_one_setup(self):
+        rows = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
+        self.assertEqual(len(rows), 73)
+        self.assertEqual(len({o["model_id"] for o in rows}), 73)
+        self.assertEqual({o["conditions"]["harness"] for o in rows}, {"OpenHands"})
+        self.assertEqual({o["publication_id"] for o in rows}, {"publication-vals-ai-vibe-code-bench-1-1"})
+        value = {o["model_id"]: o["value"] for o in rows}
+        self.assertEqual(value["gpt-6-1-terra"], 6.0)
+        self.assertEqual(value["claude-sonnet-5-5"], 31.25)
+        self.assertEqual(value["deepseek-v4-1-flash-1017"], 0.58)
+        self.assertEqual(value["mistral-large-4"], 39.46)
+
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
 
@@ -589,7 +655,8 @@ class RealDatabase(unittest.TestCase):
         muse = {m["id"]: m for m in self.db["models"] if m["id"] in ("muse-spark", "muse-spark-1-1")}
         self.assertEqual(muse["muse-spark-1-1"]["release_date"], "2026-07-09")
         self.assertIsNone(muse["muse-spark"]["release_date"])
-        self.assertTrue(all(o["model_id"] not in muse for o in self.db["observations"]))
+        # No publisher printed a score for either; an independent cost per task may exist.
+        self.assertTrue(all(o["model_id"] not in muse for o in self.db["observations"] if o["comparison_scope"] == "publisher_comparison"))
 
     def test_official_dates_match_the_page(self):
         models = {m["id"]: m for m in self.db["models"]}
