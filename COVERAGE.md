@@ -174,7 +174,7 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | Mistral AI | 11 | 8 | 0 | 6 | 2 | 11 | 9 |
 | Z.ai | 7 | 7 | 7 | 7 | 7 | 7 | 7 |
 | xAI | 6 | 6 | 0 | 1 | 1 | 6 | 0 |
-| MiniMax | 6 | 2 | 0 | 6 | 6 | 6 | 6 |
+| MiniMax | 6 | 2 | 0 | 6 | 6 | 6 | 5 |
 | NVIDIA | 6 | 6 | 1 | 6 | 6 | 6 | 6 |
 | Microsoft | 4 | 4 | 0 | 3 | 3 | 3 | 3 |
 | Xiaomi | 4 | 3 | 0 | 4 | 4 | 4 | 2 |

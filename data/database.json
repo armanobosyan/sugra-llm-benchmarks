@@ -26226,7 +26226,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "Terms of Use",
+          "value": "Gemma Terms of Use",
           "as_printed": "Terms of Use",
           "source_url": "https://ai.google.dev/gemma/docs/core/model_card_3",
           "source_locator": "Terms link in the card",
@@ -27799,13 +27799,6 @@
           "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/raw/main/README.md",
           "source_locator": "Local Deployment Guide",
           "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "other",
-          "as_printed": "license: other; license_name: other; LICENSE link on GitHub",
-          "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/raw/main/README.md",
-          "source_locator": "YAML front matter",
-          "checked_on": "2026-10-29"
         }
       }
     },
@@ -28846,7 +28839,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "modified-mit",
+          "value": "Modified MIT License",
           "as_printed": "license: other; license_name: modified-mit",
           "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/README.md",
           "source_locator": "YAML front matter",
@@ -28888,7 +28881,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "modified-mit",
+          "value": "Modified MIT License",
           "as_printed": "license: other; license_name: modified-mit",
           "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/main/README.md",
           "source_locator": "YAML front matter",
@@ -29093,7 +29086,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "apache-2.0",
+          "value": "Apache 2.0",
           "as_printed": "license: apache-2.0",
           "source_url": "https://huggingface.co/thinkingmachines/Inkling/raw/main/README.md",
           "source_locator": "YAML metadata block",
@@ -29687,7 +29680,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "Terms of Use",
+          "value": "Gemma Terms of Use",
           "as_printed": "Terms of Use",
           "source_url": "https://ai.google.dev/gemma/docs/core/model_card_3",
           "source_locator": "Terms link in the card",
@@ -31132,7 +31125,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "modified-mit",
+          "value": "Modified MIT License",
           "as_printed": "license: other; license_name: modified-mit",
           "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2/raw/main/README.md",
           "source_locator": "YAML front matter",
@@ -33627,7 +33620,7 @@
           "checked_on": "2026-10-29"
         },
         "license": {
-          "value": "apache-2.0",
+          "value": "Apache 2.0",
           "as_printed": "license: apache-2.0",
           "source_url": "https://huggingface.co/thinkingmachines/Inkling-Small/raw/main/README.md",
           "source_locator": "YAML metadata block",
@@ -443527,7 +443520,7 @@
       "at": "2026-10-29",
       "reviewer": "Sugra research preparation",
       "added_observations": 0,
-      "reason": "Model facts (schema 1.2.0): context window, max output, input and output modalities, open or closed weights and the licence of open weights for 194 models, each read on the developer's own page (API docs, model page, model card, launch post, its Hugging Face or GitHub organisation) with the page and the printed words. Filled: context 164, max output 82, input 175, output 171, weights 189, licence 100. A modality an open model's card does not print is the pipeline_tag of the developer's own Hugging Face repo. A max output the card only suggests is left out. Gemini 4 Carbon has none yet: Google's pages print no context, output or modalities for it. Release dates added for Claude Mythos 5.1 (1 September 2026, Anthropic) and Nemotron 3 Super (11 March 2026, NVIDIA); Phi-4-reasoning-vision-15B moves to 4 March 2026, the release date its model card prints. Gemini 4 Argon keeps 30 September 2026, the announcement; Google's 13 October post is general availability."
+      "reason": "Model facts (schema 1.2.0): context window, max output, input and output modalities, open or closed weights and the licence of open weights for 194 models, each read on the developer's own page (API docs, model page, model card, launch post, its Hugging Face or GitHub organisation) with the page and the printed words. Filled: context 164, max output 82, input 175, output 171, weights 189, licence 99. A modality an open model's card does not print is the pipeline_tag of the developer's own Hugging Face repo. A max output the card only suggests is left out. Gemini 4 Carbon has none yet: Google's pages print no context, output or modalities for it. Release dates added for Claude Mythos 5.1 (1 September 2026, Anthropic) and Nemotron 3 Super (11 March 2026, NVIDIA); Phi-4-reasoning-vision-15B moves to 4 March 2026, the release date its model card prints. Gemini 4 Argon keeps 30 September 2026, the announcement; Google's 13 October post is general availability."
     }
   ],
   "prices": [
