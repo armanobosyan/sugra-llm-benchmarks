@@ -74,6 +74,9 @@ FACT_KINDS = {
 FACT_KEYS = {"value", "as_printed", "source_url", "source_locator", "checked_on", "notes"}
 MODALITIES = {"text", "image", "audio", "video", "pdf"}
 WEIGHTS = {"open", "closed"}
+# A Hugging Face licence id or a repo's own license_name (apache-2.0, glm-5.3)
+# is an id; the value is the name a reader can look up.
+LICENCE_SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9.\-]*$")
 # Active rows that share this key are the same price printed twice.
 PRICE_KEY = (
     "model_id",
@@ -173,6 +176,8 @@ def check_facts(facts, as_of: str) -> list[str]:
                 out.append(f"facts.{name}: value must be one of {sorted(WEIGHTS)}")
         elif not isinstance(value, str) or not value.strip():
             out.append(f"facts.{name}: value must be text")
+        elif name == "license" and LICENCE_SLUG_RE.match(value):
+            out.append(f"facts.license: {value!r} is a repo id, not a licence name; write the name or drop the licence")
     # A licence is the terms the published weights come under; a model whose
     # weights are not published has none to print.
     if facts.get("license") is not None:

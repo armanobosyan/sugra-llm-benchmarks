@@ -476,6 +476,12 @@ class ModelFacts(unittest.TestCase):
         self.assertTrue(any("only open weights carry a licence" in p for p in self.problems(weights=fact("closed"), license=fact("MIT"))))
         self.assertTrue(any("only open weights carry a licence" in p for p in self.problems(license=fact("MIT"))))
 
+    def test_a_licence_is_a_name_not_a_repo_id(self):
+        for slug in ("apache-2.0", "glm-5.3", "qwen3.8-max"):
+            self.assertTrue(any("not a licence name" in p for p in self.problems(weights=fact("open"), license=fact(slug))), slug)
+        for name in ("MIT", "Apache 2.0", "Kimi K3 License"):
+            self.assertEqual(self.problems(weights=fact("open"), license=fact(name)), [], name)
+
     def test_unknown_facts_and_keys_are_refused(self):
         found = self.problems(speed=fact(90), weights=fact("closed", rank=1))
         self.assertTrue(any("unknown fact 'speed'" in p for p in found))

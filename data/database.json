@@ -24357,13 +24357,6 @@
           "source_url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/README.md",
           "source_locator": "Front matter; card does not print a download line",
           "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "glm-5.3",
-          "as_printed": "license: other; license_name: glm-5.3",
-          "source_url": "https://huggingface.co/zai-org/GLM-5.3/raw/main/README.md",
-          "source_locator": "YAML front matter",
-          "checked_on": "2026-10-29"
         }
       }
     },
@@ -27650,13 +27643,6 @@
           "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/raw/main/README.md",
           "source_locator": "Download command",
           "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "minimax-community",
-          "as_printed": "license: other; license_name: minimax-community",
-          "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/raw/main/README.md",
-          "source_locator": "YAML front matter",
-          "checked_on": "2026-10-29"
         }
       }
     },
@@ -28253,13 +28239,6 @@
           "as_printed": "This repository contains model weights and configuration files",
           "source_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/main/README.md",
           "source_locator": "Top of page",
-          "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "qwen-community-1.0",
-          "as_printed": "license: other; license_name: qwen-community-1.0",
-          "source_url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/main/README.md",
-          "source_locator": "YAML front matter",
           "checked_on": "2026-10-29"
         }
       }
@@ -31081,13 +31060,6 @@
           "source_url": "https://raw.githubusercontent.com/facebookresearch/cwm/main/README.md",
           "source_locator": "License section",
           "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "fair-noncommercial-research-license",
-          "as_printed": "fair-noncommercial-research-license",
-          "source_url": "https://huggingface.co/api/models/facebook/cwm",
-          "source_locator": "cardData.license",
-          "checked_on": "2026-10-29"
         }
       }
     },
@@ -31252,13 +31224,6 @@
           "as_printed": "This repository contains model weights and configuration files",
           "source_url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md",
           "source_locator": "Top of page",
-          "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "qwen3.8-max",
-          "as_printed": "license: other; license_name: qwen3.8-max",
-          "source_url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md",
-          "source_locator": "YAML front matter",
           "checked_on": "2026-10-29"
         }
       }
@@ -33869,13 +33834,6 @@
           "as_printed": "hf download MiniMaxAI/MiniMax-M3.1-Flash",
           "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/raw/main/README.md",
           "source_locator": "Download command",
-          "checked_on": "2026-10-29"
-        },
-        "license": {
-          "value": "minimax-community",
-          "as_printed": "license: other; license_name: minimax-community",
-          "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/raw/main/README.md",
-          "source_locator": "YAML front matter",
           "checked_on": "2026-10-29"
         }
       }
@@ -443520,7 +443478,7 @@
       "at": "2026-10-29",
       "reviewer": "Sugra research preparation",
       "added_observations": 0,
-      "reason": "Model facts (schema 1.2.0): context window, max output, input and output modalities, open or closed weights and the licence of open weights for 194 models, each read on the developer's own page (API docs, model page, model card, launch post, its Hugging Face or GitHub organisation) with the page and the printed words. Filled: context 164, max output 82, input 175, output 171, weights 189, licence 99. A modality an open model's card does not print is the pipeline_tag of the developer's own Hugging Face repo. A max output the card only suggests is left out. Gemini 4 Carbon has none yet: Google's pages print no context, output or modalities for it. Release dates added for Claude Mythos 5.1 (1 September 2026, Anthropic) and Nemotron 3 Super (11 March 2026, NVIDIA); Phi-4-reasoning-vision-15B moves to 4 March 2026, the release date its model card prints. Gemini 4 Argon keeps 30 September 2026, the announcement; Google's 13 October post is general availability."
+      "reason": "Model facts (schema 1.2.0): context window, max output, input and output modalities, open or closed weights and the licence of open weights for 194 models, each read on the developer's own page (API docs, model page, model card, launch post, its Hugging Face or GitHub organisation) with the page and the printed words. Filled: context 164, max output 82, input 175, output 171, weights 189, licence 93. A modality an open model's card does not print is the pipeline_tag of the developer's own Hugging Face repo. A max output the card only suggests is left out, and so is a licence the repo names only by a slug. Gemini 4 Carbon has none yet: Google's pages print no context, output or modalities for it. Release dates added for Claude Mythos 5.1 (1 September 2026, Anthropic) and Nemotron 3 Super (11 March 2026, NVIDIA); Phi-4-reasoning-vision-15B moves to 4 March 2026, the release date its model card prints. Gemini 4 Argon keeps 30 September 2026, the announcement; Google's 13 October post is general availability."
     }
   ],
   "prices": [

@@ -72,7 +72,7 @@ One record per exact test, version and metric. A publisher's own label for a tes
 | `max_output_tokens` | A positive whole number of tokens: the maximum the developer prints. An output length a card only suggests is not a maximum. |
 | `input_modalities`, `output_modalities` | A list of distinct entries from `text`, `image`, `audio`, `video`, `pdf`. For open weights whose card prints none, the `pipeline_tag` of the developer's own Hugging Face repo: `text-generation` is text in and text out, `image-text-to-text` is text and image in and text out. |
 | `weights` | `open` when the developer publishes the weights for download, `closed` otherwise. |
-| `license` | The licence name as printed. Only with `weights` `open`: a model whose weights are not published has no licence to print. |
+| `license` | The licence name as printed. Only with `weights` `open`: a model whose weights are not published has no licence to print. A Hugging Face id that stands for a named licence reads as its name (`apache-2.0` is Apache 2.0); a repo's own slug (`license_name: glm-5.3`) names no licence a reader can look up and is left out. |
 
 A result printed under one model's heading while a footnote names another configuration belongs to the model the heading names; the footnote is kept on the observation in `conditions.model_setup_as_reported`, never in a second model identity. The three Mythos results printed under Fable headings on the GPT-6 Astra page are the standing example.
 
