@@ -549,6 +549,31 @@ class RealDatabase(unittest.TestCase):
         for bench in ("deepswe-v1-1--percent", "frontierswe-v2--percent", "vibe-code-bench--percent", "terminal-bench-4-0--percent", "labbench-2--percent", "riemannbench--percent"):
             self.assertIn((bench, "gemini-4-argon"), rows, bench)
 
+    def test_gemini_4_carbon_table_and_launch_post(self):
+        def values(publication_id):
+            return {
+                (o["benchmark_id"], o["model_id"]): o["value"]
+                for o in self.db["observations"]
+                if o["publication_id"] == publication_id and o["status"] == "active"
+            }
+
+        table = values("publication-google-gemini-4-carbon")
+        self.assertEqual(len(table), 80)
+        self.assertEqual(table[("swe-sweep--percent", "gemini-4-carbon")], 9.6)
+        self.assertEqual(table[("vending-bench-2--usd", "gemini-4-carbon")], 16484)
+        self.assertEqual(table[("graphwalks-256k-1m-bfs-f1--percent", "claude-fable-5-1")], 65.0)
+        self.assertNotIn(("exploitgym--percent", "claude-fable-5-1"), table)
+        post = [o for o in self.db["observations"] if o["publication_id"] == "publication-google-gemini-4-carbon-blog"]
+        self.assertEqual(len(post), 43)
+        caps = sorted(
+            o["conditions"]["attempt_budget"]
+            for o in post
+            if o["benchmark_id"] == "exploitgym--percent" and o["model_id"] == "gemini-4-carbon"
+        )
+        self.assertEqual(caps, ["time cap per task: 10h", "time cap per task: 6h"])
+        argon = [o for o in self.db["observations"] if o["publication_id"] == "publication-google-gemini-4-argon"]
+        self.assertTrue(all(o["source_url"] == "https://deepmind.google/models/model-cards/gemini-4-argon/" for o in argon))
+
     def test_astra_terminal_bench_is_kept_per_publication(self):
         rows = [
             (o["publication_id"], o["value"])
@@ -569,7 +594,7 @@ class RealDatabase(unittest.TestCase):
 
     def test_benchmark_rows_do_not_hang_on_a_price_list(self):
         price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
-        self.assertEqual(len(price_pubs), 15)
+        self.assertEqual(len(price_pubs), 16)
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
         self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
@@ -621,7 +646,7 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(
             latest,
             {
-                "Google": "gemini-4-argon",
+                "Google": "gemini-4-carbon",
                 "OpenAI": "gpt-6-astra",
                 "Anthropic": "claude-fable-5-1",
                 "Alibaba": "qwen3-8-max",
