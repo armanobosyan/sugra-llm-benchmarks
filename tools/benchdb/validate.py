@@ -61,6 +61,22 @@ PRICE_SCHEDULES = {
 PRICE_BANDS = {"short", "long", "any"}
 PRICE_MODALITIES = {"text", "image", "video"}
 PRICE_OFFERS = {"list", "promotional"}
+# Model facts (schema 1.2.0): what the developer prints about a model, each
+# fact with the page it was read on. The kind says how its value is checked.
+FACT_KINDS = {
+    "context_window_tokens": "tokens",
+    "max_output_tokens": "tokens",
+    "input_modalities": "modalities",
+    "output_modalities": "modalities",
+    "weights": "weights",
+    "license": "text",
+}
+FACT_KEYS = {"value", "as_printed", "source_url", "source_locator", "checked_on", "notes"}
+MODALITIES = {"text", "image", "audio", "video", "pdf"}
+WEIGHTS = {"open", "closed"}
+# A Hugging Face licence id or a repo's own license_name (apache-2.0, glm-5.3)
+# is an id; the value is the name a reader can look up.
+LICENCE_SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9.\-]*$")
 # Active rows that share this key are the same price printed twice.
 PRICE_KEY = (
     "model_id",
@@ -120,6 +136,55 @@ def _walk_strings(node, prefix=""):
     elif isinstance(node, list):
         for index, value in enumerate(node):
             yield from _walk_strings(value, f"{prefix}[{index}]")
+
+
+def check_facts(facts, as_of: str) -> list[str]:
+    """Problems with one model's facts object; empty when it follows the contract."""
+    if not isinstance(facts, dict):
+        return ["facts must be an object"]
+    out = []
+    for name, fact in facts.items():
+        kind = FACT_KINDS.get(name)
+        if kind is None:
+            out.append(f"facts: unknown fact {name!r}")
+            continue
+        if fact is None:
+            continue
+        if not isinstance(fact, dict):
+            out.append(f"facts.{name}: must be an object or null")
+            continue
+        for key in sorted(set(fact) - FACT_KEYS):
+            out.append(f"facts.{name}: unknown key {key!r}")
+        if not URL_RE.match(str(fact.get("source_url", ""))):
+            out.append(f"facts.{name}: source_url must be https")
+        checked = str(fact.get("checked_on", ""))
+        if not DATE_RE.match(checked):
+            out.append(f"facts.{name}: checked_on must be YYYY-MM-DD")
+        elif checked > as_of:
+            out.append(f"facts.{name}: checked_on is after as_of")
+        if not fact.get("as_printed"):
+            out.append(f"facts.{name}: missing as_printed")
+        value = fact.get("value")
+        if kind == "tokens":
+            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                out.append(f"facts.{name}: value must be a positive whole number of tokens")
+        elif kind == "modalities":
+            if not isinstance(value, list) or not value or len(set(value)) != len(value) or not set(value) <= MODALITIES:
+                out.append(f"facts.{name}: value must be a list of distinct entries from {sorted(MODALITIES)}")
+        elif kind == "weights":
+            if value not in WEIGHTS:
+                out.append(f"facts.{name}: value must be one of {sorted(WEIGHTS)}")
+        elif not isinstance(value, str) or not value.strip():
+            out.append(f"facts.{name}: value must be text")
+        elif name == "license" and LICENCE_SLUG_RE.match(value):
+            out.append(f"facts.license: {value!r} is a repo id, not a licence name; write the name or drop the licence")
+    # A licence is the terms the published weights come under; a model whose
+    # weights are not published has none to print.
+    if facts.get("license") is not None:
+        weights = (facts.get("weights") or {}).get("value")
+        if weights != "open":
+            out.append("facts.license: only open weights carry a licence; set weights to open or drop the licence")
+    return out
 
 
 def validate(db: dict) -> list[str]:
@@ -241,6 +306,11 @@ def validate(db: dict) -> list[str]:
         # identity: the id says so, and the name must say so too.
         if mid and "reported-as" in mid and "reported as" not in str(m.get("name", "")).lower():
             err(f"models[{mid}]: a reported-as identity must carry 'reported as' in its name")
+        if "facts" in m:
+            if str(db.get("schema_version", "")) < "1.2.0":
+                err(f"models[{mid}]: facts need schema 1.2.0 or later")
+            for line in check_facts(m["facts"], str(db["as_of"])):
+                err(f"models[{mid}]: {line}")
     latest_by_dev: dict[str, list[str]] = defaultdict(list)
     for m in db["models"]:
         if m.get("latest") is True:

@@ -22,7 +22,7 @@ from pathlib import Path
 from . import compact as compact_form
 from .validate import load, validate
 
-PAYLOAD_SCHEMA = "1.1.0"
+PAYLOAD_SCHEMA = "1.2.0"
 # Observation fields copied into the payload. Nulls are dropped by compact().
 OBS_FIELDS = (
     "id",

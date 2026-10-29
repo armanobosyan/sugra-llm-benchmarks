@@ -414,6 +414,86 @@ class ValidateFixture(unittest.TestCase):
         self.assertTrue(any("duplicate active price" in p for p in validate.validate(db)))
 
 
+def fact(value, **over) -> dict:
+    row = {"value": value, "as_printed": str(value), "source_url": "https://example.com/model-x", "source_locator": "Model card", "checked_on": "2026-10-14"}
+    row.update(over)
+    return row
+
+
+class ModelFacts(unittest.TestCase):
+    def with_facts(self, **facts) -> dict:
+        db = fixture()
+        db["schema_version"] = "1.2.0"
+        db["prices"] = []
+        db["models"][0]["facts"] = facts
+        return db
+
+    def problems(self, **facts) -> list[str]:
+        return validate.validate(self.with_facts(**facts))
+
+    def test_a_full_facts_object_is_valid(self):
+        self.assertEqual(
+            self.problems(
+                context_window_tokens=fact(1048576, as_printed="1,048,576"),
+                max_output_tokens=fact(65536),
+                input_modalities=fact(["text", "image", "audio", "video", "pdf"]),
+                output_modalities=fact(["text"]),
+                weights=fact("open"),
+                license=fact("Apache 2.0"),
+            ),
+            [],
+        )
+
+    def test_an_unprinted_fact_is_null(self):
+        self.assertEqual(self.problems(context_window_tokens=None, weights=fact("closed")), [])
+
+    def test_facts_need_schema_1_2(self):
+        db = self.with_facts(weights=fact("closed"))
+        db["schema_version"] = "1.1.0"
+        self.assertTrue(any("facts need schema 1.2.0" in p for p in validate.validate(db)))
+
+    def test_every_fact_needs_its_page_and_date(self):
+        found = self.problems(weights=fact("closed", source_url="http://example.com"), max_output_tokens=fact(8192, checked_on="2026-10-15"))
+        self.assertTrue(any("weights: source_url must be https" in p for p in found))
+        self.assertTrue(any("max_output_tokens: checked_on is after as_of" in p for p in found))
+        found = self.problems(weights=fact("closed", as_printed=""))
+        self.assertTrue(any("weights: missing as_printed" in p for p in found))
+
+    def test_token_counts_are_positive_whole_numbers(self):
+        for bad in (0, -1, 1.5, "1M", True):
+            found = self.problems(context_window_tokens=fact(bad))
+            self.assertTrue(any("positive whole number" in p for p in found), bad)
+
+    def test_modalities_come_from_the_list(self):
+        for bad in ([], ["text", "text"], ["text", "smell"], "text"):
+            found = self.problems(input_modalities=fact(bad))
+            self.assertTrue(any("input_modalities: value must be a list" in p for p in found), bad)
+
+    def test_weights_are_open_or_closed(self):
+        self.assertTrue(any("weights: value must be one of" in p for p in self.problems(weights=fact("partly"))))
+
+    def test_only_open_weights_carry_a_licence(self):
+        self.assertTrue(any("only open weights carry a licence" in p for p in self.problems(weights=fact("closed"), license=fact("MIT"))))
+        self.assertTrue(any("only open weights carry a licence" in p for p in self.problems(license=fact("MIT"))))
+
+    def test_a_licence_is_a_name_not_a_repo_id(self):
+        for slug in ("apache-2.0", "glm-5.3", "qwen3.8-max"):
+            self.assertTrue(any("not a licence name" in p for p in self.problems(weights=fact("open"), license=fact(slug))), slug)
+        for name in ("MIT", "Apache 2.0", "Kimi K3 License"):
+            self.assertEqual(self.problems(weights=fact("open"), license=fact(name)), [], name)
+
+    def test_unknown_facts_and_keys_are_refused(self):
+        found = self.problems(speed=fact(90), weights=fact("closed", rank=1))
+        self.assertTrue(any("unknown fact 'speed'" in p for p in found))
+        self.assertTrue(any("weights: unknown key 'rank'" in p for p in found))
+
+    def test_payload_keeps_the_facts_and_drops_null_ones(self):
+        db = self.with_facts(context_window_tokens=None, weights=fact("closed"))
+        payload = build.build_payload(db, "0" * 64)
+        model = next(m for m in payload["models"] if m["id"] == "model-x")
+        self.assertEqual(model["facts"], {"weights": fact("closed")})
+
+
 class BuildFixture(unittest.TestCase):
     def test_payload_drops_catalog_and_nulls(self):
         payload = build.build_payload(fixture(), "abc")
