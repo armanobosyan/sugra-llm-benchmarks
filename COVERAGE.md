@@ -158,6 +158,35 @@ Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: t
 
 Left in each price publication's coverage, not expanded into rows: audio, voice, live, transcription, TTS, tools, fine-tuning, and a regional multiplier the page states without printing every cell. A model hosted on another lab's page is not given that host's price. Mistral's page quotes GLM 5.3 cached input at $0.14; Z.AI's own page prints $0.26, and only the Z.AI row is stored. DeepSeek still prints V4-Pro prices on the price page. Meta has no public token price, so there is no Meta price row.
 
+## Model facts
+
+Checked on 2026-10-29 on each developer's own pages: the API model page or models overview, the model card, the launch post, its Hugging Face or GitHub organisation. Schema 1.2.0. A fact the developer does not print stays out, so a count below the model count is a page that is silent, not a page we skipped. A modality an open model's card does not print is the `pipeline_tag` of the developer's own Hugging Face repo, and the fact says so. A max output a card only suggests ("we suggest setting the max output length to ...") is not a maximum and stays out.
+
+| Developer | Models | Context | Max output | Input | Output | Weights | Licence |
+|---|---|---|---|---|---|---|---|
+| OpenAI | 35 | 35 | 35 | 35 | 35 | 35 | 2 |
+| Alibaba | 26 | 26 | 9 | 26 | 26 | 26 | 20 |
+| DeepSeek | 24 | 9 | 0 | 22 | 22 | 22 | 15 |
+| Google | 19 | 19 | 14 | 19 | 19 | 19 | 7 |
+| Anthropic | 16 | 16 | 16 | 16 | 16 | 16 | 0 |
+| Moonshot AI | 11 | 11 | 0 | 10 | 10 | 10 | 10 |
+| Meta | 11 | 8 | 0 | 8 | 8 | 11 | 7 |
+| Mistral AI | 11 | 8 | 0 | 6 | 2 | 11 | 9 |
+| Z.ai | 7 | 7 | 7 | 7 | 7 | 7 | 7 |
+| xAI | 6 | 6 | 0 | 1 | 1 | 6 | 0 |
+| MiniMax | 6 | 2 | 0 | 6 | 6 | 6 | 6 |
+| NVIDIA | 6 | 6 | 1 | 6 | 6 | 6 | 6 |
+| Microsoft | 4 | 4 | 0 | 3 | 3 | 3 | 3 |
+| Xiaomi | 4 | 3 | 0 | 4 | 4 | 4 | 2 |
+| Thinking Machines | 2 | 0 | 0 | 2 | 2 | 2 | 2 |
+| StepFun | 2 | 1 | 0 | 1 | 1 | 2 | 1 |
+| IFM | 1 | 1 | 0 | 1 | 1 | 1 | 1 |
+| AI21 Labs | 1 | 1 | 0 | 1 | 1 | 1 | 1 |
+| Cohere | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
+| Agentica | 1 | 0 | 0 | 1 | 1 | 1 | 1 |
+
+194 of 460 models carry at least one fact. Gemini 4 Carbon carries none yet: Google's launch post and model pages print no context, output or modalities for it.
+
 ## Categories
 
 | Category | Benchmarks | Observations |

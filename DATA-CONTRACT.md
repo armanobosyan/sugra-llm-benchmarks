@@ -1,6 +1,6 @@
 # Data contract
 
-`data/database.json` is the source. `tools/benchdb/validate.py` enforces the structural rules in this file: ids, references, kinds, units, dates, punctuation, the price publisher, and one row when two labels carry the same values. It does not re-read a publisher page, and it does not fill a missing field. A rule that is not in this file is not enforced, and a new kind of source or unit extends this file first.
+`data/database.json` is the source. `tools/benchdb/validate.py` enforces the structural rules in this file: ids, references, kinds, units, dates, punctuation, the price publisher, the shape of model facts, and one row when two labels carry the same values. It does not re-read a publisher page, and it does not fill a missing field. A rule that is not in this file is not enforced, and a new kind of source or unit extends this file first.
 
 ## Top level
 
@@ -63,6 +63,16 @@ One record per exact test, version and metric. A publisher's own label for a tes
 ### models
 
 `id` (kebab-case, unique), `name`, `developer`, `identity_scope`, `release_date` (date or null). `latest` (true or false, optional, default false): the newest model of its developer, the set the table's Latest chip selects; at most one per developer.
+
+`facts` (optional, schema 1.2.0 and later): what the developer prints about the model itself, read on the developer's own page (its API docs, model page, model card, launch post, or its own Hugging Face or GitHub organisation; never an aggregator, never a sibling model's page). Each key is null when the developer prints nothing, or an object `{value, as_printed, source_url, source_locator, checked_on, notes}`: `as_printed` is the developer's own words or number, `source_url` is https, `checked_on` is a date no later than `as_of`, and `source_locator` and `notes` are optional. No other keys.
+
+| Fact | `value` |
+|---|---|
+| `context_window_tokens` | A positive whole number of tokens: the standard window the developer prints. "1M" is 1000000; an exact figure such as 1,048,576 is kept exact. A larger beta or opt-in window goes in `notes`. |
+| `max_output_tokens` | A positive whole number of tokens: the maximum the developer prints. An output length a card only suggests is not a maximum. |
+| `input_modalities`, `output_modalities` | A list of distinct entries from `text`, `image`, `audio`, `video`, `pdf`. For open weights whose card prints none, the `pipeline_tag` of the developer's own Hugging Face repo: `text-generation` is text in and text out, `image-text-to-text` is text and image in and text out. |
+| `weights` | `open` when the developer publishes the weights for download, `closed` otherwise. |
+| `license` | The licence name as printed. Only with `weights` `open`: a model whose weights are not published has no licence to print. |
 
 A result printed under one model's heading while a footnote names another configuration belongs to the model the heading names; the footnote is kept on the observation in `conditions.model_setup_as_reported`, never in a second model identity. The three Mythos results printed under Fable headings on the GPT-6 Astra page are the standing example.
 

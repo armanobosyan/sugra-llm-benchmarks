@@ -21,6 +21,14 @@ A price is not an observation. Do not put it in `observations`, or a table that 
 4. Add one `prices` row per printed number: component, schedule, context band and the page's threshold, modality, region, meter, offer, and `valid_from` / `valid_until` only when the page states them. A printed zero is free. A dash is no row. Do not compute a discount the page only describes as a multiplier. Do not convert yuan to dollars.
 5. Append a `change_log` entry with `added_observations` 0, and bump `data_version` and `as_of`.
 
+## 1c. Add model facts
+
+Facts are what the developer prints about the model itself: context window, max output, input and output modalities, open or closed weights, and the licence of open weights (DATA-CONTRACT.md, models).
+
+1. Open the developer's own page for that model: the API model page or the models overview, the model card, its Hugging Face organisation. A figure on another lab's page, an aggregator or a sibling model's page is not this model's fact.
+2. Fill each fact the page prints, with `as_printed`, `source_url`, `source_locator` and `checked_on`. A fact the page does not print stays null; do not carry one over from the previous model of the family.
+3. Append a `change_log` entry with `added_observations` 0, and bump `data_version` and `as_of`.
+
 ## 2. Add an observation
 
 For every number on the page:
