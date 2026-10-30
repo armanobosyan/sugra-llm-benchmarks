@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026102901, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026103001, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -124,8 +124,9 @@ What the catalog holds as of data version 2026102901, and what it does not: the 
 | GPT-6.1 Terra system card addendum | OpenAI | 61 | 1 | 61 |
 | Vibe Code Bench v1.1 leaderboard | Vals AI | 73 | 73 | 1 |
 | Gemini 4 Carbon: our next frontier model | Google | 43 | 18 | 8 |
+| Epoch AI Benchmarking Hub | Epoch AI | 17 | 6 | 4 |
 
-118 publications, 12701 observations, 460 models, 805 benchmark definitions in 421 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+119 publications, 12718 observations, 460 models, 805 benchmark definitions in 421 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
@@ -194,12 +195,12 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | Knowledge work | 54 | 905 |
 | Agentic coding | 60 | 1851 |
 | ML engineering | 14 | 115 |
-| Science and math | 68 | 1541 |
+| Science and math | 68 | 1552 |
 | Long context | 43 | 351 |
 | Computer use | 15 | 274 |
 | Multimodal understanding | 81 | 1585 |
 | Cybersecurity | 42 | 403 |
-| General knowledge and reasoning | 46 | 1180 |
+| General knowledge and reasoning | 46 | 1186 |
 | Code generation | 26 | 356 |
 | Tool use and workflows | 45 | 991 |
 | Web search and research | 18 | 353 |
@@ -224,7 +225,7 @@ Every category has at least one observation. A category with no rows for the sel
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - Locally run models are a separate review. A model is listed here when a publisher prints it on an official page. An open-weight name appears only in that case. Weights run on your own machine are not collected.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
-- Independent sources carry one thing only: a cost per task measured by one evaluator under one setup. The first is Vals AI's Vibe Code Bench v1.1 leaderboard (Cost / Test, OpenHands harness, 73 models, read 2026-10-27), shown as the last row of the Price area. Its scores are not transcribed; independent scores stay out (`kind` `independent_leaderboard` refuses them).
+- Independent sources carry a cost per task, and a score only for a test a publisher's own page also prints, so an evaluator never adds a test of its own (`kind` `independent_leaderboard`). Vals AI's Vibe Code Bench v1.1 leaderboard gives the cost per task (Cost / Test, OpenHands harness, 73 models, read 2026-10-27), shown as the last row of the Price area; its scores are not transcribed. Epoch AI's Benchmarking Hub gives its own runs for the 17 cells of GPQA Diamond, FrontierMath Tiers 1-3 (v2), FrontierMath Tier 4 (v2) and SimpleQA Verified where a developer's latest model had no number from any page (read 2026-10-30, data CC BY 4.0). OpenAI commissioned FrontierMath and has access to most of its problems; the family's notes cite Epoch AI's post.
 
 ## Not in this repository
 
@@ -233,4 +234,4 @@ Third-party catalog dumps are not published here. A score enters `data/database.
 1. New official releases from the publishers already in the catalog.
 2. System cards and model cards not yet transcribed.
 3. Exact values behind dynamic charts, when a publisher also prints them.
-4. Independent sources, after the contract is extended for them.
+4. Independent runs of tests the catalog already holds, where a publisher's page leaves a cell empty.

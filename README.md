@@ -1,6 +1,6 @@
 # Sugra LLM Benchmarks
 
-A reviewed catalog of benchmark results that AI model publishers have printed in their own release pages and model cards. Every number is stored as the publisher reported it, with the publication, the place on the page, the date it was checked and the conditions the publisher stated. Nothing here is a benchmark run of our own, and nothing is a ranking.
+A reviewed catalog of benchmark results that AI model publishers have printed in their own release pages and model cards. Every number is stored as the publisher reported it, with the publication, the place on the page, the date it was checked and the conditions the publisher stated. A few numbers come from independent evaluators that run the models themselves: a cost per task from Vals AI, and Epoch AI's runs of tests the publishers also print, only where a publisher's page leaves the cell empty. Each is marked with its evaluator. Nothing here is a benchmark run of our own, and nothing is a ranking.
 
 The catalog feeds the comparison article on the Sugra Systems blog. The article reads the built payload, so a change to the data becomes a change on the page after one accepted pull request.
 
@@ -49,4 +49,4 @@ Open a pull request that changes `data/database.json`, run `build` and commit bo
 
 ## Licence
 
-The code under `tools/` and `tests/` is MIT (see `LICENSE`). The catalog under `data/` and the built payload under `public/` are published under CC BY 4.0: reuse them with a credit to Sugra Systems, Inc. and a link to this repository. Every number in `data/database.json` and in the built payload remains the statement of the publisher that printed it, cited by publication and locator. The licence covers the compilation and the descriptions, not the publishers' pages.
+The code under `tools/` and `tests/` is MIT (see `LICENSE`). The catalog under `data/` and the built payload under `public/` are published under CC BY 4.0: reuse them with a credit to Sugra Systems, Inc. and a link to this repository. Every number in `data/database.json` and in the built payload remains the statement of the publisher that printed it, cited by publication and locator. The licence covers the compilation and the descriptions, not the publishers' pages. Epoch AI's results are Epoch AI's data under CC BY 4.0: Epoch AI, 'Capabilities & benchmarking', published online at epoch.ai, retrieved from https://epoch.ai/benchmarks/use-this-data.

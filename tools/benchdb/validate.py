@@ -20,8 +20,9 @@ OBS_STATUSES = {"active", "superseded", "withdrawn"}
 COMPARISON_SCOPES = {"publisher_comparison", "independent_measurement"}
 COMPARISON_KINDS = {"official_release_comparison", "model_card", "official_blog"}
 PRICE_KIND = "official_price_list"
-# An evaluator that runs every model itself under one setup. It may carry only
-# a cost per task: scores stay with the publishers (COVERAGE.md).
+# An evaluator that runs every model itself under one setup. It carries a cost
+# per task, and a score only for a test a publisher's own page also printed, so
+# an evaluator never adds a test of its own (COVERAGE.md).
 INDEPENDENT_KIND = "independent_leaderboard"
 PUBLICATION_KINDS = COMPARISON_KINDS | {PRICE_KIND, INDEPENDENT_KIND}
 DISPLAY_GROUPS = {"price"}
@@ -348,6 +349,10 @@ def validate(db: dict) -> list[str]:
     # ---- observations ----------------------------------------------------
     obs_ids: set[str] = set()
     by_key: dict[tuple, list[dict]] = defaultdict(list)
+    printed = {
+        o.get("benchmark_id") for o in db["observations"]
+        if o.get("status") == "active" and pubs.get(o.get("publication_id"), {}).get("kind") in COMPARISON_KINDS
+    }
     for o in db["observations"]:
         oid = o.get("id")
         tag = f"observations[{oid}]"
@@ -367,8 +372,8 @@ def validate(db: dict) -> list[str]:
             err(f"{tag}: observations cannot hang on a price list")
         else:
             independent = pubs[o.get("publication_id")].get("kind") == INDEPENDENT_KIND
-            if independent and b is not None and not is_cost_per_task(b):
-                err(f"{tag}: an independent leaderboard carries only a usd cost per task")
+            if independent and b is not None and not is_cost_per_task(b) and b.get("id") not in printed:
+                err(f"{tag}: an independent leaderboard scores only a test a publisher's own page also printed")
             want = ("independent_publication_checked", "independent_measurement") if independent else ("official_publication_checked", "publisher_comparison")
             if (o.get("evidence_type"), o.get("comparison_scope")) != want:
                 err(f"{tag}: evidence_type and comparison_scope must be {want[0]} and {want[1]} for this publication")
