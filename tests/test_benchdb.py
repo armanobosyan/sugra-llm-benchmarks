@@ -345,11 +345,29 @@ class ValidateFixture(unittest.TestCase):
         db["benchmarks"][1]["display_group"] = "price"
         self.assertEqual(validate.validate(db), [])
 
-    def test_independent_leaderboard_refuses_a_score(self):
+    def test_independent_leaderboard_scores_a_test_a_publisher_printed(self):
         db = fixture()
         row = self._independent(db)
         row.update(benchmark_id="frontiercode-v1-1--percent", unit="percent", unit_denominator=None, value=50.0)
-        self.assertTrue(any("carries only a usd cost per task" in p for p in validate.validate(db)))
+        self.assertEqual(validate.validate(db), [])
+
+    def test_independent_leaderboard_refuses_a_test_no_publisher_printed(self):
+        db = fixture()
+        db["benchmarks"].append(dict(
+            db["benchmarks"][0], id="frontiercode-v2--percent", name="FrontierCode v2", version="2",
+            version_label="FrontierCode v2", metric_label="FrontierCode v2",
+        ))
+        row = self._independent(db)
+        row.update(benchmark_id="frontiercode-v2--percent", unit="percent", unit_denominator=None, value=50.0)
+        self.assertTrue(any("scores only a test a publisher's own page also printed" in p for p in validate.validate(db)))
+
+    def test_independent_score_needs_an_active_publisher_row(self):
+        db = fixture()
+        row = self._independent(db)
+        row.update(benchmark_id="frontiercode-v1-1--percent", unit="percent", unit_denominator=None, value=50.0)
+        for o in db["observations"][:2]:
+            o["status"] = "withdrawn"
+        self.assertTrue(any("scores only a test a publisher's own page also printed" in p for p in validate.validate(db)))
 
     def test_independent_row_needs_its_own_evidence_type(self):
         db = fixture()
@@ -689,6 +707,25 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["claude-sonnet-5-5"], 31.25)
         self.assertEqual(value["deepseek-v4-1-flash-1017"], 0.58)
         self.assertEqual(value["mistral-large-4"], 39.46)
+
+    def test_epoch_runs_fill_only_empty_flagship_cells(self):
+        pub = "publication-epoch-ai-benchmarking-hub"
+        rows = [o for o in self.db["observations"] if o["publication_id"] == pub]
+        self.assertEqual(len(rows), 17)
+        latest = {m["id"] for m in self.db["models"] if m.get("latest")}
+        self.assertTrue(all(o["model_id"] in latest for o in rows))
+        self.assertEqual({o["benchmark_id"] for o in rows}, {
+            "gpqa-diamond--percent", "frontiermath-tier-1-3-v2--percent",
+            "frontiermath-tier-4-v2--percent", "simpleqa-verified--percent",
+        })
+        others = {(o["benchmark_id"], o["model_id"]) for o in self.db["observations"]
+                  if o["status"] == "active" and o["publication_id"] != pub}
+        self.assertFalse({(o["benchmark_id"], o["model_id"]) for o in rows} & others)
+        value = {(o["benchmark_id"], o["model_id"]): o["value"] for o in rows}
+        self.assertEqual(value[("gpqa-diamond--percent", "grok-4-7")], 92.7)
+        self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "gpt-6-astra")], 93.7)
+        self.assertEqual(value[("frontiermath-tier-4-v2--percent", "grok-4-7")], 17.1)
+        self.assertEqual(value[("simpleqa-verified--percent", "glm-5-3")], 41.0)
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
