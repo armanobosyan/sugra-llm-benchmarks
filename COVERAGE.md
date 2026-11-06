@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026110602, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026110603, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -166,6 +166,24 @@ Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: t
 
 Left in each price publication's coverage, not expanded into rows: audio, voice, live, transcription, TTS, tools, fine-tuning, and a regional multiplier the page states without printing every cell. A model hosted on another lab's page is not given that host's price. Mistral's page quotes GLM 5.3 cached input at $0.14; Z.AI's own page prints $0.26, and only the Z.AI row is stored. DeepSeek still prints V4-Pro prices on the price page. Meta has no public token price, so there is no Meta price row.
 
+## Router prices
+
+Read on 2026-11-06 from the OpenRouter models API (`https://openrouter.ai/api/v1/models`), schema 1.3.0, for open-weight models with no active developer price: 117 rows for 43 models, each input, output and, where listed, cached input (43, 43 and 31 rows). They live in `router_prices`, apart from `prices`, and the article marks each one as OpenRouter's price. A model is matched by the developer's Hugging Face repository OpenRouter names. Eight are matched by hand and say why in the row's `note`: OpenRouter names the developer's instruction-tuned checkpoint for Gemma 4 26B A4B, Gemma 4 31B, Llama 4 Maverick and Llama 4 Scout, the developer's FP8 checkpoint for Nemotron 3 Super, a repository that is not public for Nemotron 3.5 Super VL, and no repository for Mistral Medium 3.5 and Mistral Large 3, which Mistral's own page stopped listing on 2026-11-05. Free and batch listings are left out. 39 open-weight models without a developer price have no OpenRouter listing and no price.
+
+| Developer | Models | Rows |
+|---|---|---|
+| DeepSeek | 10 | 27 |
+| NVIDIA | 5 | 14 |
+| Meta | 5 | 14 |
+| Alibaba | 4 | 11 |
+| Moonshot AI | 4 | 10 |
+| Mistral AI | 4 | 10 |
+| Google | 4 | 10 |
+| MiniMax | 2 | 6 |
+| OpenAI | 2 | 6 |
+| Thinking Machines | 2 | 6 |
+| Xiaomi | 1 | 3 |
+
 ## Model facts
 
 Checked on 2026-10-29 on each developer's own pages: the API model page or models overview, the model card, the launch post, its Hugging Face or GitHub organisation. Schema 1.2.0. A fact the developer does not print stays out, so a count below the model count is a page that is silent, not a page we skipped. A modality an open model's card does not print is the `pipeline_tag` of the developer's own Hugging Face repo, and the fact says so. A max output a card only suggests ("we suggest setting the max output length to ...") is not a maximum and stays out. So does a licence the repo names only by a slug (`license_name: glm-5.3`), which no reader can look up; the weights still read open. DeepSeek's price page, read 2026-11-02, prints CONTEXT LENGTH 1M and MAX OUTPUT 384K in one cell for both API models, DeepSeek-V4.1-Flash-1017 and DeepSeek-V4-Pro-0813. The Kimi K3.1 Pro modalities, weights and licence and the open-weight Mistral Large 4 facts were read from their Hugging Face cards on 2026-11-05, the Hy4 preview facts from its card on 2026-11-06, and the Nemotron 3.5 Bolt E4B, Nemotron 3 Nano 4B and Qwen3.5-4B facts from their Hugging Face cards the same day.
@@ -195,6 +213,12 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | Tencent | 1 | 1 | 0 | 1 | 1 | 1 | 1 |
 
 199 of 466 models carry at least one fact. Gemini 4 Carbon carries none yet: Google's launch post and model pages print no context, output or modalities for it.
+
+### Open-weight sizes
+
+Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models carries its total parameters, 59 their active parameters (mixture of experts) and 3 their effective parameters (Gemma 4 E2B and E4B, Nemotron 3.5 Bolt E4B), in the source order DATA-CONTRACT.md gives: 81 from the model's own card, 16 from the size in the repository name, 5 from the card of the model the own card says this one updates or shares its structure with (DeepSeek-R1-0528, DeepSeek-V3.1-Terminus, DeepSeek-V4-Flash-0731, DeepSeek-V4-Pro-0813, DeepSeek-V4.1-Flash-1017), and 13 from the Hugging Face Hub's count of the developer's own weight files (DeepSeek-V3-0324, the three DeepSeek-V3.2 models, GLM-4.6, GLM-4.7, GLM-5.1, GLM-5.2, GLM-5.3, MiniMax M2.1, M2.5 and M2.7, and Code World Model). A size printed in parts is their sum: DeepSeek-V4.1-Flash 552B backbone plus 196B Engram memory, Qwen3.8-Flash-Next 125B plus a 51B n-gram embedding and a 4B prediction layer, Ministral 3 14B 13.5B plus a 0.4B vision encoder. DeepSeek-V4.1-Flash prints its activated count as "8B / 16B" without saying which applies when, so it and its 1017 update keep no active size.
+
+10 models carry the memory their developer says they run in (`runs_in_gpu_memory_gb`, `runs_in_memory_gb`): gpt-oss-120b and gpt-oss-20b, Devstral Small 2, Magistral Small and Magistral Small 1.2, Ministral 3 14B, Mistral Small 3.2, Nemotron 3.5 Bolt 74B-A9B, Nemotron 3.5 Lightning and Step 3.7 Flash. Each fact quotes the sentence and its `notes` give the precision or quantization it holds for; a device named instead of a size (an RTX 4090) is read as that device's 24 GB.
 
 ## Categories
 
@@ -231,7 +255,7 @@ Every category has at least one observation. A category with no rows for the sel
 - `reasoning_effort` is stated for 3341 active observations, `tools` for 1503, `harness` for 1316. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
-- Locally run models are a separate review. A model is listed here when a publisher prints it on an official page. An open-weight name appears only in that case. Weights run on your own machine are not collected.
+- A model is listed here when a publisher prints it on an official page; an open-weight name appears only in that case. For open weights the catalog stores the size and the memory the developer states, never a run of its own on any machine.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
 - Independent sources carry a cost per task, and a score only for a test a publisher's own page also prints, so an evaluator never adds a test of its own (`kind` `independent_leaderboard`). Vals AI's Vibe Code Bench v1.1 leaderboard gives the cost per task (Cost / Test, OpenHands harness, 84 models, page updated 2026-11-05, read 2026-11-06), shown as the last row of the Price area, and its own score for the 9 Vibe Code Bench cells where a developer's latest model had no number from any page; Google's Gemini 4 Argon card prints this test with Vals AI as the setup. Epoch AI's Benchmarking Hub gives its own runs for the 19 cells of GPQA Diamond, FrontierMath Tiers 1-3 (v2), FrontierMath Tier 4 (v2) and SimpleQA Verified where a developer's latest model had no number from any page (read 2026-10-30, the two Mistral Large 4 cells from the CSV download on 2026-11-05, data CC BY 4.0). OpenAI commissioned FrontierMath and has access to most of its problems; the family's notes cite Epoch AI's post.
 

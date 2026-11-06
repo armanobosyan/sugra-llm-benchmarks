@@ -20,11 +20,15 @@ OBS_STATUSES = {"active", "superseded", "withdrawn"}
 COMPARISON_SCOPES = {"publisher_comparison", "independent_measurement"}
 COMPARISON_KINDS = {"official_release_comparison", "model_card", "official_blog"}
 PRICE_KIND = "official_price_list"
+# A router's list of what it charges for an open-weight model it serves
+# (schema 1.3.0). It is not the developer's price, so its rows live apart, in
+# router_prices, and only for a model whose developer prints none.
+ROUTER_KIND = "router_price_list"
 # An evaluator that runs every model itself under one setup. It carries a cost
 # per task, and a score only for a test a publisher's own page also printed, so
 # an evaluator never adds a test of its own (COVERAGE.md).
 INDEPENDENT_KIND = "independent_leaderboard"
-PUBLICATION_KINDS = COMPARISON_KINDS | {PRICE_KIND, INDEPENDENT_KIND}
+PUBLICATION_KINDS = COMPARISON_KINDS | {PRICE_KIND, ROUTER_KIND, INDEPENDENT_KIND}
 DISPLAY_GROUPS = {"price"}
 PRICE_COMPONENTS = {
     "input",
@@ -71,7 +75,16 @@ FACT_KINDS = {
     "output_modalities": "modalities",
     "weights": "weights",
     "license": "text",
+    # Schema 1.3.0: the size the developer prints, in billions of parameters,
+    # and the memory it says an open-weight model runs in, in gigabytes.
+    "total_parameters": "billions",
+    "active_parameters": "billions",
+    "effective_parameters": "billions",
+    "runs_in_gpu_memory_gb": "gigabytes",
+    "runs_in_memory_gb": "gigabytes",
 }
+SIZE_FACTS = {"total_parameters", "active_parameters", "effective_parameters", "runs_in_gpu_memory_gb", "runs_in_memory_gb"}
+RUNS_IN_FACTS = ("runs_in_gpu_memory_gb", "runs_in_memory_gb")
 FACT_KEYS = {"value", "as_printed", "source_url", "source_locator", "checked_on", "notes"}
 MODALITIES = {"text", "image", "audio", "video", "pdf"}
 WEIGHTS = {"open", "closed"}
@@ -175,16 +188,32 @@ def check_facts(facts, as_of: str) -> list[str]:
         elif kind == "weights":
             if value not in WEIGHTS:
                 out.append(f"facts.{name}: value must be one of {sorted(WEIGHTS)}")
+        elif kind in ("billions", "gigabytes"):
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
+                out.append(f"facts.{name}: value must be a positive number of {'billions of parameters' if kind == 'billions' else 'gigabytes'}")
         elif not isinstance(value, str) or not value.strip():
             out.append(f"facts.{name}: value must be text")
         elif name == "license" and LICENCE_SLUG_RE.match(value):
             out.append(f"facts.license: {value!r} is a repo id, not a licence name; write the name or drop the licence")
     # A licence is the terms the published weights come under; a model whose
     # weights are not published has none to print.
-    if facts.get("license") is not None:
-        weights = (facts.get("weights") or {}).get("value")
-        if weights != "open":
-            out.append("facts.license: only open weights carry a licence; set weights to open or drop the licence")
+    weights = (facts.get("weights") or {}).get("value") if isinstance(facts.get("weights"), dict) else None
+    if facts.get("license") is not None and weights != "open":
+        out.append("facts.license: only open weights carry a licence; set weights to open or drop the licence")
+    # Only a model anyone can download runs in someone's own memory.
+    for name in RUNS_IN_FACTS:
+        if facts.get(name) is not None and weights != "open":
+            out.append(f"facts.{name}: only open weights run in the reader's memory; set weights to open or drop the fact")
+    # Active and effective parameters are a part of the total, never more.
+    total = (facts.get("total_parameters") or {}).get("value") if isinstance(facts.get("total_parameters"), dict) else None
+    for name in ("active_parameters", "effective_parameters"):
+        part = facts.get(name)
+        if not isinstance(part, dict) or not isinstance(part.get("value"), (int, float)):
+            continue
+        if not isinstance(total, (int, float)) or isinstance(total, bool):
+            out.append(f"facts.{name}: needs total_parameters beside it")
+        elif part["value"] > total:
+            out.append(f"facts.{name}: {part['value']} is more than total_parameters {total}")
     return out
 
 
@@ -208,6 +237,11 @@ def validate(db: dict) -> list[str]:
         err("top: schema 1.1.0 and later require a prices list (it may be empty)")
     if "prices" in db and not isinstance(db["prices"], list):
         err("top: prices must be a list")
+    if "router_prices" in db:
+        if str(db.get("schema_version", "")) < "1.3.0":
+            err("top: router_prices need schema 1.3.0 or later")
+        if not isinstance(db["router_prices"], list):
+            err("top: router_prices must be a list")
 
     # ---- text hygiene (the whole score file, including a leftover draft key) ---
     for where, text in _walk_strings(db):
@@ -310,6 +344,8 @@ def validate(db: dict) -> list[str]:
         if "facts" in m:
             if str(db.get("schema_version", "")) < "1.2.0":
                 err(f"models[{mid}]: facts need schema 1.2.0 or later")
+            elif str(db.get("schema_version", "")) < "1.3.0" and isinstance(m["facts"], dict) and SIZE_FACTS & set(m["facts"]):
+                err(f"models[{mid}]: size and memory facts need schema 1.3.0 or later")
             for line in check_facts(m["facts"], str(db["as_of"])):
                 err(f"models[{mid}]: {line}")
     latest_by_dev: dict[str, list[str]] = defaultdict(list)
@@ -337,6 +373,8 @@ def validate(db: dict) -> list[str]:
             err(f"publications[{pid}]: kind {kind!r} not in {sorted(PUBLICATION_KINDS)}")
         elif kind == PRICE_KIND and p.get("comparison_scope") != "price_list":
             err(f"publications[{pid}]: official_price_list must use comparison_scope price_list")
+        elif kind == ROUTER_KIND and p.get("comparison_scope") != "router_price":
+            err(f"publications[{pid}]: router_price_list must use comparison_scope router_price")
         elif kind in COMPARISON_KINDS and p.get("comparison_scope") != "publisher_comparison":
             err(f"publications[{pid}]: comparison_scope {p.get('comparison_scope')!r} must be publisher_comparison")
         elif kind == INDEPENDENT_KIND and p.get("comparison_scope") != "independent_measurement":
@@ -368,7 +406,7 @@ def validate(db: dict) -> list[str]:
             err(f"{tag}: unknown model_id {o.get('model_id')!r}")
         if o.get("publication_id") not in pubs:
             err(f"{tag}: unknown publication_id {o.get('publication_id')!r}")
-        elif pubs[o.get("publication_id")].get("kind") == PRICE_KIND:
+        elif pubs[o.get("publication_id")].get("kind") in (PRICE_KIND, ROUTER_KIND):
             err(f"{tag}: observations cannot hang on a price list")
         else:
             independent = pubs[o.get("publication_id")].get("kind") == INDEPENDENT_KIND
@@ -463,16 +501,23 @@ def validate(db: dict) -> list[str]:
                     err(f"benchmarks: {a['id']} and {b['id']} (family {fam}) carry equal values for all {len(shared)} shared models; one test under two labels, merge them and keep the label in benchmark_label_as_published")
 
     # ---- prices (official lists; never benchmark observations) -----------
+    # A router price (schema 1.3.0) is the same row read on a router's list, for
+    # an open-weight model whose developer prints no price. It lives apart, in
+    # router_prices, so a reader never takes it for the developer's own.
     price_ids: set[str] = set()
     price_keys: dict[tuple, str] = {}
-    for row in db.get("prices", []):
+    priced = {r.get("model_id") for r in db.get("prices", []) if r.get("status") == "active"}
+    router_rows = db.get("router_prices") if isinstance(db.get("router_prices"), list) else []
+    for section, row in [("prices", r) for r in db.get("prices", [])] + [("router_prices", r) for r in router_rows]:
+        router = section == "router_prices"
         pid = row.get("id")
-        tag = f"prices[{pid}]"
+        tag = f"{section}[{pid}]"
         if pid in price_ids:
-            err(f"prices: duplicate id {pid}")
+            err(f"{section}: duplicate id {pid}")
         price_ids.add(pid)
-        if not pid or not str(pid).startswith("price-") or not ID_RE.match(str(pid)):
-            err(f"{tag}: id must be kebab-case and start with price-")
+        prefix = "router-price-" if router else "price-"
+        if not pid or not str(pid).startswith(prefix) or not ID_RE.match(str(pid)):
+            err(f"{tag}: id must be kebab-case and start with {prefix}")
         mid = row.get("model_id")
         if mid not in models:
             err(f"{tag}: unknown model_id {mid!r}")
@@ -480,6 +525,9 @@ def validate(db: dict) -> list[str]:
         pub = pubs.get(pub_id)
         if pub is None:
             err(f"{tag}: unknown publication_id {pub_id!r}")
+        elif router:
+            if pub.get("kind") != ROUTER_KIND:
+                err(f"{tag}: publication {pub_id} is not a router_price_list")
         elif pub.get("kind") != PRICE_KIND:
             err(f"{tag}: publication {pub_id} is not an official_price_list")
         elif mid in models and pub.get("publisher") != models[mid].get("developer"):
@@ -487,9 +535,23 @@ def validate(db: dict) -> list[str]:
                 f"{tag}: publisher {pub.get('publisher')!r} is not the model developer "
                 f"{models[mid].get('developer')!r}"
             )
+        value = row.get("value")
+        if router:
+            weights = (models.get(mid) or {}).get("facts") or {}
+            weights = weights.get("weights") if isinstance(weights, dict) else None
+            if mid in models and not (isinstance(weights, dict) and weights.get("value") == "open"):
+                err(f"{tag}: a router price is only for a model whose weights fact is open")
+            if row.get("status") == "active" and mid in priced:
+                err(f"{tag}: the developer prints a price for {mid}; a router price is only for a model whose developer prints none")
+            for key, want in (("unit", "usd_per_million_tokens"), ("modality", "text"), ("schedule", "standard"), ("offer", "list"), ("context_band", "any"), ("region", None)):
+                if row.get(key) != want:
+                    err(f"{tag}: a router price has {key} {want!r}, got {row.get(key)!r}")
+            if row.get("component") not in ("input", "output", "cached_input"):
+                err(f"{tag}: a router price is input, output or cached_input, got {row.get('component')!r}")
+            if isinstance(value, (int, float)) and not isinstance(value, bool) and value == 0:
+                err(f"{tag}: a free router listing is not a price; leave it out")
         if row.get("component") not in PRICE_COMPONENTS:
             err(f"{tag}: component {row.get('component')!r} not in {sorted(PRICE_COMPONENTS)}")
-        value = row.get("value")
         if isinstance(value, bool) or not isinstance(value, (int, float)):
             err(f"{tag}: value must be a number >= 0, got {value!r}")
         elif value < 0:
@@ -567,7 +629,7 @@ def main(argv: list[str] | None = None) -> int:
     problems = validate(db)
     for line in problems:
         print(line)
-    counts = {k: len(db.get(k, [])) for k in ("categories", "benchmarks", "models", "publications", "observations", "prices")}
+    counts = {k: len(db.get(k, [])) for k in ("categories", "benchmarks", "models", "publications", "observations", "prices", "router_prices")}
     if problems:
         print(f"validate: FAIL ({len(problems)} problems) {counts}")
         return 1

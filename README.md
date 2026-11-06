@@ -8,7 +8,7 @@ The catalog feeds the comparison article on the Sugra Systems blog. The article 
 
 | Path | What it is |
 |---|---|
-| `data/database.json` | The checked catalog. Categories, benchmark families, benchmark definitions, model identities, publications, observations, official prices and the change log. |
+| `data/database.json` | The checked catalog. Categories, benchmark families, benchmark definitions, model identities with their facts (open-weight sizes included), publications, observations, official prices, router prices and the change log. |
 | `public/benchmarks.v1.json` | The built payload: every record in plain JSON. Generated, committed, checked in CI. Never edit by hand. |
 | `public/benchmarks.v1.compact.json` | The same records in a smaller shape, about a fifth of the size: each distinct string once, rows as arrays. The article loads this file. Generated beside the full one. |
 | `tools/benchdb/` | `validate` and `build`, standard library only. |
@@ -38,6 +38,7 @@ Python 3.12 or newer, no dependencies.
 - A model with no result for a test shows a dash, not a zero.
 - A result a publisher printed under one model's name while its footnote names another configuration is stored under the model the heading names, and the footnote stays on the result (`conditions.model_setup_as_reported`).
 - A token price is not a benchmark result. It lives in `prices`, taken from that developer's own price page. The payload's `counts.prices` is the number of active prices. A missing end date means the page did not state one.
+- For an open-weight model whose developer prints no price, `router_prices` holds what OpenRouter lists for it, always marked as OpenRouter's price and never as the developer's.
 
 ## Taxonomy
 

@@ -22,7 +22,7 @@ from pathlib import Path
 from . import compact as compact_form
 from .validate import load, validate
 
-PAYLOAD_SCHEMA = "1.2.0"
+PAYLOAD_SCHEMA = "1.3.0"
 # Observation fields copied into the payload. Nulls are dropped by compact().
 OBS_FIELDS = (
     "id",
@@ -95,6 +95,10 @@ def build_payload(db: dict, source_sha256: str) -> dict:
     active_prices = [p for p in db.get("prices", []) if p.get("status") == "active"]
     prices = [compact({k: p.get(k) for k in PRICE_FIELDS}) for p in active_prices]
     prices.sort(key=lambda p: p["id"])
+    # A router's prices stay in their own list: the article marks them as the
+    # router's, and a reader of `prices` never takes one for the developer's.
+    router_prices = [compact({k: p.get(k) for k in PRICE_FIELDS}) for p in db.get("router_prices", []) if p.get("status") == "active"]
+    router_prices.sort(key=lambda p: p["id"])
     payload = {
         "payload_schema": PAYLOAD_SCHEMA,
         "schema_version": db["schema_version"],
@@ -111,6 +115,7 @@ def build_payload(db: dict, source_sha256: str) -> dict:
         "publications": sorted(db["publications"], key=lambda p: p["id"]),
         "observations": observations,
         "prices": prices,
+        "router_prices": router_prices,
         "change_log": db["change_log"],
         "counts": {
             "categories": len(db["categories"]),
@@ -119,6 +124,7 @@ def build_payload(db: dict, source_sha256: str) -> dict:
             "publications": len(db["publications"]),
             "observations": len(observations),
             "prices": len(prices),
+            "router_prices": len(router_prices),
         },
     }
     return compact(payload)
@@ -148,9 +154,10 @@ def no_loss_problems(previous: dict | None, db: dict) -> list[str]:
     present = {o["id"] for o in db["observations"]}
     missing = sorted(o["id"] for o in previous.get("observations", []) if o["id"] not in present)
     problems = [f"build: observation {oid} was in the published payload and is gone from data" for oid in missing]
-    price_ids = {p["id"] for p in db.get("prices", [])}
-    gone_prices = sorted(p["id"] for p in previous.get("prices", []) if p["id"] not in price_ids)
-    problems += [f"build: price {pid} was in the published payload and is gone from data" for pid in gone_prices]
+    for section in ("prices", "router_prices"):
+        price_ids = {p["id"] for p in db.get(section, [])}
+        gone_prices = sorted(p["id"] for p in previous.get(section, []) if p["id"] not in price_ids)
+        problems += [f"build: price {pid} was in the published payload and is gone from data" for pid in gone_prices]
     return problems
 
 
