@@ -862,6 +862,26 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual({o["model_id"] for o in self.db["observations"] if o["publication_id"] == addendum}, {"gpt-6-luna"})
         self.assertEqual(one("publication-minimax-m3-1-flash-model-card", "swe-refactor-bench--score", "minimax-m3-1-flash",
                              harness="Claude Code 2.1.220"), 23.0)
+        bolt = "publication-nvidia-nemotron-3-5-bolt-e4b-model-card"
+        own_bf16 = "Publisher model, full-precision BF16 checkpoint."
+        own_q4 = "Publisher model, the 4GB release quantized to Q4_K_M (NVIDIA-Nemotron-3.5-Bolt-E4B-4GB)."
+        measured = " Measured by NVIDIA under its NeMo Gym harness, as the card notes say; the values may differ from the developer's self-reported numbers."
+        gemma_bf16 = "Competitor column (Gemma 4 E4B-it, instruction-tuned), BF16 checkpoint." + measured
+        qwen_bf16 = "Competitor column, BF16 checkpoint." + measured
+        self.assertEqual(one(bolt, "multichallenge--percent", "nemotron-3-5-bolt-e4b", model_setup_as_reported=own_bf16), 53.1)
+        self.assertEqual(one(bolt, "multichallenge--percent", "nemotron-3-5-bolt-e4b", model_setup_as_reported=own_q4), 55.6)
+        self.assertEqual(one(bolt, "rolebench--score", "gemma-4-e4b", model_setup_as_reported=gemma_bf16), 49.95)
+        self.assertEqual(one(bolt, "ruler-64k--percent", "qwen3-5-4b", model_setup_as_reported=qwen_bf16), 95.15)
+        self.assertEqual(one(bolt, "relytoolbench--score", "nemotron-3-nano-4b",
+                             model_setup_as_reported="Publisher's earlier model, BF16 checkpoint."), 41.2)
+        self.assertEqual(one(bolt, "eq-bench-3--score", "nemotron-3-5-bolt-e4b", model_setup_as_reported=own_bf16), 39.4)
+        bolt_rows = [o for o in self.db["observations"] if o["publication_id"] == bolt]
+        self.assertEqual(len(bolt_rows), 160)
+        self.assertEqual({o["model_id"] for o in bolt_rows},
+                         {"nemotron-3-5-bolt-e4b", "gemma-4-e4b", "qwen3-5-4b", "nemotron-3-nano-4b"})
+        self.assertEqual({o["conditions"].get("harness") for o in bolt_rows}, {"NeMo Gym"})
+        # The card's Brevity Benchmark row is left out: no page defines that benchmark.
+        self.assertFalse([b for b in self.db["benchmarks"] if "brevity" in b["id"]])
         muse ={m["id"]: m for m in self.db["models"] if m["id"] in ("muse-spark", "muse-spark-1-1")}
         self.assertEqual(muse["muse-spark-1-1"]["release_date"], "2026-07-09")
         self.assertIsNone(muse["muse-spark"]["release_date"])
@@ -906,6 +926,10 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(pubs["publication-openai-gpt-6-luna-october-29-addendum"]["published_at"], "2026-10-29")
         self.assertEqual(pubs["publication-tencent-hy4-preview-release-pricing"]["published_at"], "2026-08-28")
         self.assertEqual(models["hy4-preview"]["release_date"], "2026-08-28")
+        self.assertEqual(pubs["publication-nvidia-nemotron-3-5-bolt-e4b-model-card"]["published_at"], "2026-10-23")
+        self.assertEqual(models["nemotron-3-5-bolt-e4b"]["release_date"], "2026-10-23")
+        self.assertEqual(models["nemotron-3-nano-4b"]["release_date"], "2026-03-16")
+        self.assertIsNone(models["qwen3-5-4b"]["release_date"])
 
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"
