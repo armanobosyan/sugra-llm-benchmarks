@@ -697,21 +697,53 @@ class RealDatabase(unittest.TestCase):
         self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
     def test_vals_cost_per_task_is_one_setup(self):
-        rows = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
-        self.assertEqual(len(rows), 73)
-        self.assertEqual(len({o["model_id"] for o in rows}), 73)
-        self.assertEqual({o["conditions"]["harness"] for o in rows}, {"OpenHands"})
-        self.assertEqual({o["publication_id"] for o in rows}, {"publication-vals-ai-vibe-code-bench-1-1"})
+        every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
+        rows = [o for o in every if o["status"] == "active"]
+        self.assertEqual(len(rows), 83)
+        self.assertEqual(len({o["model_id"] for o in rows}), 83)
+        self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
+        self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
         self.assertEqual(value["gpt-6-1-terra"], 6.0)
         self.assertEqual(value["claude-sonnet-5-5"], 31.25)
         self.assertEqual(value["deepseek-v4-1-flash-1017"], 0.58)
-        self.assertEqual(value["mistral-large-4"], 39.46)
+        self.assertEqual(value["gemini-4-carbon"], 8.25)
+        self.assertEqual(value["mistral-large-4"], 20.28)
+        self.assertEqual(value["mistral-large-4-1t-a52b"], 11.72)
+        self.assertEqual(value["glm-5-3-flash"], 4.7)
+        old = [o for o in every if o["status"] == "superseded"]
+        self.assertEqual(
+            sorted((o["model_id"], o["value"]) for o in old),
+            [("glm-5-3-flash", 2.35), ("mistral-large-4", 20.28), ("mistral-large-4", 39.46)],
+        )
+        by_id = {o["id"]: o for o in every}
+        preview = next(o for o in rows if o["model_id"] == "mistral-large-4")
+        self.assertEqual(by_id[preview["supersedes"]]["value"], 20.28)
+        self.assertEqual(by_id[by_id[preview["supersedes"]]["supersedes"]]["value"], 39.46)
+        self.assertEqual(preview["conditions"]["model_label_as_published"], "Mistral Large 4 Preview")
+        flash = next(o for o in rows if o["model_id"] == "glm-5-3-flash")
+        self.assertEqual(by_id[flash["supersedes"]]["value"], 2.35)
+
+    def test_vals_scores_fill_only_empty_flagship_cells(self):
+        pub = "publication-vals-ai-vibe-code-bench-1-1"
+        rows = [o for o in self.db["observations"]
+                if o["publication_id"] == pub and o["benchmark_id"] == "vibe-code-bench--percent"]
+        self.assertEqual(len(rows), 8)
+        latest = {m["id"] for m in self.db["models"] if m.get("latest")}
+        self.assertTrue(all(o["model_id"] in latest for o in rows))
+        others = {(o["benchmark_id"], o["model_id"]) for o in self.db["observations"]
+                  if o["status"] == "active" and o["publication_id"] != pub}
+        self.assertFalse({(o["benchmark_id"], o["model_id"]) for o in rows} & others)
+        value = {o["model_id"]: o["value"] for o in rows}
+        self.assertEqual(value["gemini-4-carbon"], 89.06)
+        self.assertEqual(value["grok-4-7"], 86.17)
+        self.assertEqual(value["qwen3-8-max"], 64.7)
+        self.assertEqual(value["mistral-large-4-1t-a52b"], 81.56)
 
     def test_epoch_runs_fill_only_empty_flagship_cells(self):
         pub = "publication-epoch-ai-benchmarking-hub"
         rows = [o for o in self.db["observations"] if o["publication_id"] == pub]
-        self.assertEqual(len(rows), 17)
+        self.assertEqual(len(rows), 19)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         self.assertTrue(all(o["model_id"] in latest for o in rows))
         self.assertEqual({o["benchmark_id"] for o in rows}, {
@@ -726,6 +758,8 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "gpt-6-astra")], 93.7)
         self.assertEqual(value[("frontiermath-tier-4-v2--percent", "grok-4-7")], 17.1)
         self.assertEqual(value[("simpleqa-verified--percent", "glm-5-3")], 41.0)
+        self.assertEqual(value[("gpqa-diamond--percent", "mistral-large-4-1t-a52b")], 90.2)
+        self.assertEqual(value[("simpleqa-verified--percent", "mistral-large-4-1t-a52b")], 22.4)
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
@@ -757,8 +791,12 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="gpt-6-1-terra", component="output", schedule="standard", context_band="short")["value"], 5)
         self.assertEqual(one(model_id="gpt-6-1-terra", component="input", schedule="fast", context_band="long")["value"], 4)
         self.assertEqual(one(model_id="qwen3-8-max", component="input", region="international")["value"], 2)
-        self.assertEqual(one(model_id="mistral-large-4", component="input", offer="promotional")["value"], 0.68)
-        self.assertIsNone(one(model_id="mistral-large-4", component="input", offer="promotional").get("valid_until"))
+        self.assertEqual(one(model_id="mistral-large-4-1t-a52b", component="input")["value"], 0.7)
+        self.assertEqual(one(model_id="mistral-large-4-1t-a52b", component="cached_input")["value"], 0.07)
+        self.assertEqual(one(model_id="mistral-large-4-1t-a52b", component="output")["value"], 2.1)
+        gone = {"mistral-large-4", "mistral-large-3", "mistral-medium-3-5"}
+        self.assertFalse([p["id"] for p in active if p["model_id"] in gone])
+        self.assertTrue(all(p.get("note") for p in self.db["prices"] if p["model_id"] in gone and p["status"] == "withdrawn"))
         latest = {m["developer"]: m["id"] for m in self.db["models"] if m.get("latest") is True}
         self.assertEqual(
             latest,
@@ -772,6 +810,7 @@ class RealDatabase(unittest.TestCase):
                 "DeepSeek": "deepseek-v4-1-flash-1017",
                 "Z.ai": "glm-5-3",
                 "MiniMax": "minimax-m3-1-flash",
+                "Mistral AI": "mistral-large-4-1t-a52b",
             },
         )
 
@@ -788,6 +827,12 @@ class RealDatabase(unittest.TestCase):
             return hits[0]["value"]
 
         self.assertEqual(one("publication-mistral-large-4", "deepswe-v1-1--percent", "mistral-large-4"), 61.7)
+        self.assertEqual(one("publication-mistral-large-4-open-weight", "frontiercode-2-0--percent", "mistral-large-4-1t-a52b"), 19.7)
+        self.assertEqual(one("publication-mistral-large-4-open-weight", "b3--percent", "mistral-large-4-1t-a52b"), 97.1)
+        self.assertEqual(one("publication-openai-gpt-6-cyber", "remoteexploitbench--percent", "gpt-6-cyber"), 94.7)
+        self.assertEqual(one("publication-openai-gpt-6-cyber", "exploitgym--percent", "gpt-6-astra",
+                             model_label_as_published="GPT-6 Astra (Daybreak Blue)"), 42.4)
+        self.assertEqual(one("publication-openai-gpt-6-cyber", "sre-bench--percent", "gpt-5-6-sol"), 55.9)
         self.assertEqual(one("publication-zai-glm-5-3", "terminal-bench-2-1--percent", "glm-5-3"), 88.2)
         self.assertEqual(one("publication-zai-glm-5-3", "cybergym--percent", "claude-fable-5"), 83.8)
         self.assertEqual(one("publication-deepseek-v4-1-flash", "gpqa-diamond--percent", "deepseek-v4-1-flash"), 90.9)
