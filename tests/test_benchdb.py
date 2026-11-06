@@ -543,9 +543,15 @@ class ModelFacts(unittest.TestCase):
         self.assertTrue(any("needs total_parameters beside it" in p for p in self.sized(active_parameters=fact(3))))
 
     def test_only_open_weights_run_in_memory(self):
-        db = self.with_facts(weights=fact("closed"), runs_in_gpu_memory_gb=fact(80))
-        db["schema_version"] = "1.3.0"
-        self.assertTrue(any("only open weights run in the reader's memory" in p for p in validate.validate(db)))
+        for name, value in (("runs_in_gpu_memory_gb", 80), ("runs_on_phone", True)):
+            db = self.with_facts(weights=fact("closed"), **{name: fact(value)})
+            db["schema_version"] = "1.3.0"
+            self.assertTrue(any("only open weights run in the reader's memory" in p for p in validate.validate(db)), name)
+
+    def test_a_phone_statement_is_only_ever_true(self):
+        self.assertEqual(self.sized(total_parameters=fact(5.1), runs_on_phone=fact(True, as_printed="mobile and edge devices (E2B, E4B)")), [])
+        for bad in (False, 1, "yes"):
+            self.assertTrue(any("value must be true" in p for p in self.sized(runs_on_phone=fact(bad))), bad)
 
 
 def router_list() -> dict:
@@ -1089,6 +1095,12 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(models["glm-5-1"]["facts"]["total_parameters"]["source_locator"], "safetensors.total")
         self.assertEqual(size("gpt-oss-20b", "runs_in_gpu_memory_gb"), 16)
         self.assertEqual(size("devstral-small-2", "runs_in_memory_gb"), 32)
+        # Google places Gemma 4 E2B and E4B on phones by name; the bigger Gemma 4 models are not.
+        for mid in ("gemma-4-e2b", "gemma-4-e4b"):
+            self.assertIs(size(mid, "runs_on_phone"), True, mid)
+            self.assertIn("(E2B, E4B)", models[mid]["facts"]["runs_on_phone"]["as_printed"], mid)
+        for mid in ("gemma-4-31b", "gemma-4-26b-a4b"):
+            self.assertNotIn("runs_on_phone", models[mid]["facts"], mid)
 
     def test_openrouter_prices_only_where_the_developer_prints_none(self):
         rows = {r["id"]: r for r in self.db["router_prices"] if r["status"] == "active"}

@@ -27227,6 +27227,14 @@
           "source_url": "https://huggingface.co/google/gemma-4-E4B/raw/main/README.md",
           "source_locator": "Model Data, Dense Models table, Total Parameters row, E4B column",
           "checked_on": "2026-11-06"
+        },
+        "runs_on_phone": {
+          "value": true,
+          "as_printed": "targeting deployment scenarios from mobile and edge devices (E2B, E4B)",
+          "source_url": "https://huggingface.co/google/gemma-4-E4B/raw/main/README.md",
+          "source_locator": "Description, first paragraph after the Models Overview heading",
+          "checked_on": "2026-11-06",
+          "notes": "Google names E2B and E4B for mobile and edge devices and prints no memory size."
         }
       }
     },
@@ -27292,6 +27300,14 @@
           "source_url": "https://huggingface.co/google/gemma-4-E2B/raw/main/README.md",
           "source_locator": "Model Data, Dense Models table, Total Parameters row, E2B column",
           "checked_on": "2026-11-06"
+        },
+        "runs_on_phone": {
+          "value": true,
+          "as_printed": "targeting deployment scenarios from mobile and edge devices (E2B, E4B)",
+          "source_url": "https://huggingface.co/google/gemma-4-E2B/raw/main/README.md",
+          "source_locator": "Description, first paragraph after the Models Overview heading",
+          "checked_on": "2026-11-06",
+          "notes": "Google names E2B and E4B for mobile and edge devices and prints no memory size."
         }
       }
     },
@@ -463585,7 +463601,7 @@
       "at": "2026-11-06",
       "reviewer": "Sugra research preparation",
       "added_observations": 0,
-      "reason": "Reading of 2026-11-06 for the Open weights view (schema 1.3.0). Every one of the 115 open-weight models gets its size: total parameters, and active or effective parameters where the developer prints them, read from the model's own card first, then the size in its repository name, then the card of the model its own card says it updates, then the Hugging Face Hub's count of the developer's own weight files. 10 models get the memory their developer says they run in. OpenRouter's listed prices are added for 43 open-weight models whose developer prints no price, kept apart from developer prices in router_prices."
+      "reason": "Reading of 2026-11-06 for the Open weights view (schema 1.3.0). Every one of the 115 open-weight models gets its size: total parameters, and active or effective parameters where the developer prints them, read from the model's own card first, then the size in its repository name, then the card of the model its own card says it updates, then the Hugging Face Hub's count of the developer's own weight files. 10 models get the memory their developer says they run in, and Gemma 4 E2B and E4B their developer's word that they run on phones. OpenRouter's listed prices are added for 43 open-weight models whose developer prints no price, kept apart from developer prices in router_prices."
     }
   ],
   "prices": [

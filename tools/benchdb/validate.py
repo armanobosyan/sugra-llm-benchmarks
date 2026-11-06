@@ -82,9 +82,11 @@ FACT_KINDS = {
     "effective_parameters": "billions",
     "runs_in_gpu_memory_gb": "gigabytes",
     "runs_in_memory_gb": "gigabytes",
+    # A developer that places the model on phones without printing a size.
+    "runs_on_phone": "yes",
 }
-SIZE_FACTS = {"total_parameters", "active_parameters", "effective_parameters", "runs_in_gpu_memory_gb", "runs_in_memory_gb"}
-RUNS_IN_FACTS = ("runs_in_gpu_memory_gb", "runs_in_memory_gb")
+SIZE_FACTS = {"total_parameters", "active_parameters", "effective_parameters", "runs_in_gpu_memory_gb", "runs_in_memory_gb", "runs_on_phone"}
+RUNS_IN_FACTS = ("runs_in_gpu_memory_gb", "runs_in_memory_gb", "runs_on_phone")
 FACT_KEYS = {"value", "as_printed", "source_url", "source_locator", "checked_on", "notes"}
 MODALITIES = {"text", "image", "audio", "video", "pdf"}
 WEIGHTS = {"open", "closed"}
@@ -191,6 +193,9 @@ def check_facts(facts, as_of: str) -> list[str]:
         elif kind in ("billions", "gigabytes"):
             if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
                 out.append(f"facts.{name}: value must be a positive number of {'billions of parameters' if kind == 'billions' else 'gigabytes'}")
+        elif kind == "yes":
+            if value is not True:
+                out.append(f"facts.{name}: value must be true; a model its developer does not place there carries no such fact")
         elif not isinstance(value, str) or not value.strip():
             out.append(f"facts.{name}: value must be text")
         elif name == "license" and LICENCE_SLUG_RE.match(value):

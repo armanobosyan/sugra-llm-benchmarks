@@ -79,6 +79,7 @@ One record per exact test, version and metric. A publisher's own label for a tes
 | `effective_parameters` | Schema 1.3.0 and later. A positive number of billions of effective parameters where the developer prints them (Gemma's "E4B" is 4). Needs `total_parameters` beside it and is no larger. |
 | `runs_in_gpu_memory_gb` | Schema 1.3.0 and later. A positive number of gigabytes of GPU memory the developer says the model runs in ("a single 80GB GPU" is 80). A statement that names a device instead of a size reads as that device's memory, and `notes` says so ("a single RTX 4090" is 24, an RTX 4090 having 24 GB). Only with `weights` `open`. |
 | `runs_in_memory_gb` | Schema 1.3.0 and later. The same for system or unified memory ("a Mac with 32GB RAM" is 32). Only with `weights` `open`. |
+| `runs_on_phone` | Schema 1.3.0 and later. `true` where the developer says this model is made to run on phones without printing a memory size ("deployment scenarios from mobile and edge devices (E2B, E4B)"). A sentence about a family counts only where it names this model. Never `false`: a model its developer does not place on a phone has no such fact. Only with `weights` `open`. |
 
 A size is read in this order, and the first source that prints one wins:
 

@@ -220,6 +220,8 @@ Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models carrie
 
 10 models carry the memory their developer says they run in (`runs_in_gpu_memory_gb`, `runs_in_memory_gb`): gpt-oss-120b and gpt-oss-20b, Devstral Small 2, Magistral Small and Magistral Small 1.2, Ministral 3 14B, Mistral Small 3.2, Nemotron 3.5 Bolt 74B-A9B, Nemotron 3.5 Lightning and Step 3.7 Flash. Each fact quotes the sentence and its `notes` give the precision or quantization it holds for; a device named instead of a size (an RTX 4090) is read as that device's 24 GB.
 
+2 models carry their developer's word that they are made for phones without a printed size (`runs_on_phone`): Gemma 4 E2B and E4B, from Google's "targeting deployment scenarios from mobile and edge devices (E2B, E4B)".
+
 ## Categories
 
 | Category | Benchmarks | Observations |
