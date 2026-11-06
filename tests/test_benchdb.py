@@ -692,15 +692,15 @@ class RealDatabase(unittest.TestCase):
 
     def test_benchmark_rows_do_not_hang_on_a_price_list(self):
         price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
-        self.assertEqual(len(price_pubs), 16)
+        self.assertEqual(len(price_pubs), 17)
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
         self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
     def test_vals_cost_per_task_is_one_setup(self):
         every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
         rows = [o for o in every if o["status"] == "active"]
-        self.assertEqual(len(rows), 83)
-        self.assertEqual(len({o["model_id"] for o in rows}), 83)
+        self.assertEqual(len(rows), 84)
+        self.assertEqual(len({o["model_id"] for o in rows}), 84)
         self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
         self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
@@ -711,7 +711,8 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["mistral-large-4"], 20.28)
         self.assertEqual(value["mistral-large-4-1t-a52b"], 11.72)
         self.assertEqual(value["glm-5-3-flash"], 4.7)
-        old = [o for o in every if o["status"] == "superseded"]
+        self.assertEqual(value["hy4-preview"], 2.18)
+        old =[o for o in every if o["status"] == "superseded"]
         self.assertEqual(
             sorted((o["model_id"], o["value"]) for o in old),
             [("glm-5-3-flash", 2.35), ("mistral-large-4", 20.28), ("mistral-large-4", 39.46)],
@@ -728,13 +729,14 @@ class RealDatabase(unittest.TestCase):
         pub = "publication-vals-ai-vibe-code-bench-1-1"
         rows = [o for o in self.db["observations"]
                 if o["publication_id"] == pub and o["benchmark_id"] == "vibe-code-bench--percent"]
-        self.assertEqual(len(rows), 8)
+        self.assertEqual(len(rows), 9)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         self.assertTrue(all(o["model_id"] in latest for o in rows))
         others = {(o["benchmark_id"], o["model_id"]) for o in self.db["observations"]
                   if o["status"] == "active" and o["publication_id"] != pub}
         self.assertFalse({(o["benchmark_id"], o["model_id"]) for o in rows} & others)
         value = {o["model_id"]: o["value"] for o in rows}
+        self.assertEqual(value["hy4-preview"], 77.48)
         self.assertEqual(value["gemini-4-carbon"], 89.06)
         self.assertEqual(value["grok-4-7"], 86.17)
         self.assertEqual(value["qwen3-8-max"], 64.7)
@@ -794,7 +796,10 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="mistral-large-4-1t-a52b", component="input")["value"], 0.7)
         self.assertEqual(one(model_id="mistral-large-4-1t-a52b", component="cached_input")["value"], 0.07)
         self.assertEqual(one(model_id="mistral-large-4-1t-a52b", component="output")["value"], 2.1)
-        gone = {"mistral-large-4", "mistral-large-3", "mistral-medium-3-5"}
+        self.assertEqual(one(model_id="hy4-preview", component="input")["value"], 0.834)
+        self.assertEqual(one(model_id="hy4-preview", component="output")["value"], 2.501)
+        self.assertEqual(one(model_id="hy4-preview", component="cached_input")["value"], 0.042)
+        gone ={"mistral-large-4", "mistral-large-3", "mistral-medium-3-5"}
         self.assertFalse([p["id"] for p in active if p["model_id"] in gone])
         self.assertTrue(all(p.get("note") for p in self.db["prices"] if p["model_id"] in gone and p["status"] == "withdrawn"))
         latest = {m["developer"]: m["id"] for m in self.db["models"] if m.get("latest") is True}
@@ -811,6 +816,7 @@ class RealDatabase(unittest.TestCase):
                 "Z.ai": "glm-5-3",
                 "MiniMax": "minimax-m3-1-flash",
                 "Mistral AI": "mistral-large-4-1t-a52b",
+                "Tencent": "hy4-preview",
             },
         )
 
@@ -839,7 +845,24 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one("publication-moonshot-kimi-k3", "gpqa-diamond--percent", "kimi-k3"), 93.5)
         self.assertEqual(one("publication-zai-glm-5-3-blog", "zai-code-bench--percent", "glm-5-3", reasoning_effort="Max"), 34.5)
         self.assertEqual(one("publication-zai-glm-5-3-blog", "zai-code-bench--percent", "claude-fable-5"), 39.5)
-        muse = {m["id"]: m for m in self.db["models"] if m["id"] in ("muse-spark", "muse-spark-1-1")}
+        card = "publication-openai-gpt-5-6-system-card"
+        self.assertEqual(one(card, "hard-negative-protein-binding-pass-4--percent", "gpt-5-5"), 1.5)
+        self.assertEqual(one(card, "gpt-red-direct-attack-success-rate--percent", "gpt-5-6-sol"), 0.051)
+        self.assertEqual(one(card, "image-input-hate-not-unsafe--fraction", "gpt-5-4"), 0.988)
+        self.assertEqual(one(card, "healthbench-professional-length-adjusted--percent", "gpt-5-6-sol"), 60.5)
+        self.assertEqual(one(card, "connector-prompt-injection-search-function-calling--fraction", "gpt-5-6-terra"), 0.946)
+        self.assertFalse([o for o in self.db["observations"] if o["publication_id"] == card
+                          and o["benchmark_id"] == "connector-prompt-injection-search-function-calling--fraction"
+                          and o["model_id"] == "gpt-5-5"])
+        addendum = "publication-openai-gpt-6-luna-october-29-addendum"
+        self.assertEqual(one(addendum, "u18-emotional-reliance--fraction", "gpt-6-luna"), 0.87)
+        self.assertEqual(one(addendum, "healthbench-hard-unadjusted--score", "gpt-6-luna"), 28.5)
+        self.assertEqual(one(addendum, "exploitbench--percent", "gpt-6-luna", reasoning_effort="max"), 46.19)
+        self.assertEqual(one(addendum, "aav-capsid-packaging--score", "gpt-6-luna"), 0.53)
+        self.assertEqual({o["model_id"] for o in self.db["observations"] if o["publication_id"] == addendum}, {"gpt-6-luna"})
+        self.assertEqual(one("publication-minimax-m3-1-flash-model-card", "swe-refactor-bench--score", "minimax-m3-1-flash",
+                             harness="Claude Code 2.1.220"), 23.0)
+        muse ={m["id"]: m for m in self.db["models"] if m["id"] in ("muse-spark", "muse-spark-1-1")}
         self.assertEqual(muse["muse-spark-1-1"]["release_date"], "2026-07-09")
         self.assertIsNone(muse["muse-spark"]["release_date"])
         # No publisher printed a score for either; an independent cost per task may exist.
@@ -879,6 +902,10 @@ class RealDatabase(unittest.TestCase):
         self.assertIsNone(models["deepseek-v4-vision-exp"]["release_date"])
         self.assertIsNone(pubs["publication-anthropic-claude-fable-5-1"]["published_at"])
         self.assertIsNone(pubs["publication-google-gemini-4-argon"]["published_at"])
+        self.assertEqual(pubs["publication-openai-gpt-5-6-system-card"]["published_at"], "2026-07-09")
+        self.assertEqual(pubs["publication-openai-gpt-6-luna-october-29-addendum"]["published_at"], "2026-10-29")
+        self.assertEqual(pubs["publication-tencent-hy4-preview-release-pricing"]["published_at"], "2026-08-28")
+        self.assertEqual(models["hy4-preview"]["release_date"], "2026-08-28")
 
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"

@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026110501, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026110601, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -116,26 +116,28 @@ What the catalog holds as of data version 2026110501, and what it does not: the 
 | Claude Opus 5.5 System Card | Anthropic | 210 | 11 | 51 |
 | GPT-6 Astra System Card | OpenAI | 383 | 10 | 68 |
 | Grok 4.7 | xAI | 39 | 5 | 9 |
-| MiniMax-M3.1-Flash model card | MiniMax | 82 | 7 | 14 |
+| MiniMax-M3.1-Flash model card | MiniMax | 88 | 7 | 15 |
 | MiniMax M3.1 Flash release post | MiniMax | 5 | 1 | 5 |
 | Gemini 4 Argon: Built to solve your hardest problems | Google | 2 | 1 | 2 |
 | Gemini 4 Argon without cyber guardrails | Google | 1 | 1 | 1 |
 | GPT-6.1 Terra | OpenAI | 3 | 1 | 2 |
 | GPT-6.1 Terra system card addendum | OpenAI | 61 | 1 | 61 |
-| Vibe Code Bench v1.1 leaderboard | Vals AI | 91 | 83 | 2 |
+| Vibe Code Bench v1.1 leaderboard | Vals AI | 93 | 84 | 2 |
 | Gemini 4 Carbon: our next frontier model | Google | 43 | 18 | 8 |
 | Epoch AI Benchmarking Hub | Epoch AI | 19 | 7 | 4 |
 | Mistral Large 4 (Le Chonk): Built for Coders, Trusted by Defenders | Mistral AI | 35 | 11 | 8 |
 | Mistral Large 4 model card (Hugging Face) | Mistral AI | 1 | 1 | 1 |
 | GPT-6 Cyber: Advancing the frontier of aligned cybersecurity agents | OpenAI | 19 | 4 | 5 |
+| GPT-5.6 System Card | OpenAI | 225 | 10 | 36 |
+| Addendum to GPT-6 Luna System Card: October 29, 2026 Update | OpenAI | 48 | 1 | 48 |
 
-122 publications, 12793 observations, 462 models, 808 benchmark definitions in 423 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+124 publications, 13074 observations, 463 models, 822 benchmark definitions in 428 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
 ## Official prices
 
-Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints, then the Microsoft Foundry Models list. On 2026-10-24 Kimi K3.1 Pro and K3.1 Pro Highspeed were added from both Kimi pages. On 2026-10-29 the Gemini 4 Carbon prices were added from Google's launch post, because the model is not yet on the Gemini API price page. On 2026-11-05 the Mistral page printed the open-weight Mistral Large 4 at $0.7 input, $0.07 cached input and $2.1 output with no sale, and no longer listed Mistral Large 3, Mistral Medium 3.5 or the OCR 4.1 annotated-pages meter: those rows and the preview's sale and list rows are withdrawn, each with a note, and the new list price added. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
+Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints, then the Microsoft Foundry Models list. On 2026-10-24 Kimi K3.1 Pro and K3.1 Pro Highspeed were added from both Kimi pages. On 2026-10-29 the Gemini 4 Carbon prices were added from Google's launch post, because the model is not yet on the Gemini API price page. On 2026-11-05 the Mistral page printed the open-weight Mistral Large 4 at $0.7 input, $0.07 cached input and $2.1 output with no sale, and no longer listed Mistral Large 3, Mistral Medium 3.5 or the OCR 4.1 annotated-pages meter: those rows and the preview's sale and list rows are withdrawn, each with a note, and the new list price added. On 2026-11-06 Tencent's release page for Hy4 preview was added as a price list: it prints $0.834 input, $2.501 output and $0.042 for cache hits, stored as cached input. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
 
 | Price list | Publisher | Rows |
 |---|---|---|
@@ -155,8 +157,9 @@ Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on
 | StepFun API pricing | StepFun | 15 |
 | Kimi API pricing (international platform) | Moonshot AI | 24 |
 | Microsoft Foundry Models pricing, Microsoft models | Microsoft | 7 |
+| Tencent Hy4 preview release: API pricing | Tencent | 3 |
 
-2,526 active price rows. 232 models are in the catalog only because a price page names them. 106 models have both an active price and at least one benchmark row. 122 models have benchmark rows and no active price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek, Z.ai, MiniMax and Mistral AI: Gemini 4 Carbon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3.1 Pro, DeepSeek-V4.1-Flash, GLM-5.3, MiniMax M3.1 Flash and the open-weight Mistral Large 4. The other developers in the file have no model marked latest.
+2,529 active price rows. 232 models are in the catalog only because a price page names them. 107 models have both an active price and at least one benchmark row. 122 models have benchmark rows and no active price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek, Z.ai, MiniMax, Mistral AI and Tencent: Gemini 4 Carbon, GPT-6 Astra, Claude Fable 5.1, Qwen3.8-Max, Grok 4.7, Kimi K3.1 Pro, DeepSeek-V4.1-Flash, GLM-5.3, MiniMax M3.1 Flash, the open-weight Mistral Large 4 and Hy4 preview. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: the Chinese Kimi page and the domestic Xiaomi table. Their US-dollar prices come from the international Kimi page and the overseas Xiaomi table, never from a conversion. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
@@ -164,7 +167,7 @@ Left in each price publication's coverage, not expanded into rows: audio, voice,
 
 ## Model facts
 
-Checked on 2026-10-29 on each developer's own pages: the API model page or models overview, the model card, the launch post, its Hugging Face or GitHub organisation. Schema 1.2.0. A fact the developer does not print stays out, so a count below the model count is a page that is silent, not a page we skipped. A modality an open model's card does not print is the `pipeline_tag` of the developer's own Hugging Face repo, and the fact says so. A max output a card only suggests ("we suggest setting the max output length to ...") is not a maximum and stays out. So does a licence the repo names only by a slug (`license_name: glm-5.3`), which no reader can look up; the weights still read open. DeepSeek's price page, read 2026-11-02, prints CONTEXT LENGTH 1M and MAX OUTPUT 384K in one cell for both API models, DeepSeek-V4.1-Flash-1017 and DeepSeek-V4-Pro-0813. The Kimi K3.1 Pro modalities, weights and licence and the open-weight Mistral Large 4 facts were read from their Hugging Face cards on 2026-11-05.
+Checked on 2026-10-29 on each developer's own pages: the API model page or models overview, the model card, the launch post, its Hugging Face or GitHub organisation. Schema 1.2.0. A fact the developer does not print stays out, so a count below the model count is a page that is silent, not a page we skipped. A modality an open model's card does not print is the `pipeline_tag` of the developer's own Hugging Face repo, and the fact says so. A max output a card only suggests ("we suggest setting the max output length to ...") is not a maximum and stays out. So does a licence the repo names only by a slug (`license_name: glm-5.3`), which no reader can look up; the weights still read open. DeepSeek's price page, read 2026-11-02, prints CONTEXT LENGTH 1M and MAX OUTPUT 384K in one cell for both API models, DeepSeek-V4.1-Flash-1017 and DeepSeek-V4-Pro-0813. The Kimi K3.1 Pro modalities, weights and licence and the open-weight Mistral Large 4 facts were read from their Hugging Face cards on 2026-11-05, the Hy4 preview facts from its card on 2026-11-06.
 
 | Developer | Models | Context | Max output | Input | Output | Weights | Licence |
 |---|---|---|---|---|---|---|---|
@@ -188,21 +191,22 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | AI21 Labs | 1 | 1 | 0 | 1 | 1 | 1 | 1 |
 | Cohere | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
 | Agentica | 1 | 0 | 0 | 1 | 1 | 1 | 1 |
+| Tencent | 1 | 1 | 0 | 1 | 1 | 1 | 1 |
 
-195 of 462 models carry at least one fact. Gemini 4 Carbon carries none yet: Google's launch post and model pages print no context, output or modalities for it.
+196 of 463 models carry at least one fact. Gemini 4 Carbon carries none yet: Google's launch post and model pages print no context, output or modalities for it.
 
 ## Categories
 
 | Category | Benchmarks | Observations |
 |---|---|---|
 | Knowledge work | 54 | 909 |
-| Agentic coding | 61 | 1880 |
+| Agentic coding | 62 | 1888 |
 | ML engineering | 14 | 115 |
-| Science and math | 68 | 1553 |
+| Science and math | 68 | 1554 |
 | Long context | 43 | 351 |
 | Computer use | 15 | 274 |
 | Multimodal understanding | 81 | 1585 |
-| Cybersecurity | 44 | 428 |
+| Cybersecurity | 44 | 444 |
 | General knowledge and reasoning | 46 | 1187 |
 | Code generation | 26 | 356 |
 | Tool use and workflows | 45 | 991 |
@@ -210,25 +214,25 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | Instruction following | 8 | 184 |
 | Multilingual | 14 | 241 |
 | Writing and conversation | 3 | 17 |
-| Healthcare | 23 | 352 |
-| Biosecurity | 23 | 161 |
-| Safety and alignment | 199 | 1674 |
+| Healthcare | 23 | 396 |
+| Biosecurity | 23 | 198 |
+| Safety and alignment | 212 | 1849 |
 | Engineering and design | 11 | 90 |
 | Preference and composite rankings | 12 | 88 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 320 checked against the maintainer's own page or paper, 102 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 99 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 324 checked against the maintainer's own page or paper, 103 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 1 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 99 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 213 of 462 models and `published_at` for 99 of 122 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. The release pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
-- `reasoning_effort` is stated for 3340 active observations, `tools` for 1503, `harness` for 1153. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 214 of 463 models and `published_at` for 101 of 124 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. The release pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
+- `reasoning_effort` is stated for 3341 active observations, `tools` for 1503, `harness` for 1156. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - Locally run models are a separate review. A model is listed here when a publisher prints it on an official page. An open-weight name appears only in that case. Weights run on your own machine are not collected.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
-- Independent sources carry a cost per task, and a score only for a test a publisher's own page also prints, so an evaluator never adds a test of its own (`kind` `independent_leaderboard`). Vals AI's Vibe Code Bench v1.1 leaderboard gives the cost per task (Cost / Test, OpenHands harness, 83 models, page updated 2026-11-04, read 2026-11-05), shown as the last row of the Price area, and its own score for the 8 Vibe Code Bench cells where a developer's latest model had no number from any page; Google's Gemini 4 Argon card prints this test with Vals AI as the setup. Epoch AI's Benchmarking Hub gives its own runs for the 19 cells of GPQA Diamond, FrontierMath Tiers 1-3 (v2), FrontierMath Tier 4 (v2) and SimpleQA Verified where a developer's latest model had no number from any page (read 2026-10-30, the two Mistral Large 4 cells from the CSV download on 2026-11-05, data CC BY 4.0). OpenAI commissioned FrontierMath and has access to most of its problems; the family's notes cite Epoch AI's post.
+- Independent sources carry a cost per task, and a score only for a test a publisher's own page also prints, so an evaluator never adds a test of its own (`kind` `independent_leaderboard`). Vals AI's Vibe Code Bench v1.1 leaderboard gives the cost per task (Cost / Test, OpenHands harness, 84 models, page updated 2026-11-05, read 2026-11-06), shown as the last row of the Price area, and its own score for the 9 Vibe Code Bench cells where a developer's latest model had no number from any page; Google's Gemini 4 Argon card prints this test with Vals AI as the setup. Epoch AI's Benchmarking Hub gives its own runs for the 19 cells of GPQA Diamond, FrontierMath Tiers 1-3 (v2), FrontierMath Tier 4 (v2) and SimpleQA Verified where a developer's latest model had no number from any page (read 2026-10-30, the two Mistral Large 4 cells from the CSV download on 2026-11-05, data CC BY 4.0). OpenAI commissioned FrontierMath and has access to most of its problems; the family's notes cite Epoch AI's post.
 
 ## Not in this repository
 
