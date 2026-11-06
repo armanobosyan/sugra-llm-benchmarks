@@ -13,6 +13,7 @@
 | `comparison_policy` | Free text the article shows. Score selection, missing values, percent rule, no overall ranking. |
 | `taxonomy_note` | Why the categories are editorial. |
 | `categories`, `families`, `benchmarks`, `models`, `publications`, `observations`, `prices`, `change_log` | The records below. `prices` is required from schema 1.1.0 and may be an empty list. A 1.0.0 database may omit it. |
+| `router_prices` | Optional, schema 1.3.0 and later. The records under `### router_prices` below. |
 
 There is no draft file beside the score file. `validate` and `build` read `data/database.json` only. A `research_catalog` key pasted into the score file is ordinary text: `validate` checks it, and `build` leaves it out of the payload.
 
@@ -64,7 +65,7 @@ One record per exact test, version and metric. A publisher's own label for a tes
 
 `id` (kebab-case, unique), `name`, `developer`, `identity_scope`, `release_date` (date or null). `latest` (true or false, optional, default false): the newest model of its developer, the set the table's Latest chip selects; at most one per developer.
 
-`facts` (optional, schema 1.2.0 and later): what the developer prints about the model itself, read on the developer's own page (its API docs, model page, model card, launch post, or its own Hugging Face or GitHub organisation; never an aggregator, never a sibling model's page). Each key is null when the developer prints nothing, or an object `{value, as_printed, source_url, source_locator, checked_on, notes}`: `as_printed` is the developer's own words or number, `source_url` is https, `checked_on` is a date no later than `as_of`, and `source_locator` and `notes` are optional. No other keys.
+`facts` (optional, schema 1.2.0 and later): what the developer prints about the model itself, read on the developer's own page (its API docs, model page, model card, launch post, or its own Hugging Face or GitHub organisation; never an aggregator, never a sibling model's page except as step 3 of the size order below allows). Each key is null when the developer prints nothing, or an object `{value, as_printed, source_url, source_locator, checked_on, notes}`: `as_printed` is the developer's own words or number, `source_url` is https, `checked_on` is a date no later than `as_of`, and `source_locator` and `notes` are optional. No other keys.
 
 | Fact | `value` |
 |---|---|
@@ -73,6 +74,26 @@ One record per exact test, version and metric. A publisher's own label for a tes
 | `input_modalities`, `output_modalities` | A list of distinct entries from `text`, `image`, `audio`, `video`, `pdf`. For open weights whose card prints none, the `pipeline_tag` of the developer's own Hugging Face repo: `text-generation` is text in and text out, `image-text-to-text` is text and image in and text out. |
 | `weights` | `open` when the developer publishes the weights for download, `closed` otherwise. |
 | `license` | The licence name as printed. Only with `weights` `open`: a model whose weights are not published has no licence to print. A Hugging Face id that stands for a named licence reads as its name (`apache-2.0` is Apache 2.0); a repo's own slug (`license_name: glm-5.3`) names no licence a reader can look up and is left out. |
+| `total_parameters` | Schema 1.3.0 and later. A positive number of billions of parameters in the whole model: "235B" is 235, "1T" is 1000, "30.5B" is 30.5. |
+| `active_parameters` | Schema 1.3.0 and later. A positive number of billions of parameters a mixture-of-experts model uses for each token ("22B activated" is 22). Needs `total_parameters` beside it and is no larger. A dense model has none. |
+| `effective_parameters` | Schema 1.3.0 and later. A positive number of billions of effective parameters where the developer prints them (Gemma's "E4B" is 4). Needs `total_parameters` beside it and is no larger. |
+| `runs_in_gpu_memory_gb` | Schema 1.3.0 and later. A positive number of gigabytes of GPU memory the developer says the model runs in ("a single 80GB GPU" is 80). A statement that names a device instead of a size reads as that device's memory, and `notes` says so ("a single RTX 4090" is 24, an RTX 4090 having 24 GB). Only with `weights` `open`. |
+| `runs_in_memory_gb` | Schema 1.3.0 and later. The same for system or unified memory ("a Mac with 32GB RAM" is 32). Only with `weights` `open`. |
+| `runs_on_phone` | Schema 1.3.0 and later. `true` where the developer says this model is made to run on phones without printing a memory size ("deployment scenarios from mobile and edge devices (E2B, E4B)"). A sentence about a family counts only where it names this model. Never `false`: a model its developer does not place on a phone has no such fact. Only with `weights` `open`. |
+
+A size is read in this order, and the first source that prints one wins:
+
+1. the model's own card or page text;
+2. the size the developer writes into the model's name on its own repository (`Qwen3-235B-A22B` is 235 total and 22 active), with `source_locator` saying the name is the source;
+3. when the model's own card says the model is a release, update or version of another named model, or is built on that model's structure, the size that model's own card prints, with `source_url` that card and `notes` quoting the sentence of the model's own card that says so;
+4. when none of them prints a number, the parameter count the Hugging Face Hub reports for the developer's own weight files (`safetensors.total` in the Hub API), in billions to one decimal, with `as_printed` the Hub's exact count and `notes` saying it is the Hub's count of the files and not the developer's words. The Hub counts every tensor in the files, extra prediction layers included, so its count can be larger than a printed one (DeepSeek-V3: 684.5 on the Hub, 671 printed); a printed figure always wins. A count over weights packed several to a stored element (a `U8`, `I8` or `I32` entry in the Hub's `safetensors.parameters`) is not a parameter count and is not used. The Hub count comes before a launch post because it counts the very files a reader downloads, which is what the memory a model needs depends on;
+5. when the Hub has no usable count either, the developer's launch post or documentation.
+
+A model none of them sizes keeps no size facts, and the page says the size is not printed.
+
+A size the page prints in parts (a backbone and a memory table, an n-gram embedding, a prediction layer, a vision encoder) is the sum of the parts, and `notes` names each part as printed.
+
+Outside step 3, a sibling model's page never gives a size, and neither does an aggregator or a quantized copy published by someone else.
 
 A result printed under one model's heading while a footnote names another configuration belongs to the model the heading names; the footnote is kept on the observation in `conditions.model_setup_as_reported`, never in a second model identity. The three Mythos results printed under Fable headings on the GPT-6 Astra page are the standing example.
 
@@ -80,7 +101,7 @@ A result printed under one model's heading while a footnote names another config
 
 `id` (unique), `name`, `publisher`, `url` (https), `source_id`, `published_at` (date or null), `checked_on` (date), `kind`, `comparison_scope`, `methodology_url`, `coverage` (what of the page was transcribed).
 
-`kind` is `official_release_comparison`, `model_card` or `official_blog` with `comparison_scope` `publisher_comparison`, `independent_leaderboard` with `comparison_scope` `independent_measurement`, or `official_price_list` with `comparison_scope` `price_list`. An independent leaderboard is an evaluator that runs every listed model itself under one setup; it carries a cost per task (`usd`, denominator `task`), and a score only for a benchmark that an active observation from a publisher's own page (`publisher_comparison`) also carries, so an evaluator never adds a test of its own. Its observations use `evidence_type` `independent_publication_checked` and `comparison_scope` `independent_measurement`. A price list is not a benchmark publication: observations cannot reference it, and a price cannot reference any other kind. The publisher string must equal `models.developer` for every price on that list. A number printed by a different lab is not that model's price.
+`kind` is `official_release_comparison`, `model_card` or `official_blog` with `comparison_scope` `publisher_comparison`, `independent_leaderboard` with `comparison_scope` `independent_measurement`, `official_price_list` with `comparison_scope` `price_list`, or, from schema 1.3.0, `router_price_list` with `comparison_scope` `router_price`: a model router's list of what it charges to run open-weight models, which only `router_prices` may reference. An independent leaderboard is an evaluator that runs every listed model itself under one setup; it carries a cost per task (`usd`, denominator `task`), and a score only for a benchmark that an active observation from a publisher's own page (`publisher_comparison`) also carries, so an evaluator never adds a test of its own. Its observations use `evidence_type` `independent_publication_checked` and `comparison_scope` `independent_measurement`. A price list is not a benchmark publication: observations cannot reference it, and a price cannot reference any other kind. The publisher string must equal `models.developer` for every price on that list. A number printed by a different lab is not that model's price.
 
 ### observations
 
@@ -131,17 +152,31 @@ One record per number on an official price page. A price is not an observation: 
 
 Two active rows may not share one (model, publication, component, schedule, band, region, modality, offer, meter, valid_from, valid_until). A corrected price is a new row. The payload drops null fields, so a missing `valid_until` there means the page gave no end date.
 
+### router_prices
+
+Optional, schema 1.3.0 and later. One record per number on a router's list, for an open-weight model whose developer prints no price of its own. It is the router's price, not the developer's, and the article marks it as the router's. The fields are those of `prices`, with these rules:
+
+| Field | Rule |
+|---|---|
+| `id` | kebab-case, unique across both price lists, starts with `router-price-`. |
+| `model_id` | Must exist, carry the `weights` fact `open`, and have no active row in `prices`: the developer's own price always comes first. |
+| `publication_id` | A `router_price_list`. |
+| `component` | `input`, `output` or `cached_input`, as the router lists them. |
+| `value` | A positive number. A free listing (a zero price, usually rate-limited) is not a price and is left out. |
+| `unit`, `modality`, `schedule`, `offer`, `context_band`, `region` | `usd_per_million_tokens`, `text`, `standard`, `list`, `any` and null. A router that lists a price per token has it multiplied by one million, exactly. |
+| `source_url`, `source_locator` | The router's page for the model, and the router's model id with the price field read. |
+
 ### change_log
 
 Append-only list of `{at, reviewer, reason, added_observations}`. The article shows it as the update history.
 
 ## Two payload files
 
-`build` writes `public/benchmarks.v1.json`, every active record in plain JSON, and `public/benchmarks.v1.compact.json`, the same records in a smaller shape. The compact file keeps each distinct string once in `strings` and writes every observation and price as an array of cells in the order `observation_columns`, `condition_columns` and `price_columns` give: a text cell is its 1-based index into `strings`, a number cell is a one-element list such as `[93.4]`, `0` is an absent field, and a row drops its trailing absent cells. Every other top-level field is copied as it is, and `encoding` is `"columns"`. Decoding the compact file gives the full file field for field; `tools/benchdb/compact.py` holds both directions and the tests check the round trip on the committed data. `build --check` refuses a stale copy of either file.
+`build` writes `public/benchmarks.v1.json`, every active record in plain JSON, and `public/benchmarks.v1.compact.json`, the same records in a smaller shape. The compact file keeps each distinct string once in `strings` and writes every observation and price as an array of cells in the order `observation_columns`, `condition_columns` and `price_columns` give: a text cell is its 1-based index into `strings`, a number cell is a one-element list such as `[93.4]`, `0` is an absent field, and a row drops its trailing absent cells. Every other top-level field, `router_prices` included, is copied as it is, and `encoding` is `"columns"`. Decoding the compact file gives the full file field for field; `tools/benchdb/compact.py` holds both directions and the tests check the round trip on the committed data. `build --check` refuses a stale copy of either file.
 
 ## No loss
 
-`build` compares the database with the committed payload. Every observation id the payload carries must still exist in the database, in any status. The same rule applies to price ids once a payload has carried them. A row may be superseded or withdrawn; it may not disappear.
+`build` compares the database with the committed payload. Every observation id the payload carries must still exist in the database, in any status. The same rule applies to price and router price ids once a payload has carried them. A row may be superseded or withdrawn; it may not disappear.
 
 ## Units in the article
 
@@ -151,6 +186,8 @@ Append-only list of `{at, reviewer, reason, added_observations}`. The article sh
 - `usd` is shown with the denominator (`5.47 per task`).
 - A missing result is a dash.
 - A token price is not a benchmark cell. It is a `prices` record. The payload carries active prices under `prices`, and `counts.prices` is how many.
+- A router price is shown with the router's name beside it, never as the developer's price. The payload carries active ones under `router_prices`, and `counts.router_prices` is how many.
+- A size is shown in billions of parameters with a "B" (`30.5B`, `1000B` as `1T`), active parameters after it (`235B, 22B active`).
 
 ## Draft keys
 

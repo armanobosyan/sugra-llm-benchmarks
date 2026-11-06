@@ -27,7 +27,20 @@ Facts are what the developer prints about the model itself: context window, max 
 
 1. Open the developer's own page for that model: the API model page or the models overview, the model card, its Hugging Face organisation. A figure on another lab's page, an aggregator or a sibling model's page is not this model's fact.
 2. Fill each fact the page prints, with `as_printed`, `source_url`, `source_locator` and `checked_on`. A fact the page does not print stays null; do not carry one over from the previous model of the family.
-3. Append a `change_log` entry with `added_observations` 0, and bump `data_version` and `as_of`.
+3. For open weights, add the size (`total_parameters`, `active_parameters` for a mixture of experts, `effective_parameters` where the developer prints them) in the source order DATA-CONTRACT.md gives: the card text, then the size in the repository name, then the card of the model the own card says this one updates, then the Hub count, and only then the launch post. For the Hub count read `https://huggingface.co/api/models/<org>/<repo>` (public, no key), take `safetensors.total`, check `safetensors.parameters` holds no `U8`, `I8` or `I32` entry, and say in `notes` that it is the Hub's count of the developer's files. A size printed in parts is their sum, and `notes` names each part.
+4. Add `runs_in_gpu_memory_gb` or `runs_in_memory_gb` only when the developer states the memory a model runs in. A device named instead of a size is read as that device's memory, and `notes` says which device.
+5. Append a `change_log` entry with `added_observations` 0, and bump `data_version` and `as_of`.
+
+## 1d. Add a router price
+
+For an open-weight model whose developer prints no price, the article can show what a model router charges to run it, marked as the router's.
+
+1. Check the model carries the `weights` fact `open` and has no active row in `prices`. A developer's own price always comes first, and a router price for a model the developer prices is refused.
+2. Add one `router_price_list` publication for the router's list (`comparison_scope` `router_price`) if it is not there yet. For OpenRouter the list is `https://openrouter.ai/api/v1/models` (public, no key).
+3. Match the model on the router's list by the developer's Hugging Face repository the router names. When the router names the developer's instruction-tuned or other-precision checkpoint of the same model, or no public repository at all, match by name and say in the row's `note` which listing was taken and why. Only the plain listing counts: one with a `:` suffix (`:free`, `:batch`) is another offer and is left out, and so is any listing priced at zero.
+4. Add one `router_prices` row for each of input, output and cached input that the list prints: the per-token price multiplied by one million, exactly, `unit` `usd_per_million_tokens`, `source_url` the router's page for the model, `source_locator` the router's model id and the field read (`pricing.prompt`, `pricing.completion`, `pricing.input_cache_read`).
+5. When the developer later publishes a price, mark the router rows `withdrawn` in the same change that adds the developer's `prices` rows.
+6. Append a `change_log` entry with `added_observations` 0, and bump `data_version` and `as_of`.
 
 ## 2. Add an observation
 

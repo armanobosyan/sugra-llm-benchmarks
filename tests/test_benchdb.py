@@ -511,6 +511,147 @@ class ModelFacts(unittest.TestCase):
         model = next(m for m in payload["models"] if m["id"] == "model-x")
         self.assertEqual(model["facts"], {"weights": fact("closed")})
 
+    def sized(self, **facts) -> list[str]:
+        db = self.with_facts(weights=fact("open"), **facts)
+        db["schema_version"] = "1.3.0"
+        return validate.validate(db)
+
+    def test_size_and_memory_facts_are_valid(self):
+        self.assertEqual(
+            self.sized(
+                total_parameters=fact(30.5, as_printed="30.5B in total"),
+                active_parameters=fact(3.3, as_printed="3.3B activated"),
+                runs_in_gpu_memory_gb=fact(24, as_printed="a single RTX 4090", notes="an RTX 4090 has 24 GB"),
+                runs_in_memory_gb=fact(32, as_printed="a Mac with 32GB RAM"),
+            ),
+            [],
+        )
+        self.assertEqual(self.sized(total_parameters=fact(8), effective_parameters=fact(4.5)), [])
+
+    def test_size_facts_need_schema_1_3(self):
+        db = self.with_facts(weights=fact("open"), total_parameters=fact(8))
+        self.assertTrue(any("size and memory facts need schema 1.3.0" in p for p in validate.validate(db)))
+
+    def test_sizes_and_memory_are_positive_numbers(self):
+        for bad in (0, -1, "30B", True):
+            self.assertTrue(any("positive number of billions" in p for p in self.sized(total_parameters=fact(bad))), bad)
+            self.assertTrue(any("positive number of gigabytes" in p for p in self.sized(runs_in_memory_gb=fact(bad))), bad)
+
+    def test_active_and_effective_are_part_of_the_total(self):
+        self.assertTrue(any("more than total_parameters" in p for p in self.sized(total_parameters=fact(8), active_parameters=fact(9))))
+        self.assertTrue(any("more than total_parameters" in p for p in self.sized(total_parameters=fact(8), effective_parameters=fact(9))))
+        self.assertTrue(any("needs total_parameters beside it" in p for p in self.sized(active_parameters=fact(3))))
+
+    def test_only_open_weights_run_in_memory(self):
+        for name, value in (("runs_in_gpu_memory_gb", 80), ("runs_on_phone", True)):
+            db = self.with_facts(weights=fact("closed"), **{name: fact(value)})
+            db["schema_version"] = "1.3.0"
+            self.assertTrue(any("only open weights run in the reader's memory" in p for p in validate.validate(db)), name)
+
+    def test_a_phone_statement_is_only_ever_true(self):
+        self.assertEqual(self.sized(total_parameters=fact(5.1), runs_on_phone=fact(True, as_printed="mobile and edge devices (E2B, E4B)")), [])
+        for bad in (False, 1, "yes"):
+            self.assertTrue(any("value must be true" in p for p in self.sized(runs_on_phone=fact(bad))), bad)
+
+
+def router_list() -> dict:
+    return {
+        "id": "publication-router-models",
+        "name": "Router model list",
+        "publisher": "Router",
+        "url": "https://example.net/api/models",
+        "source_id": "publication-router-models",
+        "published_at": None,
+        "checked_on": "2026-10-14",
+        "kind": "router_price_list",
+        "comparison_scope": "router_price",
+        "methodology_url": None,
+        "coverage": "Text prices of open-weight models only.",
+    }
+
+
+def router_price(component: str = "input", value: float = 0.22, **over) -> dict:
+    row = {
+        "id": f"router-price-model-x-{component}",
+        "model_id": "model-x",
+        "publication_id": "publication-router-models",
+        "component": component,
+        "value": value,
+        "unit": "usd_per_million_tokens",
+        "schedule": "standard",
+        "context_band": "any",
+        "context_threshold_tokens": None,
+        "modality": "text",
+        "region": None,
+        "meter": None,
+        "offer": "list",
+        "valid_from": None,
+        "valid_until": None,
+        "checked_on": "2026-10-14",
+        "source_url": "https://example.net/vendor/model-x",
+        "source_locator": "models API, id vendor/model-x, pricing.prompt",
+        "status": "active",
+        "note": None,
+    }
+    row.update(over)
+    return row
+
+
+class RouterPrices(unittest.TestCase):
+    def db(self, weights: str = "open", **over) -> dict:
+        db = fixture()
+        db["schema_version"] = "1.3.0"
+        db["prices"] = []
+        db["models"][0]["facts"] = {"weights": fact(weights)}
+        db["publications"].append(router_list())
+        db["router_prices"] = [router_price(**over)]
+        return db
+
+    def test_an_open_model_without_a_developer_price_takes_a_router_price(self):
+        self.assertEqual(validate.validate(self.db()), [])
+
+    def test_router_prices_need_schema_1_3(self):
+        db = self.db()
+        db["schema_version"] = "1.2.0"
+        self.assertTrue(any("router_prices need schema 1.3.0" in p for p in validate.validate(db)))
+
+    def test_only_open_weights_take_a_router_price(self):
+        self.assertTrue(any("weights fact is open" in p for p in validate.validate(self.db(weights="closed"))))
+
+    def test_the_developer_price_comes_first(self):
+        db = self.db()
+        db["publications"].append(dict(router_list(), id="publication-prices", publisher="Vendor A", kind="official_price_list", comparison_scope="price_list"))
+        db["prices"] = [router_price(id="price-model-x-input", publication_id="publication-prices", value=0.3)]
+        self.assertTrue(any("the developer prints a price for model-x" in p for p in validate.validate(db)))
+
+    def test_a_router_price_is_a_plain_text_list_price(self):
+        for key, bad in (("unit", "cny_per_million_tokens"), ("schedule", "batch"), ("offer", "promotional"), ("modality", "image"), ("region", "eu")):
+            found = validate.validate(self.db(**{key: bad}))
+            self.assertTrue(any(f"a router price has {key}" in p for p in found), key)
+        self.assertTrue(any("free router listing" in p for p in validate.validate(self.db(value=0))))
+        self.assertTrue(any("input, output or cached_input" in p for p in validate.validate(self.db(component="cache_write"))))
+
+    def test_router_and_developer_lists_do_not_mix(self):
+        db = self.db(id="router-price-x", publication_id="publication-a")
+        self.assertTrue(any("is not a router_price_list" in p for p in validate.validate(db)))
+        db = self.db(id="price-model-x-input")
+        self.assertTrue(any("start with router-price-" in p for p in validate.validate(db)))
+        db = self.db()
+        db["observations"][0]["publication_id"] = "publication-router-models"
+        self.assertTrue(any("cannot hang on a price list" in p for p in validate.validate(db)))
+
+    def test_payload_keeps_router_prices_apart_and_round_trips(self):
+        payload = build.build_payload(self.db(), "0" * 64)
+        self.assertNotIn("prices", payload)
+        self.assertEqual([r["id"] for r in payload["router_prices"]], ["router-price-model-x-input"])
+        self.assertEqual(payload["counts"]["router_prices"], 1)
+        self.assertEqual(compact.decode(compact.encode(payload)), payload)
+
+    def test_a_published_router_price_may_not_vanish(self):
+        previous = {"observations": [], "router_prices": [{"id": "router-price-gone"}]}
+        found = build.no_loss_problems(previous, self.db())
+        self.assertEqual(found, ["build: price router-price-gone was in the published payload and is gone from data"])
+
 
 class BuildFixture(unittest.TestCase):
     def test_payload_drops_catalog_and_nulls(self):
@@ -930,6 +1071,47 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(models["nemotron-3-5-bolt-e4b"]["release_date"], "2026-10-23")
         self.assertEqual(models["nemotron-3-nano-4b"]["release_date"], "2026-03-16")
         self.assertIsNone(models["qwen3-5-4b"]["release_date"])
+
+    def test_every_open_weight_model_has_its_size(self):
+        models = {m["id"]: m for m in self.db["models"]}
+        open_ids = [mid for mid, m in models.items() if ((m.get("facts") or {}).get("weights") or {}).get("value") == "open"]
+        self.assertGreaterEqual(len(open_ids), 115)
+        for mid in open_ids:
+            self.assertIn("total_parameters", models[mid]["facts"], mid)
+
+        def size(mid, name="total_parameters"):
+            return models[mid]["facts"][name]["value"]
+
+        self.assertEqual((size("gpt-oss-120b"), size("gpt-oss-120b", "active_parameters")), (117, 5.1))
+        self.assertEqual((size("deepseek-v4-pro"), size("deepseek-v4-pro", "active_parameters")), (1600, 49))
+        self.assertEqual((size("gemma-4-e4b"), size("gemma-4-e4b", "effective_parameters")), (8, 4.5))
+        self.assertEqual(size("deepseek-v4-1-flash"), 748)
+        self.assertNotIn("active_parameters", models["deepseek-v4-1-flash"]["facts"])
+        self.assertEqual(size("qwen3-8-flash-next"), 180)
+        self.assertEqual(size("deepseek-v4-pro-0813"), 1600)
+        self.assertEqual(models["deepseek-v4-pro-0813"]["facts"]["total_parameters"]["source_url"],
+                         "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/main/README.md")
+        self.assertEqual(size("glm-5-1"), 753.9)
+        self.assertEqual(models["glm-5-1"]["facts"]["total_parameters"]["source_locator"], "safetensors.total")
+        self.assertEqual(size("gpt-oss-20b", "runs_in_gpu_memory_gb"), 16)
+        self.assertEqual(size("devstral-small-2", "runs_in_memory_gb"), 32)
+        # Google places Gemma 4 E2B and E4B on phones by name; the bigger Gemma 4 models are not.
+        for mid in ("gemma-4-e2b", "gemma-4-e4b"):
+            self.assertIs(size(mid, "runs_on_phone"), True, mid)
+            self.assertIn("(E2B, E4B)", models[mid]["facts"]["runs_on_phone"]["as_printed"], mid)
+        for mid in ("gemma-4-31b", "gemma-4-26b-a4b"):
+            self.assertNotIn("runs_on_phone", models[mid]["facts"], mid)
+
+    def test_openrouter_prices_only_where_the_developer_prints_none(self):
+        rows = {r["id"]: r for r in self.db["router_prices"] if r["status"] == "active"}
+        self.assertGreaterEqual(len(rows), 117)
+        self.assertEqual(rows["router-price-gpt-oss-120b-input"]["value"], 0.016)
+        self.assertEqual(rows["router-price-gpt-oss-120b-output"]["value"], 0.06)
+        self.assertEqual(rows["router-price-gemma-4-31b-output"]["source_url"], "https://openrouter.ai/google/gemma-4-31b-it")
+        self.assertIn("instruction-tuned", rows["router-price-gemma-4-31b-output"]["note"])
+        priced = {p["model_id"] for p in self.db["prices"] if p["status"] == "active"}
+        self.assertFalse({r["model_id"] for r in rows.values()} & priced)
+        self.assertFalse([r for r in rows.values() if ":" in r["source_url"].split("openrouter.ai/", 1)[1]])
 
     def test_payload_matches_committed_file(self):
         out = ROOT / "public" / "benchmarks.v1.json"
