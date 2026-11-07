@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3.0",
-  "data_version": "2026110701",
+  "data_version": "2026110702",
   "as_of": "2026-11-07",
   "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
   "default_publication_id": "publication-google-gemini-4-argon",
@@ -36865,7 +36865,7 @@
       "developer": "Tencent",
       "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
       "release_date": "2026-08-28",
-      "latest": true,
+      "latest": false,
       "facts": {
         "context_window_tokens": {
           "value": 1000000,
@@ -37103,6 +37103,85 @@
           "source_url": "https://huggingface.co/Qwen/Qwen3.5-4B/raw/main/README.md",
           "source_locator": "Model Overview",
           "checked_on": "2026-11-06"
+        }
+      }
+    },
+    {
+      "id": "hy4",
+      "name": "Hy4",
+      "developer": "Tencent",
+      "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
+      "release_date": "2026-11-04",
+      "latest": true,
+      "facts": {
+        "input_modalities": {
+          "value": [
+            "text",
+            "image"
+          ],
+          "as_printed": "The new model also introduces visual understanding capabilities for the first time",
+          "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+          "source_locator": "Release page, opening section",
+          "checked_on": "2026-11-07",
+          "notes": "Read as text and image input: the same page lists fine-grained image processing, complex chart analysis and mathematical visual reasoning among the tasks Hy4 now supports."
+        },
+        "weights": {
+          "value": "closed",
+          "as_printed": "Tencent Hy plans to release model weights and system cards in the coming days",
+          "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+          "source_locator": "Release page",
+          "checked_on": "2026-11-07",
+          "notes": "Not published for download on the release date, so closed until they are (the weights of Hy4 preview are open). The page prints no context length and no parameter count."
+        }
+      }
+    },
+    {
+      "id": "inkling-2-small",
+      "name": "Inkling 2 Small",
+      "developer": "Thinking Machines",
+      "identity_scope": "named model; row-specific effort, harness and fallback are stored on observations",
+      "release_date": "2026-11-05",
+      "latest": false,
+      "facts": {
+        "context_window_tokens": {
+          "value": 256000,
+          "as_printed": "Context 256K",
+          "source_url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+          "source_locator": "Serverless Inference (Beta) table, Inkling 2 Small row, Context column",
+          "checked_on": "2026-11-07",
+          "notes": "The Tinker ID of that row is thinkingmachines/Inkling-2-Small:peft:262144:sampling-nvfp4. The Training table prints 64K for the default Tinker ID and 256K for the :peft:262144 one."
+        },
+        "input_modalities": {
+          "value": [
+            "text",
+            "image"
+          ],
+          "as_printed": "Like previous Inkling models, Inkling 2 Small natively supports image input; however, this model does not support audio.",
+          "source_url": "https://thinkingmachines.ai/news/inkling-2-small/",
+          "source_locator": "Launch post, vision section",
+          "checked_on": "2026-11-07"
+        },
+        "weights": {
+          "value": "closed",
+          "as_printed": "Inkling 2 Small will initially be available through Tinker, with closed weights",
+          "source_url": "https://thinkingmachines.ai/news/inkling-2-small/",
+          "source_locator": "Launch post",
+          "checked_on": "2026-11-07",
+          "notes": "The same page: \"We intend to make the full weights available under an Apache 2.0 license next week\", after external safety testing and red-teaming."
+        },
+        "total_parameters": {
+          "value": 594,
+          "as_printed": "It is a Mixture-of-Experts model with 594B total parameters, 17B active, and supports image inputs and variable effort.",
+          "source_url": "https://thinkingmachines.ai/news/inkling-2-small/",
+          "source_locator": "Launch post, opening section",
+          "checked_on": "2026-11-07"
+        },
+        "active_parameters": {
+          "value": 17,
+          "as_printed": "It is a Mixture-of-Experts model with 594B total parameters, 17B active, and supports image inputs and variable effort.",
+          "source_url": "https://thinkingmachines.ai/news/inkling-2-small/",
+          "source_locator": "Launch post, opening section",
+          "checked_on": "2026-11-07"
         }
       }
     }
@@ -38844,11 +38923,11 @@
       "url": "https://www.vals.ai/benchmarks/vibe-code",
       "source_id": "publication-vals-ai-vibe-code-bench-1-1",
       "published_at": "2026-11-05",
-      "checked_on": "2026-11-06",
+      "checked_on": "2026-11-07",
       "kind": "independent_leaderboard",
       "comparison_scope": "independent_measurement",
       "methodology_url": "https://www.vals.ai/benchmarks/vibe-code",
-      "coverage": "The Cost / Test column of the rows run with the OpenHands harness, for cataloged models, and the Score of those rows only where a developer's latest model has no Vibe Code Bench number from any page. Other scores and the rows of other harnesses are not transcribed."
+      "coverage": "The Cost / Test column of the rows run with the OpenHands harness, for cataloged models, and the Score of those rows only where a developer's latest model has no Vibe Code Bench number from any page. A score stored while its model was the latest stays when a newer model takes that place: Hy4 preview's, read on 2026-11-06, before Hy4 replaced it on 2026-11-07. Other scores and the rows of other harnesses are not transcribed."
     },
     {
       "id": "publication-epoch-ai-benchmarking-hub",
@@ -38966,6 +39045,32 @@
       "comparison_scope": "router_price",
       "methodology_url": null,
       "coverage": "The per-token prompt, completion and cache-read prices the OpenRouter models API (https://openrouter.ai/api/v1/models) lists for open-weight models whose developer prints no price of its own, matched by the developer's Hugging Face repository. Free listings are left out. The listed price is OpenRouter's, not the developer's."
+    },
+    {
+      "id": "publication-tencent-hy4-release-pricing",
+      "name": "Tencent Launches Hy4: API pricing",
+      "publisher": "Tencent",
+      "url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+      "source_id": "publication-tencent-hy4-release-pricing",
+      "published_at": "2026-11-04",
+      "checked_on": "2026-11-07",
+      "kind": "official_price_list",
+      "comparison_scope": "price_list",
+      "methodology_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+      "coverage": "The one API pricing sentence of the release page: input, output and cached input prices for Hy4, printed as approximate US dollar figures. Left out as a rule, not a row: 50% off the standard price on Tencent Cloud TokenHub through December 31, 2026, and free use in WorkBuddy and CodeBuddy from November 4 to 15. Not transcribed: the page's own and partner evaluations (WorkBuddy, a financial blind evaluation, iRaB, hallucination rates, GameDev and GameLogic), which print scores without a public test definition."
+    },
+    {
+      "id": "publication-thinkingmachines-tinker-pricing",
+      "name": "Tinker models and pricing",
+      "publisher": "Thinking Machines",
+      "url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "source_id": "publication-thinkingmachines-tinker-pricing",
+      "published_at": null,
+      "checked_on": "2026-11-07",
+      "kind": "official_price_list",
+      "comparison_scope": "price_list",
+      "methodology_url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "coverage": "The Inkling 2 Small row of the Serverless Inference (Beta) table: prefill (input), cached prefill and sample (output) prices, per million tokens as the page states. Left out: the Training table (prefill, sample and train prices for fine-tuning on Tinker) and every other model on the page."
     }
   ],
   "observations": [
@@ -463320,6 +463425,102 @@
       "status": "active",
       "comparison_scope": "publisher_comparison",
       "supersedes": null
+    },
+    {
+      "id": "obs-4a74efdf9a3edbfacb50",
+      "benchmark_id": "vibe-code-bench-1-1-cost-per-test--usd",
+      "model_id": "hy4",
+      "publication_id": "publication-vals-ai-vibe-code-bench-1-1",
+      "value": 2.39,
+      "unit": "usd",
+      "unit_denominator": "task",
+      "conditions": {
+        "model_label_as_published": "Hy4",
+        "benchmark_label_as_published": "Vibe Code Bench v1.1, Cost / Test",
+        "setup_as_reported": "Vals AI ran the model itself on Vibe Code Bench v1.1 (page updated 2026-11-05): one task is one web app built from a written specification. Printed on the same row: score 81.01%, tokens per test 34.76m, duration per test 38m01s. The page does not state which prices it uses or whether the cost covers retries.",
+        "model_setup_as_reported": "Run by Vals AI under its own setup; no reasoning effort is printed.",
+        "reasoning_effort": null,
+        "harness": "OpenHands",
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://www.vals.ai/benchmarks/vibe-code",
+      "source_locator": "Leaderboard table, row Hy4, harness OpenHands, column Cost / Test ($2.39)",
+      "methodology_url": "https://www.vals.ai/benchmarks/vibe-code",
+      "checked_on": "2026-11-07",
+      "evidence_type": "independent_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "independent_measurement",
+      "supersedes": null
+    },
+    {
+      "id": "obs-148fec35039b6009f345",
+      "benchmark_id": "vibe-code-bench--percent",
+      "model_id": "hy4",
+      "publication_id": "publication-vals-ai-vibe-code-bench-1-1",
+      "value": 81.01,
+      "unit": "percent",
+      "unit_denominator": null,
+      "conditions": {
+        "model_label_as_published": "Hy4",
+        "benchmark_label_as_published": "Vibe Code Bench v1.1, Score",
+        "setup_as_reported": "Vals AI ran the model itself on Vibe Code Bench v1.1 (page updated 2026-11-05): one task is one web app built from a written specification. Printed on the same row: cost per test $2.39, tokens per test 34.76m, duration per test 38m01s.",
+        "model_setup_as_reported": "Run by Vals AI under its own setup; no reasoning effort is printed.",
+        "reasoning_effort": null,
+        "harness": "OpenHands",
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://www.vals.ai/benchmarks/vibe-code",
+      "source_locator": "Leaderboard table, row Hy4, harness OpenHands, column Score (81.01%)",
+      "methodology_url": "https://www.vals.ai/benchmarks/vibe-code",
+      "checked_on": "2026-11-07",
+      "evidence_type": "independent_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "independent_measurement",
+      "supersedes": null
+    },
+    {
+      "id": "obs-9eac2f7f41dfc25c6f42",
+      "benchmark_id": "vibe-code-bench-1-1-cost-per-test--usd",
+      "model_id": "inkling-2-small",
+      "publication_id": "publication-vals-ai-vibe-code-bench-1-1",
+      "value": 1.9,
+      "unit": "usd",
+      "unit_denominator": "task",
+      "conditions": {
+        "model_label_as_published": "Inkling 2 Small",
+        "benchmark_label_as_published": "Vibe Code Bench v1.1, Cost / Test",
+        "setup_as_reported": "Vals AI ran the model itself on Vibe Code Bench v1.1 (page updated 2026-11-05): one task is one web app built from a written specification. Printed on the same row: score 81.55%, tokens per test 51.08m, duration per test 25m37s. The page does not state which prices it uses or whether the cost covers retries.",
+        "model_setup_as_reported": "Run by Vals AI under its own setup; no reasoning effort is printed.",
+        "reasoning_effort": null,
+        "harness": "OpenHands",
+        "tools": null,
+        "fallback_policy": null,
+        "attempt_budget": null,
+        "context_tokens": null,
+        "dataset_revision": null,
+        "protocol_equivalence": "not_established"
+      },
+      "source_url": "https://www.vals.ai/benchmarks/vibe-code",
+      "source_locator": "Leaderboard table, row Inkling 2 Small, harness OpenHands, column Cost / Test ($1.90)",
+      "methodology_url": "https://www.vals.ai/benchmarks/vibe-code",
+      "checked_on": "2026-11-07",
+      "evidence_type": "independent_publication_checked",
+      "review_status": "source_checked",
+      "status": "active",
+      "comparison_scope": "independent_measurement",
+      "supersedes": null
     }
   ],
   "change_log": [
@@ -464066,6 +464267,12 @@
       "reviewer": "Sugra research preparation",
       "added_observations": 0,
       "reason": "Reading of 2026-11-07 for the Open weights view: the weights fact for 28 models it could not place. 11 have open weights, each with its licence and size where the developer prints them: DeepSeek-V4-Flash-Base and DeepSeek-V4-Pro-Base (the DeepSeek-V4-Pro download table), DeepSeek-V3.2-Speciale (size from the Hugging Face Hub count), Qwen3-VL-235B-A22B and Qwen3-Next-80B-A3B (the Instruct repositories, sizes from the repository names), MiMo-V2.5-Base, Llama 4 Scout and Maverick (pre-trained), and Llama 3.1 405B and 70B (pre-trained) and Llama 3.1 70B (Meta's model cards on GitHub, the Hugging Face repositories being gated). 17 have closed weights, each read on the developer's own page: six retired or deprecated Claude models (Anthropic's model deprecations page), GPT-6-Cyber and GPT-5.5 Instant (OpenAI's API documentation), Grok 3, Grok 4 and Grok Code Fast 1 (xAI's retirement notice), Qwen3-Max-Thinking (Qwen's launch post), Mistral Medium 3.1 and Magistral Medium 1.2 (Mistral's model pages), Muse Wonder Full, MAI-Thinking-1 and Gemini 4 Carbon (their launch posts). Nine stay without the fact because no developer page settles it: Mistral Large 4 (the preview, whose weights its developer said would follow; the released weights are Mistral Large 4 1T A52B), DeepSeek-V4-Vision-Exp, codex-1, ChatGPT agent, Deep research, GPT-5.1 Instant, GPT-5.2 Instant, Qwen3-Coder-Plus and MiMo-V2-Pro."
+    },
+    {
+      "at": "2026-11-07",
+      "reviewer": "Sugra research preparation",
+      "added_observations": 3,
+      "reason": "Reading of 2026-11-07: two models Vals AI ran on Vibe Code Bench v1.1 (page updated 2026-11-05), now cataloged from their developers' own pages. Tencent Hy4, released on 2026-11-04 (Tencent's release page): image input, weights not yet published (the page says they follow in the coming days), API prices, and its Vals AI cost per task and score; it replaces Hy4 preview as Tencent's latest model. Thinking Machines Inkling 2 Small, released on 2026-11-05 (its launch post and the Tinker models and pricing page): 594B total and 17B active parameters, image input, a 256K context, weights closed until the Apache 2.0 release the post announces for next week, Tinker serverless prices, and its Vals AI cost per task; its score is not transcribed because the publication takes scores only for a developer's latest model. Not transcribed: the benchmark table of the Inkling 2 Small launch post."
     }
   ],
   "prices": [
@@ -518033,6 +518240,138 @@
       "status": "active",
       "note": "Release page, API pricing sentence. Prices are USD per 1,000,000 tokens; the cache-hit price is stored as cached input.",
       "id": "price-hy4-preview-cached-input-standard-any-list"
+    },
+    {
+      "model_id": "hy4",
+      "publication_id": "publication-tencent-hy4-release-pricing",
+      "component": "input",
+      "value": 0.9,
+      "unit": "usd_per_million_tokens",
+      "schedule": "standard",
+      "context_band": "any",
+      "context_threshold_tokens": null,
+      "modality": "text",
+      "region": null,
+      "meter": null,
+      "offer": "list",
+      "valid_from": null,
+      "valid_until": null,
+      "checked_on": "2026-11-07",
+      "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+      "source_locator": "Release page, section Delivering Greater Cost Performance, API pricing sentence",
+      "status": "active",
+      "note": "Release page, API pricing sentence: \"approximately\" US dollars per 1,000,000 tokens, stored as printed.",
+      "id": "price-hy4-input-standard-any-list"
+    },
+    {
+      "model_id": "hy4",
+      "publication_id": "publication-tencent-hy4-release-pricing",
+      "component": "output",
+      "value": 2.7,
+      "unit": "usd_per_million_tokens",
+      "schedule": "standard",
+      "context_band": "any",
+      "context_threshold_tokens": null,
+      "modality": "text",
+      "region": null,
+      "meter": null,
+      "offer": "list",
+      "valid_from": null,
+      "valid_until": null,
+      "checked_on": "2026-11-07",
+      "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+      "source_locator": "Release page, section Delivering Greater Cost Performance, API pricing sentence",
+      "status": "active",
+      "note": "Release page, API pricing sentence: \"approximately\" US dollars per 1,000,000 tokens, stored as printed.",
+      "id": "price-hy4-output-standard-any-list"
+    },
+    {
+      "model_id": "hy4",
+      "publication_id": "publication-tencent-hy4-release-pricing",
+      "component": "cached_input",
+      "value": 0.045,
+      "unit": "usd_per_million_tokens",
+      "schedule": "standard",
+      "context_band": "any",
+      "context_threshold_tokens": null,
+      "modality": "text",
+      "region": null,
+      "meter": null,
+      "offer": "list",
+      "valid_from": null,
+      "valid_until": null,
+      "checked_on": "2026-11-07",
+      "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
+      "source_locator": "Release page, section Delivering Greater Cost Performance, API pricing sentence",
+      "status": "active",
+      "note": "Release page, API pricing sentence: \"approximately\" US dollars per 1,000,000 tokens, stored as printed.",
+      "id": "price-hy4-cached-input-standard-any-list"
+    },
+    {
+      "model_id": "inkling-2-small",
+      "publication_id": "publication-thinkingmachines-tinker-pricing",
+      "component": "input",
+      "value": 0.3,
+      "unit": "usd_per_million_tokens",
+      "schedule": "standard",
+      "context_band": "any",
+      "context_threshold_tokens": null,
+      "modality": "text",
+      "region": null,
+      "meter": null,
+      "offer": "list",
+      "valid_from": null,
+      "valid_until": null,
+      "checked_on": "2026-11-07",
+      "source_url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "source_locator": "Serverless Inference (Beta) table, Inkling 2 Small row, Prefill (Input)",
+      "status": "active",
+      "note": "Serverless Inference (Beta) table; all prices are per million tokens, and the smaller price under the prefill price is the cached one.",
+      "id": "price-inkling-2-small-input-standard-any-list"
+    },
+    {
+      "model_id": "inkling-2-small",
+      "publication_id": "publication-thinkingmachines-tinker-pricing",
+      "component": "output",
+      "value": 1.0,
+      "unit": "usd_per_million_tokens",
+      "schedule": "standard",
+      "context_band": "any",
+      "context_threshold_tokens": null,
+      "modality": "text",
+      "region": null,
+      "meter": null,
+      "offer": "list",
+      "valid_from": null,
+      "valid_until": null,
+      "checked_on": "2026-11-07",
+      "source_url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "source_locator": "Serverless Inference (Beta) table, Inkling 2 Small row, Sample (Output)",
+      "status": "active",
+      "note": "Serverless Inference (Beta) table; all prices are per million tokens, and the smaller price under the prefill price is the cached one.",
+      "id": "price-inkling-2-small-output-standard-any-list"
+    },
+    {
+      "model_id": "inkling-2-small",
+      "publication_id": "publication-thinkingmachines-tinker-pricing",
+      "component": "cached_input",
+      "value": 0.03,
+      "unit": "usd_per_million_tokens",
+      "schedule": "standard",
+      "context_band": "any",
+      "context_threshold_tokens": null,
+      "modality": "text",
+      "region": null,
+      "meter": null,
+      "offer": "list",
+      "valid_from": null,
+      "valid_until": null,
+      "checked_on": "2026-11-07",
+      "source_url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "source_locator": "Serverless Inference (Beta) table, Inkling 2 Small row, Prefill (Input), cached",
+      "status": "active",
+      "note": "Serverless Inference (Beta) table; all prices are per million tokens, and the smaller price under the prefill price is the cached one.",
+      "id": "price-inkling-2-small-cached-input-standard-any-list"
     }
   ],
   "router_prices": [
