@@ -833,15 +833,15 @@ class RealDatabase(unittest.TestCase):
 
     def test_benchmark_rows_do_not_hang_on_a_price_list(self):
         price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
-        self.assertEqual(len(price_pubs), 17)
+        self.assertEqual(len(price_pubs), 19)
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
         self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
     def test_vals_cost_per_task_is_one_setup(self):
         every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
         rows = [o for o in every if o["status"] == "active"]
-        self.assertEqual(len(rows), 84)
-        self.assertEqual(len({o["model_id"] for o in rows}), 84)
+        self.assertEqual(len(rows), 86)
+        self.assertEqual(len({o["model_id"] for o in rows}), 86)
         self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
         self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
@@ -853,6 +853,8 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["mistral-large-4-1t-a52b"], 11.72)
         self.assertEqual(value["glm-5-3-flash"], 4.7)
         self.assertEqual(value["hy4-preview"], 2.18)
+        self.assertEqual(value["hy4"], 2.39)
+        self.assertEqual(value["inkling-2-small"], 1.9)
         old =[o for o in every if o["status"] == "superseded"]
         self.assertEqual(
             sorted((o["model_id"], o["value"]) for o in old),
@@ -870,14 +872,17 @@ class RealDatabase(unittest.TestCase):
         pub = "publication-vals-ai-vibe-code-bench-1-1"
         rows = [o for o in self.db["observations"]
                 if o["publication_id"] == pub and o["benchmark_id"] == "vibe-code-bench--percent"]
-        self.assertEqual(len(rows), 9)
+        self.assertEqual(len(rows), 10)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
-        self.assertTrue(all(o["model_id"] in latest for o in rows))
+        # A score stays when a newer model of the developer takes the latest place (coverage).
+        self.assertEqual({o["model_id"] for o in rows} - latest, {"hy4-preview"})
         others = {(o["benchmark_id"], o["model_id"]) for o in self.db["observations"]
                   if o["status"] == "active" and o["publication_id"] != pub}
         self.assertFalse({(o["benchmark_id"], o["model_id"]) for o in rows} & others)
         value = {o["model_id"]: o["value"] for o in rows}
         self.assertEqual(value["hy4-preview"], 77.48)
+        self.assertEqual(value["hy4"], 81.01)
+        self.assertNotIn("inkling-2-small", value)
         self.assertEqual(value["gemini-4-carbon"], 89.06)
         self.assertEqual(value["grok-4-7"], 86.17)
         self.assertEqual(value["qwen3-8-max"], 64.7)
@@ -940,6 +945,12 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="hy4-preview", component="input")["value"], 0.834)
         self.assertEqual(one(model_id="hy4-preview", component="output")["value"], 2.501)
         self.assertEqual(one(model_id="hy4-preview", component="cached_input")["value"], 0.042)
+        self.assertEqual(one(model_id="hy4", component="input")["value"], 0.9)
+        self.assertEqual(one(model_id="hy4", component="output")["value"], 2.7)
+        self.assertEqual(one(model_id="hy4", component="cached_input")["value"], 0.045)
+        self.assertEqual(one(model_id="inkling-2-small", component="input")["value"], 0.3)
+        self.assertEqual(one(model_id="inkling-2-small", component="output")["value"], 1.0)
+        self.assertEqual(one(model_id="inkling-2-small", component="cached_input")["value"], 0.03)
         gone ={"mistral-large-4", "mistral-large-3", "mistral-medium-3-5"}
         self.assertFalse([p["id"] for p in active if p["model_id"] in gone])
         self.assertTrue(all(p.get("note") for p in self.db["prices"] if p["model_id"] in gone and p["status"] == "withdrawn"))
@@ -957,7 +968,7 @@ class RealDatabase(unittest.TestCase):
                 "Z.ai": "glm-5-3",
                 "MiniMax": "minimax-m3-1-flash",
                 "Mistral AI": "mistral-large-4-1t-a52b",
-                "Tencent": "hy4-preview",
+                "Tencent": "hy4",
             },
         )
 
