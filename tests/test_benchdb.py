@@ -893,7 +893,8 @@ class RealDatabase(unittest.TestCase):
         rows = [o for o in self.db["observations"] if o["publication_id"] == pub]
         self.assertEqual(len(rows), 19)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
-        self.assertTrue(all(o["model_id"] in latest for o in rows))
+        # A score stays when a newer model of the developer takes the latest place (coverage).
+        self.assertEqual({o["model_id"] for o in rows} - latest, {"claude-fable-5-1"})
         self.assertEqual({o["benchmark_id"] for o in rows}, {
             "gpqa-diamond--percent", "frontiermath-tier-1-3-v2--percent",
             "frontiermath-tier-4-v2--percent", "simpleqa-verified--percent",
@@ -960,7 +961,7 @@ class RealDatabase(unittest.TestCase):
             {
                 "Google": "gemini-4-carbon",
                 "OpenAI": "gpt-6-astra",
-                "Anthropic": "claude-fable-5-1",
+                "Anthropic": "claude-fable-5-2",
                 "Alibaba": "qwen3-8-max",
                 "xAI": "grok-4-7",
                 "Moonshot AI": "kimi-k3-1-pro",
