@@ -840,13 +840,15 @@ class RealDatabase(unittest.TestCase):
     def test_vals_cost_per_task_is_one_setup(self):
         every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
         rows = [o for o in every if o["status"] == "active"]
-        self.assertEqual(len(rows), 86)
-        self.assertEqual(len({o["model_id"] for o in rows}), 86)
+        self.assertEqual(len(rows), 87)
+        self.assertEqual(len({o["model_id"] for o in rows}), 87)
         self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
         self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
         self.assertEqual(value["gpt-6-1-terra"], 6.0)
-        self.assertEqual(value["claude-sonnet-5-5"], 31.25)
+        self.assertEqual(value["claude-sonnet-5-5"], 19.73)
+        self.assertEqual(value["claude-opus-5-5"], 35.77)
+        self.assertEqual(value["claude-fable-5-2"], 22.13)
         self.assertEqual(value["deepseek-v4-1-flash-1017"], 0.58)
         self.assertEqual(value["gemini-4-carbon"], 8.25)
         self.assertEqual(value["mistral-large-4"], 20.28)
@@ -858,7 +860,8 @@ class RealDatabase(unittest.TestCase):
         old =[o for o in every if o["status"] == "superseded"]
         self.assertEqual(
             sorted((o["model_id"], o["value"]) for o in old),
-            [("glm-5-3-flash", 2.35), ("mistral-large-4", 20.28), ("mistral-large-4", 39.46)],
+            [("claude-opus-5-5", 57.92), ("claude-sonnet-5-5", 31.25), ("glm-5-3-flash", 2.35),
+             ("mistral-large-4", 20.28), ("mistral-large-4", 39.46)],
         )
         by_id = {o["id"]: o for o in every}
         preview = next(o for o in rows if o["model_id"] == "mistral-large-4")
@@ -867,12 +870,17 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(preview["conditions"]["model_label_as_published"], "Mistral Large 4 Preview")
         flash = next(o for o in rows if o["model_id"] == "glm-5-3-flash")
         self.assertEqual(by_id[flash["supersedes"]]["value"], 2.35)
+        # The page updated 2026-11-09 prints a lower cost for the same score, tokens and duration.
+        sonnet = next(o for o in rows if o["model_id"] == "claude-sonnet-5-5")
+        self.assertEqual(by_id[sonnet["supersedes"]]["value"], 31.25)
+        opus = next(o for o in rows if o["model_id"] == "claude-opus-5-5")
+        self.assertEqual(by_id[opus["supersedes"]]["value"], 57.92)
 
     def test_vals_scores_fill_only_empty_flagship_cells(self):
         pub = "publication-vals-ai-vibe-code-bench-1-1"
         rows = [o for o in self.db["observations"]
                 if o["publication_id"] == pub and o["benchmark_id"] == "vibe-code-bench--percent"]
-        self.assertEqual(len(rows), 10)
+        self.assertEqual(len(rows), 11)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         # A score stays when a newer model of the developer takes the latest place (coverage).
         self.assertEqual({o["model_id"] for o in rows} - latest, {"hy4-preview"})
@@ -887,6 +895,7 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["grok-4-7"], 86.17)
         self.assertEqual(value["qwen3-8-max"], 64.7)
         self.assertEqual(value["mistral-large-4-1t-a52b"], 81.56)
+        self.assertEqual(value["claude-fable-5-2"], 93.77)
 
     def test_epoch_runs_fill_only_empty_flagship_cells(self):
         pub = "publication-epoch-ai-benchmarking-hub"
