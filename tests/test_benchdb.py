@@ -900,7 +900,7 @@ class RealDatabase(unittest.TestCase):
     def test_epoch_runs_fill_only_empty_flagship_cells(self):
         pub = "publication-epoch-ai-benchmarking-hub"
         rows = [o for o in self.db["observations"] if o["publication_id"] == pub]
-        self.assertEqual(len(rows), 19)
+        self.assertEqual(len(rows), 26)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         # A score stays when a newer model of the developer takes the latest place (coverage).
         self.assertEqual({o["model_id"] for o in rows} - latest, {"claude-fable-5-1"})
@@ -918,6 +918,15 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value[("simpleqa-verified--percent", "glm-5-3")], 41.0)
         self.assertEqual(value[("gpqa-diamond--percent", "mistral-large-4-1t-a52b")], 90.2)
         self.assertEqual(value[("simpleqa-verified--percent", "mistral-large-4-1t-a52b")], 22.4)
+        # Read 2026-11-10: Claude Fable 5.2 (max) and Kimi K3.1 Pro (Together, max).
+        self.assertEqual(value[("gpqa-diamond--percent", "claude-fable-5-2")], 93.9)
+        self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "claude-fable-5-2")], 95.1)
+        self.assertEqual(value[("frontiermath-tier-4-v2--percent", "claude-fable-5-2")], 100.0)
+        self.assertEqual(value[("simpleqa-verified--percent", "claude-fable-5-2")], 94.0)
+        self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "kimi-k3-1-pro")], 78.2)
+        self.assertEqual(value[("frontiermath-tier-4-v2--percent", "kimi-k3-1-pro")], 65.9)
+        self.assertEqual(value[("simpleqa-verified--percent", "kimi-k3-1-pro")], 62.2)
+        self.assertNotIn(("gpqa-diamond--percent", "kimi-k3-1-pro"), value)
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
