@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026110901, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026111001, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -124,7 +124,7 @@ What the catalog holds as of data version 2026110901, and what it does not: the 
 | GPT-6.1 Terra system card addendum | OpenAI | 61 | 1 | 61 |
 | Vibe Code Bench v1.1 leaderboard | Vals AI | 98 | 87 | 2 |
 | Gemini 4 Carbon: our next frontier model | Google | 43 | 18 | 8 |
-| Epoch AI Benchmarking Hub | Epoch AI | 19 | 7 | 4 |
+| Epoch AI Benchmarking Hub | Epoch AI | 26 | 9 | 4 |
 | Mistral Large 4 (Le Chonk): Built for Coders, Trusted by Defenders | Mistral AI | 35 | 11 | 8 |
 | Mistral Large 4 model card (Hugging Face) | Mistral AI | 1 | 1 | 1 |
 | GPT-6 Cyber: Advancing the frontier of aligned cybersecurity agents | OpenAI | 19 | 4 | 5 |
@@ -134,7 +134,7 @@ What the catalog holds as of data version 2026110901, and what it does not: the 
 | Claude Fable 5.2 and Mythos 5.2 | Anthropic | 66 | 8 | 15 |
 | System Card: Claude Fable 5.2 & Claude Mythos 5.2 | Anthropic | 220 | 13 | 51 |
 
-127 publications, 13525 observations, 470 models, 850 benchmark definitions in 449 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+127 publications, 13532 observations, 470 models, 850 benchmark definitions in 449 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
@@ -233,12 +233,12 @@ Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models carrie
 | Knowledge work | 58 | 973 |
 | Agentic coding | 63 | 1960 |
 | ML engineering | 14 | 115 |
-| Science and math | 70 | 1597 |
+| Science and math | 70 | 1602 |
 | Long context | 45 | 375 |
 | Computer use | 15 | 286 |
 | Multimodal understanding | 81 | 1597 |
 | Cybersecurity | 45 | 454 |
-| General knowledge and reasoning | 49 | 1222 |
+| General knowledge and reasoning | 49 | 1224 |
 | Code generation | 26 | 356 |
 | Tool use and workflows | 48 | 1031 |
 | Web search and research | 19 | 363 |
@@ -258,12 +258,12 @@ Every category has at least one observation. A category with no rows for the sel
 ## Known gaps
 
 - `release_date` is recorded for 220 of 470 models and `published_at` for 103 of 127 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. Claude Fable 5.2 and Claude Mythos 5.2 are 9 November 2026 from their system card, which carries that date the same way. The release pages cited for their scores do not print that day, so those publications stay undated. Where the page prints none, the field stays empty.
-- `reasoning_effort` is stated for 3476 active observations, `tools` for 1503, `harness` for 1369. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `reasoning_effort` is stated for 3483 active observations, `tools` for 1503, `harness` for 1369. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - A model is listed here when a publisher prints it on an official page; an open-weight name appears only in that case. For open weights the catalog stores the size and the memory the developer states, never a run of its own on any machine.
 - Several launch pages attribute a test to the publisher itself where the maintainer's page names someone else (an academic group, an evaluation firm). The `about.maintainer` field follows the maintainer's page and `about.notes` records the mismatch; the printed attribution stays in the observation as printed.
-- Independent sources carry a cost per task, and a score only for a test a publisher's own page also prints, so an evaluator never adds a test of its own (`kind` `independent_leaderboard`). Vals AI's Vibe Code Bench v1.1 leaderboard gives the cost per task (Cost / Test, OpenHands harness, 87 models, page updated 2026-11-05, read 2026-11-06, Hy4 and Inkling 2 Small on 2026-11-07; on 2026-11-09, page updated that day, Claude Fable 5.2 and the lower costs the page now prints for Claude Sonnet 5.5 and Claude Opus 5.5 with the same score, tokens and duration, each superseding the old row), shown as the last row of the Price area, and its own score for the 11 Vibe Code Bench cells where a developer's latest model had no number from any page (Hy4 preview's stays after Hy4 took its place as Tencent's latest); Google's Gemini 4 Argon card prints this test with Vals AI as the setup. Epoch AI's Benchmarking Hub gives its own runs for the 19 cells of GPQA Diamond, FrontierMath Tiers 1-3 (v2), FrontierMath Tier 4 (v2) and SimpleQA Verified where a developer's latest model had no number from any page (Claude Fable 5.1's two stay after Claude Fable 5.2 took its place as Anthropic's latest; read 2026-10-30, the two Mistral Large 4 cells from the CSV download on 2026-11-05, data CC BY 4.0). OpenAI commissioned FrontierMath and has access to most of its problems; the family's notes cite Epoch AI's post.
+- Independent sources carry a cost per task, and a score only for a test a publisher's own page also prints, so an evaluator never adds a test of its own (`kind` `independent_leaderboard`). Vals AI's Vibe Code Bench v1.1 leaderboard gives the cost per task (Cost / Test, OpenHands harness, 87 models, page updated 2026-11-05, read 2026-11-06, Hy4 and Inkling 2 Small on 2026-11-07; on 2026-11-09, page updated that day, Claude Fable 5.2 and the lower costs the page now prints for Claude Sonnet 5.5 and Claude Opus 5.5 with the same score, tokens and duration, each superseding the old row), shown as the last row of the Price area, and its own score for the 11 Vibe Code Bench cells where a developer's latest model had no number from any page (Hy4 preview's stays after Hy4 took its place as Tencent's latest); Google's Gemini 4 Argon card prints this test with Vals AI as the setup. Epoch AI's Benchmarking Hub gives its own runs for the 26 cells of GPQA Diamond, FrontierMath Tiers 1-3 (v2), FrontierMath Tier 4 (v2) and SimpleQA Verified where a developer's latest model had no number from any page (Claude Fable 5.1's two stay after Claude Fable 5.2 took its place as Anthropic's latest; read 2026-10-30, the two Mistral Large 4 cells from the CSV download on 2026-11-05, the four Claude Fable 5.2 cells and three Kimi K3.1 Pro cells on 2026-11-10, Kimi K3.1 Pro run through the Together API as the row name prints, data CC BY 4.0). OpenAI commissioned FrontierMath and has access to most of its problems; the family's notes cite Epoch AI's post.
 
 ## Not in this repository
 
