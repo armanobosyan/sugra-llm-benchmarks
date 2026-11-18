@@ -833,7 +833,7 @@ class RealDatabase(unittest.TestCase):
 
     def test_benchmark_rows_do_not_hang_on_a_price_list(self):
         price_pubs = {p["id"] for p in self.db["publications"] if p.get("kind") == "official_price_list"}
-        self.assertEqual(len(price_pubs), 19)
+        self.assertEqual(len(price_pubs), 20)
         self.assertTrue(all(o["publication_id"] not in price_pubs for o in self.db["observations"]))
         self.assertGreaterEqual(len(self.db["prices"]), 2480)
 
@@ -995,6 +995,9 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="inkling-2-small", component="input")["value"], 0.3)
         self.assertEqual(one(model_id="inkling-2-small", component="output")["value"], 1.0)
         self.assertEqual(one(model_id="inkling-2-small", component="cached_input")["value"], 0.03)
+        self.assertEqual(one(model_id="mai-code-2", component="output", offer="promotional", valid_until="2027-05-16")["value"], 2.5)
+        self.assertEqual(one(model_id="mai-code-2", component="output", valid_from="2027-05-17")["value"], 5.0)
+        self.assertEqual(one(model_id="mai-code-2-flash", component="input", offer="promotional")["value"], 0.05)
         gone ={"mistral-large-4", "mistral-large-3", "mistral-medium-3-5"}
         self.assertFalse([p["id"] for p in active if p["model_id"] in gone])
         self.assertTrue(all(p.get("note") for p in self.db["prices"] if p["model_id"] in gone and p["status"] == "withdrawn"))

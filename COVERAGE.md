@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026111801, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026111802, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked on 2026-10-15. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -139,14 +139,16 @@ What the catalog holds as of data version 2026111801, and what it does not: the 
 | Qwen4-Max: Your New Teammate Has Arrived | Alibaba | 50 | 5 | 10 |
 | Thinking Machines Inkling 2 Small model card | Thinking Machines | 493 | 13 | 44 |
 | GPT-6.2 System Card | OpenAI | 119 | 2 | 60 |
+| Microsoft AI: MAI Code 2 and Code 2 Flash: Everyday coding at scalable prices | Microsoft | 42 | 6 | 8 |
+| Microsoft AI: MAI Code 2 and MAI Code 2 Flash model card | Microsoft | 20 | 2 | 10 |
 
-133 publications, 14271 observations, 475 models, 853 benchmark definitions in 451 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+135 publications, 14333 observations, 477 models, 858 benchmark definitions in 452 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
 ## Official prices
 
-Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints, then the Microsoft Foundry Models list. On 2026-10-24 Kimi K3.1 Pro and K3.1 Pro Highspeed were added from both Kimi pages. On 2026-10-29 the Gemini 4 Carbon prices were added from Google's launch post, because the model is not yet on the Gemini API price page. On 2026-11-05 the Mistral page printed the open-weight Mistral Large 4 at $0.7 input, $0.07 cached input and $2.1 output with no sale, and no longer listed Mistral Large 3, Mistral Medium 3.5 or the OCR 4.1 annotated-pages meter: those rows and the preview's sale and list rows are withdrawn, each with a note, and the new list price added. On 2026-11-06 Tencent's release page for Hy4 preview was added as a price list: it prints $0.834 input, $2.501 output and $0.042 for cache hits, stored as cached input. On 2026-11-07 Tencent's release page for Hy4 was added the same way (about $0.90 input, $2.70 output and $0.045 cached input, as printed; the 50% TokenHub discount through December 31, 2026 stays a rule in its coverage), and the Inkling 2 Small row of the Serverless Inference (Beta) table on Thinking Machines' Tinker models and pricing page ($0.30 input, $0.03 cached input, $1.00 output). On 2026-11-09 Claude Fable 5.2 and Claude Mythos 5.2 were added from the Anthropic API pricing page, nine rows each: $8 input, $10 and $16 cache writes (5 minutes, 1 hour), $0.2 cache hits and $40 output, batch $4 and $20, fast mode $16 and $80 with its cache multipliers left in the rows' note. On 2026-11-12 the Gemini API price page listed Gemini 4 Hydrogen ($1.5 input, $0.075 cached input, $7.5 output, with batch, flex, priority, contributor and free rows, 18 in all) and Gemini 4 Carbon, whose 24 rows print the promotional price through 2026-11-30 ($2 input, $0.1 cached input, $10 output) beside the list price from 2026-12-01 ($4, $0.2 and $20), for standard, batch, flex and priority; the four launch-post rows are superseded by them. The same day Meta's price page listed Muse Ember (muse-ember-1.0) in Standard mode with a band at 200K tokens: $0.1 input, $0.004 cached input and $0.5 output up to it, $0.3, $0.012 and $1.5 above it. On 2026-11-17 the Model Studio page listed Qwen4-Max in three deployment scopes: International (Singapore) $1.5 input and $4.5 output, and the Chinese mainland (Beijing) and Global scopes $1.413 and $4.24, each with its cache table (cache read $0.075 or $0.071, explicit cache write for 5 minutes $1.875 or $1.767 and for 1 hour $3 or $2.827), 15 rows; the page lists no US-scope row for it, and its batch prices stay out. On 2026-11-18 the OpenAI API price page listed GPT-6.2 Astra ($8 input, $0.4 cached input, $10 for a 30-minute cache write and $40 output up to 272K tokens; $16, $0.8, $20 and $60 above) and GPT-6.2 Sol ($2, $0.1, $2.5 and $10; $4, $0.2, $5 and $15), with batch at half and fast at twice the standard rate, and ultrafast at three times the standard rate through 2027-02-28 and six times from 2027-03-01, both stored with their dates, 40 rows each; the page lists no flex row for either, the 12-hour cache write stays out as for the other GPT-6 models, and the background-request discounts stay a rule. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
+Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on 2026-10-18. On 2026-10-19 the MiniMax, Xiaomi, Meta and StepFun lists and the US-dollar Kimi page were added, and the cached-input column Mistral now prints, then the Microsoft Foundry Models list. On 2026-10-24 Kimi K3.1 Pro and K3.1 Pro Highspeed were added from both Kimi pages. On 2026-10-29 the Gemini 4 Carbon prices were added from Google's launch post, because the model is not yet on the Gemini API price page. On 2026-11-05 the Mistral page printed the open-weight Mistral Large 4 at $0.7 input, $0.07 cached input and $2.1 output with no sale, and no longer listed Mistral Large 3, Mistral Medium 3.5 or the OCR 4.1 annotated-pages meter: those rows and the preview's sale and list rows are withdrawn, each with a note, and the new list price added. On 2026-11-06 Tencent's release page for Hy4 preview was added as a price list: it prints $0.834 input, $2.501 output and $0.042 for cache hits, stored as cached input. On 2026-11-07 Tencent's release page for Hy4 was added the same way (about $0.90 input, $2.70 output and $0.045 cached input, as printed; the 50% TokenHub discount through December 31, 2026 stays a rule in its coverage), and the Inkling 2 Small row of the Serverless Inference (Beta) table on Thinking Machines' Tinker models and pricing page ($0.30 input, $0.03 cached input, $1.00 output). On 2026-11-09 Claude Fable 5.2 and Claude Mythos 5.2 were added from the Anthropic API pricing page, nine rows each: $8 input, $10 and $16 cache writes (5 minutes, 1 hour), $0.2 cache hits and $40 output, batch $4 and $20, fast mode $16 and $80 with its cache multipliers left in the rows' note. On 2026-11-12 the Gemini API price page listed Gemini 4 Hydrogen ($1.5 input, $0.075 cached input, $7.5 output, with batch, flex, priority, contributor and free rows, 18 in all) and Gemini 4 Carbon, whose 24 rows print the promotional price through 2026-11-30 ($2 input, $0.1 cached input, $10 output) beside the list price from 2026-12-01 ($4, $0.2 and $20), for standard, batch, flex and priority; the four launch-post rows are superseded by them. The same day Meta's price page listed Muse Ember (muse-ember-1.0) in Standard mode with a band at 200K tokens: $0.1 input, $0.004 cached input and $0.5 output up to it, $0.3, $0.012 and $1.5 above it. On 2026-11-17 the Model Studio page listed Qwen4-Max in three deployment scopes: International (Singapore) $1.5 input and $4.5 output, and the Chinese mainland (Beijing) and Global scopes $1.413 and $4.24, each with its cache table (cache read $0.075 or $0.071, explicit cache write for 5 minutes $1.875 or $1.767 and for 1 hour $3 or $2.827), 15 rows; the page lists no US-scope row for it, and its batch prices stay out. On 2026-11-18 the OpenAI API price page listed GPT-6.2 Astra ($8 input, $0.4 cached input, $10 for a 30-minute cache write and $40 output up to 272K tokens; $16, $0.8, $20 and $60 above) and GPT-6.2 Sol ($2, $0.1, $2.5 and $10; $4, $0.2, $5 and $15), with batch at half and fast at twice the standard rate, and ultrafast at three times the standard rate through 2027-02-28 and six times from 2027-03-01, both stored with their dates, 40 rows each; the page lists no flex row for either, the 12-hour cache write stays out as for the other GPT-6 models, and the background-request discounts stay a rule. On 2026-11-18 the GitHub Copilot models and pricing page (GitHub, a Microsoft company) listed MAI Code 2 ($0.5 input, $0.025 cached input and $2.5 output through 2027-05-16, then $1, $0.05 and $5 from 2027-05-17) and MAI Code 2 Flash ($0.05, $0.005 and $0.25, then $0.1, $0.01 and $0.5), 12 rows; it is stored with publisher Microsoft because Copilot is where Microsoft prices these two models, and the same page's rates for other developers' models equal their own API list prices. Schema 1.1.0. A price is not a benchmark observation: it lives in `prices`, and the benchmark publications above are untouched.
 
 | Price list | Publisher | Rows |
 |---|---|---|
@@ -166,11 +168,12 @@ Checked on 2026-10-15 against each publisher's own price page, DeepSeek again on
 | StepFun API pricing | StepFun | 15 |
 | Kimi API pricing (international platform) | Moonshot AI | 24 |
 | Microsoft Foundry Models pricing, Microsoft models | Microsoft | 7 |
+| Models and pricing for GitHub Copilot, Microsoft models (GitHub, a Microsoft company) | Microsoft | 12 |
 | Tencent Hy4 preview release: API pricing | Tencent | 3 |
 | Tencent Launches Hy4: API pricing | Tencent | 3 |
 | Tinker models and pricing | Thinking Machines | 3 |
 
-2,692 active price rows; the table counts active rows only. 232 models are in the catalog only because a price page names them. 116 models have both an active price and at least one benchmark row. 125 models have benchmark rows and no active price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek, Z.ai, MiniMax, Mistral AI and Tencent: Gemini 4 Carbon, GPT-6.2 Astra, which took the place of GPT-6 Astra on 2026-11-18, Claude Fable 5.2, which took the place of Claude Fable 5.1 on 2026-11-09, Qwen4-Max, which took the place of Qwen3.8-Max on 2026-11-17, Grok 4.7, Kimi K3.1 Pro, DeepSeek-V4.1-Flash, GLM-5.3, MiniMax M3.1 Flash, the open-weight Mistral Large 4 and Hy4, which took the place of Hy4 preview on 2026-11-07. The other developers in the file have no model marked latest.
+2,704 active price rows; the table counts active rows only. 232 models are in the catalog only because a price page names them. 118 models have both an active price and at least one benchmark row. 125 models have benchmark rows and no active price. Two named models have neither: Llama 3.1 70B and Muse Spark. `latest` is set on one model each for Google, OpenAI, Anthropic, Alibaba, xAI, Moonshot AI, DeepSeek, Z.ai, MiniMax, Mistral AI and Tencent: Gemini 4 Carbon, GPT-6.2 Astra, which took the place of GPT-6 Astra on 2026-11-18, Claude Fable 5.2, which took the place of Claude Fable 5.1 on 2026-11-09, Qwen4-Max, which took the place of Qwen3.8-Max on 2026-11-17, Grok 4.7, Kimi K3.1 Pro, DeepSeek-V4.1-Flash, GLM-5.3, MiniMax M3.1 Flash, the open-weight Mistral Large 4 and Hy4, which took the place of Hy4 preview on 2026-11-07. The other developers in the file have no model marked latest.
 
 Text rates are USD per 1,000,000 tokens. A page that prints yuan stays in CNY: the Chinese Kimi page and the domestic Xiaomi table. Their US-dollar prices come from the international Kimi page and the overseas Xiaomi table, never from a conversion. Image, video, and OCR use the unit the page prints (per image, per second, per video, per 1,000 pages) when that number is the price itself. A parenthetical "equivalent to" is not stored as a second price. Where the page prints a short context band and a long one, both are stored with the printed threshold. Where it prints an end date, the row carries that date. A sale or introductory price with no printed end date has no invented end date.
 
@@ -212,7 +215,7 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | xAI | 9 | 6 | 0 | 1 | 1 | 9 | 0 |
 | MiniMax | 6 | 2 | 0 | 6 | 6 | 6 | 3 |
 | NVIDIA | 8 | 8 | 2 | 8 | 8 | 8 | 8 |
-| Microsoft | 4 | 4 | 0 | 3 | 3 | 4 | 3 |
+| Microsoft | 6 | 6 | 2 | 5 | 5 | 6 | 3 |
 | Xiaomi | 5 | 3 | 0 | 4 | 4 | 5 | 3 |
 | Thinking Machines | 3 | 1 | 0 | 3 | 3 | 3 | 3 |
 | StepFun | 2 | 1 | 0 | 1 | 1 | 2 | 1 |
@@ -222,7 +225,7 @@ Checked on 2026-10-29 on each developer's own pages: the API model page or model
 | Agentica | 1 | 0 | 0 | 1 | 1 | 1 | 1 |
 | Tencent | 2 | 1 | 0 | 2 | 1 | 2 | 1 |
 
-233 of 475 models carry at least one fact.
+235 of 477 models carry at least one fact.
 
 ### Open-weight sizes
 
@@ -237,13 +240,13 @@ Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models then i
 | Category | Benchmarks | Observations |
 |---|---|---|
 | Knowledge work | 59 | 1095 |
-| Agentic coding | 64 | 2042 |
+| Agentic coding | 69 | 2092 |
 | ML engineering | 14 | 128 |
-| Science and math | 70 | 1630 |
+| Science and math | 70 | 1632 |
 | Long context | 45 | 401 |
 | Computer use | 15 | 314 |
 | Multimodal understanding | 82 | 1741 |
-| Cybersecurity | 45 | 466 |
+| Cybersecurity | 45 | 470 |
 | General knowledge and reasoning | 49 | 1300 |
 | Code generation | 26 | 356 |
 | Tool use and workflows | 48 | 1057 |
@@ -252,19 +255,19 @@ Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models then i
 | Multilingual | 14 | 262 |
 | Writing and conversation | 6 | 41 |
 | Healthcare | 23 | 443 |
-| Biosecurity | 23 | 214 |
+| Biosecurity | 23 | 220 |
 | Safety and alignment | 212 | 1957 |
 | Engineering and design | 14 | 100 |
 | Preference and composite rankings | 12 | 109 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 343 checked against the maintainer's own page or paper, 106 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 2 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 96 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 343 checked against the maintainer's own page or paper, 107 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 2 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 96 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 224 of 475 models and `published_at` for 106 of 133 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. Claude Fable 5.2 and Claude Mythos 5.2 are 9 November 2026 from their system card, which carries that date the same way. The release pages cited for their scores do not print that day, so those publications stay undated. Gemini 4 Hydrogen is 12 November 2026 from its announcement; Muse Ember's launch post prints no date, so the model and the post stay undated. Qwen4-Max is 16 November 2026 from its launch post, which carries that date. The Inkling 2 Small model card prints no date and stays undated. GPT-6.2 Astra and GPT-6.2 Sol are 17 November 2026 from their system card, which carries that date. Where the page prints none, the field stays empty.
-- `reasoning_effort` is stated for 3531 active observations, `tools` for 1503, `harness` for 1374. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 226 of 477 models and `published_at` for 108 of 135 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. Claude Fable 5.2 and Claude Mythos 5.2 are 9 November 2026 from their system card, which carries that date the same way. The release pages cited for their scores do not print that day, so those publications stay undated. Gemini 4 Hydrogen is 12 November 2026 from its announcement; Muse Ember's launch post prints no date, so the model and the post stay undated. Qwen4-Max is 16 November 2026 from its launch post, which carries that date. The Inkling 2 Small model card prints no date and stays undated. GPT-6.2 Astra and GPT-6.2 Sol are 17 November 2026 from their system card, which carries that date. MAI Code 2 and MAI Code 2 Flash are 17 November 2026 from their model card and launch post, which carry that date. Where the page prints none, the field stays empty.
+- `reasoning_effort` is stated for 3579 active observations, `tools` for 1503, `harness` for 1416. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - A model is listed here when a publisher prints it on an official page; an open-weight name appears only in that case. For open weights the catalog stores the size and the memory the developer states, never a run of its own on any machine.
