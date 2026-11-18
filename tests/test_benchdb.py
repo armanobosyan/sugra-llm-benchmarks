@@ -840,8 +840,8 @@ class RealDatabase(unittest.TestCase):
     def test_vals_cost_per_task_is_one_setup(self):
         every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
         rows = [o for o in every if o["status"] == "active"]
-        self.assertEqual(len(rows), 87)
-        self.assertEqual(len({o["model_id"] for o in rows}), 87)
+        self.assertEqual(len(rows), 91)
+        self.assertEqual(len({o["model_id"] for o in rows}), 91)
         self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
         self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
@@ -857,6 +857,11 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["hy4-preview"], 2.18)
         self.assertEqual(value["hy4"], 2.39)
         self.assertEqual(value["inkling-2-small"], 1.9)
+        # Read 2026-11-18 from the page updated 2026-11-16.
+        self.assertEqual(value["gpt-6-2-astra"], 7.92)
+        self.assertEqual(value["gpt-6-2-sol"], 3.23)
+        self.assertEqual(value["gemini-4-hydrogen"], 4.55)
+        self.assertEqual(value["muse-ember"], 0.05)
         old =[o for o in every if o["status"] == "superseded"]
         self.assertEqual(
             sorted((o["model_id"], o["value"]) for o in old),
@@ -880,7 +885,7 @@ class RealDatabase(unittest.TestCase):
         pub = "publication-vals-ai-vibe-code-bench-1-1"
         rows = [o for o in self.db["observations"]
                 if o["publication_id"] == pub and o["benchmark_id"] == "vibe-code-bench--percent"]
-        self.assertEqual(len(rows), 11)
+        self.assertEqual(len(rows), 12)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         # A score stays when a newer model of the developer takes the latest place (coverage).
         self.assertEqual({o["model_id"] for o in rows} - latest, {"hy4-preview", "qwen3-8-max"})
@@ -896,14 +901,16 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["qwen3-8-max"], 64.7)
         self.assertEqual(value["mistral-large-4-1t-a52b"], 81.56)
         self.assertEqual(value["claude-fable-5-2"], 93.77)
+        self.assertEqual(value["gpt-6-2-astra"], 89.9)
+        self.assertNotIn("gpt-6-2-sol", value)
 
     def test_epoch_runs_fill_only_empty_flagship_cells(self):
         pub = "publication-epoch-ai-benchmarking-hub"
         rows = [o for o in self.db["observations"] if o["publication_id"] == pub]
-        self.assertEqual(len(rows), 26)
+        self.assertEqual(len(rows), 33)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         # A score stays when a newer model of the developer takes the latest place (coverage).
-        self.assertEqual({o["model_id"] for o in rows} - latest, {"claude-fable-5-1", "qwen3-8-max"})
+        self.assertEqual({o["model_id"] for o in rows} - latest, {"claude-fable-5-1", "qwen3-8-max", "gpt-6-astra"})
         self.assertEqual({o["benchmark_id"] for o in rows}, {
             "gpqa-diamond--percent", "frontiermath-tier-1-3-v2--percent",
             "frontiermath-tier-4-v2--percent", "simpleqa-verified--percent",
@@ -927,6 +934,15 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value[("frontiermath-tier-4-v2--percent", "kimi-k3-1-pro")], 65.9)
         self.assertEqual(value[("simpleqa-verified--percent", "kimi-k3-1-pro")], 62.2)
         self.assertNotIn(("gpqa-diamond--percent", "kimi-k3-1-pro"), value)
+        # Read 2026-11-18: GPT-6.2 Astra (max), whose GPQA Diamond comes from its system card, and Gemini 4 Carbon (high).
+        self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "gpt-6-2-astra")], 92.6)
+        self.assertEqual(value[("frontiermath-tier-4-v2--percent", "gpt-6-2-astra")], 100.0)
+        self.assertEqual(value[("simpleqa-verified--percent", "gpt-6-2-astra")], 78.5)
+        self.assertNotIn(("gpqa-diamond--percent", "gpt-6-2-astra"), value)
+        self.assertEqual(value[("gpqa-diamond--percent", "gemini-4-carbon")], 96.5)
+        self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "gemini-4-carbon")], 90.5)
+        self.assertEqual(value[("frontiermath-tier-4-v2--percent", "gemini-4-carbon")], 95.1)
+        self.assertEqual(value[("simpleqa-verified--percent", "gemini-4-carbon")], 77.7)
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
@@ -957,6 +973,11 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="glm-5-3", component="input")["value"], 1.4)
         self.assertEqual(one(model_id="gpt-6-1-terra", component="output", schedule="standard", context_band="short")["value"], 5)
         self.assertEqual(one(model_id="gpt-6-1-terra", component="input", schedule="fast", context_band="long")["value"], 4)
+        self.assertEqual(one(model_id="gpt-6-2-astra", schedule="standard", context_band="short", component="input")["value"], 8)
+        self.assertEqual(one(model_id="gpt-6-2-sol", schedule="batch", context_band="long", component="output")["value"], 7.5)
+        self.assertEqual(one(model_id="gpt-6-2-astra", schedule="ultrafast", context_band="short", component="output", offer="promotional", valid_until="2027-02-28")["value"], 120)
+        self.assertEqual(one(model_id="gpt-6-2-astra", schedule="ultrafast", context_band="short", component="output", valid_from="2027-03-01")["value"], 240)
+        self.assertFalse([p for p in active if p["model_id"] in ("gpt-6-2-astra", "gpt-6-2-sol") and p["schedule"] == "flex"])
         self.assertEqual(one(model_id="qwen3-8-max", component="input", region="international")["value"], 2)
         self.assertEqual(one(model_id="qwen4-max", component="input", region="international")["value"], 1.5)
         self.assertEqual(one(model_id="qwen4-max", component="output", region=None)["value"], 4.24)
@@ -982,7 +1003,7 @@ class RealDatabase(unittest.TestCase):
             latest,
             {
                 "Google": "gemini-4-carbon",
-                "OpenAI": "gpt-6-astra",
+                "OpenAI": "gpt-6-2-astra",
                 "Anthropic": "claude-fable-5-2",
                 "Alibaba": "qwen4-max",
                 "xAI": "grok-4-7",
