@@ -813,6 +813,29 @@ class RealDatabase(unittest.TestCase):
         argon = [o for o in self.db["observations"] if o["publication_id"] == "publication-google-gemini-4-argon"]
         self.assertTrue(all(o["source_url"] == "https://deepmind.google/models/model-cards/gemini-4-argon/" for o in argon))
 
+    def test_gemini_4_neon_table_and_launch_post(self):
+        def rows(publication_id):
+            return [o for o in self.db["observations"] if o["publication_id"] == publication_id and o["status"] == "active"]
+
+        table = rows("publication-google-gemini-4-neon")
+        self.assertEqual(len(table), 54)
+        sweep = sorted(
+            (o["conditions"]["harness"], o["value"])
+            for o in table
+            if o["benchmark_id"] == "swe-sweep--percent" and o["model_id"] == "gemini-4-neon"
+        )
+        self.assertEqual(sweep, [("Antigravity-CLI 1.5.9", 39.0), ("mini-swe-agent", 12.8)])
+        post = rows("publication-google-gemini-4-neon-blog")
+        self.assertEqual(len(post), 50)
+        value = {(o["benchmark_id"], o["model_id"], o["conditions"].get("attempt_budget")): o["value"] for o in post}
+        self.assertEqual(value[("autobaxbench-hard--percent", "gemini-4-neon", None)], 76.0)
+        self.assertEqual(value[("webexploitbench-v1-2--percent", "gemini-4-neon", None)], 51.26)
+        self.assertEqual(value[("exploitgym--percent", "gemini-4-neon", "time cap per task: 10h")], 48.3)
+        self.assertEqual(value[("vending-bench-2--usd", "gemini-4-neon", None)], 16843)
+        neon = next(m for m in self.db["models"] if m["id"] == "gemini-4-neon")
+        self.assertFalse(neon.get("latest"))
+        self.assertEqual(neon["release_date"], "2026-11-18")
+
     def test_astra_terminal_bench_is_kept_per_publication(self):
         rows = [
             (o["publication_id"], o["value"])
@@ -998,6 +1021,10 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(one(model_id="mai-code-2", component="output", offer="promotional", valid_until="2027-05-16")["value"], 2.5)
         self.assertEqual(one(model_id="mai-code-2", component="output", valid_from="2027-05-17")["value"], 5.0)
         self.assertEqual(one(model_id="mai-code-2-flash", component="input", offer="promotional")["value"], 0.05)
+        self.assertEqual(one(model_id="gemini-4-neon", schedule="standard", component="input")["value"], 3)
+        self.assertEqual(one(model_id="gemini-4-neon", schedule="priority", component="output")["value"], 27)
+        self.assertEqual(one(model_id="gemini-4-neon", schedule="flex", component="cached_input")["value"], 0.075)
+        self.assertFalse([p for p in active if p["model_id"] == "gemini-4-neon" and p["schedule"] == "free"])
         gone ={"mistral-large-4", "mistral-large-3", "mistral-medium-3-5"}
         self.assertFalse([p["id"] for p in active if p["model_id"] in gone])
         self.assertTrue(all(p.get("note") for p in self.db["prices"] if p["model_id"] in gone and p["status"] == "withdrawn"))
