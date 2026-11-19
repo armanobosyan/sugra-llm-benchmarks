@@ -1188,12 +1188,19 @@ class RealDatabase(unittest.TestCase):
             self.assertNotIn("runs_on_phone", models[mid]["facts"], mid)
 
     def test_openrouter_prices_only_where_the_developer_prints_none(self):
-        rows = {r["id"]: r for r in self.db["router_prices"] if r["status"] == "active"}
-        self.assertGreaterEqual(len(rows), 117)
-        self.assertEqual(rows["router-price-gpt-oss-120b-input"]["value"], 0.016)
-        self.assertEqual(rows["router-price-gpt-oss-120b-output"]["value"], 0.06)
-        self.assertEqual(rows["router-price-gemma-4-31b-output"]["source_url"], "https://openrouter.ai/google/gemma-4-31b-it")
-        self.assertIn("instruction-tuned", rows["router-price-gemma-4-31b-output"]["note"])
+        # A router row is never deleted: a changed price supersedes it, a price no longer listed withdraws it.
+        everything = {r["id"]: r for r in self.db["router_prices"]}
+        self.assertGreaterEqual(len(everything), 146)
+        for rid, r in everything.items():
+            if r["status"] == "superseded":
+                self.assertTrue([k for k, n in everything.items() if k.startswith(rid + "-") and n["status"] == "active"], rid)
+        self.assertEqual(everything["router-price-gemma-3-27b-cached-input"]["status"], "withdrawn")
+        rows = {rid: r for rid, r in everything.items() if r["status"] == "active"}
+        self.assertGreaterEqual(len(rows), 115)
+        self.assertEqual(everything["router-price-gpt-oss-120b-input"]["value"], 0.016)
+        self.assertEqual(everything["router-price-gpt-oss-120b-output"]["value"], 0.06)
+        self.assertEqual(everything["router-price-gemma-4-31b-output"]["source_url"], "https://openrouter.ai/google/gemma-4-31b-it")
+        self.assertIn("instruction-tuned", everything["router-price-gemma-4-31b-output"]["note"])
         priced = {p["model_id"] for p in self.db["prices"] if p["status"] == "active"}
         self.assertFalse({r["model_id"] for r in rows.values()} & priced)
         self.assertFalse([r for r in rows.values() if ":" in r["source_url"].split("openrouter.ai/", 1)[1]])
