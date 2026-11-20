@@ -1,7 +1,7 @@
 {
   "schema_version": "1.3.0",
-  "data_version": "2026111902",
-  "as_of": "2026-11-19",
+  "data_version": "2026112001",
+  "as_of": "2026-11-20",
   "taxonomy_note": "Sugra editorial taxonomy for navigating the collected catalog. It is not an international standard and not a claim that the whole industry has exactly 20 directions. One primary direction per family; overlaps are expressed by tags. A family is not a unit for comparing results: compare a specific test version and a compatible protocol.",
   "default_publication_id": "publication-google-gemini-4-argon",
   "comparison_policy": {
@@ -37973,24 +37973,65 @@
       "release_date": "2026-11-04",
       "latest": true,
       "facts": {
+        "context_window_tokens": {
+          "value": 1048576,
+          "as_printed": "Context Length 1M (1,048,576 tokens)",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "Model Specifications table, Context Length row",
+          "checked_on": "2026-11-20"
+        },
         "input_modalities": {
           "value": [
             "text",
-            "image"
+            "image",
+            "video"
           ],
-          "as_printed": "The new model also introduces visual understanding capabilities for the first time",
-          "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
-          "source_locator": "Release page, opening section",
-          "checked_on": "2026-11-07",
-          "notes": "Read as text and image input: the same page lists fine-grained image processing, complex chart analysis and mathematical visual reasoning among the tasks Hy4 now supports."
+          "as_printed": "supporting text, image, and video understanding",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "Model Introduction",
+          "checked_on": "2026-11-20",
+          "notes": "The release page of 2026-11-04 named visual understanding only; the model card names video as well."
+        },
+        "output_modalities": {
+          "value": [
+            "text"
+          ],
+          "as_printed": "pipeline_tag: image-text-to-text",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "Hugging Face repo metadata",
+          "checked_on": "2026-11-20"
         },
         "weights": {
-          "value": "closed",
-          "as_printed": "Tencent Hy plans to release model weights and system cards in the coming days",
-          "source_url": "https://www.tencent.com/tencent-launches-hy4-joining-the-ranks-of-the-worlds-leading-open-source-ai-models/",
-          "source_locator": "Release page",
-          "checked_on": "2026-11-07",
-          "notes": "Not published for download on the release date, so closed until they are (the weights of Hy4 preview are open). The page prints no context length and no parameter count."
+          "value": "open",
+          "as_printed": "We open-source Hy4, Hy4-FP8, and the pre-trained Hy4 base model weights on Hugging Face, ModelScope, and GitCode.",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "News",
+          "checked_on": "2026-11-20",
+          "notes": "The release page of 2026-11-04 said the weights would follow in the coming days; the model card now publishes them."
+        },
+        "license": {
+          "value": "Tencent Hy License",
+          "as_printed": "Hy4 is released under the Tencent Hy License.",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "License",
+          "checked_on": "2026-11-20",
+          "notes": "The licence text is the LICENSE file of the same repository."
+        },
+        "total_parameters": {
+          "value": 774.53,
+          "as_printed": "Total Parameters (excluding ViT, adapter, and DFly2) 770B; ViT Parameters 1.23B; DFly2 Parameters 3.3B",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "Model Specifications table",
+          "checked_on": "2026-11-20",
+          "notes": "The total is the parts the card prints: the 770B language backbone, the 1.23B ViT and the 3.3B DFly2 drafter. The card prints no size for the adapter."
+        },
+        "active_parameters": {
+          "value": 50.23,
+          "as_printed": "Activated Parameters per Token Text 49B + Vision 1.23B",
+          "source_url": "https://huggingface.co/tencent/Hy4",
+          "source_locator": "Model Specifications table, Activated Parameters per Token row",
+          "checked_on": "2026-11-20",
+          "notes": "The sum of the two parts the card prints: 49B for text and 1.23B for vision."
         }
       }
     },
@@ -504285,6 +504326,12 @@
       "reviewer": "Sugra research preparation",
       "added_observations": 0,
       "reason": "Price re-check: the OpenRouter list (29 prices changed, 2 no longer listed, 86 unchanged) and the official price lists of Anthropic, xAI, Z.ai, DeepSeek, MiniMax, StepFun, Xiaomi and Moonshot AI, unchanged except the grok-imagine-image-quality price xAI dropped when it retired that model on 2026-11-02 and the seven Claude Haiku 3.5 prices Anthropic no longer prints."
+    },
+    {
+      "at": "2026-11-20",
+      "reviewer": "Sugra research preparation",
+      "added_observations": 0,
+      "reason": "Tencent Hy4 open weights: the Hugging Face model card (tencent/Hy4) publishes the weights under the Tencent Hy License, so Hy4 moves from closed to open weights with its size (774.53B total from the printed parts, 50.23B active), a 1M context window and text, image and video input."
     }
   ],
   "prices": [
