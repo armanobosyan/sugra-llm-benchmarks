@@ -863,8 +863,8 @@ class RealDatabase(unittest.TestCase):
     def test_vals_cost_per_task_is_one_setup(self):
         every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
         rows = [o for o in every if o["status"] == "active"]
-        self.assertEqual(len(rows), 91)
-        self.assertEqual(len({o["model_id"] for o in rows}), 91)
+        self.assertEqual(len(rows), 93)
+        self.assertEqual(len({o["model_id"] for o in rows}), 93)
         self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
         self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
@@ -885,6 +885,9 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["gpt-6-2-sol"], 3.23)
         self.assertEqual(value["gemini-4-hydrogen"], 4.55)
         self.assertEqual(value["muse-ember"], 0.05)
+        # Read 2026-11-20 from the page updated 2026-11-18.
+        self.assertEqual(value["gemini-4-neon"], 6.76)
+        self.assertEqual(value["qwen4-max"], 41.4)
         old =[o for o in every if o["status"] == "superseded"]
         self.assertEqual(
             sorted((o["model_id"], o["value"]) for o in old),
@@ -908,7 +911,7 @@ class RealDatabase(unittest.TestCase):
         pub = "publication-vals-ai-vibe-code-bench-1-1"
         rows = [o for o in self.db["observations"]
                 if o["publication_id"] == pub and o["benchmark_id"] == "vibe-code-bench--percent"]
-        self.assertEqual(len(rows), 12)
+        self.assertEqual(len(rows), 13)
         latest = {m["id"] for m in self.db["models"] if m.get("latest")}
         # A score stays when a newer model of the developer takes the latest place (coverage).
         self.assertEqual({o["model_id"] for o in rows} - latest, {"hy4-preview", "qwen3-8-max"})
@@ -926,6 +929,9 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value["claude-fable-5-2"], 93.77)
         self.assertEqual(value["gpt-6-2-astra"], 89.9)
         self.assertNotIn("gpt-6-2-sol", value)
+        self.assertEqual(value["qwen4-max"], 86.66)
+        # Gemini 4 Neon is not Google's latest model, so only its cost per task is kept.
+        self.assertNotIn("gemini-4-neon", value)
 
     def test_epoch_runs_fill_only_empty_flagship_cells(self):
         pub = "publication-epoch-ai-benchmarking-hub"
