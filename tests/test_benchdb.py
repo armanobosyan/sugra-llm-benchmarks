@@ -863,8 +863,8 @@ class RealDatabase(unittest.TestCase):
     def test_vals_cost_per_task_is_one_setup(self):
         every = [o for o in self.db["observations"] if o["benchmark_id"] == "vibe-code-bench-1-1-cost-per-test--usd"]
         rows = [o for o in every if o["status"] == "active"]
-        self.assertEqual(len(rows), 93)
-        self.assertEqual(len({o["model_id"] for o in rows}), 93)
+        self.assertEqual(len(rows), 94)
+        self.assertEqual(len({o["model_id"] for o in rows}), 94)
         self.assertEqual({o["conditions"]["harness"] for o in every}, {"OpenHands"})
         self.assertEqual({o["publication_id"] for o in every}, {"publication-vals-ai-vibe-code-bench-1-1"})
         value = {o["model_id"]: o["value"] for o in rows}
