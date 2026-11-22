@@ -1,6 +1,6 @@
 # Coverage
 
-What the catalog holds as of data version 2026112101, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked between 2026-10-15 and 2026-11-19. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
+What the catalog holds as of data version 2026112201, and what it does not: the benchmark rows transcribed from release pages and model cards, and the official price lists checked between 2026-10-15 and 2026-11-19. Counts come from `data/database.json`; the tests in `tests/` pin the seed so a later version can only add.
 
 ## Publications transcribed
 
@@ -144,8 +144,9 @@ What the catalog holds as of data version 2026112101, and what it does not: the 
 | Microsoft AI: MAI Code 2 and MAI Code 2 Flash model card | Microsoft | 20 | 2 | 10 |
 | Gemini 4 Neon | Google | 54 | 3 | 18 |
 | Introducing Gemini 4 Neon | Google | 50 | 18 | 10 |
+| Can AI help scientists identify promising drug candidates? (Introducing MedChemBench) | OpenAI | 6 | 5 | 1 |
 
-159 publications, 14504 observations, 479 models, 864 benchmark definitions in 455 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
+160 publications, 14510 observations, 479 models, 865 benchmark definitions in 455 families. Where two publisher labels were the same test and the shared models carried the same values, the catalog keeps one definition. The publisher's own label stays on the observation.
 
 A number stays when the page prints it as text, in a table, in alt text, or as a label on a chart. A picture with no label, and an interactive chart with no printed value, stays out. Each publication's `coverage` field says what was left out. A check of the chart pages on 2026-10-15 did not remove a row: the opened pages print the number on the bar, in the page text, or in both.
 
@@ -245,7 +246,7 @@ Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models then i
 | Knowledge work | 59 | 1102 |
 | Agentic coding | 70 | 2107 |
 | ML engineering | 14 | 128 |
-| Science and math | 70 | 1638 |
+| Science and math | 71 | 1644 |
 | Long context | 45 | 404 |
 | Computer use | 15 | 314 |
 | Multimodal understanding | 82 | 1750 |
@@ -263,14 +264,14 @@ Read on 2026-11-06, schema 1.3.0. Every one of the 115 open-weight models then i
 | Engineering and design | 14 | 100 |
 | Preference and composite rankings | 13 | 112 |
 
-Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 345 checked against the maintainer's own page or paper, 107 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 3 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 96 families have no benchmark yet and stay in the file as navigation.
+Every family that a benchmark uses carries a description for the reader (`about` in `families`). Status today: 346 checked against the maintainer's own page or paper, 106 not yet checked because the author's page does not define that test or did not load (each one's `notes` says what is still missing), 3 pending because the maintainer page was not checked. A reader sees the status on the page: an unverified description carries a note, a pending one is printed as pending. 96 families have no benchmark yet and stay in the file as navigation.
 
 Every category has at least one observation. A category with no rows for the selected publication is hidden when that publication is on screen.
 
 ## Known gaps
 
-- `release_date` is recorded for 228 of 479 models and `published_at` for 112 of 159 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. Claude Fable 5.2 and Claude Mythos 5.2 are 9 November 2026 from their system card, which carries that date the same way. The release pages cited for their scores do not print that day, so those publications stay undated. Gemini 4 Hydrogen is 12 November 2026 from its announcement; Muse Ember's launch post prints no date, so the model and the post stay undated. Qwen4-Max is 16 November 2026 from its launch post, which carries that date. The Inkling 2 Small model card prints no date and stays undated. Inkling 2 Mini is 20 November 2026 from its model card, which prints "Date of release: November 20, 2026"; the model card is its only publication, so the date sits on the model record. GPT-6.2 Astra and GPT-6.2 Sol are 17 November 2026 from their system card, which carries that date. MAI Code 2 and MAI Code 2 Flash are 17 November 2026 from their model card and launch post, which carry that date. Gemini 4 Neon is 18 November 2026 from its launch post, which carries that date; the comparison table page prints none and stays undated. Where the page prints none, the field stays empty.
-- `reasoning_effort` is stated for 3581 active observations, `tools` for 1503, `harness` for 1445. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
+- `release_date` is recorded for 228 of 479 models and `published_at` for 113 of 160 benchmark publications. A date is recorded only when the publisher's own page prints the full day. A checkpoint name such as 0813, a month without a day, an upload time, and a score cutoff ("as of") are not dates. Gemini 4 Carbon is 28 October 2026 and Gemini 4 Argon 30 September 2026, each from its announcement, and Claude Fable 5.1 is 1 September 2026 from the system card, which is now a publication of its own and carries that date. Claude Fable 5.2 and Claude Mythos 5.2 are 9 November 2026 from their system card, which carries that date the same way. The release pages cited for their scores do not print that day, so those publications stay undated. Gemini 4 Hydrogen is 12 November 2026 from its announcement; Muse Ember's launch post prints no date, so the model and the post stay undated. Qwen4-Max is 16 November 2026 from its launch post, which carries that date. The Inkling 2 Small model card prints no date and stays undated. Inkling 2 Mini is 20 November 2026 from its model card, which prints "Date of release: November 20, 2026"; the model card is its only publication, so the date sits on the model record. GPT-6.2 Astra and GPT-6.2 Sol are 17 November 2026 from their system card, which carries that date. MAI Code 2 and MAI Code 2 Flash are 17 November 2026 from their model card and launch post, which carry that date. Gemini 4 Neon is 18 November 2026 from its launch post, which carries that date; the comparison table page prints none and stays undated. Where the page prints none, the field stays empty.
+- `reasoning_effort` is stated for 3587 active observations, `tools` for 1512, `harness` for 1451. Where the publisher did not say, the field is null; the page-level setup text is in `conditions.setup_as_reported`.
 - No publication has `cross_publication_equivalence` established for any benchmark. The article therefore shows one publication at a time by default.
 - Where a page prints a row-specific effort, it is stored on that row. Gemini 3.1 Pro Preview stores high on 94 rows. 185 rows for that model do not state an effort. A page that only states the setup in prose keeps it in `conditions.setup_as_reported`.
 - A model is listed here when a publisher prints it on an official page; an open-weight name appears only in that case. For open weights the catalog stores the size and the memory the developer states, never a run of its own on any machine.
