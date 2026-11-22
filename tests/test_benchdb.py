@@ -933,13 +933,12 @@ class RealDatabase(unittest.TestCase):
         # Gemini 4 Neon is not Google's latest model, so only its cost per task is kept.
         self.assertNotIn("gemini-4-neon", value)
 
-    def test_epoch_runs_fill_only_empty_flagship_cells(self):
+    def test_epoch_runs_fill_only_empty_cells(self):
         pub = "publication-epoch-ai-benchmarking-hub"
         rows = [o for o in self.db["observations"] if o["publication_id"] == pub]
-        self.assertEqual(len(rows), 33)
-        latest = {m["id"] for m in self.db["models"] if m.get("latest")}
-        # A score stays when a newer model of the developer takes the latest place (coverage).
-        self.assertEqual({o["model_id"] for o in rows} - latest, {"claude-fable-5-1", "qwen3-8-max", "gpt-6-astra"})
+        # 33 values for developers' latest models until 2026-11-22, then 288 for every catalog model (coverage).
+        self.assertEqual(len(rows), 321)
+        self.assertEqual(len({o["model_id"] for o in rows}), 107)
         self.assertEqual({o["benchmark_id"] for o in rows}, {
             "gpqa-diamond--percent", "frontiermath-tier-1-3-v2--percent",
             "frontiermath-tier-4-v2--percent", "simpleqa-verified--percent",
@@ -972,6 +971,20 @@ class RealDatabase(unittest.TestCase):
         self.assertEqual(value[("frontiermath-tier-1-3-v2--percent", "gemini-4-carbon")], 90.5)
         self.assertEqual(value[("frontiermath-tier-4-v2--percent", "gemini-4-carbon")], 95.1)
         self.assertEqual(value[("simpleqa-verified--percent", "gemini-4-carbon")], 77.7)
+        # Read 2026-11-22, every catalog model: each run's effort is a separate value.
+        run = {(o["benchmark_id"], o["model_id"], o["conditions"]["reasoning_effort"]): o for o in rows}
+        self.assertEqual(run[("gpqa-diamond--percent", "gemini-4-neon", "xhigh")]["value"], 96.3)
+        self.assertEqual(run[("frontiermath-tier-4-v2--percent", "claude-opus-5-5", "max")]["value"], 95.0)
+        self.assertEqual(run[("simpleqa-verified--percent", "gpt-6-sol", "max")]["value"], 60.7)
+        self.assertEqual(run[("gpqa-diamond--percent", "grok-4-3", "high")]["conditions"]["model_label_as_published"], "Grok 4.3 Beta")
+        self.assertEqual([run[("frontiermath-tier-1-3-v2--percent", "o3", e)]["value"] for e in ("high", "medium", "low")], [33.3, 29.8, 19.3])
+        self.assertEqual(run[("simpleqa-verified--percent", "claude-sonnet-4-5", "extended thinking, 59K")]["value"], 30.7)
+        self.assertEqual(run[("simpleqa-verified--percent", "claude-sonnet-4-5", "no extended thinking")]["value"], 23.7)
+        # Left out: the GPT-5.5 Pro pre-release run, and runs whose leaderboard label repeats another run's.
+        self.assertNotIn(("gpqa-diamond--percent", "gpt-5-5-pro"), value)
+        self.assertNotIn(("frontiermath-tier-1-3-v2--percent", "gpt-5-mini", "low"), run)
+        self.assertNotIn(("frontiermath-tier-1-3-v2--percent", "glm-5-1", "none"), run)
+        self.assertTrue(all("CSV download row " in o["source_locator"] for o in rows if o["checked_on"] == "2026-11-22"))
 
     def test_official_price_spot_checks(self):
         active = [p for p in self.db["prices"] if p["status"] == "active"]
